@@ -20,6 +20,20 @@ public class Duke {
                 echo = in.nextLine();
                 continue;
             }
+            if(echo.startsWith("mark")){
+                System.out.println("=========================================" );
+                System.out.println("That's pretty fast");
+                markTask(echo, true);
+                echo = in.nextLine();
+                continue;
+            }
+            if(echo.startsWith("unmark")){
+                System.out.println("=========================================" );
+                System.out.println("Oh, it is not done?");
+                markTask(echo, false);
+                echo = in.nextLine();
+                continue;
+            }
             System.out.println("=========================================" );
             addTask(echo);
             System.out.println("added: " + echo);
@@ -39,5 +53,11 @@ public class Duke {
             System.out.print((i + 1) + ". ");
             tasks[i].printTask();
         }
+    }
+
+    public static void markTask(String userInput, boolean completed){
+        int taskNo = Integer.parseInt(userInput.split(" ")[1]) - 1;
+        tasks[taskNo].setDone(completed);
+        tasks[taskNo].printTask();
     }
 }

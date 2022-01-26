@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -30,13 +30,14 @@ public class Duke {
     }
 
     public static void addTask(String desc){
-        tasks[taskCount] = desc;
+        tasks[taskCount] = new Task(desc);
         taskCount++;
     }
 
     public static void printTask(){
         for(int i = 0; i < taskCount; i ++){
-            System.out.println((i + 1) + ". " + tasks[i]);
+            System.out.print((i + 1) + ". ");
+            tasks[i].printTask();
         }
     }
 }

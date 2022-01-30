@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Duke {
 
@@ -38,22 +40,24 @@ public class Duke {
         System.out.println("\t [ ] " + tasks[taskNumber-1].description);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
+        System.out.println("Hello from\n" + logo);
 
         String line;
         int taskCount = 0;
         Task[] tasks = new Task[100];
+        FileReader fr = new FileReader("C:\\Users\\Jason Yeoh\\git\\duke\\text-ui-test\\input.txt");
+        Scanner in = new Scanner(fr);
 
         Duke.greet();
 
         do {
-            Scanner in = new Scanner(System.in);
+//            Scanner in = new Scanner(System.in);
             line = in.nextLine();
             if (line.toLowerCase().contains("bye")) {
                 Duke.exit();

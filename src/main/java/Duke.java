@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     // Constants
-    final static String DUKE_MESSAGE_INDENTATION = "|\t~ ";
+    final static String DUKE_MESSAGE_INDENTATION = "~\t";
+    // Variables
+    static ArrayList<String> taskList = new ArrayList<>();
 
     //================================================================================
     // Printing
@@ -29,7 +32,7 @@ public class Duke {
      * **/
     public static void printDukeReply(String message) {
         printDivider(true);
-        System.out.println(DUKE_MESSAGE_INDENTATION + message);
+        System.out.println(DUKE_MESSAGE_INDENTATION + message.replaceAll("\n", "\n" + DUKE_MESSAGE_INDENTATION));
         printDivider(false);
     }
 
@@ -46,10 +49,7 @@ public class Duke {
                 + "\t\t\t|____/ \\__,_|_|\\_\\___|\tA variant";
         System.out.println(logo);
         System.out.println("............................................................");
-        printDivider(true);
-        System.out.println(DUKE_MESSAGE_INDENTATION + "Hello! I'm Duke");
-        System.out.println(DUKE_MESSAGE_INDENTATION + "What can I do for you?");
-        printDivider(false);
+        printDukeReply("Hello! I'm Duke\nWhat can I do for you?");
     }
 
     /**
@@ -74,16 +74,48 @@ public class Duke {
         return input.equals("bye");
     }
 
+    /**
+     * Add a task to the task list
+     *
+     * @param task Task to be added
+     * **/
+    public static void addToTaskList(String task) {
+        taskList.add(task);
+        printDukeReply("Added: " + task);
+    }
+
+    /**
+     * List all the task in the task queue
+     * **/
+    public static void listTask() {
+        if (taskList.isEmpty()) {
+            printDukeReply("You have no pending task. Add one now?");
+        } else {
+            String allTask = "";
+            for (int i = 0; i < taskList.size(); i++) {
+                if (i != 0) {
+                    allTask = allTask.concat("\n");
+                }
+                allTask = allTask.concat(String.valueOf(i+1)).concat(". ").concat(taskList.get(i));
+            }
+            printDukeReply(allTask);
+        }
+    }
+
     public static void main(String[] args) {
         String command = "";
         Scanner in = new Scanner(System.in);
         // Welcome Message
         printWelcomeMessage();
-        // Read input from user
-        command = in.nextLine();
-        while (!checkTerminatingWord(command)) {
-            printDukeReply(command);
+        while (true) {
             command = in.nextLine();
+            if (checkTerminatingWord(command)) {
+                break;
+            } else if (command.equals("list")) {
+                listTask();
+            } else {
+                addToTaskList(command);
+            }
         }
         // Ending Message
         printEndingMessage();

@@ -18,8 +18,7 @@ public class Duke {
 
         do {
 
-            System.out.print("Hello! I'm Duke\n" +
-                    "What can I do for you?");
+            System.out.print("What can I do for you? ");
 
             line = in.nextLine();
 
@@ -27,9 +26,9 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 status = 1; // can escape
             } else {
-                System.out.println("added: " + line);
+                System.out.println(line);
             }
-            
+
         } while (status == 0);
 
     }

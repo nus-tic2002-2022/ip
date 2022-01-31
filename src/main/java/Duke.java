@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
     public static void printIntroduction() {
@@ -11,6 +12,9 @@ public class Duke {
     public static void chatting() {
         printIntroduction();
 
+        String[] tasks = new String[100];
+        int taskList = 0;
+
         Scanner input = new Scanner(System.in);
         String response;
 
@@ -21,7 +25,14 @@ public class Duke {
                 System.out.println("\tAlready? :( Ok then... Cya...");
                 return;
             }
-            System.out.println("\t" + response);
+
+            if (response.equals("list")) {
+                System.out.println("\t" + Arrays.toString(Arrays.copyOf(tasks,taskList)));
+                continue;
+            }
+            tasks[taskList] = response;
+            taskList ++;
+            System.out.println("\tAdded: " + response);
         }
     }
 

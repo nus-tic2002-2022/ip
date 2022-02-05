@@ -1,5 +1,3 @@
-import javax.sql.rowset.spi.SyncProvider;
-
 public class Print {
     public Print(){
 

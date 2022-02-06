@@ -1,8 +1,6 @@
 import project.gennie.Greeting;
 import project.gennie.addTasks;
-
-import java.util.Arrays;
-import java.util.Scanner;
+import project.gennie.markTasks;
 
 public class Duke
 {
@@ -10,7 +8,10 @@ public class Duke
     {
         Greeting greetingObject = new Greeting();
         greetingObject.printGreeting();
+
         addTasks addTasksObject = new addTasks();
         addTasksObject.addTasks();
+
+
     }
 }

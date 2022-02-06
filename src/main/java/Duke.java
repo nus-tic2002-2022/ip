@@ -34,18 +34,18 @@ public class Duke {
     }
 
     public static void printReply(String reply, int code) {
-        if (code == 3) {
+        if (code == 1) {
             System.out.println("\t\t\t\t\t\t\t\t HARO : ");
             Random rand = new Random();
             int randomNumber = rand.nextInt(3);
             if (randomNumber == 0) {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! You mean \"" + reply + "\" ? Haro ? ");
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Here's the list ! Haro !");
             }
             else if (randomNumber == 1) {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! \"" + reply + "\" ! Haro !");
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Roger that ! Haro !");
             }
             else {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! echoing \"" + reply + "\" ! Haro !");
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Understood ! Haro !");
             }
         }
         else if (code == 2) {
@@ -59,7 +59,49 @@ public class Duke {
                 System.out.println("\t\t\t\t\t\t\t\t Haro ! Haro has added \"" + reply + "\" into the list ! Haro !");
             }
             else {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! new event : \"" + reply + "\" will be added to the list ! Haro !");
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! new Task : \"" + reply + "\" will be added to the list ! Haro !");
+            }
+        }
+        else if (code == 3) {
+            System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(3);
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! You mean \"" + reply + "\" ? Haro ? ");
+            }
+            else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! \"" + reply + "\" ! Haro !");
+            }
+            else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! echoing \"" + reply + "\" ! Haro !");
+            }
+        }
+        else if (code == 4) {
+            System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(3);
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Haro has updated the list as per your command! Haro !");
+            }
+            else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Yes " + reply + " ! Here is the updated list ! Haro !");
+            }
+            else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Another done from the list ! Haro !");
+            }
+        }
+        else if (code == 5) {
+            System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(3);
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! The task has already been " + reply + "ed ! Haro !");
+            }
+            else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Unable to " + reply + " as per command ! Here is the list for reference! Haro !");
+            }
+            else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Cannot execute command Haro ! Check the list ! Haro !");
             }
         }
         else if (code == 0){
@@ -95,7 +137,7 @@ public class Duke {
         }
     }
 
-    public static void printToDoList(List <Event> toDoList) {
+    public static void printToDoList(List <Task> toDoList) {
         if (toDoList.isEmpty()) {
             System.out.println("\t\t\t\t\t\t\t\t HARO : ");
             Random rand = new Random();
@@ -111,23 +153,18 @@ public class Duke {
             }
         }
         else {
-            System.out.println("\t\t\t\t\t\t\t\t HARO : ");
-            Random rand = new Random();
-            int randomNumber = rand.nextInt(3);
-            if (randomNumber == 0) {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! Here's the list ! Haro !");
-            }
-            else if (randomNumber == 1) {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! Roger that ! Haro !");
-            }
-            else {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! Understood ! Haro !");
-            }
-
-            ListIterator <Event> itr = toDoList.listIterator();
-            while (itr.hasNext()) {
-                int index = itr.nextIndex() + 1;
-                System.out.println("\t\t\t\t\t\t\t\t\t "+ index + ". " + itr.next().getActivity());
+            int index = 1;
+            for (Task t : toDoList) {
+                System.out.print("\t\t\t\t\t\t\t\t\t "+ index + ". ");
+                String curStatus = "";
+                if (t.getTaskStatus()) {
+                    curStatus = "[Done]\t";
+                }
+                else {
+                    curStatus = "[ ]\t";
+                }
+                System.out.println(curStatus + t.getTask());
+                index++;
             }
         }
     }
@@ -151,7 +188,7 @@ public class Duke {
         System.out.println("\t\t\t\t\t\t\t\t Haro ! " + userName + ", How may Haro help you today ? Haro ");
         System.out.println(userName + " :");
         String input = "";
-        List<Event> toDoList = new ArrayList<Event>();
+        List<Task> toDoList = new ArrayList<Task>();
         do {
             // initialization
             input = in.nextLine();
@@ -169,8 +206,35 @@ public class Duke {
                 }
                 reply = reply.stripLeading();
                 reply = reply.stripTrailing();
-                Event curEvent = new Event(reply, false);
-                toDoList.add(curEvent);
+                Task curTask = new Task(reply);
+                toDoList.add(curTask);
+            }
+            else if (inputContent[0].equalsIgnoreCase("mark")) {
+                int targetIndex = Integer.parseInt(inputContent[1]);
+                targetIndex--;
+                boolean updateStatus = toDoList.get(targetIndex).setTaskStatus(true);
+                if (updateStatus) {
+                    code = 4;
+                    reply = userName;
+                }
+                else {
+                    code = 5;
+                    reply = "mark";
+                }
+
+            }
+            else if (inputContent[0].equalsIgnoreCase("unmark")) {
+                int targetIndex = Integer.parseInt(inputContent[1]);
+                targetIndex--;
+                boolean updateStatus = toDoList.get(targetIndex).setTaskStatus(false);
+                if (updateStatus) {
+                    code = 4;
+                    reply = userName;
+                }
+                else {
+                    code = 5;
+                    reply = "unmark";
+                }
             }
             else if (inputContent[0].equalsIgnoreCase("echo")) {
                 code = 3;
@@ -181,7 +245,12 @@ public class Duke {
                 reply = reply.stripTrailing();
             }
             else if (inputContent[0].equalsIgnoreCase("list")) {
-                code = 1;
+                if (toDoList.isEmpty()) {
+                    code = -2;
+                }
+                else {
+                    code = 1;
+                }
             }
             else if (Arrays.stream(inputContent).anyMatch("bye"::equalsIgnoreCase) || Arrays.stream(inputContent).anyMatch("that's all"::equalsIgnoreCase)) {
                 code = 0;
@@ -191,7 +260,11 @@ public class Duke {
             }
 
             // output Handling
-            if (code == 1) {
+            if (code == 1 ||code == 4 || code == 5) {
+                printReply(reply, code);
+                printToDoList(toDoList);
+            }
+            else if (code == -2) {
                 printToDoList(toDoList);
             }
             else {

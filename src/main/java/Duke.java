@@ -23,7 +23,7 @@ public class Duke {
                 System.out.println("Good Day Sir, The weather in Malibu is 72 degrees with scattered clouds. The surf conditions are fair with waist to shoulder highlines, high tide will be at 10:52 a.m.");
                 break;
             case 5:
-                System.out.println("Working on a secret project, are we, sir?");
+                System.out.println("Working on a secret project, are we, Sir?");
                 break;
             case 6:
                 System.out.println("As always sir, a great pleasure watching you work");
@@ -38,7 +38,7 @@ public class Duke {
         int byebye = (int)Math.floor((Math.random() * 7) + 1);
         switch (byebye) {
             case 1:
-                System.out.println("Out Saving the world with the Avengers, Sir?");
+                System.out.println("Out Saving the world with the Avengers again Sir?");
                 break;
             case 2:
                 System.out.println("Have a good day Sir");
@@ -53,7 +53,7 @@ public class Duke {
                 System.out.println("Out to get your Cheeseburger Sir?");
                 break;
             case 6:
-                System.out.println("The world should thank you for your service, Sir");
+                System.out.println("The world should thank you for your service Sir");
                 break;
             case 7:
                 System.out.println("Of Course Sir, it is my pleasure serving you");

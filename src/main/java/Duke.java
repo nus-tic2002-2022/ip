@@ -105,6 +105,46 @@ public class Duke {
         }
     }
 
+    /**
+     * Update a task status
+     *
+     * @param command Determine to mark task
+     * **/
+    public static void updateTaskStatus(String command) {
+        if (taskList.isEmpty()) {
+            printDukeReply("You do not have any ongoing task. Add one first?");
+            return;
+        }
+
+        // Filter out command
+        boolean isMark = command.startsWith("mark");
+        command = command.replaceFirst(isMark ? "mark" : "unmark", "");
+        // Process command
+        // - Ensure that it is an integer position
+        try {
+            int index = Integer.parseInt(command.strip());
+            index--;
+            if (index < 0 || index >= taskList.size()) {
+                printDukeReply("Task is not found. Please provide a valid index.");
+                listTask();
+                return;
+            }
+            Task selected = taskList.get(index);
+            if (selected.getDoneStatus() == isMark) {
+                printDukeReply("There are no changes to be made!");
+                listTask();
+                return;
+            }
+            selected.setDoneStatus(isMark);
+            String reply = isMark ? "Nice! I've marked this task as done:\n" : "Ok, I've marked this task as not done yet:\n";
+            reply = reply.concat(isMark ? "\t[X] ": "\t[ ] ").concat(selected.getDescription());
+            printDukeReply(reply);
+        } catch (NumberFormatException e) {
+            printDukeReply("Please provide the index of the task that you wish to remove.");
+        }
+
+    }
+
     //================================================================================
     // Main
     //================================================================================
@@ -120,6 +160,8 @@ public class Duke {
                 break;
             } else if (command.equals("list")) {
                 listTask();
+            } else if (command.startsWith("mark") || command.startsWith("unmark")) {
+                updateTaskStatus(command);
             } else {
                 addToTaskList(command);
             }

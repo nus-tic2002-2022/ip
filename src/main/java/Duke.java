@@ -1,10 +1,33 @@
+import java.util.Scanner;
 public class Duke {
+    public static void printline(){
+        System.out.println("_______________________________________");
+    }
+
+    public static void system(){
+        String line;
+        Scanner input = new Scanner(System.in);
+        line=input.nextLine();
+        if (line.equals("bye")) {
+            System.out.println("Goodbye Sir");
+        }
+        else {
+            printline();
+            System.out.println(line);
+            printline();
+            system();
+        }
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = "  ╭┳━━━┳━━━┳╮  ╭┳━━┳━━━╮\n"
+                + "  ┃┃╭━╮┃╭━╮┃╰╮╭╯┣┫┣┫╭━╮┃\n"
+                + "  ┃┃┃ ┃┃╰━╯┣╮┃┃╭╯┃┃┃╰━━╮\n"
+                + "╭╮┃┃╰━╯┃╭╮╭╯┃╰╯┃ ┃┃╰━━╮┃\n"
+                + "┃╰╯┃╭━╮┃┃┃╰╮╰╮╭╯╭┫┣┫╰━╯┃\n"
+                + "╰━━┻╯ ╰┻╯╰━╯ ╰╯ ╰━━┻━━━╯\n";
+        System.out.println(logo + "Welcome Back Sir, Jarvis at your assistance\n" );
+        printline();
+        system();
     }
 }

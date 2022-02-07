@@ -18,7 +18,7 @@ public class Duke {
         {
             line=input.nextLine();
             if (line.equals("bye")) {
-                System.out.println("Goodbye Sir");
+                System.out.println("Out saving the world with the Avengers, Sir? ");
                 break;
             }
             printline();

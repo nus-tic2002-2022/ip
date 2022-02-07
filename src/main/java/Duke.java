@@ -5,7 +5,7 @@ public class Duke {
     // Constants
     final static String DUKE_MESSAGE_INDENTATION = "~\t";
     // Variables
-    static ArrayList<String> taskList = new ArrayList<>();
+    static ArrayList<Task> taskList = new ArrayList<>();
 
     //================================================================================
     // Printing
@@ -61,7 +61,7 @@ public class Duke {
     }
 
     //================================================================================
-    // Main
+    // Commands
     //================================================================================
 
     /**
@@ -80,7 +80,7 @@ public class Duke {
      * @param task Task to be added
      * **/
     public static void addToTaskList(String task) {
-        taskList.add(task);
+        taskList.add(new Task(task));
         printDukeReply("Added: " + task);
     }
 
@@ -91,16 +91,23 @@ public class Duke {
         if (taskList.isEmpty()) {
             printDukeReply("You have no pending task. Add one now?");
         } else {
-            String allTask = "";
+            String allTask = "These are your current task:\n";
             for (int i = 0; i < taskList.size(); i++) {
                 if (i != 0) {
                     allTask = allTask.concat("\n");
                 }
-                allTask = allTask.concat(String.valueOf(i+1)).concat(". ").concat(taskList.get(i));
+                allTask = allTask.concat(String.valueOf(i+1)).concat(". [");
+                Task current = taskList.get(i);
+                allTask = allTask.concat(current.getDoneStatus() ? "X] " : " ] ");
+                allTask = allTask.concat(current.getDescription());
             }
             printDukeReply(allTask);
         }
     }
+
+    //================================================================================
+    // Main
+    //================================================================================
 
     public static void main(String[] args) {
         String command = "";

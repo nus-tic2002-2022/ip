@@ -4,18 +4,26 @@ public class Duke {
         System.out.println("_______________________________________");
     }
 
+    public static void introduction(){
+        System.out.println("Welcome Back Sir, Jarvis at your assistance" );
+        printline();
+    }
+
     public static void system(){
+        introduction();
         String line;
         Scanner input = new Scanner(System.in);
-        line=input.nextLine();
-        if (line.equals("bye")) {
-            System.out.println("Goodbye Sir");
-        }
-        else {
+
+        while(true)
+        {
+            line=input.nextLine();
+            if (line.equals("bye")) {
+                System.out.println("Goodbye Sir");
+                break;
+            }
             printline();
             System.out.println(line);
             printline();
-            system();
         }
     }
 
@@ -25,8 +33,8 @@ public class Duke {
                 + "  ┃┃┃ ┃┃╰━╯┣╮┃┃╭╯┃┃┃╰━━╮\n"
                 + "╭╮┃┃╰━╯┃╭╮╭╯┃╰╯┃ ┃┃╰━━╮┃\n"
                 + "┃╰╯┃╭━╮┃┃┃╰╮╰╮╭╯╭┫┣┫╰━╯┃\n"
-                + "╰━━┻╯ ╰┻╯╰━╯ ╰╯ ╰━━┻━━━╯\n";
-        System.out.println(logo + "Welcome Back Sir, Jarvis at your assistance\n" );
+                + "╰━━┻╯ ╰┻╯╰━╯ ╰╯ ╰━━┻━━━╯";
+        System.out.println(logo);
         printline();
         system();
     }

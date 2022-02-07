@@ -1,0 +1,8 @@
+Study
+Play Games
+Read Manga
+mark 2
+mark 0
+mark 1
+unmark 3
+bye

@@ -1,9 +1,16 @@
+import classes.Deadline;
+import classes.Event;
+import classes.Task;
+import classes.ToDos;
+import exceptions.InvalidTaskInputException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     // Constants
     final static String DUKE_MESSAGE_INDENTATION = "~\t";
+    final static String DUKE_UNSURE_COMMAND_REPLY = "Hmm, I don't understand what that means. Can you explain again?";
     // Variables
     static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -75,13 +82,79 @@ public class Duke {
     }
 
     /**
+     * Determine the action to be perform based on user's command
+     *
+     * @param command Input command from user
+     * **/
+    private static void determineAction(String command) {
+        if (command.equals("list")) {
+            listTask();
+        } else if (command.startsWith("mark") || command.startsWith("unmark")) {
+            updateTaskStatus(command);
+        } else if (command.startsWith("todo ")) {
+            addToTaskList("todo", command.replaceFirst("todo ", ""));
+        } else if (command.startsWith("deadline ")) {
+            addToTaskList("deadline", command.replaceFirst("deadline ", ""));
+        } else if (command.startsWith("event ")) {
+            addToTaskList("event", command.replaceFirst("event ", ""));
+        } else {
+            printDukeReply(DUKE_UNSURE_COMMAND_REPLY);
+        }
+    }
+
+    /**
      * Add a task to the task list
      *
-     * @param task Task to be added
+     * @param type Type of task to be added
+     * @param command Task to be added
      * **/
-    public static void addToTaskList(String task) {
-        taskList.add(new Task(task));
-        printDukeReply("Added: " + task);
+    public static void addToTaskList(String type, String command) {
+        try {
+            String task = command;
+            if (type.equals("todo")) {
+                // Add task
+                taskList.add(new ToDos(command));
+            } else if (type.equals("deadline")) {
+                // Terminate should there be no date input
+                if (!command.contains(" /by ")) throw new InvalidTaskInputException("Please include the deadline for your task");
+                // Else, proceed to add deadline task
+                String[] commandList = command.split(" /by ");
+                // - Terminate should there be description and date input
+                if (commandList.length != 2) throw new InvalidTaskInputException("Please include the description and deadline for your task");
+                // Add deadline task
+                task = commandList[1];
+                taskList.add(new Deadline(commandList[0], task));
+            } else if (type.equals("event")) {
+                // Terminate should there be no date input
+                if (!command.contains(" /at ")) throw new InvalidTaskInputException("Please include the event date");
+                // Else, proceed to add deadline task
+                String[] commandList = command.split(" /at ");
+                // - Terminate should there be description and date input
+                if (commandList.length != 2) throw new InvalidTaskInputException("Please include the time and of your event");
+                // Add deadline task
+                task = commandList[1];
+                taskList.add(new Event(commandList[0], task));
+            }
+            printDukeReply("Roger. I will add this to your list:\n\t" + getTaskDetails(taskList.get(taskList.size()-1)) + "\nYou currently have " + taskList.size() + " task in your list.");
+        } catch (InvalidTaskInputException e) {
+            printDukeReply(e.getMessage());
+        }
+    }
+
+    /**
+     * Return the full details of a specific task
+     *
+     * @param selected The selected task
+     * @return String containing the task details
+     * **/
+    public static String getTaskDetails(Task selected) {
+        // Type
+        String details = "[".concat(selected.getType()).concat("]");
+        // Status
+        details = details.concat("[").concat(selected.getDoneStatus() ? "X] " : " ] ");
+        // Description
+        details = details.concat(selected.getDescription());
+        return details;
     }
 
     /**
@@ -96,10 +169,8 @@ public class Duke {
                 if (i != 0) {
                     allTask = allTask.concat("\n");
                 }
-                allTask = allTask.concat(String.valueOf(i+1)).concat(". [");
-                Task current = taskList.get(i);
-                allTask = allTask.concat(current.getDoneStatus() ? "X] " : " ] ");
-                allTask = allTask.concat(current.getDescription());
+                allTask = allTask.concat(String.valueOf(i+1)).concat(".");
+                allTask = allTask.concat(getTaskDetails(taskList.get(i)));
             }
             printDukeReply(allTask);
         }
@@ -125,7 +196,7 @@ public class Duke {
             int index = Integer.parseInt(command.strip());
             index--;
             if (index < 0 || index >= taskList.size()) {
-                printDukeReply("Task is not found. Please provide a valid index.");
+                printDukeReply("classes.Task is not found. Please provide a valid index.");
                 listTask();
                 return;
             }
@@ -136,8 +207,8 @@ public class Duke {
                 return;
             }
             selected.setDoneStatus(isMark);
-            String reply = isMark ? "Nice! I've marked this task as done:\n" : "Ok, I've marked this task as not done yet:\n";
-            reply = reply.concat(isMark ? "\t[X] ": "\t[ ] ").concat(selected.getDescription());
+            String reply = isMark ? "Nice! I've marked this task as done:" : "Ok, I've marked this task as not done yet:";
+            reply = reply.concat("\n\t").concat(getTaskDetails(selected));
             printDukeReply(reply);
         } catch (NumberFormatException e) {
             printDukeReply("Please provide the index of the task that you wish to remove.");
@@ -150,7 +221,7 @@ public class Duke {
     //================================================================================
 
     public static void main(String[] args) {
-        String command = "";
+        String command;
         Scanner in = new Scanner(System.in);
         // Welcome Message
         printWelcomeMessage();
@@ -158,12 +229,8 @@ public class Duke {
             command = in.nextLine();
             if (checkTerminatingWord(command)) {
                 break;
-            } else if (command.equals("list")) {
-                listTask();
-            } else if (command.startsWith("mark") || command.startsWith("unmark")) {
-                updateTaskStatus(command);
             } else {
-                addToTaskList(command);
+                determineAction(command);
             }
         }
         // Ending Message

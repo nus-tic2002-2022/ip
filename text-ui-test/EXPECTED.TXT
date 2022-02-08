@@ -10,39 +10,69 @@ ____________________________________________________________
 ~	What can I do for you?
 ------------------------------------------------------------
 ____________________________________________________________
-~	Added: Study
+~	Hmm, I don't understand what that means. Can you explain again?
 ------------------------------------------------------------
 ____________________________________________________________
-~	Added: Play Games
+~	Roger. I will add this to your list:
+~		[T][ ] borrow book
+~	You currently have 1 task in your list.
 ------------------------------------------------------------
 ____________________________________________________________
-~	Added: Read Manga
+~	Roger. I will add this to your list:
+~		[T][ ] play games
+~	You currently have 2 task in your list.
 ------------------------------------------------------------
 ____________________________________________________________
-~	Nice! I've marked this task as done:
-~		[X] Play Games
+~	Please include the deadline for your task
 ------------------------------------------------------------
 ____________________________________________________________
-~	Task is not found. Please provide a valid index.
+~	Roger. I will add this to your list:
+~		[D][ ] return book (by: Sunday)
+~	You currently have 3 task in your list.
+------------------------------------------------------------
+____________________________________________________________
+~	Please include the event date
+------------------------------------------------------------
+____________________________________________________________
+~	Roger. I will add this to your list:
+~		[E][ ] project meeting (at: Mon 2-4pm)
+~	You currently have 4 task in your list.
 ------------------------------------------------------------
 ____________________________________________________________
 ~	These are your current task:
-~	1. [ ] Study
-~	2. [X] Play Games
-~	3. [ ] Read Manga
+~	1.[T][ ] borrow book
+~	2.[T][ ] play games
+~	3.[D][ ] return book (by: Sunday)
+~	4.[E][ ] project meeting (at: Mon 2-4pm)
 ------------------------------------------------------------
 ____________________________________________________________
 ~	Nice! I've marked this task as done:
-~		[X] Study
+~		[D][X] return book (by: Sunday)
 ------------------------------------------------------------
 ____________________________________________________________
 ~	There are no changes to be made!
 ------------------------------------------------------------
 ____________________________________________________________
 ~	These are your current task:
-~	1. [X] Study
-~	2. [X] Play Games
-~	3. [ ] Read Manga
+~	1.[T][ ] borrow book
+~	2.[T][ ] play games
+~	3.[D][X] return book (by: Sunday)
+~	4.[E][ ] project meeting (at: Mon 2-4pm)
+------------------------------------------------------------
+____________________________________________________________
+~	Nice! I've marked this task as done:
+~		[E][X] project meeting (at: Mon 2-4pm)
+------------------------------------------------------------
+____________________________________________________________
+~	Ok, I've marked this task as not done yet:
+~		[D][ ] return book (by: Sunday)
+------------------------------------------------------------
+____________________________________________________________
+~	These are your current task:
+~	1.[T][ ] borrow book
+~	2.[T][ ] play games
+~	3.[D][ ] return book (by: Sunday)
+~	4.[E][X] project meeting (at: Mon 2-4pm)
 ------------------------------------------------------------
 ____________________________________________________________
 ~	Bye. Hope to see you again soon!

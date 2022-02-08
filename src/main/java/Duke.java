@@ -28,7 +28,7 @@ public class Duke {
             else if (dimensions[0].equals("list")) {
                 printline();
                 if(tasklist.size()==0){
-                    System.out.println("You have no tasks");
+                    System.out.println("Sir, May I remind you that you have no tasks on hand. Maybe you will like to add some, Sir?");
                 }
                 else {
                     int index = 1;

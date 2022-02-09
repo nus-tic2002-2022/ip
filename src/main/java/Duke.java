@@ -7,8 +7,11 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         int status = 0;
-        String[] list = new String[100]; 
-        int counter = 0;
+        //String[] list = new String[100];
+        //int counter = 0;
+        Task task;
+        Todo todo = new Todo() ;
+
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -29,14 +32,21 @@ public class Duke {
                 status = 1; // can escape
             } if(line.toLowerCase().equals("list")){
                 //Print list
-                for (int i = 0; i < counter; i++) {
-                    System.out.println(i+1 + ". " + list[i]);
-                }
+                todo.getTodoList();
+                continue;
+            } if(line.toLowerCase().startsWith("mark ")) {
+                int index = Integer.parseInt(line.substring(line.indexOf("mark ") + 5,line.length()));
+                todo.markAsDone(index);
+                continue;
+            } if(line.toLowerCase().startsWith("unmark ")) {
+                int index = Integer.parseInt(line.substring(line.indexOf("unmark ") + 7,line.length()));
+                todo.markAsNotDone(index);
+                continue;
             }
             else {
-                list[counter] = line;
+                //list[counter] = line;
+                todo.addTask(line);
                 System.out.println("added: " + line);
-                counter += 1;
             }
 
         } while (status == 0);

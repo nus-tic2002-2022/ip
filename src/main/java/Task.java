@@ -16,4 +16,8 @@ public class Task {
     {
         this.isDone = true;
     }
+    public void setunDone()
+    {
+        this.isDone = false;
+    }
 }

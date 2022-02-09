@@ -74,6 +74,10 @@ public class Duke {
         else if(input.startsWith("todo") || input.startsWith("event") || input.startsWith("deadline")){
             String[] userInputArr = input.split(" ", 2);
             System.out.println("=========================================" );
+            if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
+                System.out.println("No task is provided.");
+                return;
+            }
             addSpecificTask(userInputArr[1], userInputArr[0]);
             System.out.println("Mission added!");
             tasks[taskCount - 1].printTask();
@@ -82,10 +86,7 @@ public class Duke {
         }
         else {
             System.out.println("=========================================" );
-            addTask(input);
-            System.out.println("Mission added!");
-            tasks[taskCount - 1].printTask();
-            System.out.println("Now you have " + taskCount + " missions in the list.");
+            System.out.println("What are you trying to here?? Please review your input.");
         }
     }
 }

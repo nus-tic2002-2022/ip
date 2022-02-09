@@ -10,6 +10,18 @@ public class echo {
         int c_flag =0;
         for (int i =0; !passed.equals("bye");)
         {
+            if(passed.equals("list")) //if list
+            {
+                int j =1;
+                for(String s : buffer) {
+                    System.out.println(j + ". " + s);
+                    j++;
+                }
+
+
+                passed = scanInput.nextLine();
+                continue;
+            }
             if(passed.isEmpty()) //if empty, just skip
             {
                 System.out.println("Size of buffer: " + buffer.size());

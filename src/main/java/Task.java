@@ -12,4 +12,8 @@ public class Task {
     {
         return (isDone ? "X" : " ");
     }
+    public void setDone()
+    {
+        this.isDone = true;
+    }
 }

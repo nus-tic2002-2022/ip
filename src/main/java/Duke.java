@@ -12,5 +12,6 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you");
         echo.greet();
+
     }
 }

@@ -27,4 +27,18 @@ public class Task {
     public boolean getTaskStatus() {
         return this.isDone;
     }
+
+    @Override
+    public String toString() {
+        String type = "T";
+        String status = "";
+        if (this.getTaskStatus()) {
+            status = "[Done]\t";
+        }
+        else {
+            status = "[ ]\t\t";
+        }
+
+        return "[" + type + "]\t" + status + "" + this.description;
+    }
 }

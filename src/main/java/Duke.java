@@ -156,14 +156,7 @@ public class Duke {
             int index = 1;
             for (Task t : toDoList) {
                 System.out.print("\t\t\t\t\t\t\t\t\t "+ index + ". ");
-                String curStatus = "";
-                if (t.getTaskStatus()) {
-                    curStatus = "[Done]\t";
-                }
-                else {
-                    curStatus = "[ ]\t";
-                }
-                System.out.println(curStatus + t.getTask());
+                System.out.println(t);
                 index++;
             }
         }
@@ -199,7 +192,7 @@ public class Duke {
             String[] inputContent = tokenizer(input);
 
             // case handling
-            if (inputContent[0].equalsIgnoreCase("add")) {
+            if (inputContent[0].equalsIgnoreCase("todo")) {
                 code = 2;
                 for (int i = 1; i < inputContent.length; i++) {
                         reply = reply + " " + inputContent[i];
@@ -207,6 +200,48 @@ public class Duke {
                 reply = reply.stripLeading();
                 reply = reply.stripTrailing();
                 Task curTask = new Task(reply);
+                toDoList.add(curTask);
+            }
+            else if (inputContent[0].equalsIgnoreCase("deadline")) {
+                code = 2;
+                String by = "";
+                for (int i = 1; i < inputContent.length;) {
+                    reply = reply + " " + inputContent[i];
+                    i++;
+                    if (inputContent[i].equalsIgnoreCase("/by")) {
+                        by = by + "(by :";
+                        i++;
+                        while (i < inputContent.length) {
+                            by = by + " " + inputContent[i];
+                            i++;
+                        }
+                        by = by + ")";
+                    }
+                }
+                reply = reply.stripLeading();
+                reply = reply.stripTrailing();
+                Deadline curTask = new Deadline(reply, by);
+                toDoList.add(curTask);
+            }
+            else if (inputContent[0].equalsIgnoreCase("event")) {
+                code = 2;
+                String at = "";
+                for (int i = 1; i < inputContent.length;) {
+                    reply = reply + " " + inputContent[i];
+                    i++;
+                    if (inputContent[i].equalsIgnoreCase("/at")) {
+                        at = at + "(at :";
+                        i++;
+                        while (i < inputContent.length) {
+                            at = at + " " + inputContent[i];
+                            i++;
+                        }
+                        at = at + ")";
+                    }
+                }
+                reply = reply.stripLeading();
+                reply = reply.stripTrailing();
+                Event curTask = new Event(reply, at);
                 toDoList.add(curTask);
             }
             else if (inputContent[0].equalsIgnoreCase("mark")) {
@@ -263,6 +298,10 @@ public class Duke {
             if (code == 1 ||code == 4 || code == 5) {
                 printReply(reply, code);
                 printToDoList(toDoList);
+            }
+            else if (code == 2) {
+                printReply(reply, code);
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! You now have " + toDoList.size() + " tasks in the list ! Haro !");
             }
             else if (code == -2) {
                 printToDoList(toDoList);

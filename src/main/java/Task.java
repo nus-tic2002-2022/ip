@@ -12,7 +12,7 @@ public class Task {
     }
 
     public void setDone(boolean isDone){
-        this.isDone = true;
+        this.isDone = isDone;
     }
 
     public boolean isDone(){

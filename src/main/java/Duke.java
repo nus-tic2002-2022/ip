@@ -7,7 +7,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
-        Level2 test = new Level2();
+        Level3 test = new Level3();
         test.query();
     }
 }

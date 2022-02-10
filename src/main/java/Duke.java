@@ -4,34 +4,54 @@ import java.util.Scanner;
 public class Duke {
 
     //Level 1 Greet, Echo, Exit
-    public static void bye(){
+    private static void bye(){
         System.out.println("Bye. Hope to see you again soon!");
         System.exit(0); //Exit program
     }
 
     //Level 2 Add, List
-    public static void list(Task[] taskList, int numOfTasks){
-        System.out.println("Here are the tasks in your list:\n");
+    private static void list(Task[] taskList, int numOfTasks){
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.println(i + 1 + "." + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+            System.out.println(i+1 + "." + taskList[i].toString());
         }
     }
 
     //Level 3 Mark as Done
-    public static boolean mark(String userInput) {
+    private static boolean mark(String userInput) {
         boolean isDone = false;
         String mark = userInput.substring(0, userInput.indexOf(' ')).trim();
         if (mark.equals("mark")) {
-            System.out.println("Nice! I've marked this task as done:\n");
+            System.out.println("Nice! I've marked this task as done:");
             isDone = true;
         }else if (mark.equals("unmark")) {
-            System.out.println("OK, I've marked this task as not done yet:\n");
+            System.out.println("OK, I've marked this task as not done yet:");
         }
         return isDone;
     }
 
+    //Level 4 Todos, Events, Deadlines
+    private static void addTask(Task[] taskList, int numOfTasks, String userInput){
+        String task;
+        String date;
+        int delimiter;
+        if(userInput.contains("/by")){
+            delimiter = userInput.indexOf("/by");
+            task = userInput.substring(0, delimiter);
+            date = userInput.substring(delimiter+3);
+            taskList[numOfTasks] = new Deadline(task, date);
+        }else if(userInput.contains("/at")){
+            delimiter = userInput.indexOf("/at");
+            task = userInput.substring(0, delimiter);
+            date = userInput.substring(delimiter+3);
+            taskList[numOfTasks] = new Event(task, date);
+        }else {
+            taskList[numOfTasks] = new Todo(userInput);
+        }
+    }
+
     //Finding index of taskList
-    public static int index(String userInput, int numOfTasks){
+    private static int index(String userInput, int numOfTasks){
         if(numOfTasks == 0){
             System.out.println("There is no task in the list!");
             return 0;
@@ -40,8 +60,8 @@ public class Duke {
         listIndexer = listIndexer.replaceAll("[^\\d]","");
         int index = Integer.parseInt(listIndexer);
         if(index > numOfTasks){
-            System.out.println("ERROR: The number entered exceeds the number of task(s) in the list!\n");
-            System.out.println( numOfTasks + " task(s) in the list.\n");
+            System.out.println("ERROR: The number entered exceeds the number of task(s) in the list!");
+            System.out.println( numOfTasks + " task(s) in the list.");
             return 0;
         }
         return index;
@@ -81,15 +101,16 @@ public class Duke {
                     continue;
                 }
                 taskList[index].isDone = Duke.mark(userInput);
-                System.out.println(" [" + taskList[index].getStatusIcon() + "] " + taskList[index].description);
+                System.out.println(taskList[index].toString());
                 continue;
             }
 
-            //Adding tasks
-            Task t = new Task(userInput);
-            taskList[numOfTasks] = t;
+            //Adding tasks to list
+            Duke.addTask(taskList, numOfTasks, userInput);
+            System.out.println("Got it. I've added this task:"); //Echo / add task
+            System.out.println(taskList[numOfTasks].toString());
             numOfTasks++;
-            System.out.println("added: " + userInput); //Echo / add task
+            System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
         }
     }
 

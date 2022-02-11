@@ -1,5 +1,32 @@
 public class Speech {
 
+    public static void emptylist(){
+        int empty = (int)Math.floor((Math.random() * 7) + 1);
+        switch (empty) {
+            case 1:
+                System.out.println("Sir, May I remind you that you have no tasks on hand. Maybe you will like to add some, Sir?");
+                break;
+            case 2:
+                System.out.println("Maybe you have a concussion Sir? There are no tasks to this list");
+                break;
+            case 3:
+                System.out.println("Sir, your last task was completed and there are no outstanding on this list.");
+                break;
+            case 4:
+                System.out.println("Grats Sir, there are no outstanding tasks on this list, maybe a dinner with Miss Potts?");
+                break;
+            case 5:
+                System.out.println("Sir, there are no tasks on hand");
+                break;
+            case 6:
+                System.out.println("Nothing on this list, Sir");
+                break;
+            case 7:
+                System.out.println("Sir, you are on this rare occasion that the list is empty.");
+                break;
+        }
+    }
+
     public static void introduction(){
         int hello = (int)Math.floor((Math.random() * 7) + 1);
         switch (hello) {
@@ -47,6 +74,33 @@ public class Speech {
                 break;
             case 6:
                 System.out.println("The world should thank you for your service Sir");
+                break;
+            case 7:
+                System.out.println("Of Course Sir, it is my pleasure serving you");
+                break;
+        }
+    }
+
+    public static void todospeech(){
+        int todorandomizer = (int)Math.floor((Math.random() * 7) + 1);
+        switch (todorandomizer) {
+            case 1:
+                System.out.println("Sir, I have added this task to the list");
+                break;
+            case 2:
+                System.out.println("Getting busier Sir? I have included this item to the list");
+                break;
+            case 3:
+                System.out.println("Sir, this task has been added to the list. Do you still have time to save the world?");
+                break;
+            case 4:
+                System.out.println("Understood Sir, this is added to the list");
+                break;
+            case 5:
+                System.out.println("Included this into the list Sir, do you still have time to have date night with Miss Potts?");
+                break;
+            case 6:
+                System.out.println("I have included this into your list. Hope you have time to rest after completing the tasks, Sir.");
                 break;
             case 7:
                 System.out.println("Of Course Sir, it is my pleasure serving you");

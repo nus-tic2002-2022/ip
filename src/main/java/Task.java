@@ -20,4 +20,14 @@ public class Task {
         return this.description;
     }
 
+    @Override
+    public String toString() {
+        String status = "";
+        if (this.isDone) {
+            status = "[X]";
+        } else {
+            status = "[ ]";
+        }
+        return status + "" + this.description;
+    }
 }

@@ -12,25 +12,25 @@ public class Duke {
         String line = "____________________________________________________________";
         System.out.println(line);
         LocalTime now = LocalTime.now();
-        int hours  = now.getHour();
+        int hours = now.getHour();
+        taskList tl = new taskList();
 
         String greeting;
         String greeting2 = null;
 
-        if(hours > 0 && hours < 12){
+        if (hours > 0 && hours < 12) {
             greeting = "Good Morning!";
             greeting2 = "Bye! Have a nice day.";
-        } else if (hours <=16){
+        } else if (hours <= 16) {
             greeting = "Good Afternoon!";
             greeting2 = "Bye! Have a nice day.";
-        } else if (hours <=21){
+        } else if (hours <= 21) {
             greeting = "Good Evening!";
             greeting2 = "Bye! Good Night.";
         } else {
             greeting = "Good Night!";
         }
-
-        System.out.println(greeting +" I'm Duke\n" +
+        System.out.println(greeting + " I'm Duke\n" +
                 "What can I do for you?");
 
         System.out.println(line);
@@ -43,10 +43,18 @@ public class Duke {
             System.out.println("Duke: " + Enter);
             if (Enter.equals("bye")) {
                 System.out.println(line);
-                System.out.println( greeting2 +" \nHope to see you again soon!");
+                System.out.println(greeting2 + " \nHope to see you again soon!");
+                System.out.println(line);
                 break;
+            }
+            if (!Enter.equals("list")) {
+                tl.addTask(Enter);
+            }
+            if (Enter.equals("list")) {
+                tl.printList();
+                System.out.println(line);
             }
         }
     }
-
 }
+

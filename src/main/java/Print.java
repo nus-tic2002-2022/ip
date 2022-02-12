@@ -21,9 +21,12 @@ public class Print {
         }
     }
     public Print(ArrayList<Task> TL){
-        System.out.println(divider);
+        if(TL.size()==0){
+            System.out.println("There is no Task Currently, wanna add some? :P");
+        }
+        System.out.println(divider+"\n Here are the tasks in your list:");
         for (int i =0; i<TL.size();i++){
-            System.out.println((i+1)+". "+TL.get(i).description);
+            System.out.println((i+1)+". ["+TL.get(i).getStatusIcon()+"]"+TL.get(i).description);
         }
         System.out.println(divider);
     }

@@ -25,8 +25,13 @@ public class Duke {
                     System.out.println(TaskHandler.mark(text));
                 } else if(text.startsWith("unmark")){
                     System.out.println(TaskHandler.unmark(text));
-                }
-                else{
+                } else if(text.startsWith("todo")){
+                    System.out.println(TaskHandler.todo(text));
+                } else if(text.startsWith("deadline")){
+                    System.out.println(TaskHandler.deadline(text));
+                } else if(text.startsWith("event")){
+                    System.out.println(TaskHandler.event(text));
+                } else{
                     task = new Task(text);
                     taskList.add(task);
                 }

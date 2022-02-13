@@ -10,8 +10,9 @@ public class Duke {
     public static void system() {
 
         String[] taskList = new String[100];
+        Task[] taskIcon = new Task[100];
         String line;
-        int counter= 0;
+        int counter = 0;
         Scanner in = new Scanner(System.in);
 
 
@@ -23,25 +24,55 @@ public class Duke {
             if (line.equals("bye")) {
                 separatingLine();
                 System.out.println("Bye. Glad to be of service to you!\n" +
-                        "Hope to assist you again soon!");
+                        "Hope to assist you again soon, Boss!");
                 separatingLine();
                 System.exit(0);
             }
 
             //Print the List:
-            if (line.equals("list") && taskList[0] != null) {
+            else if (line.equals("list") && taskList[0] != null) {
                 separatingLine();
-                System.out.println("Hey, I have summarised your task list as below:");
+                System.out.println("Hey Boss! I have summarised your task list as below:");
                 for (int i = 0; i < counter; i++) {
                     System.out.println(i + 1 + ". " +
+                            "[" +
+                            taskIcon[i].getStatusIcon() +
+                            "] " +
                             taskList[i]);
                 }
                 separatingLine();
+
             } else if (line.equals("list") && taskList[0] == null) {
                 separatingLine();
-                System.out.println("Your current task list is empty!\n" +
+                System.out.println("Your current task list is empty, Boss!\n" +
                         "Please start to add your tasks below ^<>^");
                 separatingLine();
+            }
+
+            // unmark task
+            else if (line.contains("unmark")) {
+
+                int index1 = Integer.parseInt(line.substring(7)) - 1;
+                Task ud = taskIcon[index1];
+                ud.markAsNotDone();
+                System.out.println("Great, job completed, Boss!\n" +
+                        "I've marked this task as not done yet for you:");
+                System.out.println("[" + ud.getStatusIcon() + "] " + ud.description);
+                separatingLine();
+
+            }
+
+            // mark task
+            else if (line.contains("mark")) {
+
+                int index2 = Integer.parseInt(line.substring(5)) - 1;
+                Task d = taskIcon[index2];
+                d.markAsDone();
+                System.out.println("Great, job completed, Boss!\n" +
+                        "I've marked this task as done for you:");
+                System.out.println("[" + d.getStatusIcon() + "] " + d.description);
+                separatingLine();
+
             }
 
             //Add user input to task list:
@@ -50,9 +81,15 @@ public class Duke {
                 System.out.println("The below task has been added to your task list:\n " +
                         line);
 
-                //assign to task list from input:
+                //assign to task list from input for printing out task description when request for printing lists:
                 taskList[counter] = line;
 
+                //Add to task for separate icon tracking and print status mark:
+                Task t = new Task(line);
+                t.description = line;
+                taskIcon[counter] = t;
+
+                //update counter to show sequence numbering when print result:
                 separatingLine();
                 counter = counter + 1;
             }

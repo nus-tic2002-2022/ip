@@ -1,6 +1,15 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    private static String[] list = new String[100];
+    private static int listCount = 0;
+
+    public static void addItem(String item) {
+        list[listCount] = item;
+        listCount++;
+    }
+
     public static void main(String[] args) {
 
         String logo = " ____        _        \n"
@@ -15,19 +24,21 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         boolean bye = false;
 
-
-
         while (bye == false) {
-
             input = in.nextLine();
 
-            if(input.toLowerCase().equals("bye"))
-            {
+            if (input.toLowerCase().equals("bye")) {
                 System.out.println("Bye bye!");
                 bye = true;
             }
+            if (input.toLowerCase().equals("list")) {
+                for (int i = 0; i < listCount; i++){
+                    System.out.println(list[i]);
+                }
+            }
             else {
-                System.out.println(input);
+                addItem(input);
+                System.out.println("added: " + input);
             }
         }
     }

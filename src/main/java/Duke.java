@@ -81,14 +81,15 @@ public class Duke {
                 System.out.println("The below task has been added to your task list:\n " +
                         line);
 
-                //assign to task list from input:
+                //assign to task list from input for printing out task description when request for printing lists:
                 taskList[counter] = line;
 
-                //Add to task for separate icon tracking
+                //Add to task for separate icon tracking and print status mark:
                 Task t = new Task(line);
                 t.description = line;
                 taskIcon[counter] = t;
 
+                //update counter to show sequence numbering when print result:
                 separatingLine();
                 counter = counter + 1;
             }

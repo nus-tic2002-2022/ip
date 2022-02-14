@@ -2,7 +2,17 @@ import java.util.Scanner;
 
 public class Duke 
 {
-    public static void main(String[] args) {
+    private static String[] event = new String[100];
+    private static int eventCount = 0;
+
+    public static void addEvent(String item) 
+    {
+        event[eventCount] = item;
+        eventCount++;
+    }
+
+    public static void main(String[] args) 
+    {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -20,12 +30,25 @@ public class Duke
 
         while(!userInput.equals("Bye"))
         {
-            System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _\n");
-            System.out.println(userInput);
-            userInput = in.nextLine(); 
+            if(userInput.equals("List"))
+            {
+                System.out.println("Below are the list of events needed to be complete:\n");
+                for (int i = 0; i < eventCount; i++)
+                {
+                    System.out.println((i+1) + ": " + event[i]);
+                }
+                System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _\n");
+                System.out.println("What can I do for you today?");
+                userInput = in.nextLine();
+                continue;
+            }
+                addEvent(userInput);
+                System.out.println("A new event has been added: " + userInput);
+                System.out.println("What can I do for you today?");
+                userInput = in.nextLine();
         }
 
-        System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _\n");
-        System.out.println("Bye Bye. Enjoy your day and hope to see you again soon!\n");
+            System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _\n");
+            System.out.println("Bye Bye. Enjoy your day and hope to see you again soon!\n");
     }
 }

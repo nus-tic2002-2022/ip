@@ -10,7 +10,6 @@ public class Duke {
 
     //Level-2 Added List Array
     public static void system() {
-        String[] memory = new String[100];
         Task[] tasks = new Task[100];
         String line;
         int counter= 0;
@@ -26,9 +25,8 @@ public class Duke {
                 printLine();
                 System.out.println("Here are the taks in your lists:");
                 for (int x = 0; x < counter; x++) {
-                    System.out.println(x+1 + ". "
-                            + "[" + tasks[x].getStatusIcon() + "] " +
-                            memory[x]);
+                    //Amended to Use toString()
+                    System.out.println(x + 1 + ". " + tasks[x].toString());
                 }
                 printLine();
             }
@@ -53,6 +51,45 @@ public class Duke {
                 System.out.println("[" + m.getStatusIcon() + "] " + m.description);
             }
 
+            //Run Deadline Class
+            else if (line.contains("deadline")){
+
+                //Find Position of '/'
+                int slash = line.indexOf("/");
+
+                //Initiate Deadline Class
+                tasks[counter] = new Deadline(line.substring(9, slash-1),line.substring(slash+4));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[counter].toString());
+                counter++;
+                System.out.println("Now you have " + (counter) + " tasks in the list.");
+            }
+
+            //Run Tod0 Class
+            else if (line.contains("todo")){
+
+                //Initiate Tod0 Class
+                tasks[counter] = new Todo(line.substring(5));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[counter].toString());
+                counter++;
+                System.out.println("Now you have " + (counter) + " tasks in the list.");
+            }
+
+            //Run Event Class
+            else if (line.contains("event")){
+
+                //Find Position of '/'
+                int slash = line.indexOf("/");
+
+                //Initiate Event Class
+                tasks[counter] = new Deadline(line.substring(6, slash-1),line.substring(slash+4));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[counter].toString());
+                counter++;
+                System.out.println("Now you have " + (counter) + " tasks in the list.");
+            }
+
             //End the System
             else if (line.equals("bye")) {
                 printLine();
@@ -65,9 +102,6 @@ public class Duke {
             else {
                 printLine();
                 System.out.println("added: " + line);
-
-                //Add to Memory
-                memory[counter] = line;
 
                 //Add to Task > Description
                 Task t = new Task(line);

@@ -50,24 +50,30 @@ public class ChatBot {
                         taskArr.add(new Todo(input));
                         System.out.println("Got it. I've added this task: \n" + taskArr.get(taskArr.size() - 1).getDescription() + "\nNow you have " + taskArr.size() + " tasks in the list.");
                     }else if(d.matcher(input).matches()){
-                        String[] check = input.split("/by");
-                        if(check.length >= 2){
+                        try{
+                            String[] check = input.split("/by");
+                            if(check.length < 2){
+                                throw new DukeException("Insufficient arguments!");
+                            }
                             input = input.replaceAll("^deadline\\s","");
                             String[] splited = input.split("/by", 2);
-                            taskArr.add(new Deadline(splited[0], splited[1]));
+                            taskArr.add(new Deadline(splited[0], splited[1].replaceAll("^\\s","")));
                             System.out.println("Got it. I've added this task: \n" + taskArr.get(taskArr.size() - 1).getDescription() + "\nNow you have " + taskArr.size() + " tasks in the list.");
-                        }else{
-                            System.out.println("Insufficient arguments!");
+                        }catch(DukeException e){
+                            System.out.println("Error: " + e.getMessage());
                         }
                     }else if(e.matcher(input).matches()){
-                        String[] check = input.split("/at");
-                        if(check.length >= 2){
+                        try{
+                            String[] check = input.split("/at");
+                            if(check.length < 2){
+                                throw new DukeException("Insufficient arguments!");
+                            }
                             input = input.replaceAll("^event\\s","");
                             String[] splited = input.split("/at", 2);
-                            taskArr.add(new Event(splited[0], splited[1]));
+                            taskArr.add(new Event(splited[0], splited[1].replaceAll("^\\s","")));
                             System.out.println("Got it. I've added this task: \n" + taskArr.get(taskArr.size() - 1).getDescription() + "\nNow you have " + taskArr.size() + " tasks in the list.");
-                        }else{
-                            System.out.println("Insufficient arguments!");
+                        }catch(DukeException e){
+                            System.out.println("Error: " + e.getMessage());
                         }
                     }else{
                         taskArr.add(new Task(input));

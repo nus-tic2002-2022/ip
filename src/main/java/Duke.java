@@ -54,56 +54,148 @@ public class Duke {
                 }
             }
             else if (dimensions[0].equalsIgnoreCase("mark")) {
-                tasklist.get(Integer.parseInt(dimensions[1])-1).markAsDone();
-                System.out.println("Yes Sir, I have marked (" +tasklist.get(Integer.parseInt(dimensions[1])-1).getDescription() + ") as done "+ "[" + tasklist.get(Integer.parseInt(dimensions[1])-1).getStatusIcon() + "]");
+                try {
+                    if ((Integer.parseInt(dimensions[1])) > tasklist.size()) {
+                        throw new DukeException("The number inserted to mark is larger than required");
+                    }
+                    if ((Integer.parseInt(dimensions[1])) < 0) {
+                        throw new DukeException("The number inserted to mark is small than 0");
+                    }
+                    if (tasklist.get(Integer.parseInt(dimensions[1]) - 1).isDone == true) {
+                        throw new DukeException("Been Marked Before");
+                    }
+                    tasklist.get(Integer.parseInt(dimensions[1]) - 1).markAsDone();
+                    System.out.println("Yes Sir, I have marked (" + tasklist.get(Integer.parseInt(dimensions[1]) - 1).getDescription() + ") as done " + "[" + tasklist.get(Integer.parseInt(dimensions[1]) - 1).getStatusIcon() + "]");
+                } catch (DukeException e) {
+                    if (e.getError().equalsIgnoreCase("The number inserted to mark is larger than required")) {
+                        printline();
+                        System.out.println("Sir, May i remind you to insert a task number smaller than what you have on the list");
+                    }
+                    if (e.getError().equalsIgnoreCase("The number inserted to mark is small than 0")) {
+                        printline();
+                        System.out.println("Sir, May i remind you to insert task number larger than 0");
+                    }
+                    if (e.getError().equalsIgnoreCase("Been Marked Before")) {
+                        printline();
+                        System.out.println("Sir, May i remind you to that this task was completed before");
+                    }
+                }
             }
             else if (dimensions[0].equalsIgnoreCase("unmark")) {
-                tasklist.get(Integer.parseInt(dimensions[1])-1).markAsUndone();
-                System.out.println("Yes Sir, I have unmarked (" +tasklist.get(Integer.parseInt(dimensions[1])-1).getDescription() + ") as undone "+ "[" + tasklist.get(Integer.parseInt(dimensions[1])-1).getStatusIcon() + "]");
-            }
+                    try {
+                        if ((Integer.parseInt(dimensions[1])) > tasklist.size()) {
+                            throw new DukeException("Too big");
+                        }
+                        if ((Integer.parseInt(dimensions[1])) < 0) {
+                            throw new DukeException("Too Small");
+                        }
+                        if (tasklist.get(Integer.parseInt(dimensions[1]) - 1).isDone==false) {
+                            throw new DukeException("Been unmarked Before");
+                        }
+                        tasklist.get(Integer.parseInt(dimensions[1]) - 1).markAsUndone();
+                        System.out.println("Yes Sir, I have unmarked (" + tasklist.get(Integer.parseInt(dimensions[1]) - 1).getDescription() + ") as undone " + "[" + tasklist.get(Integer.parseInt(dimensions[1]) - 1).getStatusIcon() + "]");
+
+                    } catch (DukeException e) {
+                        if (e.getError().equalsIgnoreCase("Too big")) {
+                            printline();
+                            System.out.println("Sir, May i remind you to insert a task number smaller than what you have on the list");
+                        }
+                        if (e.getError().equalsIgnoreCase("Too Small")) {
+                            printline();
+                            System.out.println("Sir, May i remind you to insert task number larger than 0");
+                        }
+                        if (e.getError().equalsIgnoreCase("Been unmarked Before")) {
+                            printline();
+                            System.out.println("Sir, May i remind you to that this task was undone before you decided to unmark it");
+                        }
+                    }
+                }
             else if (dimensions[0].equalsIgnoreCase("event"))
             {
-                String[] dimensions1 = line.split(" ");
-                String sentence = "";
-                for(int i=1;i< dimensions1.length;i++)
-                {
-                    sentence= sentence + " " + dimensions[i];
+                try {
+                    String[] dimensions1 = line.split(" ");
+                    String sentence = "";
+                    if(dimensions1.length<2){
+                        throw new DukeException("Missing Event");
+                    }
+                    for (int i = 1; i < dimensions1.length; i++) {
+                        sentence = sentence + " " + dimensions[i];
+                    }
+                    String[] dimensions2 = sentence.split("/at");
+                    if(dimensions2.length<2){
+                        throw new DukeException("Missing Event Time and Place");
+                    }
+                    Event toadd = new Event(dimensions2[0], dimensions2[1]);
+                    tasklist.add(toadd);
+                    counter++;
+                    printline();
+                    Speech.todospeech();
                 }
-                String[] dimensions2 = sentence.split("/at");
-                Event toadd = new Event(dimensions2[0],dimensions2[1]);
-                tasklist.add(toadd);
-                counter++;
-                printline();
-                Speech.todospeech();
+                catch (DukeException e) {
+                    if (e.getError().equalsIgnoreCase("Missing Event")) {
+                        printline();
+                        System.out.println("Sir, May i remind you to insert an Event");
+                    }
+                    if (e.getError().equalsIgnoreCase("Missing Event Time and Place")) {
+                        printline();
+                        System.out.println("Sir, May i remind you to insert an Event Time and Place");
+                    }
+                }
             }
             else if (dimensions[0].equalsIgnoreCase("deadline"))
             {
-                String[] dimensions1 = line.split(" ");
-                String sentence = "";
-                for(int i=1;i< dimensions1.length;i++)
-                {
-                    sentence= sentence + " " + dimensions[i];
+                try {
+                    String[] dimensions1 = line.split(" ");
+                    String sentence = "";
+                    if(dimensions1.length<2){
+                        throw new DukeException("Missing Deadline Task");
+                    }
+                    for (int i = 1; i < dimensions1.length; i++) {
+                        sentence = sentence + " " + dimensions[i];
+                    }
+                    String[] dimensions2 = sentence.split("/by");
+                    if(dimensions2.length<2){
+                        throw new DukeException("Missing Deadline Date and Time");
+                    }
+                    Deadline toadd = new Deadline(dimensions2[0], dimensions2[1]);
+                    tasklist.add(toadd);
+                    counter++;
+                    printline();
+                    Speech.todospeech();
                 }
-                String[] dimensions2 = sentence.split("/by");
-                Deadline toadd = new Deadline(dimensions2[0],dimensions2[1]);
-                tasklist.add(toadd);
-                counter++;
-                printline();
-                Speech.todospeech();
+                catch (DukeException e) {
+                if (e.getError().equalsIgnoreCase("Missing Deadline Task")){
+                    printline();
+                    System.out.println("Sir, May i remind you to insert a Deadline task to do");}
+                if (e.getError().equalsIgnoreCase("Missing Deadline Date and Time")){
+                    printline();
+                    System.out.println("Sir, May i remind you to insert a Deadline Date and Time");}
+                }
             }
             else if (dimensions[0].equalsIgnoreCase("todo"))
             {
                 String[] dimensions1 = line.split(" ");
                 String sentence = "";
-                for(int i=1;i< dimensions1.length;i++)
-                {
-                    sentence= sentence + " " + dimensions[i];
+                try {
+                    if(dimensions1.length<2){
+                        throw new DukeException("Missing Todo Task");
+                    }
+                    for (int i = 1; i < dimensions1.length; i++) {
+                        sentence = sentence + " " + dimensions[i];
+                    }
+                    Todo toadd = new Todo(sentence, sentence);
+                    tasklist.add(toadd);
+                    counter++;
+                    printline();
+                    Speech.todospeech();
+                    }
+                catch (DukeException e) {
+                    if (e.getError().equalsIgnoreCase("Missing Todo Task")){
+                        printline();
+                        System.out.println("Sir, May i remind you to insert a Todo task to do");}
                 }
-                Todo toadd = new Todo(sentence,sentence);
-                tasklist.add(toadd);
-                counter++;
-                printline();
-                Speech.todospeech();
+            }
+            else{System.out.println("Sir, May I remind you to use functions: Todo, deadline, event, list, mark, unmark and bye");
             }
             printline();
         }

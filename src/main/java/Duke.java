@@ -33,6 +33,105 @@ public class Duke {
         return output;
     }
 
+    public static void addTodo (String[] inputContent, List<Task> toDoList) throws DukeException{
+        String content = "";
+        for (int i = 1; i < inputContent.length; i++) {
+            content = content + " " + inputContent[i];
+        }
+        content = content.stripLeading();
+        content = content.stripTrailing();
+        if (content.equalsIgnoreCase("")){
+            throw new DukeException("missing task");
+        }
+        else {
+            Task curTask = new Task(content);
+            toDoList.add(curTask);
+        }
+    }
+
+    public static void addDeadline (String[] inputContent, List<Task> toDoList) throws DukeException{
+        String content = "";
+        String by = "";
+        for (int i = 1; i < inputContent.length;) {
+            if (!inputContent[i].equalsIgnoreCase("/by")) {
+                content = content + " " + inputContent[i];
+                i++;
+            }
+            if (i < inputContent.length && inputContent[i].equalsIgnoreCase("/by")) {
+                by = by + "(by :";
+                i++;
+                while (i < inputContent.length) {
+                    by = by + " " + inputContent[i];
+                    i++;
+                }
+                by = by + ")";
+            }
+        }
+        content = content.stripLeading();
+        content = content.stripTrailing();
+        if (content.equalsIgnoreCase("")) {
+            if (by.equalsIgnoreCase("")|| by.equalsIgnoreCase("(by : )")){
+                throw new DukeException("missing task & missing by");
+            }
+            else {
+                throw new DukeException("missing task");
+            }
+        }
+        else {
+            if (by.equalsIgnoreCase("") || by.equalsIgnoreCase("(by : )")) {
+                throw new DukeException("missing by");
+            } else {
+                Deadline curTask = new Deadline(content, by);
+                toDoList.add(curTask);
+            }
+        }
+    }
+
+    public static void addEvent (String[] inputContent, List<Task> toDoList) throws DukeException {
+        String content = "";
+        String at = "";
+        for (int i = 1; i < inputContent.length;) {
+            if (!inputContent[i].equalsIgnoreCase("/at")) {
+                content = content + " " + inputContent[i];
+                i++;
+            }
+            if (i < inputContent.length && inputContent[i].equalsIgnoreCase("/at")) {
+                at = at + "(at :";
+                i++;
+                while (i < inputContent.length) {
+                    at = at + " " + inputContent[i];
+                    i++;
+                }
+                at = at + ")";
+            }
+        }
+        content = content.stripLeading();
+        content = content.stripTrailing();
+        if (content.equalsIgnoreCase("")) {
+            if (at.equalsIgnoreCase("")|| at.equalsIgnoreCase("(at : )")){
+                throw new DukeException("missing task & missing at");
+            }
+            else {
+                throw new DukeException("missing task");
+            }
+        }
+        else {
+            if (at.equalsIgnoreCase("")|| at.equalsIgnoreCase("(at : )")){
+                throw new DukeException("missing at");
+            }
+            else {
+                Event curTask = new Event(content, at);
+                toDoList.add(curTask);
+            }
+        }
+    }
+
+    public static void checkToDoList(List <Task> toDoList, int index) throws DukeException{
+        if (index > toDoList.size()) {
+            throw new DukeException("Out of Range");
+        }
+    }
+
     public static void printReply(String reply, int code) {
         if (code == 1) {
             System.out.println("\t\t\t\t\t\t\t\t HARO : ");
@@ -101,7 +200,35 @@ public class Duke {
                 System.out.println("\t\t\t\t\t\t\t\t Haro ! Unable to " + reply + " as per command ! Here is the list for reference! Haro !");
             }
             else {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! Cannot execute command Haro ! Check the list ! Haro !");
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Cannot execute \"" + reply + "\" command Haro ! Check the list ! Haro !");
+            }
+        }
+        else if (code == 6) {
+            System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(3);
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! The index is out of range ! Haro !");
+            }
+            else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Please enter a valid index ! Haro !");
+            }
+            else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Unable to find the input index ! Haro !");
+            }
+        }
+        else if (code == 7) {
+            System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(3);
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! The index must only contain numerical numbers ! Haro !");
+            }
+            else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Alphabetic characters are not allowed in index ! Haro !");
+            }
+            else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Unable to proceed with command due to non-numerical index input ! Haro !");
             }
         }
         else if (code == 0){
@@ -162,7 +289,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main (String[] args) throws DukeException{
         String helloFiglet ="\n"
                             +      " _   _        _  _              My Name is \n"
                             + "| | | |      | || |              _   _     _     ____    ___  \n"
@@ -194,81 +321,114 @@ public class Duke {
             // case handling
             if (inputContent[0].equalsIgnoreCase("todo")) {
                 code = 2;
-                for (int i = 1; i < inputContent.length; i++) {
-                        reply = reply + " " + inputContent[i];
+                try {
+                    addTodo(inputContent, toDoList);
+                    reply = toDoList.get(toDoList.size()-1).getTask();
+                } catch (DukeException e) {
+                    System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! You have entered an invalid command for \"todo\" ! Haro ");
+                    if (e.getError().equalsIgnoreCase("missing task")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Missing task information ! Haro ");
+                    }
+                    code = -3;
                 }
-                reply = reply.stripLeading();
-                reply = reply.stripTrailing();
-                Task curTask = new Task(reply);
-                toDoList.add(curTask);
             }
             else if (inputContent[0].equalsIgnoreCase("deadline")) {
                 code = 2;
-                String by = "";
-                for (int i = 1; i < inputContent.length;) {
-                    reply = reply + " " + inputContent[i];
-                    i++;
-                    if (inputContent[i].equalsIgnoreCase("/by")) {
-                        by = by + "(by :";
-                        i++;
-                        while (i < inputContent.length) {
-                            by = by + " " + inputContent[i];
-                            i++;
-                        }
-                        by = by + ")";
+                try {
+                    addDeadline(inputContent, toDoList);
+                    reply = toDoList.get(toDoList.size()-1).getTask();
+                } catch (DukeException e) {
+                    System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! You have entered an invalid command for \"deadline\"! Haro ");
+                    if (e.getError().equalsIgnoreCase("missing task & missing by")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Missing task & deadline information ! Haro ");
                     }
+                    else if (e.getError().equalsIgnoreCase("missing task")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Missing task information ! Haro ");
+                    }
+                    else if (e.getError().equalsIgnoreCase("missing by")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Missing deadline information ! Haro ");
+                    }
+                    code = -3;
                 }
-                reply = reply.stripLeading();
-                reply = reply.stripTrailing();
-                Deadline curTask = new Deadline(reply, by);
-                toDoList.add(curTask);
             }
             else if (inputContent[0].equalsIgnoreCase("event")) {
                 code = 2;
-                String at = "";
-                for (int i = 1; i < inputContent.length;) {
-                    reply = reply + " " + inputContent[i];
-                    i++;
-                    if (inputContent[i].equalsIgnoreCase("/at")) {
-                        at = at + "(at :";
-                        i++;
-                        while (i < inputContent.length) {
-                            at = at + " " + inputContent[i];
-                            i++;
-                        }
-                        at = at + ")";
+                try {
+                    addEvent(inputContent, toDoList);
+                    reply = toDoList.get(toDoList.size()-1).getTask();
+                } catch (DukeException e) {
+                    System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! You have entered an invalid command for \"event\"! Haro ");
+                    if (e.getError().equalsIgnoreCase("missing task & missing at")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Missing event & duration information ! Haro ");
                     }
+                    else if (e.getError().equalsIgnoreCase("missing task")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Missing event information ! Haro ");
+                    }
+                    else if (e.getError().equalsIgnoreCase("missing at")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Missing duration information ! Haro ");
+                    }
+                    code = -3;
                 }
-                reply = reply.stripLeading();
-                reply = reply.stripTrailing();
-                Event curTask = new Event(reply, at);
-                toDoList.add(curTask);
             }
             else if (inputContent[0].equalsIgnoreCase("mark")) {
-                int targetIndex = Integer.parseInt(inputContent[1]);
-                targetIndex--;
-                boolean updateStatus = toDoList.get(targetIndex).setTaskStatus(true);
-                if (updateStatus) {
-                    code = 4;
-                    reply = userName;
+                boolean check = true;
+                for (int i = 0; i < inputContent[1].length(); i++){
+                    if (!Character.isDigit(inputContent[1].charAt(i))) {
+                        check = false;
+                        break;
+                    }
+                }
+                if (!check) {
+                    code = 7;
                 }
                 else {
-                    code = 5;
-                    reply = "mark";
-                }
+                    int targetIndex = Integer.parseInt(inputContent[1]);
+                    targetIndex--;
 
+                    if (targetIndex < toDoList.size()) {
+                        boolean updateStatus = toDoList.get(targetIndex).setTaskStatus(true);
+                        if (updateStatus) {
+                            code = 4;
+                            reply = userName;
+                        } else {
+                            code = 5;
+                            reply = "mark";
+                        }
+                    } else {
+                        code = 6;
+                    }
+                }
             }
             else if (inputContent[0].equalsIgnoreCase("unmark")) {
-                int targetIndex = Integer.parseInt(inputContent[1]);
-                targetIndex--;
-                boolean updateStatus = toDoList.get(targetIndex).setTaskStatus(false);
-                if (updateStatus) {
-                    code = 4;
-                    reply = userName;
+                boolean check = true;
+                for (int i = 0; i < inputContent[1].length(); i++){
+                    if (!Character.isDigit(inputContent[1].charAt(i))) {
+                        check = false;
+                        break;
+                    }
+                }
+                if (!check) {
+                    code = 7;
                 }
                 else {
-                    code = 5;
-                    reply = "unmark";
+                    int targetIndex = Integer.parseInt(inputContent[1]);
+                    targetIndex--;
+
+                    if (targetIndex < toDoList.size()) {
+                        boolean updateStatus = toDoList.get(targetIndex).setTaskStatus(false);
+                        if (updateStatus) {
+                            code = 4;
+                            reply = userName;
+                        } else {
+                            code = 5;
+                            reply = "unmark";
+                        }
+                    } else {
+                        code = 6;
+                    }
                 }
             }
             else if (inputContent[0].equalsIgnoreCase("echo")) {
@@ -295,7 +455,7 @@ public class Duke {
             }
 
             // output Handling
-            if (code == 1 ||code == 4 || code == 5) {
+            if (code == 1 ||code == 4 || code == 5 || code == 6) {
                 printReply(reply, code);
                 printToDoList(toDoList);
             }
@@ -305,6 +465,9 @@ public class Duke {
             }
             else if (code == -2) {
                 printToDoList(toDoList);
+            }
+            else if (code == -3) {
+                // print nothing
             }
             else {
                 printReply(reply, code);

@@ -15,6 +15,7 @@ public class ChatBot {
     Pattern t = Pattern.compile("^todo\\s.*$");
     Pattern d = Pattern.compile("^deadline\\s.*$");
     Pattern e = Pattern.compile("^event\\s.*$");
+    Pattern rm = Pattern.compile("^delete\\s.*$");
 
     public void query(){
         while(true) {
@@ -43,6 +44,12 @@ public class ChatBot {
                         input = input.replaceAll("\\D+","");
                         if(Integer. parseInt(input) <= taskArr.size())
                             unmark(Integer. parseInt(input));
+                        else
+                            System.out.println("Out of range!");
+                    }else if(rm.matcher(input).matches()){
+                        input = input.replaceAll("\\D+","");
+                        if(Integer. parseInt(input) <= taskArr.size())
+                            delete(Integer. parseInt(input));
                         else
                             System.out.println("Out of range!");
                     }else if(t.matcher(input).matches()){
@@ -103,6 +110,9 @@ public class ChatBot {
         taskArr.get(i-1).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" + taskArr.get(i-1).getDescription());
     }
-
+    public void delete(int i){
+        System.out.println("Noted. I've removed this task: \n" + taskArr.get(taskArr.size() - 2).getDescription() + "\nNow you have " + taskArr.size() + " tasks in the list.");
+        taskArr.remove(i-1);
+    }
 
 }

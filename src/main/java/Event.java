@@ -8,6 +8,6 @@ public class Event extends Task{
 
     @Override
     public String getDescription() {
-        return "[E]" +  super.getDescription() + " (at: " + at + ")";
+        return "[E]" +  super.getDescription() + " (at:" + at + ")";
     }
 }

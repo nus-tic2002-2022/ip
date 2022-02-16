@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -8,6 +9,7 @@ import java.util.regex.*;
 
 public class ChatBot {
     public Scanner in = new Scanner(System.in);
+    File f = new File("data.txt");
     String input;
     ArrayList<Task> taskArr = new ArrayList<Task>(100);
     Pattern m = Pattern.compile("^mark\\s[0-9]*$");
@@ -18,6 +20,7 @@ public class ChatBot {
     Pattern rm = Pattern.compile("^delete\\s.*$");
 
     public void query(){
+        readFromFile();
         while(true) {
             input = in.nextLine();
             if (input.equalsIgnoreCase("bye")) {
@@ -82,11 +85,14 @@ public class ChatBot {
                         }catch(DukeException e){
                             System.out.println("Error: " + e.getMessage());
                         }
-                    }else{
+                    }else if(input.length() > 0){
                         taskArr.add(new Task(input));
                         System.out.println("added: " + input);
+                    }else{
+                        System.out.println("Please enter something!");
                     }
             }
+            saveToFile();
         }
     }
 
@@ -111,8 +117,85 @@ public class ChatBot {
         System.out.println("OK, I've marked this task as not done yet:\n" + taskArr.get(i-1).getDescription());
     }
     public void delete(int i){
-        System.out.println("Noted. I've removed this task: \n" + taskArr.get(taskArr.size() - 2).getDescription() + "\nNow you have " + taskArr.size() + " tasks in the list.");
+        System.out.println("Noted. I've removed this task: \n" + taskArr.get(i-1).getDescription() + "\nNow you have " + taskArr.size() + " tasks in the list.");
         taskArr.remove(i-1);
-    }
 
+    }
+    public void saveToFile()
+    {
+        try (PrintWriter out = new PrintWriter(f.getAbsoluteFile())) {
+            for(int i=0;i<taskArr.size();i++){
+                out.println(taskArr.get(i).getDescription());
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void readFromFile(){
+        int counter = 0;
+        Pattern event = Pattern.compile("^\\[E\\].*$");
+        Pattern deadline = Pattern.compile("^\\[D\\].*$");
+        Pattern todo = Pattern.compile("^\\[T\\].*$");
+        Pattern isMarked = Pattern.compile("^\\[X\\]\\s.*$");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f.getAbsoluteFile()));
+            String st;
+            while ((st = br.readLine()) != null){
+                if(event.matcher(st).matches()){
+                    st = st.replaceAll("^\\[E\\]","");
+                    if(isMarked.matcher(st).matches()){
+                        st = st.replaceAll("^\\[X\\]\\s","");
+                        String[] splited = st.split("\\(at:", 2);
+                        splited[1] = splited[1].replaceAll("\\)$", "");
+                        taskArr.add(new Event(splited[0].replaceAll("\\s+$",""), splited[1].replaceAll("^\\s","")));
+                        taskArr.get(counter).setDone(true);
+                    }else{
+                        st = st.replaceAll("^\\[\\s\\]\\s","");
+                        String[] splited = st.split("\\(at:", 2);
+                        splited[1] = splited[1].replaceAll("\\)$", "");
+                        //System.out.println("test : " + splited[0] + ", " + splited[1] +"\n");
+                        taskArr.add(new Event(splited[0].replaceAll("\\s+$",""), splited[1].replaceAll("^\\s+","")));
+                    }
+                }else if(deadline.matcher(st).matches()) {
+                    st = st.replaceAll("^\\[D\\]", "");
+                    if (isMarked.matcher(st).matches()) {
+                        st = st.replaceAll("^\\[X\\]\\s", "");
+                        String[] splited = st.split("\\(by:", 2);
+                        splited[1] = splited[1].replaceAll("\\)$", "");
+                        taskArr.add(new Deadline(splited[0].replaceAll("\\s+$", ""), splited[1].replaceAll("^\\s", "")));
+                        taskArr.get(counter).setDone(true);
+                    } else {
+                        st = st.replaceAll("^\\[\\s\\]\\s", "");
+                        String[] splited = st.split("\\(by:", 2);
+                        splited[1] = splited[1].replaceAll("\\)$", "");
+                        taskArr.add(new Deadline(splited[0].replaceAll("\\s+$", ""), splited[1].replaceAll("^\\s+", "")));
+                    }
+                }else if(todo.matcher(st).matches()) {
+                    st = st.replaceAll("^\\[T\\]", "");
+                    if (isMarked.matcher(st).matches()) {
+                        st = st.replaceAll("^\\[X\\]\\s", "");
+                        taskArr.add(new Todo(st));
+                        taskArr.get(counter).setDone(true);
+                    } else {
+                        st = st.replaceAll("^\\[\\s\\]\\s", "");
+                        taskArr.add(new Todo(st));
+                    }
+                }else{
+                    if (isMarked.matcher(st).matches()) {
+                        st = st.replaceAll("^\\[X\\]\\s", "");
+                        taskArr.add(new Task(st));
+                        taskArr.get(counter).setDone(true);
+                    } else {
+                        st = st.replaceAll("^\\[\\s\\]\\s", "");
+                        taskArr.add(new Task(st));
+                    }
+                }
+                //System.out.println(st);
+                counter++;
+            }
+        }catch(Exception ex){
+            System.err.println(ex.getMessage());
+        }
+    }
 }

@@ -3,6 +3,7 @@
 [T][X] test123
 [ ] asdf
 [E][X] test (at:test 1230)
+[D][X] test (by:test 2359)
+[T][ ] test123
 [X] asdf
 [ ] asdftest
-[ ] 6

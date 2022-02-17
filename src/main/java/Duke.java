@@ -30,8 +30,7 @@ public class Duke {
         } else {
             greeting = "Good Night!";
         }
-        System.out.println(greeting + " I'm Duke\n" +
-                "What can I do for you?");
+        System.out.println(greeting + " I'm Duke" +System.lineSeparator()+ "What can I do for you?");
 
         System.out.println(line);
 
@@ -43,26 +42,47 @@ public class Duke {
             // System.out.println("Duke: " + Enter);
             if (Enter.equals("bye")) {
                 System.out.println(line);
-                System.out.println(greeting2 + " \nHope to see you again soon!");
+                System.out.println(greeting2 + System.lineSeparator() + " Hope to see you again soon!");
                 System.out.println(line);
                 break;
             }
 
-            else if(Enter.equals("list")){
-                tl.printList();
-                System.out.println(line);
+            // add todo
+            else if (Enter.contains("todo")) {
+                Enter = Enter.replace("todo", "");
+                String [] str_list = Enter.split(" ");
+                StringBuilder content = new StringBuilder(" ");
+                for (String s : str_list) {
+                    content.append(s);
+                }
+                tl.addToDo(content.toString());
             }
-            else if (Enter.contains("mark")) {
+            // add deadline
+            else if (Enter.contains("deadline")) {
+                Enter = Enter.replace("deadline", "");
+                String [] str_list = Enter.split("/by");
+                tl.addDeadline(str_list[0],str_list[1]);
+            }
+            // add event
+            else if (Enter.contains("event")) {
+                Enter = Enter.replace("event", "");
+                String [] str_list = Enter.split("/at");
+                tl.addDeadline(str_list[0],str_list[1]);
+            }
+
+            else if (Enter.equals("list")) {
+                tl.print();
+                System.out.println(line);
+            } else if (Enter.contains("mark")) {
                 int index = Integer.parseInt(Enter.split(" ")[1]);
                 tl.markAsDone(index);
-            }
-            else if (Enter.contains("undo")) {
+            } else if (Enter.contains("undo")) {
                 int index = Integer.parseInt(Enter.split(" ")[1]);
                 tl.markAsNotDone(index);
-            }
-            else {
-                tl.addTask(Enter);
+            } else {
+                System.out.println("unknown command detected");
             }
         }
+
     }
 }

@@ -1,8 +1,19 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String m_type;
 
-    Task(){}
+    protected void setType(String type) {
+        m_type = type;
+    }
+
+    public String getType() {
+        return m_type;
+    }
+
+    public Task(){
+
+    }
 
     public Task(String description) {
         this.description = description;
@@ -24,4 +35,7 @@ public class Task {
     public void markAsNotDone(){
         this.isDone = false;
     }
+
+    public abstract void print(int index);
+
 }

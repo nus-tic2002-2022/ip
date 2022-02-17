@@ -13,7 +13,7 @@ public class Duke {
         System.out.println(line);
         LocalTime now = LocalTime.now();
         int hours = now.getHour();
-        taskList tl = new taskList();
+        TaskList tl = new TaskList();
 
         String greeting;
         String greeting2 = null;
@@ -40,21 +40,29 @@ public class Duke {
             System.out.print("You: ");
             String Enter;
             Enter = in.nextLine();
-            System.out.println("Duke: " + Enter);
+            // System.out.println("Duke: " + Enter);
             if (Enter.equals("bye")) {
                 System.out.println(line);
                 System.out.println(greeting2 + " \nHope to see you again soon!");
                 System.out.println(line);
                 break;
             }
-            if (!Enter.equals("list")) {
-                tl.addTask(Enter);
-            }
-            if (Enter.equals("list")) {
+
+            else if(Enter.equals("list")){
                 tl.printList();
                 System.out.println(line);
+            }
+            else if (Enter.contains("mark")) {
+                int index = Integer.parseInt(Enter.split(" ")[1]);
+                tl.markAsDone(index);
+            }
+            else if (Enter.contains("undo")) {
+                int index = Integer.parseInt(Enter.split(" ")[1]);
+                tl.markAsNotDone(index);
+            }
+            else {
+                tl.addTask(Enter);
             }
         }
     }
 }
-

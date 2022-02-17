@@ -3,6 +3,7 @@ import classes.Event;
 import classes.Task;
 import classes.ToDos;
 import exceptions.InvalidTaskInputException;
+import exceptions.UnknownCommandInputException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +11,6 @@ import java.util.Scanner;
 public class Duke {
     // Constants
     final static String DUKE_MESSAGE_INDENTATION = "~\t";
-    final static String DUKE_UNSURE_COMMAND_REPLY = "Hmm, I don't understand what that means. Can you explain again?";
     // Variables
     static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -86,7 +86,7 @@ public class Duke {
      *
      * @param command Input command from user
      * **/
-    private static void determineAction(String command) {
+    private static void determineAction(String command) throws UnknownCommandInputException {
         if (command.equals("list")) {
             listTask();
         } else if (command.startsWith("mark") || command.startsWith("unmark")) {
@@ -98,7 +98,7 @@ public class Duke {
         } else if (command.startsWith("event ")) {
             addToTaskList("event", command.replaceFirst("event ", ""));
         } else {
-            printDukeReply(DUKE_UNSURE_COMMAND_REPLY);
+            throw new UnknownCommandInputException();
         }
     }
 
@@ -230,7 +230,11 @@ public class Duke {
             if (checkTerminatingWord(command)) {
                 break;
             } else {
-                determineAction(command);
+                try {
+                    determineAction(command);
+                } catch (UnknownCommandInputException e) {
+                    printDukeReply(e.getMessage());
+                }
             }
         }
         // Ending Message

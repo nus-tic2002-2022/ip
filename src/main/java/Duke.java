@@ -47,11 +47,42 @@ public class Duke
                 System.out.println( "[" + mark_task.getStatusIcon() + "] " + mark_task.description);
                 System.out.println("------------------------------------------\n");
             }
+            //Set deadline when user type "deadline"
+            else if (line.contains("deadline"))
+            {
+                int buffer = line.indexOf("/");
+                tasks[storeWords] = new Deadline(line.substring(9, buffer-1),line.substring(buffer+4));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[storeWords++].toString());
+                System.out.println("Now you have " + (storeWords) + " tasks in the list.");
+                System.out.println("------------------------------------------\n");
+            }
+            //Set todo when user type "todo"
+            else if (line.contains("todo"))
+            {
+                tasks[storeWords] = new Todo(line.substring(5));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[storeWords++].toString());
+                System.out.println("Now you have " + (storeWords) + " tasks in the list.");
+                System.out.println("------------------------------------------\n");
+            }
+            //Set event when user type "event"
+            else if (line.contains("event"))
+            {
+                int buffer = line.indexOf("/");
 
+                //Initiate Event Class
+                tasks[storeWords] = new Deadline(line.substring(6, buffer-1),line.substring(buffer+4));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[storeWords++].toString());
+                System.out.println("Now you have " + (storeWords) + " tasks in the list.");
+                System.out.println("------------------------------------------\n");
+            }
             //End program when user type "bye"
             else if (line.equals("bye"))
             {
                 System.out.println("Bye. Summon me when you need me again!");
+                System.out.println("------------------------------------------\n");
                 System.exit(0);
             }
             //Store all the words and print out

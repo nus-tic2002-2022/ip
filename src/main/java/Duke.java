@@ -28,6 +28,12 @@ public class Duke
                 System.out.println("------------------------------------------\n");
                 continue;
             }
+            //End program when user type "bye"
+            else if (line.equals("bye"))
+            {
+                System.out.println("Bye. Summon me when you need me again!");
+                System.exit(0);
+            }
             //Store all the words and print out
             else
             {

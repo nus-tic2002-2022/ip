@@ -1,9 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("-______________________-||");
@@ -14,7 +13,14 @@ public class Duke {
         input = in.nextLine();
 
         while(!input.equals("bye")){
-            processInput(input);
+            try {
+                processInput(input);
+            } catch (InvalidInputException e) {
+                System.out.println("=========================================" );
+                System.out.println("What are you trying to here?? Please review your input.");
+            }
+            System.out.println("=========================================" );
+            System.out.println("What can I do for you?");
             input = in.nextLine();
         }
         System.out.println("=========================================" );
@@ -22,41 +28,47 @@ public class Duke {
     }
 
     public static void addTask(String desc){
-        tasks[taskCount] = new Task(desc);
-        taskCount++;
+        taskList.add(new Task(desc));
     }
 
-    public static void addSpecificTask(String desc, String type){
+    public static void addSpecificTask(String desc, String type) throws InvalidInputException{
         if(type.equals("todo")){
-            tasks[taskCount] = new Todo(desc);
-            taskCount++;
+            taskList.add(new Todo(desc));
         }
         else if(type.equals("deadline")){
             String[] deadlineArr = desc.split(" /by ");
-            tasks[taskCount] = new Deadline(deadlineArr[0], deadlineArr[1]);
-            taskCount++;
+            if(deadlineArr.length < 2){
+                throw new InvalidInputException();
+            }
+            taskList.add(new Deadline(deadlineArr[0], deadlineArr[1]));
         }
         else if(type.equals("event")){
             String[] eventArr = desc.split(" /at ");
-            tasks[taskCount] = new Event(eventArr[0], eventArr[1]);
-            taskCount++;
+            if(eventArr.length < 2){
+                throw new InvalidInputException();
+            }
+            taskList.add(new Event(eventArr[0], eventArr[1]));
         }
     }
 
     public static void printTask(){
-        for(int i = 0; i < taskCount; i ++){
+        for(int i = 0; i < taskList.size(); i ++){
             System.out.print((i + 1) + ". ");
-            tasks[i].printTask();
+            taskList.get(i).printTask();
         }
     }
 
     public static void markTask(String userInput, boolean completed){
         int taskNo = Integer.parseInt(userInput.split(" ")[1]) - 1;
-        tasks[taskNo].setDone(completed);
-        tasks[taskNo].printTask();
+        taskList.get(taskNo).setDone(completed);
+        taskList.get(taskNo).printTask();
     }
 
-    public static void processInput(String input){
+    public static void deleteTask(int no){
+        taskList.remove(no);
+    }
+
+    public static void processInput(String input) throws InvalidInputException{
         if(input.equals("list")){
             System.out.println("=========================================" );
             printTask();
@@ -73,20 +85,33 @@ public class Duke {
         }
         else if(input.startsWith("todo") || input.startsWith("event") || input.startsWith("deadline")){
             String[] userInputArr = input.split(" ", 2);
-            System.out.println("=========================================" );
             if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
+                System.out.println("=========================================" );
                 System.out.println("No task is provided.");
                 return;
             }
             addSpecificTask(userInputArr[1], userInputArr[0]);
+            System.out.println("=========================================" );
             System.out.println("Mission added!");
-            tasks[taskCount - 1].printTask();
-            System.out.println("Now you have " + taskCount + " missions in the list.");
+            taskList.get(taskList.size() - 1).printTask();
+            System.out.println("Now you have " + taskList.size() + " missions in the list.");
 
         }
-        else {
+        else if(input.startsWith("delete")){
+            String[] userInputArr = input.split(" ", 2);
+            if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
+                System.out.println("=========================================" );
+                System.out.println("No task number is provided.");
+                return;
+            }
             System.out.println("=========================================" );
-            System.out.println("What are you trying to here?? Please review your input.");
+            System.out.println("Mission deleted!");
+            taskList.get(Integer.parseInt(userInputArr[1]) - 1).printTask();
+            deleteTask(Integer.parseInt(userInputArr[1]) - 1);
+            System.out.println("Now you have " + taskList.size() + " missions in the list.");
+        }
+        else {
+            throw new InvalidInputException();
         }
     }
 }

@@ -2,6 +2,10 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
+
+    private static Task[] tasks = new Task[100];
+    private static int taskListCount = 0;
+
     public static void printIntroduction() {
         System.out.println("  (\\_/)");
         System.out.println("  (^_^)");
@@ -9,11 +13,16 @@ public class Duke {
         System.out.println("\tHey how's it going? I'm Bugs, a transient robotic bunny.");
         System.out.println("\tHow may I help? (I take carrots as payment)");
     }
+
+    public static void printList() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0 ; i < taskListCount ; i ++) {
+            System.out.println( (i+1)+"."+tasks[i] ); //+1 to i here due to numbering
+        }
+    }
+
     public static void chatting() {
         printIntroduction();
-
-        String[] tasks = new String[100];
-        int taskList = 0;
 
         Scanner input = new Scanner(System.in);
         String response;
@@ -27,11 +36,26 @@ public class Duke {
             }
 
             if (response.equals("list")) {
-                System.out.println("\t" + Arrays.toString(Arrays.copyOf(tasks,taskList)));
+                printList();
                 continue;
             }
-            tasks[taskList] = response;
-            taskList ++;
+
+            if ( response.contains("mark") ) {
+                if ( response.contains("unmark")) {
+                    int taskToChange = Integer.parseInt(response.split(" ")[1]);
+                    tasks[taskToChange].setDone(false);
+                    System.out.println(tasks[taskToChange].getTask() + "set to undone.");
+                    continue;
+                }
+                int taskToChange = Integer.parseInt(response.split(" ")[1]);
+                tasks[taskToChange].setDone(true);
+                System.out.println(tasks[taskToChange - 1].getTask() + " set to done.");
+                continue;
+            }
+            //bugs 2 - can't mark just "mark"
+
+            tasks[taskListCount] = new Task(response);
+            taskListCount ++;
             System.out.println("\tAdded: " + response);
         }
     }

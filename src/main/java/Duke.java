@@ -67,7 +67,7 @@ public class Duke {
             else if (Enter.contains("event")) {
                 Enter = Enter.replace("event", "");
                 String [] str_list = Enter.split("/at");
-                tl.addDeadline(str_list[0],str_list[1]);
+                tl.addEvent(str_list[0],str_list[1]);
             }
 
             else if (Enter.equals("list")) {

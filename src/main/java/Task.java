@@ -11,9 +11,6 @@ public abstract class Task {
         return m_type;
     }
 
-    public Task(){
-
-    }
 
     public Task(String description) {
         this.description = description;

@@ -8,12 +8,6 @@ public class Event extends Task {
         setType("E");
     }
 
-    public void setAt(String at) {
-        this.at = at;
-    }
-    public String getAt() {
-        return at;
-    }
 
     @Override
     public void print(int index) {

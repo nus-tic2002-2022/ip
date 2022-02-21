@@ -1,9 +1,7 @@
 
 public class Deadline extends Task {
 
-    /*protected String description;
-    protected boolean isDone;*/
-    protected String taskType;
+    protected String taskType = "D";
     protected int index = 0;
 
     public Deadline(String description) {
@@ -12,16 +10,8 @@ public class Deadline extends Task {
 
     @Override
     public void getTask () {
-        taskType = "D";
         System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription());
     }
-
-    /*public Deadline(String description) {
-        index = description.indexOf('/');
-        this.description = description.substring(0, index-1) + "(by:" + description.substring(index+3,description.length()) + ")";
-        this.isDone = false;
-        this.taskType = "D";
-    }*/
 
     /*public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X

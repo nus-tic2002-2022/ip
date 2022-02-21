@@ -1,9 +1,7 @@
 
 public class Todo extends Task {
 
-    /*protected String description;
-    protected boolean isDone;*/
-    protected String taskType;
+    protected String taskType = "T";
 
     public Todo(String description) {
         super(description);
@@ -11,7 +9,6 @@ public class Todo extends Task {
 
     @Override
     public void getTask () {
-        taskType = "T";
         System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription());
     }
 

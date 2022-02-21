@@ -4,7 +4,7 @@ public class Todo extends Task {
     protected String taskType = "T";
 
     public Todo(String description) {
-        super(description);
+        super(description.trim());
     }
 
     @Override

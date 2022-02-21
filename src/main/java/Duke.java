@@ -9,12 +9,9 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         int status = 0;
-        //String[] list = new String[100]; //To delete
-        int counter = 0;
-        //Task task; //To delete
-        //Task task = new Task(); //To delete
-
         int index = 0;
+
+        //int counter = 0; //to delete
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -46,31 +43,29 @@ public class Duke {
                 System.out.println("Now you have " + list.size() + " task(s) in the list.");
                 continue;
             } else if (line.startsWith("todo ")) {
-                //list.addTask(line); //to delete
-                list.add(new Todo(line));
-                //list.getNewTask(); //to delete
+                list.add(new Todo(line.substring(5,line.length())));
                 // print newly added tasks -- TODO Perhaps can make as a function
                 System.out.println("Nice! I've added this task: ");
-                //System.out.println("[" + list.get(list.size()-1).getTaskType() + "] [" + list.get(list.size()-1).getStatusIcon() + "] " + list.get(list.size()-1).getDescription()); //to delete
                 list.get(list.size()-1).getTask();
                 System.out.println("Now you have " + list.size() + " task(s) in the list.");
-                counter += 1;
+                //System.out.println("[" + list.get(list.size()-1).getTaskType() + "] [" + list.get(list.size()-1).getStatusIcon() + "] " + list.get(list.size()-1).getDescription()); //to delete
+                //counter += 1; //to delete
                 continue;
             } else if (line.startsWith("deadline ")) {
-                list.add(new Deadline(line));
+                list.add(new Deadline(line.substring(9,line.length())));
                 // print newly added tasks -- TODO Perhaps can make as a function
                 System.out.println("Nice! I've added this task: ");
                 list.get(list.size()-1).getTask();
                 System.out.println("Now you have " + list.size() + " task(s) in the list.");
-                counter += 1;
+                //counter += 1; //to delete
                 continue;
             } else if (line.startsWith("event ")) {
-                list.add(new Event(line));
+                list.add(new Event(line.substring(6,line.length())));
                 // print newly added tasks -- TODO Perhaps can make as a function
                 System.out.println("Nice! I've added this task: ");
                 list.get(list.size()-1).getTask();
                 System.out.println("Now you have " + list.size() + " task(s) in the list.");
-                counter += 1;
+                //counter += 1; //to delete
                 continue;
             } else if (line.startsWith("mark ")) {
                 index = Integer.parseInt(line.substring(line.indexOf("mark ") + 5, line.length()));

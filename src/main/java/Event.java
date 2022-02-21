@@ -2,15 +2,16 @@
 public class Event extends Task {
 
     protected String taskType = "E";
-    protected int index = 0;
+    protected String at;
 
     public Event(String description) {
-        super(description);
+        super(description.substring(0,description.lastIndexOf("/") -1).trim());
+        this.at = description.substring(description.lastIndexOf("/") + 3, description.length()).trim();
     }
 
     @Override
     public void getTask () {
-        System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription());
+        System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (at: " + at + ")");
     }
 
     /*public String getStatusIcon() {

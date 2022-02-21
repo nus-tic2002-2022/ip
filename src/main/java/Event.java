@@ -14,25 +14,4 @@ public class Event extends Task {
         System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (at: " + at + ")");
     }
 
-    /*public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
-
-    public String getTaskType() { return (taskType); }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean getIsDone() { return isDone; }
-
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
-    }*/
-
-
 }

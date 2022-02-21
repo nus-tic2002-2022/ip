@@ -2,13 +2,53 @@ import java.util.*;
 
 public class Task {
 
-    ArrayList<Todo> Task = new ArrayList<>(); // ArrayList of Tasks
+    //ArrayList<Todo> Task = new ArrayList<>(); // ArrayList of Tasks
 
+    protected String description;
+    protected boolean isDone;
+    //protected String taskType;
+
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    //public String getTaskType() { return (taskType); }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getIsDone() { return isDone; }
+
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    public void markAsNotDone() {
+        isDone = false;
+    }
+
+    public void getTask () {
+        System.out.println("[" + getStatusIcon() + "] " + getDescription());
+    }
+
+    ////waittttt
+
+/*
     public void addTask (String description) {
         Task.add(new Todo(description));
     }
+*/
+    /*public void addDeadline (String description) {
+        Task.add(new Deadline(description));
+    }*/
 
-    public void getNewTask () {
+/*  public void getNewTask () { //changed to getTask()
         System.out.println("Nice! I've added this task: ");
         System.out.println("[" + Task.get(Task.size()-1).getTaskType() + "] [" + Task.get(Task.size()-1).getStatusIcon() + "] " + Task.get(Task.size()-1).getDescription());
         System.out.println("Now you have " + Task.size() + " task(s) in the list.");
@@ -36,6 +76,6 @@ public class Task {
             }
         }
         System.out.println("Now you have " + Task.size() + " task(s) in the list.");
-    }
+    }*/
 
 }

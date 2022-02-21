@@ -1,27 +1,29 @@
 
-public class Todo extends Task {
+public class Deadline extends Task {
 
     /*protected String description;
     protected boolean isDone;*/
     protected String taskType;
+    protected int index = 0;
 
-    public Todo(String description) {
+    public Deadline(String description) {
         super(description);
     }
 
     @Override
     public void getTask () {
-        taskType = "T";
+        taskType = "D";
         System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription());
     }
 
-    /*public Todo(String description) {
-        this.description = description;
+    /*public Deadline(String description) {
+        index = description.indexOf('/');
+        this.description = description.substring(0, index-1) + "(by:" + description.substring(index+3,description.length()) + ")";
         this.isDone = false;
-        this.taskType = "T";
-    }
+        this.taskType = "D";
+    }*/
 
-    public String getStatusIcon() {
+    /*public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 

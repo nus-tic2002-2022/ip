@@ -26,14 +26,37 @@ public class Duke {
                 } else if(text.startsWith("unmark")){
                     System.out.println(TaskHandler.unmark(text));
                 } else if(text.startsWith("todo")){
-                    System.out.println(TaskHandler.todo(text));
+                    if(text.contains("todo ") && text.length()>5){
+                        System.out.println(TaskHandler.todo(text));
+                    }else {
+                        throw new ExceptionEmpty();
+                    }
+
                 } else if(text.startsWith("deadline")){
-                    System.out.println(TaskHandler.deadline(text));
+                    if(text.contains("deadline ") && text.length()>9){
+                        System.out.println(TaskHandler.todo(text));
+                    }else {
+                        throw new ExceptionEmpty();
+                    }
                 } else if(text.startsWith("event")){
-                    System.out.println(TaskHandler.event(text));
-                } else{
-                    task = new Task(text);
-                    taskList.add(task);
+                    if(text.contains("event ") && text.length()>6){
+                        System.out.println(TaskHandler.todo(text));
+                    }else {
+                        throw new ExceptionEmpty();
+                    }
+                } else if(text.startsWith("delete")){
+                    if(text.contains("delete ") && text.length()>7){
+                        System.out.println(TaskHandler.delete(text));
+                    }else {
+                        throw new ExceptionEmpty();
+                    }
+                }else{
+                    if(!text.startsWith("todo") ||!text.startsWith("delete") ||!text.startsWith("deadline")||!text.startsWith("event")||!text.startsWith("mark")||!text.startsWith("unmark")||!text.startsWith("list")) {
+                        throw new ExceptionErrorMessage();
+                    }else{
+                        task = new Task(text);
+                        taskList.add(task);
+                    }
                 }
             } catch (Exception e) {
                 System.out.println(e.toString());

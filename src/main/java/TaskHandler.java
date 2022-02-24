@@ -74,6 +74,16 @@ public class TaskHandler {
         TaskList.getTaskLists().add(event);
         return printTask(event);
     }
+    public String delete(String t) {
+        String[] v1 = t.split(" ");
+        if (v1[1].length() == 0){
+            System.out.println("Unknown input..");
+        }
+        int v =Integer.valueOf(v1[1]);
+        String task =  TaskList.getTaskLists().get(v) + "\n";
+        TaskList.getTaskLists().remove(v);
+        return "Noted. I've removed this task:" + "\n" +task + "Now you have " + TaskList.getTaskLists().size() + " tasks in the list.";
+    }
     public String printTask(Task task){
         return "Got it, I've added this task:" + "\n"
                 + "  " + task + "\n"

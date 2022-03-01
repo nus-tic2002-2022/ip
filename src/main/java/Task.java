@@ -28,6 +28,6 @@ public class Task {
         } else {
             status = "[ ]";
         }
-        return status + "" + this.description;
+        return status + " " + this.description;
     }
 }

@@ -246,7 +246,9 @@ public class Duke {
                         System.out.println("Sir, May i remind you to insert a Todo task to do");}
                 }
             }
-            else{System.out.println("Sir, May I remind you to use functions: Todo, delete, deadline, event, list, mark, unmark and bye");
+            else{
+                printline();
+                System.out.println("Sir, May I remind you to use functions: Todo, delete, deadline, event, list, mark, unmark and bye");
             }
             printline();
         }

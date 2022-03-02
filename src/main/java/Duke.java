@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 public class Duke {
 
     //public static ArrayList<String> buffer = new ArrayList<>();
@@ -13,13 +14,7 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you");
 
-       /*try {
-            echo.greet();
-        } catch (DukeException e) {
-            e.printStackTrace();
-        }*/
         echo.greet();
-
 
     }
 }

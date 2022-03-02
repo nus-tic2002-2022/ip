@@ -8,6 +8,6 @@ public class Deadlines extends Task{
         this.by = by;
     }
     public String getStatus() {
-        return (isDone ? "[D][X] " + this.description  + " (by: " +by +")": "[D][ ]" + this.description  + " (by: " +by +")");
+        return (isDone ? "[D][X] " + this.description  + "(" +by +")" : "[D][ ]" + this.description +"("+by +")");
     }
 }

@@ -18,12 +18,6 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         System.out.println("Hello from\n" + logo);
-        System.out.println("Here are the commands you can type: ");
-        System.out.println("1. type 'bye' to escape");
-        System.out.println("2. type 'list' to check your list");
-        System.out.println("3. type 'todo <add task here>' (e.g. todo read a book)");
-        System.out.println("4. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)");
-        System.out.println("5. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)");
 
         do {
 
@@ -92,7 +86,7 @@ public class Duke {
             } else if (line.startsWith("mark ")) {
                 index = Integer.parseInt(line.substring(line.indexOf("mark ") + 5, line.length()));
                 if (index -1 >= list.size()) {
-                    System.out.println("Sorry, you have chosen the item number you choose to mark is too big. type 'mark <add number that is within the list here>'.");
+                    System.out.println("Sorry, you have chosen the item number you choose to mark is out of range. type 'mark <add number that is within the list here>'.");
                     throw new IllegalCommandException();
                 }
                 list.get(index - 1).markAsDone();
@@ -102,12 +96,23 @@ public class Duke {
             } else if (line.startsWith("unmark ")) {
                 index = Integer.parseInt(line.substring(line.indexOf("unmark ") + 7, line.length()));
                 if (index -1 >= list.size()) {
-                    System.out.println("Sorry, you have chosen the item number you choose to unmark is too big. type 'unmark <add number that is within the list here>'.");
+                    System.out.println("Sorry, you have chosen the item number you choose to unmark is out of range. type 'unmark <add number that is within the list here>'.");
                     throw new IllegalCommandException();
                 }
                 list.get(index - 1).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet: ");
                 list.get(index - 1).getTask();
+                continue;
+            } else if (line.startsWith("delete ")) {
+                index = Integer.parseInt(line.substring(line.indexOf("delete ") + 7, line.length()));
+                if (index -1 >= list.size()) {
+                    System.out.println("Sorry, you have chosen the item number you choose to delete is out of range. type 'delete <add number that is within the list here>'.");
+                    throw new IllegalCommandException();
+                }
+                System.out.println("Noted. I've removed this task: ");
+                list.get(index - 1).getTask();
+                list.remove(index - 1);
+                System.out.println("Now you have " + list.size() + " task(s) in the list.");
                 continue;
             } else {
                 System.out.println("Sorry, I don't understand. Please try the following commands instead:");

@@ -14,4 +14,10 @@ public class Todo extends Task {
         }
         System.out.println("[T][" + status + "] " + description);
     }
+
+    @Override
+    public String toFileString(){
+        String status = done ? "1" : "0";
+        return "T|" + status + "|" + description;
+    }
 }

@@ -17,5 +17,11 @@ public class Deadline extends Task  {
         }
         System.out.println("[D][" + status + "] " + description + " (by: " + by + ")");
     }
+
+    @Override
+    public String toFileString(){
+        String status = done ? "1" : "0";
+        return "D|" + status + "|" + description + "|" + by;
+    }
     
 }

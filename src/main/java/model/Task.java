@@ -25,4 +25,8 @@ public class Task {
         }
         System.out.println("[" + status + "] " + description);
     }
+
+    public String toFileString(){
+        return "";
+    }
 }

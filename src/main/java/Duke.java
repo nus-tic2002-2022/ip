@@ -1,12 +1,10 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import model.*;
 import exception.*;
+import static input.User.*;
 
 public class Duke {
-    private static ArrayList<Task> taskList = new ArrayList<>();
-
     public static void main(String[] args) {
+        retrieveInitData();
         System.out.println("-______________________-||");
         System.out.println("Hello! I am the most superior AI~~ Friday");
         System.out.println("What can I do for you?");
@@ -27,53 +25,14 @@ public class Duke {
         }
         System.out.println("=========================================" );
         System.out.println("Bye. Hope to see you again! Love you 3000 <3");
-    }
-
-    public static void addTask(String desc){
-        taskList.add(new Task(desc));
-    }
-
-    public static void addSpecificTask(String desc, String type) throws InvalidInputException{
-        if(type.equals("todo")){
-            taskList.add(new Todo(desc));
-        }
-        else if(type.equals("deadline")){
-            String[] deadlineArr = desc.split(" /by ");
-            if(deadlineArr.length < 2){
-                throw new InvalidInputException();
-            }
-            taskList.add(new Deadline(deadlineArr[0], deadlineArr[1]));
-        }
-        else if(type.equals("event")){
-            String[] eventArr = desc.split(" /at ");
-            if(eventArr.length < 2){
-                throw new InvalidInputException();
-            }
-            taskList.add(new Event(eventArr[0], eventArr[1]));
-        }
-    }
-
-    public static void printTask(){
-        for(int i = 0; i < taskList.size(); i ++){
-            System.out.print((i + 1) + ". ");
-            taskList.get(i).printTask();
-        }
-    }
-
-    public static void markTask(String userInput, boolean completed){
-        int taskNo = Integer.parseInt(userInput.split(" ")[1]) - 1;
-        taskList.get(taskNo).setDone(completed);
-        taskList.get(taskNo).printTask();
-    }
-
-    public static void deleteTask(int no){
-        taskList.remove(no);
+        in.close();
     }
 
     public static void processInput(String input) throws InvalidInputException{
         if(input.equals("list")){
             System.out.println("=========================================" );
             printTask();
+            return;
         }
         else if(input.startsWith("mark")){
             System.out.println("=========================================" );
@@ -92,11 +51,10 @@ public class Duke {
                 System.out.println("No task is provided.");
                 return;
             }
-            addSpecificTask(userInputArr[1], userInputArr[0]);
             System.out.println("=========================================" );
             System.out.println("Mission added!");
-            taskList.get(taskList.size() - 1).printTask();
-            System.out.println("Now you have " + taskList.size() + " missions in the list.");
+            addSpecificTask(userInputArr[1], userInputArr[0]).printTask();
+            System.out.println("Now you have " + getTaskList() + " missions in the list.");
 
         }
         else if(input.startsWith("delete")){
@@ -108,12 +66,12 @@ public class Duke {
             }
             System.out.println("=========================================" );
             System.out.println("Mission deleted!");
-            taskList.get(Integer.parseInt(userInputArr[1]) - 1).printTask();
-            deleteTask(Integer.parseInt(userInputArr[1]) - 1);
-            System.out.println("Now you have " + taskList.size() + " missions in the list.");
+            deleteTask(Integer.parseInt(userInputArr[1]) - 1).printTask();
+            System.out.println("Now you have " + getTaskList() + " missions in the list.");
         }
         else {
             throw new InvalidInputException();
         }
+        saveData();
     }
 }

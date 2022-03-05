@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import model.*;
+import exception.*;
 
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<>();

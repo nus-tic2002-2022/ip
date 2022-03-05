@@ -22,4 +22,9 @@ public class Task {
         this.isDone = false;
     }
 
+    //Adding tod0 task at parent class
+    public String toString() {
+        return ( "[" + this.getStatusIcon() + "] " + description);
+    }
+
 }

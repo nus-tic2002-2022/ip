@@ -126,6 +126,18 @@ public class Duke {
         }
     }
 
+    public static String deleteTask (int index, List<Task> toDoList) throws DukeException{
+        String output = "";
+        if (index > -1 && index < toDoList.size()) {
+            output = toDoList.get(index).getTask();
+            toDoList.remove(index);
+        }
+        else {
+            throw new DukeException("Out of Range");
+        }
+        return output;
+    }
+
     public static void checkToDoList(List <Task> toDoList, int index) throws DukeException{
         if (index > toDoList.size()) {
             throw new DukeException("Out of Range");
@@ -186,7 +198,7 @@ public class Duke {
                 System.out.println("\t\t\t\t\t\t\t\t Haro ! Yes " + reply + " ! Here is the updated list ! Haro !");
             }
             else {
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! Another done from the list ! Haro !");
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Update ! Haro ! Update list ! Haro !");
             }
         }
         else if (code == 5) {
@@ -229,6 +241,20 @@ public class Duke {
             }
             else {
                 System.out.println("\t\t\t\t\t\t\t\t Haro ! Unable to proceed with command due to non-numerical index input ! Haro !");
+            }
+        }
+        else if (code == 8) {
+            System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(3);
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! \" " + reply + " \" has been deleted from the list ! Haro !");
+            }
+            else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Understood ! Haro has removed \" " + reply + " \" from the list ! Haro !");
+            }
+            else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Roger that ! \" " + reply + " \" has been removed from the list ! Haro !");
             }
         }
         else if (code == 0){
@@ -373,6 +399,20 @@ public class Duke {
                     code = -3;
                 }
             }
+            else if (inputContent[0].equalsIgnoreCase("delete")) {
+                code = 8;
+                try {
+                    int deleteIndex = Integer.parseInt(inputContent[1]) - 1;
+                    reply = deleteTask(deleteIndex, toDoList);
+                } catch (DukeException e) {
+                    System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! You have entered an invalid command for \" delete \" ! Haro ");
+                    if (e.getError().equalsIgnoreCase("Out of Range")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! Error ! Please enter a valid index ! Haro ");
+                    }
+                    code = -3;
+                }
+            }
             else if (inputContent[0].equalsIgnoreCase("mark")) {
                 boolean check = true;
                 for (int i = 0; i < inputContent[1].length(); i++){
@@ -461,7 +501,16 @@ public class Duke {
             }
             else if (code == 2) {
                 printReply(reply, code);
-                System.out.println("\t\t\t\t\t\t\t\t Haro ! You now have " + toDoList.size() + " tasks in the list ! Haro !");
+                if (!toDoList.isEmpty()) {
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! You now have " + toDoList.size() + " tasks in the list ! Haro !");
+                }
+            }
+            else if (code == 8) {
+                printReply(reply, code);
+                printToDoList(toDoList);
+                if (!toDoList.isEmpty()) {
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! You now have " + toDoList.size() + " tasks in the list ! Haro !");
+                }
             }
             else if (code == -2) {
                 printToDoList(toDoList);

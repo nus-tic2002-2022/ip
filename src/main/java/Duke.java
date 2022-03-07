@@ -1,5 +1,8 @@
 import java.lang.*;
 import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
@@ -142,6 +145,65 @@ public class Duke {
         if (index > toDoList.size()) {
             throw new DukeException("Out of Range");
         }
+    }
+
+    public static void saveList(String filePath, List <Task> toDoList) throws DukeException, IOException {
+        int createNew = 0;
+        if (toDoList.size() == 0) {
+            throw new DukeException("Empty List");
+        }
+        String textToAdd = "| index | type | status | task (Deadline / Duration) ";
+
+        File f = new File(filePath);
+        if (f.createNewFile()){
+            createNew = 1;
+        }
+
+        int index = 1;
+        for (Task t : toDoList) {
+            textToAdd = textToAdd + "\n";
+            String task = t.toString();
+            char type = task.charAt(1);
+            String cur_task = "";
+
+            String status = "";
+            if (t.getTaskStatus()) {
+                status = " Done ";
+                cur_task = task.substring(11);
+            } else {
+                status = "      ";
+                cur_task = task.substring(9);
+            }
+            textToAdd = textToAdd + "|   " + index + ".  |  " + Character.toString(type) + "   | " + status + " | " + cur_task;
+            index++;
+        }
+
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+
+        System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(3);
+        if (createNew == 0) {
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Duke.txt has been updated the data folder according to the list ! Haro !");
+            } else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Haro updated Duke.txt according to the list ! Haro !");
+            } else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Roger that ! Successfully updated Duke.txt in data folder ! Haro !");
+            }
+        }
+        else {
+            if (randomNumber == 0) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Duke.txt has been created in the data folder with to the list content ! Haro !");
+            } else if (randomNumber == 1) {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Haro created Duke.txt in data folder according to the current list ! Haro !");
+            } else {
+                System.out.println("\t\t\t\t\t\t\t\t Haro ! Roger that ! Successfully created Duke.txt in data folder with list content ! Haro !");
+            }
+        }
+
     }
 
     public static void printReply(String reply, int code) {
@@ -469,6 +531,23 @@ public class Duke {
                     } else {
                         code = 6;
                     }
+                }
+            }
+            else if (inputContent[0].equalsIgnoreCase("save")) {
+                code = -3;
+                String file = "data/Duke.txt";
+                File f = new File(file);
+                try {
+                    saveList(file, toDoList);
+                } catch (DukeException e) {
+                    System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! Error ! Unable to save the list ! Haro ");
+                    if (e.getError().equalsIgnoreCase("Empty List")) {
+                        System.out.println("\t\t\t\t\t\t\t\t Haro ! The list is empty ! Haro ");
+                    }
+                } catch (IOException e) {
+                    System.out.println("\t\t\t\t\t\t\t\t HARO : ");
+                    System.out.println("\t\t\t\t\t\t\t\t Haro ! Error ! Something is wrong ! Haro ");
                 }
             }
             else if (inputContent[0].equalsIgnoreCase("echo")) {

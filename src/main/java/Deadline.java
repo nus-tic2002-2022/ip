@@ -18,6 +18,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String output = super.toString();
-       return output.substring(0,1) + 'D' + output.substring(2) + "\t" + by;
+        return output.substring(0,1) + 'D' + output.substring(2) + "\t" + by;
     }
 }

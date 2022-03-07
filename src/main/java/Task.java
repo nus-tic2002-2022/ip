@@ -1,4 +1,9 @@
 public class Task {
+
+    enum taskType {
+        TODOS,DEADLINES,EVENTS
+    }
+
     protected String task;
     protected boolean done;
 

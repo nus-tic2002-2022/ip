@@ -1,4 +1,3 @@
-public class MessageNotRecognizedException extends Exception{
-    
+public class DukeException extends Exception{
 
 }

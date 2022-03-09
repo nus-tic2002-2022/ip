@@ -17,6 +17,13 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
+        String command = "Here are the commands you can type: \n"
+                + "1. type 'bye' to escape\n"
+                + "2. type 'list' to check your list\n"
+                + "3. type 'todo <add task here>' (e.g. todo read a book)\n"
+                + "4. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)\n"
+                + "5. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)\n";
+
         System.out.println("Hello from\n" + logo);
 
         do {
@@ -29,12 +36,7 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 status = 1; // can escape
             } else if (line.toLowerCase().equals("commands")) {
-                System.out.println("Here are the commands you can type: ");
-                System.out.println("1. type 'bye' to escape");
-                System.out.println("2. type 'list' to check your list");
-                System.out.println("3. type 'todo <add task here>' (e.g. todo read a book)");
-                System.out.println("4. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)");
-                System.out.println("5. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)");
+                System.out.println(command);
             } else if (line.toLowerCase().equals("list")) { //Print list
                 if (list.size() == 0) {
                     System.out.println("There is nothing on the list! :)");
@@ -115,12 +117,7 @@ public class Duke {
                 System.out.println("Now you have " + list.size() + " task(s) in the list.");
                 continue;
             } else {
-                System.out.println("Sorry, I don't understand. Please try the following commands instead:");
-                System.out.println("1. type 'bye' to escape");
-                System.out.println("2. type 'list' to check your list");
-                System.out.println("3. type 'todo <add task here>' (e.g. todo read a book)");
-                System.out.println("4. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)");
-                System.out.println("5. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)");
+                System.out.println("Sorry, I don't understand. " + command);
                 throw new IllegalCommandException();
             }
 

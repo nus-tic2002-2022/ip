@@ -12,31 +12,9 @@ public class Todo extends Task {
         System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription());
     }
 
-    /*public Todo(String description) {
-        this.description = description;
-        this.isDone = false;
-        this.taskType = "T";
+    public void printTask () {
+        System.out.println("Nice! I've added this task: ");
+        getTask ();
     }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
-
-    public String getTaskType() { return (taskType); }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean getIsDone() { return isDone; }
-
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
-    }*/
-
 
 }

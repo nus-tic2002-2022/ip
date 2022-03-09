@@ -37,6 +37,8 @@ public class Duke {
                 status = 1; // can escape
             } else if (line.toLowerCase().equals("commands")) {
                 System.out.println(command);
+            } else if (line.toLowerCase().equals("logo")) {
+                System.out.println(logo);
             } else if (line.toLowerCase().equals("list")) { //Print list
                 if (list.size() == 0) {
                     System.out.println("There is nothing on the list! :)");

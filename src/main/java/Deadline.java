@@ -14,6 +14,10 @@ public class Deadline extends Task {
         System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")");
     }
 
+    public String toString () {
+        return "[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")";
+    }
+
     public void printTask () {
         System.out.println("Nice! I've added this task: ");
         getTask ();

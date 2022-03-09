@@ -12,6 +12,10 @@ public class Todo extends Task {
         System.out.println("[" + taskType + "] [" + getStatusIcon() + "] " + getDescription());
     }
 
+    public String toString () {
+        return "[" + taskType + "] [" + getStatusIcon() + "] " + getDescription();
+    }
+
     public void printTask () {
         System.out.println("Nice! I've added this task: ");
         getTask ();

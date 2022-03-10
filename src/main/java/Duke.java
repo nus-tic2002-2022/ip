@@ -3,107 +3,175 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    // Declarations
+    //Declarations
     static String line;
     static List<Task> tasks = new ArrayList<Task>();
 
+    //Print Line
+    public static void printLine() {
+        System.out.println("\t------------------------------------------\n");
+    }
+
+    //Print Line with Message
+    public static void printLine(String message) {
+        System.out.println("\t" + message);
+    }
+
+    //Function to list all the tasks
     public static void listTask() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i) != null)
-                System.out.println((i + 1) + "." + tasks.get(i).toString());
+        //Check if there are tasks in the list or not
+        if (tasks.size() == 0) {
+            printLine("There is no tasks in your list.");
+            printLine();
         }
-        System.out.println("------------------------------------------\n");
+        //Print the list
+        else {
+            printLine("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i) != null)
+                    printLine((i + 1) + "." + tasks.get(i).toString());
+            }
+            printLine();
+        }
     }
 
-    public static void unmarkTask() {
+    //Function to unmark the tasks
+    public static void unmarkTask() throws DukeException {
+        //Check if user key in empty number
+        if (line.trim().equals(Command.UNMARK.getCommand()))
+            throw new DukeException("☹ OOPS!!! The index that want to unmark cannot be empty.");
+
         int get_unmark = Integer.parseInt(line.substring(7)) - 1;
-        Task unmark_task = tasks.get(get_unmark);
-        unmark_task.markAsNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + unmark_task.getStatusIcon() + "] " + unmark_task.description);
-        System.out.println("------------------------------------------\n");
+        //Check if user key in invalid number
+        if (get_unmark <= 0 || get_unmark > tasks.size())
+            throw new DukeException("☹ OOPS!!! The index that want to unmark is not in the list.");
+            //Else unmark the task
+        else {
+            Task unmark_task = tasks.get(get_unmark);
+            //check if the task that user want to unmark is marked or not
+            if (unmark_task.getStatusIcon().equals(" "))
+                throw new DukeException("☹ OOPS!!! This task is not marked yet.");
+            unmark_task.markAsNotDone();
+            printLine("OK, I've marked this task as not done yet:");
+            printLine("[" + unmark_task.getStatusIcon() + "] " + unmark_task.description);
+            printLine();
+        }
     }
 
+    //Function to mark the tasks
     public static void markTask() throws DukeException {
+        //Check if user key empty number
+        if (line.trim().equals(Command.MARK.getCommand()))
+            throw new DukeException("☹ OOPS!!! The index that want to mark cannot be empty.");
+
         int get_mark = Integer.parseInt(line.substring(5)) - 1;
-        String toStore = line.substring(5);
-        Task mark_task = tasks.get(get_mark);
-        if (toStore.equals(""))
-            throw  new DukeException("☹ OOPS!!! Please type the number you want to mark.");
-        else
-        {
+
+        //Check if user key in invalid number
+        if (get_mark <= 0 || get_mark > tasks.size())
+            throw new DukeException("☹ OOPS!!! The index that want to mark is not in the list.");
+            //Else unmark the task
+        else {
+            Task mark_task = tasks.get(get_mark);
             mark_task.markAsDone();
-            System.out.println("Nice! I've marked this task as done");
-            System.out.println("[" + mark_task.getStatusIcon() + "] " + mark_task.description);
-            System.out.println("------------------------------------------\n");
+            printLine("Nice! I've marked this task as done");
+            printLine("[" + mark_task.getStatusIcon() + "] " + mark_task.description);
+            printLine();
         }
-
     }
 
+    //Function to add todo tasks to list
     public static void todoTask() throws DukeException {
-        String toStore = line.substring(5);
-            Task tsk = new Todo(toStore);
-        if (toStore.equals(""))
-            throw  new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
-
-        else{
-            tasks.add(tsk);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(tsk);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("------------------------------------------\n");
-        }
+        //Check whether todo description is empty or not
+        if (line.trim().equals(Command.TODO.getCommand()))
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        //Else add todo tasks to list
+        Task tsk = new Todo(line.substring(5));
+        tasks.add(tsk);
+        printLine("Got it. I've added this task:");
+        printLine(tsk.toString());
+        printLine("Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
     }
-    public static void deleteTask() {
+
+    //Function to delete tasks
+    public static void deleteTask() throws DukeException {
+        //Check whether user key in empty number or not
+        if (line.trim().equals(Command.DELETE.getCommand()))
+            throw new DukeException("☹ OOPS!!! The index that want to delete cannot be empty.");
 
         int get_index = Integer.parseInt(line.substring(7)) - 1;
+        //Check if user key in invalid number
+        if (get_index <= 0 || get_index > tasks.size()) {
+            throw new DukeException("☹ OOPS!!! There is no such task to delete.");
+        }
+        //Else delete the task
         Task toDelete = tasks.get(get_index);
         tasks.remove(get_index);
-        System.out.println("Noted. I've removed this task");
-        System.out.println(toDelete.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("------------------------------------------\n");
-
+        printLine("Noted. I've removed this task");
+        printLine(toDelete.toString());
+        printLine("Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
     }
 
-    public static void eventTask() {
+    //Function to add event tasks to list
+    public static void eventTask() throws DukeException {
+        //Check if the event description is empty or not
+        if (line.trim().equals(Command.EVENT.getCommand()))
+            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+        //Find the position of "/"
         int buffer = line.indexOf("/");
 
-        // Initiate Event Class
-        Task deadline = new Event(line.substring(6, buffer - 1), line.substring(buffer + 4));
-        tasks.add(deadline);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(deadline.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("------------------------------------------\n");
+        String eventName = line.substring(6, buffer - 1);
+        String date = line.substring(buffer + 4);
+        //Check if user key in empty event description or event date
+        if (eventName.equals("") || date.equals("")) {
+            throw new DukeException("☹ OOPS!!! The description of an event or date of the event cannot be empty.");
+        }
+        //Else add event tasks to list
+        Task event = new Event(eventName, date);
+        tasks.add(event);
+        printLine("Got it. I've added this task:");
+        printLine(event.toString());
+        printLine("Now you have " + tasks.size() + " tasks in the list.");
+        printLine("------------------------------------------\n");
+
     }
 
-    public static void deadlineTask() {
+    //Function to add deadline tasks to list
+    public static void deadlineTask() throws DukeException {
+        //Check if the deadline description is empty or not
+        if (line.trim().equals(Command.DEADLINE.getCommand()))
+            throw new DukeException("☹ OOPS!!! The description of an deadline cannot be empty.");
+        //Find the position of "/"
         int buffer = line.indexOf("/");
-        Task deadline = new Deadline(line.substring(9, buffer - 1), line.substring(buffer + 4));
+
+        String deadlineName = line.substring(9, buffer - 1);
+        String date = line.substring(buffer + 4);
+        //Check if user key in empty deadline description or deadline date
+        if (deadlineName.equals("") || date.equals("")) {
+            throw new DukeException("☹ OOPS!!! The description of an deadline or date of the deadline cannot be empty.");
+        }
+        //Else add deadline tasks to list
+        Task deadline = new Deadline(deadlineName, date);
         tasks.add(deadline);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(deadline.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("------------------------------------------\n");
+        printLine("Got it. I've added this task:");
+        printLine(deadline.toString());
+        printLine("Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
     }
 
+    //Function to exit program if user type "bye"
     public static void byeTask() {
-        System.out.println("Bye. Summon me when you need me again!");
-        System.out.println("------------------------------------------\n");
+        printLine("Bye. Summon me when you need me again!");
+        printLine();
         System.exit(0);
     }
 
-    private static void addTask() {
-
-        System.out.println("\tAdded: " + line);
-        System.out.println("------------------------------------------\n");
-
-        Task t = new Task(line);
-        t.description = line;
-        tasks.add(t);
+    //Function for invalid command
+    public static void errorTask() throws DukeException {
+        throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-( ");
     }
+
     // Program Start
     public static void start() {
 
@@ -112,61 +180,87 @@ public class Duke {
         while (true) {
             // Scan user input
             line = in.nextLine();
-            System.out.println("------------------------------------------\n");
+            printLine();
             // List down all the added items when user type "list"
-            if (line.equals(Command.LIST.getCommand())) {
+            if (line.trim().equals(Command.LIST.getCommand())) {
                 listTask();
             }
             // Mark the task when user type "unmark"
             else if (line.contains(Command.UNMARK.getCommand())) {
-                unmarkTask();
+                try {
+                    unmarkTask();
+                } catch (NullPointerException | DukeException e) {
+                    printLine(e.getMessage());
+                    printLine();
+                }
             }
             // Mark the task when user type "mark"
             else if (line.contains(Command.MARK.getCommand())) {
                 try {
                     markTask();
                 } catch (NullPointerException | DukeException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("------------------------------------------\n");
+                    printLine(e.getMessage());
+                    printLine();
                 }
             }
             // Set deadline when user type "deadline"
             else if (line.contains(Command.DEADLINE.getCommand())) {
-                deadlineTask();
+                try {
+                    deadlineTask();
+                } catch (DukeException e) {
+                    printLine(e.getMessage());
+                    printLine();
+                }
             }
             // Set todo when user type "todo"
             else if (line.contains(Command.TODO.getCommand())) {
                 try {
                     todoTask();
                 } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("------------------------------------------\n");
+                    printLine(e.getMessage());
+                    printLine();
                 }
             }
             // Set event when user type "event"
             else if (line.contains(Command.EVENT.getCommand())) {
-                eventTask();
+                try {
+                    eventTask();
+                } catch (DukeException e) {
+                    printLine(e.getMessage());
+                    printLine();
+                }
             }
             //Delete tasks
-            else if(line.contains(Command.DELETE.getCommand())){
-                deleteTask();
+            else if (line.contains(Command.DELETE.getCommand())) {
+                try {
+                    deleteTask();
+                } catch (DukeException e) {
+                    printLine(e.getMessage());
+                    printLine();
+                }
             }
             // End program when user type "bye"
-            else if (line.equals(Command.BYE.getCommand())) {
+            else if (line.trim().equals(Command.BYE.getCommand())) {
                 byeTask();
             }
-            // Store all the words and print out
+            // no such command - error
             else {
-                addTask();
+                try {
+                    errorTask();
+                } catch (DukeException e) {
+                    printLine(e.getMessage());
+                    printLine();
+                }
             }
         }
     }
 
     // Greeting
-    public static void main(String[] args) throws DukeException {
-        System.out.println("------------------------------------------\n");
-        System.out.println("Hello Mater! I'm Gennie ^_^\n" + "     What can I do for you?");
-        System.out.println("------------------------------------------\n");
+    public static void main(String[] args) {
+        printLine();
+        printLine("Hello Mater! I'm Gennie ^_^");
+        printLine("What can I do for you?");
+        printLine();
         start();
     }
 }

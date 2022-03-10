@@ -1,30 +1,28 @@
-public class Task
-{
+public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description)
-    {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
-    public String getStatusIcon()
-    {
+
+    public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
     //Function to Mark as Done
-    public void markAsDone()
-    {
+    public void markAsDone() {
         this.isDone = true;
     }
+
     //Function to Mark as Not Done
-    public void markAsNotDone()
-    {
+    public void markAsNotDone() {
         this.isDone = false;
     }
-    public String toString()
-    {
-        return ( "[" + this.getStatusIcon() + "] " + description);
+
+    public String toString() {
+        return ("[" + this.getStatusIcon() + "] " + description);
     }
 }
 

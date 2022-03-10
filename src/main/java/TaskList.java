@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 public class TaskList {
 
-    private static Task[] taskList = new Task[100];
+    //private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static int numOfTasks;
 
     //Constructor of TaskList
@@ -30,7 +33,7 @@ public class TaskList {
         if(numOfTasks > 0) {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < numOfTasks; i++) {
-                System.out.println(i + 1 + "." + taskList[i].toString());
+                System.out.println(i + 1 + "." + taskList.get(i).toString());
             }
         }else{
             System.out.println("☹ OOPS!!! There is no task in your list!");
@@ -43,13 +46,13 @@ public class TaskList {
         if(index == -1){
             return;
         }
-        if (taskList[index].isDone) {
+        if (taskList.get(index).isDone) {
             System.out.println("This task was already marked as done:");
         }else {
-            taskList[index].isDone = true;
+            taskList.get(index).isDone = true;
             System.out.println("Nice! I've marked this task as done:");
         }
-        System.out.println(taskList[index].toString());
+        System.out.println(taskList.get(index).toString());
     }
 
     public static void unmark(String userInput) {
@@ -57,20 +60,22 @@ public class TaskList {
         if(index == -1){
             return;
         }
-        if (taskList[index].isDone) {
-            System.out.println("STATUS ERROR: CANNOT UNMARK PENDING TASK");
-        }else {
-            taskList[index].isDone = false;
+        if (taskList.get(index).isDone) {
+            taskList.get(index).isDone = false;
             System.out.println("OK, I've marked this task as not done yet:");
+        }else {
+            System.out.println("STATUS ERROR: CANNOT UNMARK PENDING TASK");
         }
-        System.out.println(taskList[index].toString());
+        System.out.println(taskList.get(index).toString());
     }
 
     //Level 4 Todos, Events, Deadlines
     public static void todo(String userInput){
         String description = userInput.replaceFirst("\\w+\\s", "");
         //Creating new todo task
-        taskList[numOfTasks] = new Todo(description);
+        //taskList[numOfTasks] = new Todo(description);
+        Todo task = new Todo(description);
+        taskList.add(task);
         numOfTasks++;
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
@@ -80,7 +85,9 @@ public class TaskList {
         String description = userInput.replaceFirst("\\w+\\s", "");
         String date = description.substring(description.indexOf("/by")+3);
         description = description.substring(0,description.indexOf("/by"));
-        taskList[numOfTasks] = new Deadline(description, date);
+        //taskList[numOfTasks] = new Deadline(description, date);
+        Deadline task = new Deadline(description, date);
+        taskList.add(task);
         numOfTasks++;
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
@@ -90,12 +97,24 @@ public class TaskList {
         String description = userInput.replaceFirst("\\w+\\s", "");
         String date = description.substring(description.indexOf("/at")+3);
         description = description.substring(0,description.indexOf("/at"));
-        taskList[numOfTasks] = new Event(description, date);
+        //taskList[numOfTasks] = new Event(description, date);
+        Event task = new Event(description, date);
+        taskList.add(task);
         numOfTasks++;
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
     //Level 6 Delete
-    public static void delete(String userInput){}
+    public static void delete(String userInput){
+        int index = indexer(userInput);
+        if(index == -1){
+            return;
+        }
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(taskList.get(index).toString());
+        taskList.remove(index);
+        numOfTasks--;
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+    }
 
 }

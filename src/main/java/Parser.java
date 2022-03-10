@@ -57,6 +57,9 @@ public class Parser extends Exception{
         String command = userInput.split(" ")[0];
 
         switch(command) {
+            case "help":
+                CommandList.help();
+                break;
             //Level 1 Greet, Echo, Exit
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");

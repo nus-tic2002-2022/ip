@@ -77,6 +77,5 @@ public class Duke {
         System.out.println(repeat('*', width));
         System.out.println("See YU never");
         System.out.println(repeat('*', width));
->>>>>>> fbefb97 (Old forked repo)
     }
 }

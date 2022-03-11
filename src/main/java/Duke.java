@@ -21,14 +21,17 @@ public class Duke {
         }
     }
 
-    private static void markItem(UserInput input) {
-        int index = Integer.parseInt(input.item.toString());
-        if (index <= storages.size() && index != 0) {
-            Task item = storages.get(index - 1);
+    private static void actOn(UserInput input) {
+        int index = Integer.parseInt(input.item.toString()) - 1;
+
+        if (index < storages.size() && index >= 0) {
+            Task item = storages.get(index);
             if (input.command.equals("mark")) {
                 item.markAsDone();
-            } else {
+            } else if (input.command.equals("unmark")) {
                 item.markAsUnDone();
+            } else {
+                storages.remove(index);
             }
             printList();
         } else {
@@ -84,7 +87,8 @@ public class Duke {
                     break;
                 case "mark":
                 case "unmark":
-                    markItem(input);
+                case "delete":
+                    actOn(input);
                     break;
                 default:
                     insertTask(input.category, input.item.toString());

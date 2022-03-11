@@ -34,12 +34,12 @@ public class UserInput {
                 break;
             }
 
-            if (this.command.equals("") && (tokens[i].equals("list") || tokens[i].equals("mark") || tokens[i].equals("unmark") || tokens[i].equals("no"))) {
+            if (this.command.equals("") && (tokens[i].equals("list") || tokens[i].equals("mark") || tokens[i].equals("unmark") || tokens[i].equals("no") || tokens[i].equals("delete"))) {
                 this.command = tokens[i];
                 if (this.command.equals("no")) {
                     return this;
                 }
-                if (this.command.equals("mark") || this.command.equals("unmark")) {
+                if (this.command.equals("mark") || this.command.equals("unmark") || this.command.equals("delete")) {
                     this.item.append(tokens[i + 1]);
                     return this;
                 }
@@ -48,7 +48,6 @@ public class UserInput {
             if (!this.category.equals("")) {
                 this.item.append(tokens[i]).append(" ");
             }
-
         }
         return this;
     }

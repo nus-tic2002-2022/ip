@@ -93,6 +93,7 @@ public class Duke {
                     throw new IllegalCommandException();
                 }
                 list.get(index).markAsDone();
+                System.out.println("Nice! I've marked this task as done: ");
                 list.get(index).getTask();
                 writeFile(list); // save file
                 continue;
@@ -103,6 +104,7 @@ public class Duke {
                     throw new IllegalCommandException();
                 }
                 list.get(index).markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet: ");
                 list.get(index).getTask();
                 writeFile(list); // save file
                 continue;
@@ -153,23 +155,21 @@ public class Duke {
                 int index = 0;
                 //add to list
                 if (line.startsWith("[T] ")) { //to do "[T] [X] "
+                    list.add(new Todo(line.substring(8, line.length())));
                     index = list.size() - 1;
-                    if(line.substring(4, 5) == "X") {
-                        list.add(new Todo(line.substring(8, line.length())));
+                    if(line.charAt(5) == 'X') {
                         list.get(index).markAsDone();
-                    } else {
-                        list.add(new Todo(line.substring(8, line.length())));
                     }
                 } else if (line.startsWith("[D] ")) { //deadline
                     list.add(new Deadline(line.substring(8, line.length()-1)));
                     index = list.size() - 1;
-                    if(line.substring(4, 5) == "X") {
+                    if(line.charAt(5) == 'X') {
                         list.get(index).markAsDone();
                     }
                 } else if (line.startsWith("[E] ")) { //event
                     list.add(new Event(line.substring(8, line.length()-1)));
                     index = list.size() - 1;
-                    if(line.substring(4, 5) == "X") {
+                    if(line.charAt(5) == 'X') {
                         list.get(index).markAsDone();
                     }
                 }

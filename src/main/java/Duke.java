@@ -9,7 +9,7 @@ public class Duke {
     private static String filePath = System.getProperty("user.dir");
     //private static String filePath = "D:\\Education\\05_NUS BTech\\03_Documents\\AY2122 Sem 2\\TIC2002 Intro to SE\\03_Project\\duke\\docs\\";
     private static String fileName = "\\docs\\duke.txt";
-    
+
     public static void main(String[] args) throws IllegalCommandException, IOException {
 
         String line;
@@ -33,7 +33,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         readFile();
-        System.out.println("Your list has been loaded. Now you have " + list.size() + " task(s) in the list.");
+        System.out.println("Now you have " + list.size() + " task(s) in the list.");
 
         do {
 
@@ -142,34 +142,41 @@ public class Duke {
     private static ArrayList<Task> readFile() throws IOException {
 
         File myFile = new File(filePath+fileName);
-        Scanner s = new Scanner(myFile);
 
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            int index = 0;
-            //add to list
-            if (line.startsWith("[T] ")) { //to do "[T] [X] "
-                index = list.size() - 1;
-                if(line.substring(4, 5) == "X") {
-                    list.add(new Todo(line.substring(8, line.length())));
-                    list.get(index).markAsDone();
-                } else {
-                    list.add(new Todo(line.substring(8, line.length())));
-                }
-            } else if (line.startsWith("[D] ")) { //deadline
-                list.add(new Deadline(line.substring(8, line.length()-1)));
-                index = list.size() - 1;
-                if(line.substring(4, 5) == "X") {
-                    list.get(index).markAsDone();
-                }
-            } else if (line.startsWith("[E] ")) { //event
-                list.add(new Event(line.substring(8, line.length()-1)));
-                index = list.size() - 1;
-                if(line.substring(4, 5) == "X") {
-                    list.get(index).markAsDone();
+        if (myFile.createNewFile()) {
+            System.out.print("A new list file has been created for you. ");
+        } else {
+            Scanner s = new Scanner(myFile);
+            System.out.print("The list file already exists and has been loaded for you. ");
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                int index = 0;
+                //add to list
+                if (line.startsWith("[T] ")) { //to do "[T] [X] "
+                    index = list.size() - 1;
+                    if(line.substring(4, 5) == "X") {
+                        list.add(new Todo(line.substring(8, line.length())));
+                        list.get(index).markAsDone();
+                    } else {
+                        list.add(new Todo(line.substring(8, line.length())));
+                    }
+                } else if (line.startsWith("[D] ")) { //deadline
+                    list.add(new Deadline(line.substring(8, line.length()-1)));
+                    index = list.size() - 1;
+                    if(line.substring(4, 5) == "X") {
+                        list.get(index).markAsDone();
+                    }
+                } else if (line.startsWith("[E] ")) { //event
+                    list.add(new Event(line.substring(8, line.length()-1)));
+                    index = list.size() - 1;
+                    if(line.substring(4, 5) == "X") {
+                        list.get(index).markAsDone();
+                    }
                 }
             }
         }
+
+
 
         return list;
 

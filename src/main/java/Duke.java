@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
 
     //Code Starts here!
@@ -10,9 +11,10 @@ public class Duke {
 
     //Level-2 Added List Array
     public static void system() {
-        Task[] tasks = new Task[100];
+        //Converting to ArrayList
+        ArrayList<Task> tasks = new ArrayList<>();
         String line;
-        int counter = 0;
+        //int counter = 0;
         Scanner in = new Scanner(System.in);
 
         //Keep the System Running
@@ -25,9 +27,9 @@ public class Duke {
                 if (line.toLowerCase().contains("list")) {
                     printLine();
                     System.out.println("Here are the task in your lists:");
-                    for (int x = 0; x < counter; x++) {
+                    for (int x = 0; x < tasks.size(); x++) {
                         //Amended to Use toString()
-                        System.out.println(x + 1 + ". " + tasks[x].toString());
+                        System.out.println(x + 1 + ". " + tasks.get(x).toString());
                     }
                     printLine();
                 }
@@ -37,7 +39,7 @@ public class Duke {
                     try {
                         // -1 as Array starts from 0
                         int num2 = Integer.parseInt(line.substring(7)) - 1;
-                        Task um = tasks[num2];
+                        Task um = tasks.get(num2);
                         um.markAsNotDone();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println("[" + um.getStatusIcon() + "] " + um.description);
@@ -51,11 +53,12 @@ public class Duke {
                     try {
                         // -1 as Array starts from 0
                         int num = Integer.parseInt(line.substring(5)) - 1;
-                        Task m = tasks[num];
+                        Task m = tasks.get(num);
                         m.markAsDone();
                         System.out.println("Nice! I've marked this task as done");
                         System.out.println("[" + m.getStatusIcon() + "] " + m.description);
-                    } catch (NullPointerException e){
+
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("☹ OOPS!!! Please enter a valid task number.");
                     }
                 }
@@ -78,11 +81,11 @@ public class Duke {
                         int slash = line.indexOf("/");
 
                         //Initiate Deadline Class
-                        tasks[counter] = new Deadline(line.substring(9, slash - 1), line.substring(slash + 4));
+                        tasks.add(new Deadline(line.substring(9, slash - 1), line.substring(slash + 4)));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks[counter].toString());
-                        counter++;
-                        System.out.println("Now you have " + (counter) + " tasks in the list.");
+                        System.out.println(tasks.get(tasks.size()-1).toString());
+                        //counter++;
+                        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
 
                     } catch (DukeException e){
 
@@ -111,11 +114,11 @@ public class Duke {
                         }
 
                         //Initiate Tod0 Class
-                        tasks[counter] = new Todo(line.substring(5));
+                        tasks.add(new Todo(line.substring(5)));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks[counter].toString());
-                        counter++;
-                        System.out.println("Now you have " + (counter) + " tasks in the list.");
+                        System.out.println(tasks.get(tasks.size()-1).toString());
+                        //counter++;
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     } catch (DukeException e) {
                         if (e.getError().equals("Missing Todo Description")) {
@@ -142,11 +145,11 @@ public class Duke {
                         int slash = line.indexOf("/");
 
                         //Initiate Event Class
-                        tasks[counter] = new Deadline(line.substring(6, slash - 1), line.substring(slash + 4));
+                        tasks.add(new Event(line.substring(6, slash - 1), line.substring(slash + 4)));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks[counter].toString());
-                        counter++;
-                        System.out.println("Now you have " + (counter) + " tasks in the list.");
+                        System.out.println(tasks.get(tasks.size()-1).toString());
+                        //counter++;
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     } catch (DukeException e) {
                         if (e.getError().equals("Missing Event Description")) {
@@ -158,6 +161,22 @@ public class Duke {
                         }
                     } catch (StringIndexOutOfBoundsException e){
                         System.out.println("☹ OOPS!!! The description after /at cannot be empty.");
+                    }
+                }
+
+                //Delete the Task
+                else if (line.toLowerCase().contains("delete")){
+
+                    try {
+                        // -1 as Array starts from 0
+                        int delete = Integer.parseInt(line.substring(7)) - 1;
+                        Task d = tasks.get(delete);
+                        tasks.remove(delete);
+                        System.out.println("Noted. I've removed this task:\n" + d.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("☹ OOPS!!! Please enter a valid task number.");
                     }
                 }
 

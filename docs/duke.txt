@@ -1,3 +1,3 @@
-[D] [ ] submit duke (by: 7pm))))))))))))
-[E] [ ] class (at: 7pm)))))))))
 [T] [ ] read a book
+[D] [ ] submit duke (by: 7pm)
+[E] [ ] genus (at: 10pm)

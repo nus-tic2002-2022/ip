@@ -156,13 +156,13 @@ public class Duke {
                     list.add(new Todo(line.substring(8, line.length())));
                 }
             } else if (line.startsWith("[D] ")) { //deadline
-                list.add(new Deadline(line.substring(8, line.length())));
+                list.add(new Deadline(line.substring(8, line.length()-1)));
                 index = list.size() - 1;
                 if(line.substring(4, 5) == "X") {
                     list.get(index).markAsDone();
                 }
             } else if (line.startsWith("[E] ")) { //event
-                list.add(new Event(line.substring(8, line.length())));
+                list.add(new Event(line.substring(8, line.length()-1)));
                 index = list.size() - 1;
                 if(line.substring(4, 5) == "X") {
                     list.get(index).markAsDone();

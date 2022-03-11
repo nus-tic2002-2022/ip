@@ -6,9 +6,10 @@ import java.io.IOException;
 public class Duke {
 
     private static ArrayList<Task> list = new ArrayList<>(); // ArrayList of Tasks
-    private static String filePath = "D:\\Education\\05_NUS BTech\\03_Documents\\AY2122 Sem 2\\TIC2002 Intro to SE\\03_Project\\duke\\docs\\";
-    private static String fileName = "duke.txt";
-
+    private static String filePath = System.getProperty("user.dir");
+    //private static String filePath = "D:\\Education\\05_NUS BTech\\03_Documents\\AY2122 Sem 2\\TIC2002 Intro to SE\\03_Project\\duke\\docs\\";
+    private static String fileName = "\\docs\\duke.txt";
+    
     public static void main(String[] args) throws IllegalCommandException, IOException {
 
         String line;
@@ -170,7 +171,6 @@ public class Duke {
             }
         }
 
-        //System.out.println("Now you have " + list.size() + " task(s) in the list.");
         return list;
 
     }

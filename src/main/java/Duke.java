@@ -1,6 +1,8 @@
-import java.util.Scanner;
-import java.util.Arrays;
+import Exceptions.InputException;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Duke {
     static ArrayList<Task> storages = new ArrayList<>();
@@ -21,7 +23,7 @@ public class Duke {
 
     private static void markItem(UserInput input) {
         int index = Integer.parseInt(input.item.toString());
-        if (index <= storages.size() && storages.size() >= 1) {
+        if (index <= storages.size() && index != 0) {
             Task item = storages.get(index - 1);
             if (input.command.equals("mark")) {
                 item.markAsDone();
@@ -35,18 +37,22 @@ public class Duke {
     }
 
     private static void insertTask(String cat, String command) {
-        if (cat.equals("deadline")){
+        if (cat.equals("deadline")) {
             storages.add(new Deadline(command, input.day));
-        } else if (cat.equals("event")){
+        } else if (cat.equals("event")) {
             storages.add(new Events(command, input.day, input.time));
-        } else  {
+        } else {
             storages.add(new Todo(command));
         }
+        System.out.println("---> + Inserted Task: " + input.item);
+        printList();
     }
 
     public static void main(String[] args) {
         String[] tokens;
         System.out.println("I'm Knot YU");
+        var lineWidth = 12;
+
         while (true) {
             String command;
             System.out.print("\nCan I help you?\n");
@@ -54,12 +60,25 @@ public class Duke {
             input = new UserInput();
             tokens = command.split(" ");
 
-            input.parseInput(tokens);
-            if(input.command.equals("no")) {
-                break;
+            try {
+                input.parseInput(tokens);
+                // Got category with no item
+                if (!input.category.equals("") && input.item.toString().equals("")) {
+                    throw new InputException("MissingItem");
+                }
+                // No category, no command
+                if (input.category.equals("") && input.command.length() == 0) {
+                    throw new InputException("NoCommand");
+                }
+            } catch (InputException e) {
+                e.printError();
+                continue;
             }
 
-            switch (input.command){
+            if (input.command.equals("no")) {
+                break;
+            }
+            switch (input.command) {
                 case "list":
                     printList();
                     break;
@@ -68,14 +87,11 @@ public class Duke {
                     markItem(input);
                     break;
                 default:
-                    insertTask(input.category, command);
-                    System.out.println("->\t\t+ " + "Added " + input.category + ": " + input.item);
-                    printList();
+                    insertTask(input.category, input.item.toString());
             }
         }
-        var width = 12;
-        System.out.println(repeat('*', width));
+        System.out.println(repeat('*', lineWidth));
         System.out.println("See YU never");
-        System.out.println(repeat('*', width));
+        System.out.println(repeat('*', lineWidth));
     }
 }

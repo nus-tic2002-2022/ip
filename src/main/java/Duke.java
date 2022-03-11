@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Duke {
 
     private static ArrayList<Task> list = new ArrayList<>(); // ArrayList of Tasks
-    private static String filePath = "D:\\Education\\05_NUS BTech\\03_Documents\\AY2122 Sem 2\\TIC2002 Intro to SE\\03_Project\\duke\\src\\main\\java\\";
+    private static String filePath = "D:\\Education\\05_NUS BTech\\03_Documents\\AY2122 Sem 2\\TIC2002 Intro to SE\\03_Project\\duke\\docs\\";
     private static String fileName = "duke.txt";
 
     public static void main(String[] args) throws IllegalCommandException, IOException {
@@ -31,6 +31,9 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
 
+        readFile();
+        System.out.println("Your list has been loaded. Now you have " + list.size() + " task(s) in the list.");
+
         do {
 
             System.out.print("What can I do for you? (type 'commands' if you need help to remember the commands) ");
@@ -53,7 +56,7 @@ public class Duke {
                         list.get(i).getTask();
                     }
                 }
-                writeFile(list);
+                writeFile(list); // save file
                 continue;
             } else if (line.startsWith("todo ")) {
                 if (line.substring(5, line.length()).trim().length() < 1) {
@@ -62,7 +65,7 @@ public class Duke {
                 }
                 list.add(new Todo(line.substring(5, line.length())));
                 list.get(list.size() - 1).printTask(); // print newly added tasks
-                writeFile(list);
+                writeFile(list); // save file
                 continue;
             } else if (line.startsWith("deadline ")) {
                 if (line.substring(9, line.length()).trim().length() < 1) {
@@ -71,7 +74,7 @@ public class Duke {
                 }
                 list.add(new Deadline(line.substring(9, line.length())));
                 list.get(list.size() - 1).printTask(); // print newly added tasks
-                writeFile(list);
+                writeFile(list); // save file
                 continue;
             } else if (line.startsWith("event ")) {
                 if (line.substring(6, line.length()).trim().length() < 1) {
@@ -80,7 +83,7 @@ public class Duke {
                 }
                 list.add(new Event(line.substring(6, line.length())));
                 list.get(list.size() - 1).printTask(); // print newly added tasks
-                writeFile(list);
+                writeFile(list); // save file
                 continue;
             } else if (line.startsWith("mark ")) {
                 index = Integer.parseInt(line.substring(line.indexOf("mark ") + 5, line.length())) -1;
@@ -90,7 +93,7 @@ public class Duke {
                 }
                 list.get(index).markAsDone();
                 list.get(index).getTask();
-                writeFile(list);
+                writeFile(list); // save file
                 continue;
             } else if (line.startsWith("unmark ")) {
                 index = Integer.parseInt(line.substring(line.indexOf("unmark ") + 7, line.length())) -1;
@@ -100,7 +103,7 @@ public class Duke {
                 }
                 list.get(index).markAsNotDone();
                 list.get(index).getTask();
-                writeFile(list);
+                writeFile(list); // save file
                 continue;
             } else if (line.startsWith("delete ")) {
                 index = Integer.parseInt(line.substring(line.indexOf("delete ") + 7, line.length())) - 1;
@@ -111,7 +114,7 @@ public class Duke {
                 System.out.println("Noted. I've removed this task: ");
                 list.get(index).getTask();
                 list.remove(index);
-                writeFile(list);
+                writeFile(list); // save file
                 continue;
             } else {
                 System.out.println("Sorry, I don't understand. " + command);
@@ -132,6 +135,43 @@ public class Duke {
             myFile.write("\n");
         }
         myFile.close();
+
+    }
+
+    private static ArrayList<Task> readFile() throws IOException {
+
+        File myFile = new File(filePath+fileName);
+        Scanner s = new Scanner(myFile);
+
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            int index = 0;
+            //add to list
+            if (line.startsWith("[T] ")) { //to do "[T] [X] "
+                index = list.size() - 1;
+                if(line.substring(4, 5) == "X") {
+                    list.add(new Todo(line.substring(8, line.length())));
+                    list.get(index).markAsDone();
+                } else {
+                    list.add(new Todo(line.substring(8, line.length())));
+                }
+            } else if (line.startsWith("[D] ")) { //deadline
+                list.add(new Deadline(line.substring(8, line.length())));
+                index = list.size() - 1;
+                if(line.substring(4, 5) == "X") {
+                    list.get(index).markAsDone();
+                }
+            } else if (line.startsWith("[E] ")) { //event
+                list.add(new Event(line.substring(8, line.length())));
+                index = list.size() - 1;
+                if(line.substring(4, 5) == "X") {
+                    list.get(index).markAsDone();
+                }
+            }
+        }
+
+        //System.out.println("Now you have " + list.size() + " task(s) in the list.");
+        return list;
 
     }
 

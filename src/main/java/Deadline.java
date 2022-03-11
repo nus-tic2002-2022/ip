@@ -3,10 +3,11 @@ public class Deadline extends Task {
 
     protected String taskType = "D";
     protected String by;
+    protected int index;
 
     public Deadline(String description) {
-        super(description.substring(0,description.lastIndexOf("/") -1).trim());
-        this.by = description.substring(description.lastIndexOf("/") + 3, description.length()).trim();
+        super(description.substring(0, description.lastIndexOf("by") -2).trim());
+        this.by = description.substring(description.lastIndexOf("by") + 3, description.length()).trim();
     }
 
     @Override

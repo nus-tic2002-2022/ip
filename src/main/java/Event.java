@@ -5,8 +5,8 @@ public class Event extends Task {
     protected String at;
 
     public Event(String description) {
-        super(description.substring(0,description.lastIndexOf("/") -1).trim());
-        this.at = description.substring(description.lastIndexOf("/") + 3, description.length()).trim();
+        super(description.substring(0,description.lastIndexOf("at") -2).trim());
+        this.at = description.substring(description.lastIndexOf("at") + 3, description.length()).trim();
     }
 
     @Override

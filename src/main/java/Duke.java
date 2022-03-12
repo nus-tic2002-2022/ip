@@ -97,6 +97,8 @@ public class Duke {
             addToTaskList("deadline", command.replaceFirst("deadline ", ""));
         } else if (command.startsWith("event ")) {
             addToTaskList("event", command.replaceFirst("event ", ""));
+        }  else if (command.startsWith("delete ")) {
+            deleteTask(command.replaceFirst("delete ", ""));
         } else {
             throw new UnknownCommandInputException();
         }
@@ -139,6 +141,31 @@ public class Duke {
         } catch (InvalidTaskInputException e) {
             printDukeReply(e.getMessage());
         }
+    }
+
+    /**
+     * Delete a task based on the index
+     *
+     * @param indexString Index of the task in the arraylist
+     * **/
+    private static void deleteTask(String indexString) {
+        // Attempt to convert input to integer
+        int index;
+        try {
+            index = Integer.parseInt(indexString);
+        } catch (NumberFormatException e) {
+            printDukeReply("Task is invalid. Please select a valid task to delete");
+            return;
+        }
+        // Check if index is within range
+        index -= 1;
+        if (index < 0 || index >= taskList.size()) {
+            printDukeReply("Task is invalid. Please select a valid task to delete");
+            return;
+        }
+        // Delete task and send reply
+        printDukeReply("Alrighty. I will delete this task.:\n\t" + getTaskDetails(taskList.get(index)) + "\nYou currently have " + (taskList.size() - 1) + " task in your list.");
+        taskList.remove(index);
     }
 
     /**

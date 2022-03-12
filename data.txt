@@ -4,6 +4,6 @@
 [ ] asdf
 [E][X] test (at:test 1230)
 [D][X] test (by:test 2359)
-[T][ ] test123
+[T][X] test123
 [X] asdf
-[ ] asdftest
+[X] asdftest

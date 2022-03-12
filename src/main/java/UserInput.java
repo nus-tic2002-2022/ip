@@ -1,16 +1,12 @@
 import Exceptions.InputException;
 
 public class UserInput {
-
-    protected String command;
-    protected String category;
+    protected Command command;
+    protected Category category;
     protected String day;
     protected String time;
     protected StringBuilder item;
-
     public UserInput() {
-        this.command = "";
-        this.category = "";
         this.day = "";
         this.time = "";
         this.item = new StringBuilder();
@@ -18,37 +14,39 @@ public class UserInput {
 
     public UserInput parseInput(String[] tokens) throws InputException {
         for (int i = 0; i < tokens.length; i++) {
-            if (this.category.equals("") && (tokens[i].equals("todo") || tokens[i].equals("deadline") || tokens[i].equals("event"))) {
-                this.category = tokens[i];
-                continue;
-            }
-
-            if (tokens[i].equals("/by")) {
-                this.day = tokens[i + 1];
-                break;
-            }
-
-            if (tokens[i].equals("/at")) {
-                this.day = tokens[i + 1];
-                this.time = tokens[i + 2];
-                break;
-            }
-
-            if (this.command.equals("") && (tokens[i].equals("list") || tokens[i].equals("mark") || tokens[i].equals("unmark") || tokens[i].equals("no") || tokens[i].equals("delete"))) {
-                this.command = tokens[i];
-                if (this.command.equals("no")) {
+            switch (tokens[i]) {
+                case "todo":
+                case "deadline":
+                case "event":
+                    this.category = Category.valueOf(tokens[i].toUpperCase());
+                    break;
+                case "/at":
+                    this.time = tokens[i + 2];
+                case "/by":
+                    this.day = tokens[i + 1];
+                    break;
+                case "no":
+                case "list":
+                    this.command = Command.valueOf(tokens[i].toUpperCase());
                     return this;
-                }
-                if (this.command.equals("mark") || this.command.equals("unmark") || this.command.equals("delete")) {
+                case "mark":
+                case "unmark":
+                case "delete":
+                    this.command = Command.valueOf(tokens[i].toUpperCase());
                     this.item.append(tokens[i + 1]);
                     return this;
-                }
-                continue;
-            }
-            if (!this.category.equals("")) {
-                this.item.append(tokens[i]).append(" ");
+                default:
+                    this.item.append(tokens[i]).append(" ");
             }
         }
         return this;
+    }
+
+    protected enum Command {
+        LIST, MARK, UNMARK, NO, DELETE
+    }
+
+    protected enum Category {
+        TODO, DEADLINE, EVENT
     }
 }

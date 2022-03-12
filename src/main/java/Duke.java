@@ -26,9 +26,9 @@ public class Duke {
 
         if (index < storages.size() && index >= 0) {
             Task item = storages.get(index);
-            if (input.command.equals("mark")) {
+            if (input.command == UserInput.Command.MARK) {
                 item.markAsDone();
-            } else if (input.command.equals("unmark")) {
+            } else if (input.command == UserInput.Command.UNMARK) {
                 item.markAsUnDone();
             } else {
                 storages.remove(index);
@@ -39,13 +39,13 @@ public class Duke {
         }
     }
 
-    private static void insertTask(String cat, String command) {
-        if (cat.equals("deadline")) {
-            storages.add(new Deadline(command, input.day));
-        } else if (cat.equals("event")) {
-            storages.add(new Events(command, input.day, input.time));
-        } else {
-            storages.add(new Todo(command));
+    private static void insertTask(UserInput.Category cat, String item) {
+        if (cat == UserInput.Category.DEADLINE) {
+            storages.add(new Deadline(item, input.day));
+        } else if (cat == UserInput.Category.EVENT) {
+            storages.add(new Events(item, input.day, input.time));
+        } else if (cat == UserInput.Category.TODO) {
+            storages.add(new Todo(item));
         }
         System.out.println("---> + Inserted Task: " + input.item);
         printList();
@@ -64,13 +64,13 @@ public class Duke {
             tokens = command.split(" ");
 
             try {
-                input.parseInput(tokens);
+                input = input.parseInput(tokens);
                 // Got category with no item
-                if (!input.category.equals("") && input.item.toString().equals("")) {
+                if (input.category != null && input.item.toString().equals("")) {
                     throw new InputException("MissingItem");
                 }
                 // No category, no command
-                if (input.category.equals("") && input.command.length() == 0) {
+                if (input.category == null && input.command == null) {
                     throw new InputException("NoCommand");
                 }
             } catch (InputException e) {
@@ -78,20 +78,22 @@ public class Duke {
                 continue;
             }
 
-            if (input.command.equals("no")) {
+            if (input.command == UserInput.Command.NO) {
                 break;
             }
-            switch (input.command) {
-                case "list":
-                    printList();
-                    break;
-                case "mark":
-                case "unmark":
-                case "delete":
-                    actOn(input);
-                    break;
-                default:
-                    insertTask(input.category, input.item.toString());
+            if (input.command != null) {
+                switch (input.command) {
+                    case LIST:
+                        printList();
+                        break;
+                    case MARK:
+                    case UNMARK:
+                    case DELETE:
+                        actOn(input);
+                        break;
+                }
+            } else {
+                insertTask(input.category, input.item.toString());
             }
         }
         System.out.println(repeat('*', lineWidth));

@@ -2,8 +2,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import duke.*;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class Storage {
     public File f;
@@ -13,11 +14,10 @@ public class Storage {
         this.f = new File(filepath + "\\data.txt");
     }
 
-    public void saveToFile()
-    {
+    public void saveToFile(Tasklist tasks) {
         try (PrintWriter out = new PrintWriter(f.getAbsoluteFile())) {
-            for(int i=0;i<taskArr.size();i++){
-                out.println(taskArr.get(i).getDescription());
+            for(int i=0;i<tasks.size();i++){
+                out.println(tasks.get(i).getDescription());
             }
         }
         catch (Exception e) {

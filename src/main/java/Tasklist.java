@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import duke.*;
 
 public class Tasklist {
     public ArrayList<Task> taskArr;

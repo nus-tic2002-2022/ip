@@ -7,3 +7,6 @@
 [T][X] test123
 [X] asdf
 [X] asdftest
+[T][ ] test test
+[ ] llist
+[X] lllist

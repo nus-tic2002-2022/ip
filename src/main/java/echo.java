@@ -1,7 +1,37 @@
 import java.util.*;
 
 public class echo {
-    private static ArrayList <Task> buffer = new ArrayList<>();
+    private static ArrayList<Task> buffer = new ArrayList<>();
+
+    public static void marking(int number, String mark_str)
+    {
+        if (mark_str.equals("mark")) {
+            //System.out.println("Mark Task Number : " + number);
+            System.out.println("Nice! I've marked this task as done: ");
+            buffer.get(number - 1).setDone();
+            System.out.println(buffer.get(number - 1).getStatus());
+
+        }
+        if (mark_str.equals("unmark")) {
+            System.out.println("UnMark Task Number : " + number);
+            System.out.println("OK, I've marked this task as not done yet:");
+            buffer.get(number - 1).set_unDone();
+            System.out.println(buffer.get(number - 1).getStatus());
+        }
+
+    }
+    public static void printcomment (Task t_passed)
+    {
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(t_passed.getStatus());
+        if(buffer.size() == 1)
+        {
+            System.out.println("Now you have "+ buffer.size() +" task in the list");
+        }
+        else {
+            System.out.println("Now you have " + buffer.size() + " tasks in the list");
+        }
+    }
     public static String str_concat(String[] str, int start, int end)
     {
         String ans="";
@@ -41,7 +71,8 @@ public class echo {
         for (int i =0; !passed.equals("bye");)
         {
             //Task t_flag = new Task(passed);
-            c_flag = 0;
+            System.out.println("Restarted");
+            //c_flag = 0;
             mark_flag = 0;
             String[] str = new String[20];
             //ArrayList<String> str = new ArrayList<String> (20);
@@ -60,43 +91,31 @@ public class echo {
                 int number;
                 try{ // if first word is "mark" or "unmark", check its second words must be an integer
                     number = Integer.parseInt(str[1]);
+                    marking(number, str[0]);
+                    mark_flag = 1;
+                    passed = scanInput.nextLine();
+
                 }
                 catch (NumberFormatException ex)
                 {
                     System.out.println("s[1] Not number");
                     mark_flag = 1;
                     passed = scanInput.nextLine();
-                    break;
                 }
+                continue;
 
                 //int number = Integer.parseInt(str[1]);
-                if (str[0].equals("mark")) {
-                    //System.out.println("Mark Task Number : " + number);
-                    System.out.println("Nice! I've marked this task as done: ");
-                    buffer.get(number - 1).setDone();
-                    System.out.println(buffer.get(number - 1).getStatus());
-                    mark_flag = 1;
-                }
-                if (str[0].equals("unmark")) {
-                    System.out.println("UnMark Task Number : " + number);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    buffer.get(number - 1).set_unDone();
-                    System.out.println(buffer.get(number - 1).getStatus());
-                    mark_flag = 1;
-                }
-                passed = scanInput.nextLine();
-                continue;
+
             }
-            if (str[0].equals("todo"))
+            if (mark_flag == 0 && str[0].equals("todo"))
             {
                 try {
                     if (check_length(str)) {
                         String s1 = str_concat(str,1, str.length-1);
                         ToDo t_flag = new ToDo(s1);
                         buffer.add(t_flag);
-                        System.out.println("Todo");
+                        printcomment(t_flag);
                         mark_flag = 1;
-
                         passed = scanInput.nextLine();
                     }
                 }
@@ -113,19 +132,18 @@ public class echo {
                     passed = scanInput.nextLine();
                 }
             }
-            if (str[0].equals("deadline"))
+            if (mark_flag == 0 && str[0].equals("deadline"))
             {
                 try{
                     if(check_length(str)) {
-                        String[] str2 = new String[2];
-                        //int backslash = Arrays.asList(str).indexOf("/");
+                        //String[] str2 = new String[2];
+                        String[] str2;
                         str2 = passed.split("/");
-                        //String descrip = str_concat(str,1,backslash);
-                        //String detail = str_concat(str,backslash, str.length-1);
                         String descrip = str2[0].replaceAll("deadline", "");
                         String detail = str2[1];
                         Deadlines t_flag = new Deadlines(descrip, detail);
                         buffer.add(t_flag);
+                        printcomment(t_flag);
                         mark_flag = 1;
                         passed = scanInput.nextLine();
                     }
@@ -144,19 +162,19 @@ public class echo {
                 }
 
             }
-            if (str.length > 1 && str[0].equals("event"))
+            if (mark_flag == 0 && str.length > 1 && str[0].equals("event"))
             {
                 try{
                     if(check_length(str)) {
-                        String[] str2 = new String[2];
-                        //int backslash = Arrays.asList(str).indexOf("/");
+                        //String[] str2 = new String[2];
+                        String[] str2;
                         str2 = passed.split("/");
-                        //String descrip = str_concat(str,1,backslash);
-                        //String detail = str_concat(str,backslash, str.length-1);
                         String descrip = str2[0].replaceAll("event", "");
                         String detail = str2[1];
                         Events t_flag = new Events(descrip, detail);
                         buffer.add(t_flag);
+                        printcomment(t_flag);
+
                         mark_flag = 1;
                         passed = scanInput.nextLine();
                     }
@@ -175,7 +193,7 @@ public class echo {
                 }
 
             }
-            if(passed.equals("list")) //if list, list out the task
+            if(mark_flag == 0 && str[0].equals("list")) //if list, list out the task
             {
                 int j =1;
                 for(Task s : buffer) {
@@ -192,7 +210,38 @@ public class echo {
                 passed = scanInput.nextLine();
                 continue;
             }
-            if(c_flag == 0 && mark_flag == 0  && !passed.equals("list")) // if not contains, print and add into buffer
+            if(mark_flag == 0 && str.length == 2 && str[0].equals("delete"))
+            {
+                int number;
+                try{ // if first word is "delete", check its second words must be an integer
+                    number = Integer.parseInt(str[1]);
+                    buffer.remove(number-1);
+                    mark_flag = 1;
+                    passed = scanInput.nextLine();
+                }
+                catch (NumberFormatException ex)
+                {
+                    System.out.println("Delete number is not given");
+                    mark_flag = 1;
+                    passed = scanInput.nextLine();
+
+                }
+                catch (IndexOutOfBoundsException e)
+                {
+                    System.out.println("Index out of bound");
+                    mark_flag = 1;
+                    passed = scanInput.nextLine();
+                }
+
+
+            }
+            if(mark_flag == 0) // if never fulfil any condition above, return it is invalid input
+            {
+                System.out.println("Invalid Input");
+                passed=scanInput.nextLine();
+
+            }
+            /*if(c_flag == 0 && mark_flag == 0  && !passed.equals("list")) // if not contains, print and add into buffer
             {
                 Task t_flag = new Task(passed);
                 if (contains_in_arraylist(t_flag)) //if contains, print out but no need add into buffer
@@ -209,7 +258,7 @@ public class echo {
                     passed = scanInput.nextLine();
                     continue;
                 }
-            }
+            }*/
         }
         System.out.println("Bye. Hope to see you again soon!");
     }

@@ -20,16 +20,22 @@ public class echo {
         }
 
     }
-    public static void printcomment (Task t_passed)
+    public static void printcomment (Task t_passed, int mode)
     {
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(t_passed.getStatus());
-        if(buffer.size() == 1)
-        {
-            System.out.println("Now you have "+ buffer.size() +" task in the list");
+        //int mode being passed in here is either add in task(1) or delete task(0)
+        try {
+                System.out.println(get_mode(mode));
+                System.out.println(t_passed.getStatus());
+
+            if (buffer.size() == 1) {
+                System.out.println("Now you have " + buffer.size() + " task in the list");
+            } else {
+                System.out.println("Now you have " + buffer.size() + " tasks in the list");
+            }
         }
-        else {
-            System.out.println("Now you have " + buffer.size() + " tasks in the list");
+        catch (printcommentException e)
+        {
+            System.out.println("Something wrong");
         }
     }
     public static String str_concat(String[] str, int start, int end)
@@ -53,12 +59,22 @@ public class echo {
         }
         return false;
     }
+    public static String get_mode(int mode) throws printcommentException
+    {
+        if(mode == 1 )
+        {
+            return "Nice! I've marked this task as done: ";
+        }
+        if(mode == 0){
+            return "Noted. I've removed this task:";
+        }
+        throw new printcommentException();
+    }
     public static boolean check_length(String [] passed) throws DukeException
     {
         if(passed[1].isEmpty())
         {
             throw new DukeException();
-
         }
         return true;
     }
@@ -114,7 +130,7 @@ public class echo {
                         String s1 = str_concat(str,1, str.length-1);
                         ToDo t_flag = new ToDo(s1);
                         buffer.add(t_flag);
-                        printcomment(t_flag);
+                        printcomment(t_flag, 1);
                         mark_flag = 1;
                         passed = scanInput.nextLine();
                     }
@@ -143,7 +159,7 @@ public class echo {
                         String detail = str2[1];
                         Deadlines t_flag = new Deadlines(descrip, detail);
                         buffer.add(t_flag);
-                        printcomment(t_flag);
+                        printcomment(t_flag, 1);
                         mark_flag = 1;
                         passed = scanInput.nextLine();
                     }
@@ -173,7 +189,7 @@ public class echo {
                         String detail = str2[1];
                         Events t_flag = new Events(descrip, detail);
                         buffer.add(t_flag);
-                        printcomment(t_flag);
+                        printcomment(t_flag, 1);
 
                         mark_flag = 1;
                         passed = scanInput.nextLine();
@@ -215,6 +231,7 @@ public class echo {
                 int number;
                 try{ // if first word is "delete", check its second words must be an integer
                     number = Integer.parseInt(str[1]);
+                    printcomment(buffer.get(number - 1), 0);
                     buffer.remove(number-1);
                     mark_flag = 1;
                     passed = scanInput.nextLine();

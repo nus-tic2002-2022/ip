@@ -2,6 +2,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
+
+
+
+
+
 public class Duke {
 
     static void checkLineEmpty(String line)throws DukeCheckLineEmptyException{
@@ -15,27 +21,32 @@ public class Duke {
 
         if (!keyword.equals("list") && !keyword.equals("bye")
                 && !keyword.equals("todo") && !keyword.equals("done")
-                && !keyword.equals("event") && !keyword.equals("deadline")){
+                && !keyword.equals("event") && !keyword.equals("deadline")
+                && !keyword.equals("delete")){
             throw new DukeCheckLineException();
         }
     }
 
-    static void checkDescription(String line)throws DukeException{
+    static void checkDescription(String line)throws DukeException {
         String keyword = line.split(" ")[0].toLowerCase();
 
-        if (keyword.equals("todo") && line.split(" ").length == 1){
+        if (keyword.equals("todo") && line.split(" ").length == 1) {
             throw new DukeException();
         }
 
-        if (keyword.equals("event") && line.split(" ").length == 1){
+        if (keyword.equals("event") && line.split(" ").length == 1) {
             throw new DukeException();
         }
 
-        if (keyword.equals("deadline") && line.split(" ").length == 1){
+        if (keyword.equals("deadline") && line.split(" ").length == 1) {
             throw new DukeException();
         }
 
         if (keyword.equals("done") && line.split(" ").length == 1){
+            throw new DukeException();
+        }
+
+        if (keyword.equals("delete") && line.split(" ").length == 1){
             throw new DukeException();
         }
     }
@@ -52,7 +63,7 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
-        List<Task> item = new ArrayList<>();
+        List<Task> items = new ArrayList<>();
 
         do {
             line = in.nextLine();
@@ -66,63 +77,78 @@ public class Duke {
                     printWithLine(List.of());
                     List<String> messages = new ArrayList<>();
                     System.out.println("   Here are the tasks in your list: ");
-                    for (int i = 0; i < item.size(); i++) {
-                        messages.add(i + 1 + "." + item.get(i));
+                    for (int i = 0; i < items.size(); i++) {
+                        messages.add(i + 1 + "." + items.get(i));
                     }
                     printWithLine(messages);
 
+
                 } else if (line.split(" ")[0].toLowerCase().equals("done")) {
                     printWithLine(List.of());
-                    Task markItem = item.get(Integer.parseInt(line.substring(5)) - 1);
-                    markItem.markAsDone();
-                    printWithLine(List.of("Nice! I've marked this task as done: ", " " + markItem));
+                    try {
+                        Task markItem = items.get(Integer.parseInt(line.substring(5)) - 1);
+                        markItem.markAsDone();
+                        printWithLine(List.of("Nice! I've marked this task as done: ", " " + markItem));
+                    } catch (NumberFormatException e) {
+                        printWithLine((List.of("☹ OOPS!!! This is not a number: " + line.split(" ")[1])));
+                    } catch (IndexOutOfBoundsException e) {
+                        printWithLine((List.of("☹ OOPS!!! The index out of bound: " + line.split(" ")[1])));
+                    }
 
+                } else if (line.split(" ")[0].equalsIgnoreCase("delete")) {
+                    printWithLine(List.of());
+                    try {
+                        Task deleteItem = items.get((Integer.parseInt(line.split(" ")[1]) - 1));
+                        items.remove(deleteItem);
+                        printWithLine((List.of("Noted. I've removed this task: ", " " + deleteItem, "Now you have " + items.size() + " task in the list. ")));
+                    } catch (NumberFormatException e) {
+                        printWithLine((List.of("☹ OOPS!!! This is not a number: " + line.split(" ")[1])));
+                    } catch (IndexOutOfBoundsException e) {
+                        printWithLine((List.of("☹ OOPS!!! The index out of bound: " + line.split(" ")[1])));
+                    }
 
                 } else if (line.split(" ")[0].toLowerCase().equals("todo")) {
                     printWithLine(List.of());
                     Task todoTask = new Todo(line.replace(line.split(" ")[0] + " ", ""));
-                    item.add(todoTask);
-                    printWithLine((List.of("Got it. I've added this task: ", todoTask.toString(), "Now you have " + item.size() + " task in the list. ")));
+                    items.add(todoTask);
+                    printWithLine((List.of("Got it. I've added this task: ", todoTask.toString(), "Now you have " + items.size() + " task in the list. ")));
 
                 } else if (line.split(" ")[0].toLowerCase().equals("deadline")) {
                     printWithLine(List.of());
                     int position = line.indexOf("/");
                     String time = line.split("/")[1].replace("by ", "");
                     Task deadlineTask = new Deadline(line.substring(9, position - 1), time);
-                    item.add(deadlineTask);
-                    printWithLine((List.of("Got it. I've added this task: ", deadlineTask.toString(), "Now you have " + item.size() + " task in the list. ")));
+                    items.add(deadlineTask);
+                    printWithLine((List.of("Got it. I've added this task: ", deadlineTask.toString(), "Now you have " + items.size() + " task in the list. ")));
 
                 } else if (line.split(" ")[0].toLowerCase().equals("event")) {
                     printWithLine(List.of());
                     int position = line.indexOf("/");
                     String time = line.split("/")[1].replace("at ", "");
                     Task eventTask = new Event(line.substring(6, position - 1), time);
-                    item.add(eventTask);
-                    printWithLine((List.of("Got it. I've added this task: ", eventTask.toString(), "Now you have " + item.size() + " task in the list. ")));
+                    items.add(eventTask);
+                    printWithLine((List.of("Got it. I've added this task: ", eventTask.toString(), "Now you have " + items.size() + " task in the list. ")));
 
                 } else if (line.toLowerCase().equals("bye")) {
                     printWithLine(List.of());
                     printWithLine(List.of("Bye. Hope to see you again soon!"));
 
-                } else {
-                    Task task = new Task(line);
-                    item.add(task);
-                    printWithLine(List.of());
-                    printWithLine(List.of("added: " + task));
                 }
-            } catch (DukeCheckLineException e) {
+            }
+            catch (DukeCheckLineException e) {
                 printWithLine(List.of());
                 printWithLine(List.of("   ☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
-            } catch (DukeCheckLineEmptyException e) {
+            }
+            catch (DukeCheckLineEmptyException e) {
                 printWithLine(List.of());
                 printWithLine(List.of("   ☹ OOPS!!! Please enter somethings."));
-            } catch (DukeException e) {
+            }
+            catch (DukeException e) {
                 printWithLine(List.of());
                 printWithLine((List.of("    ☹ OOPS!!! The description of a " + keyword + " cannot be empty.")));
             }
 
         }while (!line.equals("bye"));
-
     }
 
             private static void printWithLine (List < String > messages) {

@@ -7,7 +7,16 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         System.out.println("Got it. I've added this task:");
-        System.out.println(this.toString());
+        System.out.println(this);
+        newTask();
+    }
+
+    public Deadline(String description, String by, boolean isDone) {
+        super(description);
+        this.by = by;
+        this.isDone = isDone;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this);
     }
 
     @Override

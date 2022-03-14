@@ -1,6 +1,6 @@
 public class CommandList {
 
-    private static String[] list = {
+    private static final String[] list = {
             "help - display this menu",
             "bye - terminate this program",
             "list - list your tasks",
@@ -9,7 +9,7 @@ public class CommandList {
             "delete <index of task> - delete the task from the list",
             "todo <description of task> - create a new todo task",
             "deadline <description of task> /by <date/time> - create a new deadline task",
-            "event <description of task> /at <date/time> - create a new event task",
+            "event <description of task> /at <date/time> - create a new event task"
     };
 
     public static void help(){

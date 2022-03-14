@@ -7,7 +7,16 @@ public class Event extends Task {
         super(description);
         this.at = at;
         System.out.println("Got it. I've added this task:");
-        System.out.println(this.toString());
+        System.out.println(this);
+        newTask();
+    }
+
+    public Event(String description, String at, boolean isDone) {
+        super(description);
+        this.at = at;
+        this.isDone = isDone;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this);
     }
 
     @Override

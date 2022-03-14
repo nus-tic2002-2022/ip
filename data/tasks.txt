@@ -1,0 +1,3 @@
+[T][ ] eat
+[D][ ] (by: (by:10pm)
+[E][X] take a break (at:8pm)

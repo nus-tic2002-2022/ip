@@ -6,7 +6,7 @@ public class Parser extends Exception{
         } catch (StringIndexOutOfBoundsException s) {
             // Missing description (task)
             System.out.println("☹ OOPS!!! The description of a " + taskType + " cannot be empty.");
-            throw new StringIndexOutOfBoundsException();
+            throw s;
         }
     }
     private static void dateValidate (String userInput, String taskType) throws StringIndexOutOfBoundsException {
@@ -48,7 +48,7 @@ public class Parser extends Exception{
         } catch (NumberFormatException n) {
             // Missing index
             System.out.println("☹ OOPS!!! Please indicate the index of the task you wish to " + action +"!");
-            throw new NumberFormatException();
+            throw n;
         }
     }
 
@@ -119,7 +119,7 @@ public class Parser extends Exception{
                 break;
             default:
                 //Level 5 Else, unrecognized command
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("☹ OOPS!!! Try typing \"help\" to see a list of available commands");
                 break;
         }
     }

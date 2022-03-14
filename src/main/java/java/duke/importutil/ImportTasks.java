@@ -1,3 +1,7 @@
+package java.duke.importutil;
+
+import java.duke.task.*;
+
 public class ImportTasks {
 
     public static void importTask (String fileInput){
@@ -25,24 +29,24 @@ public class ImportTasks {
 
     private static void importDeadline(String substring, boolean isDone){
         String description = "", date = "";
-        for(int i=0;i<substring.indexOf("(by: "); i++){
+        for(int i=0;i<substring.indexOf("(by:"); i++){
             description += substring.charAt(i);
         }
-        for(int i=substring.indexOf("(by: ")+5;i<substring.length()-1; i++){
+        for(int i=substring.indexOf("(by:")+4;i<substring.length()-1; i++){
             date += substring.charAt(i);
         }
-        TaskList.importDeadline(description, date, isDone);
+        TaskList.importDeadline(description, date.trim(), isDone);
     }
 
     private static void importEvent(String substring, boolean isDone){
         String description = "", date = "";
-        for(int i=0;i<substring.indexOf("(at: "); i++){
+        for(int i=0;i<substring.indexOf("(at:"); i++){
             description += substring.charAt(i);
         }
-        for(int i=substring.indexOf("(at: ")+5;i<substring.length()-1; i++){
+        for(int i=substring.indexOf("(at:")+4;i<substring.length()-1; i++){
             date += substring.charAt(i);
         }
-        TaskList.importEvent(description, date, isDone);
+        TaskList.importEvent(description, date.trim(), isDone);
     }
 
     private static boolean isItDone(char mark){

@@ -1,3 +1,6 @@
+package  java.duke.task;
+
+import java.duke.importutil.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,8 +31,19 @@ public class TaskList {
         return index-1;
     }
 
+    public static int getNumOfTasks(){
+        return numOfTasks;
+    }
+
     //Level 2 List
     public static void list(){
+        try {
+            taskList.clear();
+            numOfTasks = 0;
+            TaskFile.loadFile();
+        } catch (IOException f) {
+            System.out.println("Unable to find the save file, loading last known list instead.");
+        }
         if(numOfTasks > 0) {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < numOfTasks; i++) {
@@ -125,7 +139,6 @@ public class TaskList {
         Todo task = new Todo(fileInputDescription, fileInputMark);
         taskList.add(task);
         numOfTasks++;
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
     public static void importDeadline(String fileInputDescription, String fileInputDate, boolean fileInputMark){
@@ -133,7 +146,6 @@ public class TaskList {
         Deadline task = new Deadline(fileInputDescription, fileInputDate, fileInputMark);
         taskList.add(task);
         numOfTasks++;
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
     public static void importEvent(String fileInputDescription, String fileInputDate, boolean fileInputMark){
@@ -141,7 +153,6 @@ public class TaskList {
         Event task = new Event(fileInputDescription, fileInputDate, fileInputMark);
         taskList.add(task);
         numOfTasks++;
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
     public static void overwriteTaskFile(){

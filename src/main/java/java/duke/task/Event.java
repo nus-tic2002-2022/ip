@@ -1,3 +1,5 @@
+package  java.duke.task;
+
 public class Event extends Task {
 
     protected String at;
@@ -15,12 +17,10 @@ public class Event extends Task {
         super(description);
         this.at = at;
         this.isDone = isDone;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(this);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at:" + at +")";
+        return "[E]" + super.toString() + "(at: " + at +")";
     }
 }

@@ -1,3 +1,7 @@
+package java.duke.utils;
+
+import java.duke.task.*;
+
 public class Parser extends Exception{
 
     private static void taskValidate (String userInput, String taskType) throws StringIndexOutOfBoundsException{

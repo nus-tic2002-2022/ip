@@ -1,36 +1,31 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.duke.utils.*;
+import java.duke.importutil.*;
+import java.duke.task.*;
 import java.util.Scanner;
 
 
 public class Duke {
 
-    public static void main(String[] args) {
+    private TaskList tasks;
+    private TaskFile file;
+    private Ui ui;
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo + "Hello! I'm Duke\n" + "What can I do for you?");
+    public Duke (String fp) {
+        ui = new Ui();
+        tasks = new TaskList();
+        file = new TaskFile(fp);
+    }
 
-       new TaskList();
-
-        try{
-            TaskFile.loadFile();
-        } catch (FileNotFoundException f) {
-           try {
-               TaskFile.newFile();
-           } catch (IOException i) {
-
-           }
-        }
-
+    public void run (){
         while(true) {
             Scanner scanInput = new Scanner(System.in); //Scan user input
             String userInput = scanInput.nextLine().trim(); //Read user input
             Parser.parse(userInput);
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("./data/tasks.txt").run();
     }
 
 }

@@ -1,3 +1,4 @@
-[T][ ] eat
-[D][ ] (by: (by:10pm)
-[E][X] take a break (at:8pm)
+[D][ ] submit (by: 28th feb)
+[D][X] finish (by: 1hour)
+[D][X] return book (by: 5th may)
+[T][ ] read book

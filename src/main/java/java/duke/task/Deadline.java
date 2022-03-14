@@ -1,3 +1,5 @@
+package java.duke.task;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -15,12 +17,10 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         this.isDone = isDone;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(this);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        return "[D]" + super.toString() + "(by: " + by + ")";
     }
 }

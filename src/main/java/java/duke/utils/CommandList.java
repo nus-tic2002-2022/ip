@@ -1,3 +1,5 @@
+package java.duke.utils;
+
 public class CommandList {
 
     private static final String[] list = {

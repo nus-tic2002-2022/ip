@@ -1,7 +1,7 @@
 import java.util.ArrayList;
-public class UI
+public class ui
 {
-    public UI () { };
+    public ui() { };
 
     public static void printIntroduction() {
         System.out.println("  (\\_/)");

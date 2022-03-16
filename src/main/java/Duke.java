@@ -1,16 +1,39 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-    private TaskHandler TaskHandler;
+    private TaskHandler TaskHandler; // similar like UI
     private TaskList taskList;
     private Task task;
+    private Storage storage;
+
+    /*public Duke(){
+        TaskHandler = new TaskHandler();
+        storage = new Storage("data/tasks.txt");
+        try{
+            taskList = new TaskList();
+            storage.ReadFile();
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }*/
+    public Duke(String filePath) {
+        TaskHandler = new TaskHandler();
+        storage = new Storage(filePath);
+        try{
+            taskList = new TaskList();
+            storage.ReadFile();
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public static void main(String[] args) {
-        new Duke().start();
+        new Duke("data/tasks.txt").start();
     }
 
     public void start() {
-        TaskHandler = new TaskHandler();
-        taskList = new TaskList();
         System.out.println(TaskHandler.hello());
         boolean isExit = false;
         while (!isExit) {
@@ -58,6 +81,7 @@ public class Duke {
                         taskList.add(task);
                     }
                 }
+                storage.saveTasks();
             } catch (Exception e) {
                 System.out.println(e.toString());
             }

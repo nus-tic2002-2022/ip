@@ -3,16 +3,14 @@ import java.util.ArrayList;
 
 public class Duke {
 
+
     //enum for the tasks
 
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static int taskListCount = 0;
 
     public static void printList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0 ; i < taskListCount ; i ++) {
-            System.out.println( (i+1)+"."+tasks.get(i) ); //+1 to i here due to numbering
-        }
+        UI.printListUI(tasks , taskListCount);
     }
     
     public static void changeTaskStatus(int taskIndex, boolean statusToChange) {
@@ -20,7 +18,7 @@ public class Duke {
         System.out.printf(tasks.get(taskIndex).getTask() + " set to %s.\n",statusToChange ? "done" : "undone");
     }
 
-    public static void processTaskToList(String taskType, String response) throws ArrayIndexOutOfBoundsException {
+    public static void processTaskToList(String taskType, String response) {
         if (taskType.equals("todo")) {
             String task = response.split(" ")[1];
             tasks.add(new ToDos(task));
@@ -53,7 +51,7 @@ public class Duke {
     }
 
     public static void chatting() {
-        printIntroduction();
+        UI.printIntroduction();
 
         Scanner input = new Scanner(System.in);
         String response;
@@ -63,7 +61,7 @@ public class Duke {
             response = input.nextLine();
 
             if (response.equals("bye")) {
-                printBye();
+                UI.printBye();
                 return;
             } else if (response.equals("list")) {
                 printList();
@@ -91,34 +89,14 @@ public class Duke {
                 System.out.println("=^-.-^= Not sure what that means...");
             }
 
-            //tasks[taskListCount] = new Task(response);
-
         }
     }
 
-    public static void printIntroduction() {
-        System.out.println("  (\\_/)");
-        System.out.println("  (^_^)");
-        System.out.println("  (____)0");
-        System.out.println("\tHey how's it going? I'm Bugs, a transient robotic bunny.");
-        System.out.println("\tHow may I help? (I take carrots as payment)");
-    }
 
-    public static void printBye() {
-        System.out.println("Already? Cya...");
-        System.out.println("  //");
-        System.out.println(" ('')");
-        System.out.println(" UU \\   ");
-        System.out.println(" <><>*");
-    }
+
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        UI.printLogo();
         chatting();
         return;
     }

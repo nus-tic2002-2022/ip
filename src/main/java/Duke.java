@@ -61,7 +61,7 @@ public class Duke {
             response = input.nextLine();
 
             if (response.equals("bye")) {
-                UI.printBye();
+                ui.printBye();
                 return;
             } else if (response.equals("list")) {
                 printList();
@@ -91,18 +91,9 @@ public class Duke {
 
         }
     }
-
-
-    public static void printIntroduction() {
-        ui;
-    }
-
-    public static void printBye() {
-        ui;
-    }
-
+    
     public static void main(String[] args) {
-        ui;
+        ui.printIntroduction();
         chatting();
         return;
     }

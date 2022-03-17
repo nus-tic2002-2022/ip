@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class TaskProcessor {
+
     protected static ArrayList<Task> tasks = new ArrayList<Task>();
     protected static int taskListCount = 0;
 

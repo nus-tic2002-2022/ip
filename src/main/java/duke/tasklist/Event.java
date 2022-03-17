@@ -1,3 +1,5 @@
+package duke.tasklist;
+
 public class Event extends Task {
     protected String at;
 
@@ -18,6 +20,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         String output = super.toString();
-       return output.substring(0,1) + 'E' + output.substring(2) + "\t" + at;
+       return output.substring(0,1) + 'E' + output.substring(2) + "\tat : " + at;
     }
 }

@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
 public class Duke {
-    public Scanner in = new Scanner(System.in);
-    String input;
+    private Scanner in = new Scanner(System.in);
+    private String input;
     private Storage storage;
     private Tasklist tasks;
     private UI ui;
 
+    //The following method takes an input file and reads it. It attempts to store the values from the file into a tasks Tasklist.
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -18,6 +19,7 @@ public class Duke {
         }
     }
 
+    //The following method runs a loop to take in user inputs, until a user types in 'bye' to signal an exit to the program.
     public void run(){
         while(true) {
             input = in.nextLine();

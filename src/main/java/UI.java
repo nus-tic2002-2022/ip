@@ -2,16 +2,18 @@ import java.util.regex.Pattern;
 import duke.*;
 
 public class UI {
-    Pattern m = Pattern.compile("^mark\\s[0-9]*$");
-    Pattern u = Pattern.compile("^unmark\\s[0-9]*$");
-    Pattern rm = Pattern.compile("^delete\\s[0-9]*$");
-    Pattern t = Pattern.compile("^todo.*$");
-    Pattern d = Pattern.compile("^deadline.*$");
-    Pattern e = Pattern.compile("^event.*$");
+    private Pattern m = Pattern.compile("^mark\\s[0-9]*$");
+    private Pattern u = Pattern.compile("^unmark\\s[0-9]*$");
+    private Pattern rm = Pattern.compile("^delete\\s[0-9]*$");
+    private Pattern t = Pattern.compile("^todo.*$");
+    private Pattern d = Pattern.compile("^deadline.*$");
+    private Pattern e = Pattern.compile("^event.*$");
 
     public void UI(){
     }
 
+    //The following method takes in the user input and attempts to identify what to do with the input (i.e. store as a Deadline, Event or Task, etc).
+    //It will then add the new task to the existing Tasklist.
     public Tasklist Query(Tasklist tasks, String input) {
         switch (input) {
             case "list":
@@ -74,10 +76,13 @@ public class UI {
         }
         return tasks;
     }
+
+    //Exit method. Prints an exit message to the user.
     public void exit(){
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    //The following method prints an error to inform the user that the specified file location is invalid or the file is unavailable.
     public void showLoadingError(){
         System.out.println("Error: Unable to read or locate local saved file!");
     }

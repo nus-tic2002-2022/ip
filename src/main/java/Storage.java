@@ -7,13 +7,15 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 
 public class Storage {
-    public File f;
-    public ArrayList<Task> taskArr;
+    protected File f;
+    protected ArrayList<Task> taskArr;
 
+    //The following class takes in the supplied value of filepath and uses it to populate variable File f.
     public Storage(String filepath) {
         this.f = new File(filepath + "\\data.txt");
     }
 
+    //The following method will write to the file specified in File f. The written value is taken from ArrayList taskArr along with the getDescription method.
     public void saveToFile(Tasklist tasks) {
         try (PrintWriter out = new PrintWriter(f.getAbsoluteFile())) {
             for(int i=0;i<tasks.size();i++){
@@ -24,6 +26,8 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
+    //The following method returns an ArrayList containing the values stored in file (specified in File f)
     public ArrayList<Task> readFromFile(){
         int counter = 0;
         taskArr = new ArrayList<Task>(100);

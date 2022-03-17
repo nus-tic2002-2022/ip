@@ -2,17 +2,24 @@ import java.util.ArrayList;
 import duke.*;
 
 public class Tasklist {
-    public ArrayList<Task> taskArr;
+    protected ArrayList<Task> taskArr;
+
     public Tasklist(){
     }
+
+    //This class takes in an ArrayList and passes the value to the protected ArrayList taskArr.
     public Tasklist(ArrayList<Task> taskArr){
         this.taskArr = taskArr;
     }
+
+    //This method prints out all values found in the taskArr
     public void list(){
         for(int i=0;i<taskArr.size();i++){
             System.out.println((i+1) + ". " + taskArr.get(i).getDescription());
         }
     }
+
+    //This method is used to mark an item on the taskArr. There is an input validation to check if the number supplied is within bounds of the Array List.
     public void mark(int i){
         if(i <= taskArr.size() && i != 0){
             taskArr.get(i-1).setDone(true);
@@ -22,6 +29,7 @@ public class Tasklist {
         }
     }
 
+    //This method is used to unmark an item on the taskArr. There is an input validation to check if the number supplied is within bounds of the Array List.
     public void unmark(int i){
         if(i <= taskArr.size() && i != 0){
             taskArr.get(i-1).setDone(false);
@@ -30,6 +38,8 @@ public class Tasklist {
             System.out.println("Out of range!");
         }
     }
+
+    //This method is used to delete an item on the taskArr. There is an input validation to check if the number supplied is within bounds of the Array List.
     public void delete(int i){
         if(i <= taskArr.size() && i != 0){
             System.out.println("Noted. I've removed this task: \n" + taskArr.get(i-1).getDescription() + "\nNow you have " + (taskArr.size() - 1) + " tasks in the list.");
@@ -38,13 +48,18 @@ public class Tasklist {
             System.out.println("Out of range!");
         }
     }
+
+    //Used to add a new task.
     public void add(Task task){
         taskArr.add(task);
     }
 
+    //Used to get a new task.
     public Task get(int i){
         return taskArr.get(i);
     }
+
+    //Used to return the size of the taskArr.
     public int size(){
         return taskArr.size();
     }

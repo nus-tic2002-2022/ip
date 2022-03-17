@@ -3,16 +3,14 @@ import java.util.ArrayList;
 
 public class Duke {
 
+
     //enum for the tasks
 
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static int taskListCount = 0;
 
     public static void printList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0 ; i < taskListCount ; i ++) {
-            System.out.println( (i+1)+"."+tasks.get(i) ); //+1 to i here due to numbering
-        }
+        UI.printListUI(tasks , taskListCount);
     }
     
     public static void changeTaskStatus(int taskIndex, boolean statusToChange) {
@@ -20,7 +18,7 @@ public class Duke {
         System.out.printf(tasks.get(taskIndex).getTask() + " set to %s.\n",statusToChange ? "done" : "undone");
     }
 
-    public static void processTaskToList(String taskType, String response) throws ArrayIndexOutOfBoundsException {
+    public static void processTaskToList(String taskType, String response) {
         if (taskType.equals("todo")) {
             String task = response.split(" ")[1];
             tasks.add(new ToDos(task));
@@ -53,7 +51,7 @@ public class Duke {
     }
 
     public static void chatting() {
-        printIntroduction();
+        UI.printIntroduction();
 
         Scanner input = new Scanner(System.in);
         String response;
@@ -63,7 +61,7 @@ public class Duke {
             response = input.nextLine();
 
             if (response.equals("bye")) {
-                printBye();
+                UI.printBye();
                 return;
             } else if (response.equals("list")) {
                 printList();
@@ -91,10 +89,9 @@ public class Duke {
                 System.out.println("=^-.-^= Not sure what that means...");
             }
 
-            //tasks[taskListCount] = new Task(response);
-
         }
     }
+
 
     public static void printIntroduction() {
         ui;

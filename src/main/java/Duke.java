@@ -10,7 +10,7 @@ public class Duke {
     private static int taskListCount = 0;
 
     public static void printList() {
-        UI.printListUI(tasks , taskListCount);
+        ui.printListUI(tasks , taskListCount);
     }
     
     public static void changeTaskStatus(int taskIndex, boolean statusToChange) {
@@ -51,7 +51,7 @@ public class Duke {
     }
 
     public static void chatting() {
-        UI.printIntroduction();
+        ui.printIntroduction();
 
         Scanner input = new Scanner(System.in);
         String response;
@@ -60,34 +60,7 @@ public class Duke {
             System.out.println("\tWhat's up doc?");
             response = input.nextLine();
 
-            if (response.equals("bye")) {
-                ui.printBye();
-                return;
-            } else if (response.equals("list")) {
-                printList();
-                continue;
-            } else if ( response.startsWith("mark") ) {
-                //error here. what if mark is not integer?
-                int indexToChange = Integer.parseInt(response.split(" ")[1]) - 1 ; //minus 1 to account for Java starting array at index 0
-                changeTaskStatus(indexToChange,true);
-                continue;
-            } else if ( response.startsWith("unmark")) {
-                //error here. what if unmark is not integer?
-                int indexToChange = Integer.parseInt(response.split(" ")[1]) - 1; //minus 1 to account for Java starting array at index 0
-                changeTaskStatus(indexToChange,false);
-                continue;
-            } else if (response.startsWith("todo") || response.startsWith("event") || response.startsWith("deadline")) {
-                String taskType = response.split(" ")[0];
-                try {
-                    processTaskToList(taskType,response);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("=^-.-^= You didn't provide your task description...");
-                }
-            } else if (response.startsWith("delete")) {
-                deleteTasks(response);
-            } else {
-                System.out.println("=^-.-^= Not sure what that means...");
-            }
+            Parser.processUserInput(response);
 
         }
     }

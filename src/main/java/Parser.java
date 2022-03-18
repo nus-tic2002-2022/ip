@@ -1,10 +1,7 @@
 public class Parser {
 
     public static void processUserInput(String userInput) {
-        if (userInput.equals("bye")) {
-            ui.printBye();
-            return;
-        } else if (userInput.equals("list")) {
+        if (userInput.equals("list")) {
             //ui.printListUI();
         } else if ( userInput.startsWith("mark") ) {
             //error here. what if mark is not integer?

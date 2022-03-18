@@ -1,4 +1,4 @@
-package exceptions;
+package com.calebjianhui.duke.exceptions;
 
 public class InvalidTaskInputException extends Exception {
     String description;

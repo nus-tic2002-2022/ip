@@ -1,4 +1,4 @@
-package classes;
+package com.calebjianhui.duke.taskmanager;
 
 public abstract class Task {
     protected boolean isDone;

@@ -1,4 +1,4 @@
-package classes;
+package com.calebjianhui.duke.taskmanager;
 
 public class Deadline extends Task {
     private String dueDate;

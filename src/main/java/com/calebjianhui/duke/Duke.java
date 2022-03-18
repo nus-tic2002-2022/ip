@@ -1,71 +1,20 @@
-import classes.Deadline;
-import classes.Event;
-import classes.Task;
-import classes.ToDos;
-import exceptions.InvalidTaskInputException;
-import exceptions.UnknownCommandInputException;
+package com.calebjianhui.duke;
+
+import com.calebjianhui.duke.taskmanager.Deadline;
+import com.calebjianhui.duke.taskmanager.Event;
+import com.calebjianhui.duke.taskmanager.Task;
+import com.calebjianhui.duke.taskmanager.ToDos;
+import com.calebjianhui.duke.exceptions.InvalidTaskInputException;
+import com.calebjianhui.duke.exceptions.UnknownCommandInputException;
+import com.calebjianhui.duke.ui.DukeUI;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    // Constants
-    final static String DUKE_MESSAGE_INDENTATION = "~\t";
     // Variables
     static ArrayList<Task> taskList = new ArrayList<>();
-
-    //================================================================================
-    // Printing
-    //================================================================================
-
-    /**
-     * Prints a single divider line
-     *
-     * @param underscore Determine whether to display _ or -
-     * **/
-    public static void printDivider(boolean underscore) {
-        if (underscore) {
-            System.out.println("____________________________________________________________");
-        } else {
-            System.out.println("------------------------------------------------------------");
-        }
-    }
-
-    /**
-     * Prints system reply in a special accent
-     * - Duke will reply with a ~ and dividers at top and bottom
-     *
-     * @param message Message from Duke
-     * **/
-    public static void printDukeReply(String message) {
-        printDivider(true);
-        System.out.println(DUKE_MESSAGE_INDENTATION + message.replaceAll("\n", "\n" + DUKE_MESSAGE_INDENTATION));
-        printDivider(false);
-    }
-
-    /**
-     * Print welcome message
-     * - Used at start of program
-     * **/
-    public static void printWelcomeMessage() {
-        printDivider(true);
-        String logo = "\t\t\t ____        _        \n"
-                + "\t\t\t|  _ \\ _   _| | _____ \n"
-                + "\t\t\t| | | | | | | |/ / _ \\\n"
-                + "\t\t\t| |_| | |_| |   <  __/\n"
-                + "\t\t\t|____/ \\__,_|_|\\_\\___|\tA variant";
-        System.out.println(logo);
-        System.out.println("............................................................");
-        printDukeReply("Hello! I'm Duke\nWhat can I do for you?");
-    }
-
-    /**
-     * Print ending message
-     * - Used in program termination
-     * **/
-    public static void printEndingMessage() {
-        printDukeReply("Bye. Hope to see you again soon!");
-    }
+    DukeUI ui;
 
     //================================================================================
     // Commands
@@ -86,7 +35,7 @@ public class Duke {
      *
      * @param command Input command from user
      * **/
-    private static void determineAction(String command) throws UnknownCommandInputException {
+    private void determineAction(String command) throws UnknownCommandInputException {
         if (command.equals("list")) {
             listTask();
         } else if (command.startsWith("mark") || command.startsWith("unmark")) {
@@ -110,7 +59,7 @@ public class Duke {
      * @param type Type of task to be added
      * @param command Task to be added
      * **/
-    public static void addToTaskList(String type, String command) {
+    public void addToTaskList(String type, String command) {
         try {
             String task = command;
             if (type.equals("todo")) {
@@ -137,9 +86,9 @@ public class Duke {
                 task = commandList[1];
                 taskList.add(new Event(commandList[0], task));
             }
-            printDukeReply("Roger. I will add this to your list:\n\t" + getTaskDetails(taskList.get(taskList.size()-1)) + "\nYou currently have " + taskList.size() + " task in your list.");
+            ui.formatDukeReply("Roger. I will add this to your list:\n\t" + getTaskDetails(taskList.get(taskList.size()-1)) + "\nYou currently have " + taskList.size() + " task in your list.");
         } catch (InvalidTaskInputException e) {
-            printDukeReply(e.getMessage());
+            ui.formatDukeReply(e.getMessage());
         }
     }
 
@@ -148,23 +97,23 @@ public class Duke {
      *
      * @param indexString Index of the task in the arraylist
      * **/
-    private static void deleteTask(String indexString) {
+    private void deleteTask(String indexString) {
         // Attempt to convert input to integer
         int index;
         try {
             index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
-            printDukeReply("Task is invalid. Please select a valid task to delete");
+            ui.formatDukeReply("Task is invalid. Please select a valid task to delete");
             return;
         }
         // Check if index is within range
         index -= 1;
         if (index < 0 || index >= taskList.size()) {
-            printDukeReply("Task is invalid. Please select a valid task to delete");
+            ui.formatDukeReply("Task is invalid. Please select a valid task to delete");
             return;
         }
         // Delete task and send reply
-        printDukeReply("Alrighty. I will delete this task.:\n\t" + getTaskDetails(taskList.get(index)) + "\nYou currently have " + (taskList.size() - 1) + " task in your list.");
+        ui.formatDukeReply("Alrighty. I will delete this task.:\n\t" + getTaskDetails(taskList.get(index)) + "\nYou currently have " + (taskList.size() - 1) + " task in your list.");
         taskList.remove(index);
     }
 
@@ -187,9 +136,9 @@ public class Duke {
     /**
      * List all the task in the task queue
      * **/
-    public static void listTask() {
+    public void listTask() {
         if (taskList.isEmpty()) {
-            printDukeReply("You have no pending task. Add one now?");
+            ui.formatDukeReply("You have no pending task. Add one now?");
         } else {
             String allTask = "These are your current task:\n";
             for (int i = 0; i < taskList.size(); i++) {
@@ -199,7 +148,7 @@ public class Duke {
                 allTask = allTask.concat(String.valueOf(i+1)).concat(".");
                 allTask = allTask.concat(getTaskDetails(taskList.get(i)));
             }
-            printDukeReply(allTask);
+            ui.formatDukeReply(allTask);
         }
     }
 
@@ -208,9 +157,9 @@ public class Duke {
      *
      * @param command Determine to mark task
      * **/
-    public static void updateTaskStatus(String command) {
+    public void updateTaskStatus(String command) {
         if (taskList.isEmpty()) {
-            printDukeReply("You do not have any ongoing task. Add one first?");
+            ui.formatDukeReply("You do not have any ongoing task. Add one first?");
             return;
         }
 
@@ -223,24 +172,23 @@ public class Duke {
             int index = Integer.parseInt(command.strip());
             index--;
             if (index < 0 || index >= taskList.size()) {
-                printDukeReply("classes.Task is not found. Please provide a valid index.");
+                ui.formatDukeReply("classes.Task is not found. Please provide a valid index.");
                 listTask();
                 return;
             }
             Task selected = taskList.get(index);
             if (selected.getDoneStatus() == isMark) {
-                printDukeReply("There are no changes to be made!");
+                ui.formatDukeReply("There are no changes to be made!");
                 listTask();
                 return;
             }
             selected.setDoneStatus(isMark);
             String reply = isMark ? "Nice! I've marked this task as done:" : "Ok, I've marked this task as not done yet:";
             reply = reply.concat("\n\t").concat(getTaskDetails(selected));
-            printDukeReply(reply);
+            ui.formatDukeReply(reply);
         } catch (NumberFormatException e) {
-            printDukeReply("Please provide the index of the task that you wish to remove.");
+            ui.formatDukeReply("Please provide the index of the task that you wish to remove.");
         }
-
     }
 
     //================================================================================
@@ -248,10 +196,18 @@ public class Duke {
     //================================================================================
 
     public static void main(String[] args) {
+        new Duke().run();
+    }
+
+    public void run() {
+        ui = new DukeUI();
         String command;
         Scanner in = new Scanner(System.in);
+
         // Welcome Message
-        printWelcomeMessage();
+        ui.printWelcomeMessage();
+
+        //
         while (true) {
             command = in.nextLine();
             if (checkTerminatingWord(command)) {
@@ -260,11 +216,11 @@ public class Duke {
                 try {
                     determineAction(command);
                 } catch (UnknownCommandInputException e) {
-                    printDukeReply(e.getMessage());
+                    ui.formatDukeReply(e.getMessage());
                 }
             }
         }
         // Ending Message
-        printEndingMessage();
+        ui.printEndingMessage();
     }
 }

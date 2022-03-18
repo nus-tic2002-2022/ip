@@ -45,5 +45,4 @@ public class TaskProcessor {
         System.out.printf("You now have %d in your list!\n", taskListCount);
     }
 
-    }
 }

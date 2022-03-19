@@ -31,7 +31,7 @@ public class DukeUI {
         this(System.out);
     }
 
-    public DukeUI(PrintStream out) {
+    private DukeUI(PrintStream out) {
         this.out = out;
     }
 

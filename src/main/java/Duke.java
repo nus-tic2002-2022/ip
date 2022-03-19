@@ -26,11 +26,10 @@ public class Duke {
             System.out.println("\tWhat's up doc?");
             response = input.nextLine();
 
-            if (response == 'bye') {
+            if (response.equals("bye")) {
                 ui.printBye();
                 return;
             };
-
             Parser.processUserInput(response);
 
         }

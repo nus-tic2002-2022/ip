@@ -1,3 +1,5 @@
+package main;
+
 import java.util.Scanner;
 import exception.*;
 import static input.User.*;

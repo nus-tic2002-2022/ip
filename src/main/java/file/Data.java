@@ -11,6 +11,13 @@ public class Data {
 
     private static String filePath = "data.txt";
 
+    /**
+     * Read the file based on the file path
+     * Creating the task based on the task category
+     *
+     * @param taskList Existing task array to be added
+     * @return Updated task array
+     */
     public static ArrayList<Task> readFile(ArrayList<Task> taskList){
         File myObj = new File(filePath);
         try {
@@ -29,6 +36,11 @@ public class Data {
         return taskList;
     }
 
+    /**
+     * Write the file based on the file path
+     *
+     * @param taskList Existing task array to be written to the file
+     */
     public static void writeFile(ArrayList<Task> taskList){
         try{
             FileWriter myObj = new FileWriter(filePath);

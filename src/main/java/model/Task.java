@@ -10,14 +10,28 @@ public class Task {
         this.done = false;
     }
 
+    /**
+     * Check the status of the task
+     *
+     * @return Status of the task
+     */
     public boolean isDone(){
         return done;
     }
 
+    /**
+     * Set the status of task
+     *
+     * @param done Status of the task
+     */
     public void setDone(boolean done){
         this.done = done;
     }
 
+    /**
+     * Print the task
+     *
+     */
     public void printTask(){
         String status = " ";
         if(done){
@@ -26,6 +40,11 @@ public class Task {
         System.out.println("[" + status + "] " + description);
     }
 
+
+    /**
+     * Format the task to store into file
+     *
+     */
     public String toFileString(){
         return "";
     }

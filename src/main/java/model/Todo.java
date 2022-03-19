@@ -6,6 +6,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Print the task in certain format
+     *
+     */
     @Override
     public void printTask(){
         String status = " ";
@@ -15,6 +19,12 @@ public class Todo extends Task {
         System.out.println("[T][" + status + "] " + description);
     }
 
+
+    /**
+     * Format the task to store into file
+     *
+     * @return Formatted string
+     */
     @Override
     public String toFileString(){
         String status = done ? "1" : "0";

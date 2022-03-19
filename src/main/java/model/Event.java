@@ -9,6 +9,10 @@ public class Event extends Task  {
         this.period = period;
     }
 
+    /**
+     * Print the task in certain format
+     *
+     */
     @Override
     public void printTask(){
         String status = " ";
@@ -18,6 +22,12 @@ public class Event extends Task  {
         System.out.println("[E][" + status + "] " + description + " (at: " + period + ")");
     }
 
+
+    /**
+     * Format the task to store into file
+     *
+     * @return Formatted string
+     */
     @Override
     public String toFileString(){
         String status = done ? "1" : "0";

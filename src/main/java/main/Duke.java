@@ -5,6 +5,9 @@ import exception.*;
 import static input.User.*;
 
 public class Duke {
+    /**
+     * Main Program
+     */
     public static void main(String[] args) {
         retrieveInitData();
         System.out.println("-______________________-||");
@@ -30,6 +33,11 @@ public class Duke {
         in.close();
     }
 
+    /**
+     * Process the input provided by user
+     *
+     * @param input user input
+     */
     public static void processInput(String input) throws InvalidInputException{
         if(input.equals("list")){
             System.out.println("=========================================" );

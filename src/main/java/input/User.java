@@ -1,5 +1,7 @@
 package input;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import exception.*;
@@ -16,15 +18,23 @@ public class User {
      * @param type Type of the task
      * @return Created new task
      */
-    public static Task addSpecificTask(String desc, String type) throws InvalidInputException{
+    public static Task addSpecificTask(String desc, String type) throws InvalidInputException, InvalidDateException {
         if(type.equals("todo")){
             taskList.add(new Todo(desc));
         }
         else if(type.equals("deadline")){
             String[] deadlineArr = desc.split(" /by ");
+
             if(deadlineArr.length < 2){
                 throw new InvalidInputException();
             }
+
+            try {
+                LocalDate.parse(deadlineArr[1]);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
+
             taskList.add(new Deadline(deadlineArr[0], deadlineArr[1]));
         }
         else if(type.equals("event")){

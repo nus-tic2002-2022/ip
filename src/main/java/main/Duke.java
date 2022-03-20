@@ -23,6 +23,9 @@ public class Duke {
             } catch (InvalidInputException e) {
                 System.out.println("=========================================" );
                 System.out.println("What are you trying to here?? Please review your input.");
+            } catch (InvalidDateException e){
+                System.out.println("=========================================" );
+                System.out.println("Invalid date provided. Please provide in yyyy-mm-dd.");
             }
             System.out.println("=========================================" );
             System.out.println("What can I do for you?");
@@ -38,9 +41,12 @@ public class Duke {
      *
      * @param input user input
      */
-    public static void processInput(String input) throws InvalidInputException{
+    public static void processInput(String input) throws InvalidInputException, InvalidDateException {
         if(input.equals("list")){
             System.out.println("=========================================" );
+            if(getTaskList() == 0){
+                System.out.println("You are good to go! No task is added.");
+            }
             printTask();
             return;
         }
@@ -61,9 +67,9 @@ public class Duke {
                 System.out.println("No task is provided.");
                 return;
             }
+            addSpecificTask(userInputArr[1], userInputArr[0]).printTask();
             System.out.println("=========================================" );
             System.out.println("Mission added!");
-            addSpecificTask(userInputArr[1], userInputArr[0]).printTask();
             System.out.println("Now you have " + getTaskList() + " missions in the list.");
 
         }

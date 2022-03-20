@@ -12,7 +12,7 @@ public class TaskProcessor {
 
     public static void addTasks() {};
 
-    public static void deleteTasks (String response) throws ArrayIndexOutOfBoundsException {
+    public static void deleteTasks (String response) throws IndexOutOfBoundsException,NumberFormatException {
         int deleteIndex = Integer.parseInt(response.split(" ")[1]) - 1; //what if it's not int?
         System.out.printf("Okay! I've deleted the task '%s' from your list!\n", tasks.get(deleteIndex).getTask());
         tasks.remove(deleteIndex);
@@ -21,7 +21,7 @@ public class TaskProcessor {
     }
 
 
-    public static void processTaskToList(String taskType, String response) throws ArrayIndexOutOfBoundsException {
+    public static void processTaskToList(String taskType, String response) throws ArrayIndexOutOfBoundsException,NumberFormatException {
         if (taskType.equals("todo")) {
             String task = response.split(" ")[1];
             tasks.add(new ToDos(task));

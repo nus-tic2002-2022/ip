@@ -9,13 +9,6 @@ public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static int taskListCount = 0;
 
-    public static void printList() {
-        ui.printListUI(tasks , taskListCount);
-    }
-    
-
-
-
     public static void chatting() {
         ui.printIntroduction();
 
@@ -30,7 +23,7 @@ public class Duke {
                 ui.printBye();
                 return;
             };
-            Parser.processUserInput(response);
+            Parser.processUserInput(response , tasks, taskListCount); //, tasks, taskListCount
 
         }
     }

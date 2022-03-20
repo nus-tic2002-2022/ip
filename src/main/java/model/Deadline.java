@@ -7,6 +7,11 @@ public class Deadline extends Task  {
 
     protected LocalDate by;
 
+    public Deadline(String description, LocalDate by) {
+        super(description);
+        this.by = by;
+    }
+
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDate.parse(by);
@@ -31,7 +36,7 @@ public class Deadline extends Task  {
             status = "X";
         }
         String formattedBy = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-       return ("[D][" + status + "] " + description + " (by: " + formattedBy + ")");
+        return ("[D][" + status + "] " + description + " (by: " + formattedBy + ")");
     }
 
     /**

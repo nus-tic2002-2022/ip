@@ -25,6 +25,7 @@ public class User {
      * @return Created new task
      */
     public static Task addSpecificTask(String desc, String type) throws InvalidInputException, InvalidDateException {
+        LocalDate inputDate;
         switch (type) {
             case "todo":
                 taskList.add(new Todo(desc));
@@ -37,19 +38,27 @@ public class User {
                 }
 
                 try {
-                    LocalDate.parse(deadlineArr[1]);
+                    inputDate = LocalDate.parse(deadlineArr[1]);
                 } catch (DateTimeParseException e) {
                     throw new InvalidDateException();
                 }
 
-                taskList.add(new Deadline(deadlineArr[0], deadlineArr[1]));
+                taskList.add(new Deadline(deadlineArr[0], inputDate));
                 break;
             case "event":
                 String[] eventArr = desc.split(" /at ");
+
                 if (eventArr.length < 2) {
                     throw new InvalidInputException();
                 }
-                taskList.add(new Event(eventArr[0], eventArr[1]));
+
+                try {
+                    inputDate = LocalDate.parse(eventArr[1]);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateException();
+                }
+
+                taskList.add(new Event(eventArr[0], inputDate));
                 break;
         }
         return taskList.get(taskList.size() - 1);
@@ -114,6 +123,12 @@ public class User {
             if (task instanceof Deadline) {
                 LocalDate taskDeadline = ((Deadline) task).getBy();
                 if (taskDeadline.compareTo(date) < 1) {
+                    result.add(task.toString());
+                }
+            }
+            else if(task instanceof Event){
+                LocalDate taskPeriod = ((Event) task).getPeriod();
+                if(taskPeriod.compareTo(date) == 0){
                     result.add(task.toString());
                 }
             }

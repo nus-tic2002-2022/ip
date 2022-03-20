@@ -1,14 +1,28 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task  {
 
-    protected String period;
+    protected LocalDate period;
+
+    public Event(String description, LocalDate period) {
+        super(description);
+        this.period = period;
+    }
 
     public Event(String description, String period) {
         super(description);
-        this.period = period;
+        this.period = LocalDate.parse(period);
+    }
+
+    /**
+     *  Return the value of period
+     *
+     */
+    public LocalDate getPeriod() {
+        return period;
     }
 
     /**
@@ -21,7 +35,8 @@ public class Event extends Task  {
         if(done){
             status = "X";
         }
-        return ("[E][" + status + "] " + description + " (at: " + period + ")");
+        String formattedPeriod = period.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return ("[E][" + status + "] " + description + " (at: " + formattedPeriod + ")");
     }
 
     /**

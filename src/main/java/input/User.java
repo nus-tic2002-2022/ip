@@ -1,15 +1,21 @@
 package input;
 
+import exception.InvalidDateException;
+import exception.InvalidInputException;
+import model.Deadline;
+import model.Event;
+import model.Task;
+import model.Todo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import exception.*;
-import model.*;
-import static file.Data.*;
+import static file.Data.readFile;
+import static file.Data.writeFile;
 
 public class User {
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Adding task to the array list based on the type
@@ -19,30 +25,32 @@ public class User {
      * @return Created new task
      */
     public static Task addSpecificTask(String desc, String type) throws InvalidInputException, InvalidDateException {
-        if(type.equals("todo")){
-            taskList.add(new Todo(desc));
-        }
-        else if(type.equals("deadline")){
-            String[] deadlineArr = desc.split(" /by ");
+        switch (type) {
+            case "todo":
+                taskList.add(new Todo(desc));
+                break;
+            case "deadline":
+                String[] deadlineArr = desc.split(" /by ");
 
-            if(deadlineArr.length < 2){
-                throw new InvalidInputException();
-            }
+                if (deadlineArr.length < 2) {
+                    throw new InvalidInputException();
+                }
 
-            try {
-                LocalDate.parse(deadlineArr[1]);
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateException();
-            }
+                try {
+                    LocalDate.parse(deadlineArr[1]);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateException();
+                }
 
-            taskList.add(new Deadline(deadlineArr[0], deadlineArr[1]));
-        }
-        else if(type.equals("event")){
-            String[] eventArr = desc.split(" /at ");
-            if(eventArr.length < 2){
-                throw new InvalidInputException();
-            }
-            taskList.add(new Event(eventArr[0], eventArr[1]));
+                taskList.add(new Deadline(deadlineArr[0], deadlineArr[1]));
+                break;
+            case "event":
+                String[] eventArr = desc.split(" /at ");
+                if (eventArr.length < 2) {
+                    throw new InvalidInputException();
+                }
+                taskList.add(new Event(eventArr[0], eventArr[1]));
+                break;
         }
         return taskList.get(taskList.size() - 1);
     }
@@ -83,11 +91,62 @@ public class User {
     }
 
     /**
+     * Retrieve the list of task based on the date
+     *
+     * @param userInput user input field
+     * @return List of task
+     */
+    public static ArrayList<String> viewTaskByDate(String userInput) throws InvalidDateException, InvalidInputException {
+        ArrayList<String> result = new ArrayList<>();
+        LocalDate date;
+        String[] viewTaskArr = userInput.split("/for ");
+        if(viewTaskArr.length < 2){
+            throw new InvalidInputException();
+        }
+
+        try {
+            date = LocalDate.parse(viewTaskArr[1]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                LocalDate taskDeadline = ((Deadline) task).getBy();
+                if (taskDeadline.compareTo(date) < 1) {
+                    result.add(task.toString());
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Retrieve the list of task based on the keyword
+     *
+     * @param userInput user input field
+     * @return List of task
+     */
+    public static ArrayList<String> viewTaskByKeyword(String userInput) throws InvalidInputException {
+        ArrayList<String> result = new ArrayList<>();
+        if(userInput.isEmpty()){
+            throw new InvalidInputException();
+        }
+
+        for (Task task : taskList) {
+            if (task.getDescription().contains(userInput)) {
+                result.add(task.toString());
+            }
+        }
+        return result;
+    }
+
+    /**
      * Retrieving the task from text file and store it
      *
      */
     public static void retrieveInitData(){
-        taskList = readFile(taskList);
+        readFile(taskList);
     }
 
     /**

@@ -1,7 +1,11 @@
 package main;
 
+import exception.InvalidDateException;
+import exception.InvalidInputException;
+
+import java.util.ArrayList;
 import java.util.Scanner;
-import exception.*;
+
 import static input.User.*;
 
 public class Duke {
@@ -14,18 +18,15 @@ public class Duke {
         System.out.println("Hello! I am the most superior AI~~ Friday");
         System.out.println("What can I do for you?");
         Scanner in = new Scanner(System.in);
-        String input = "";
+        String input;
         input = in.nextLine();
 
         while(!input.equals("bye")){
             try {
                 processInput(input);
-            } catch (InvalidInputException e) {
+            } catch (InvalidInputException | InvalidDateException e) {
                 System.out.println("=========================================" );
-                System.out.println("What are you trying to here?? Please review your input.");
-            } catch (InvalidDateException e){
-                System.out.println("=========================================" );
-                System.out.println("Invalid date provided. Please provide in yyyy-mm-dd.");
+                System.out.println(e.getMessage());
             }
             System.out.println("=========================================" );
             System.out.println("What can I do for you?");
@@ -84,6 +85,44 @@ public class Duke {
             System.out.println("Mission deleted!");
             deleteTask(Integer.parseInt(userInputArr[1]) - 1).printTask();
             System.out.println("Now you have " + getTaskList() + " missions in the list.");
+        }
+        else if(input.startsWith("viewtask")){
+            String[] userInputArr = input.split(" ", 2);
+            if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
+                System.out.println("=========================================" );
+                System.out.println("No date is provided.");
+                return;
+            }
+            ArrayList<String> taskStringList = viewTaskByDate(userInputArr[1]);
+            System.out.println("=========================================" );
+            if(taskStringList.size() == 0){
+                System.out.println("No task being schedule for the date.");
+                return;
+            }
+            System.out.println("The task deadline being scheduled before: " );
+            for(int i = 0; i < taskStringList.size(); i ++) {
+                System.out.print((i + 1) + ". ");
+                System.out.println(taskStringList.get(i));
+            }
+        }
+        else if(input.startsWith("find")){
+            String[] userInputArr = input.split(" ", 2);
+            if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
+                System.out.println("=========================================" );
+                System.out.println("No keyword is provided.");
+                return;
+            }
+            ArrayList<String> taskStringList = viewTaskByKeyword(userInputArr[1]);
+            System.out.println("=========================================" );
+            if(taskStringList.size() == 0){
+                System.out.println("No task being found.");
+                return;
+            }
+            System.out.println("These are the matching task: " );
+            for(int i = 0; i < taskStringList.size(); i ++) {
+                System.out.print((i + 1) + ". ");
+                System.out.println(taskStringList.get(i));
+            }
         }
         else {
             throw new InvalidInputException();

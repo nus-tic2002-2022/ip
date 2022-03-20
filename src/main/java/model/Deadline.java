@@ -13,17 +13,34 @@ public class Deadline extends Task  {
     }
 
     /**
-     * Print the task in certain format
+     * Return the value of by
+     *
+     */
+    public LocalDate getBy() {
+        return by;
+    }
+
+    /**
+     * Format task to String
      *
      */
     @Override
-    public void printTask(){
+    public String toString(){
         String status = " ";
         if(done){
             status = "X";
         }
         String formattedBy = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        System.out.println("[D][" + status + "] " + description + " (by: " + formattedBy + ")");
+       return ("[D][" + status + "] " + description + " (by: " + formattedBy + ")");
+    }
+
+    /**
+     * Print the task in certain format
+     *
+     */
+    @Override
+    public void printTask(){
+        System.out.println(toString());
     }
 
     /**

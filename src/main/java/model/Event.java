@@ -1,5 +1,7 @@
 package model;
 
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task  {
 
     protected String period;
@@ -10,16 +12,25 @@ public class Event extends Task  {
     }
 
     /**
+     * Format task to String
+     *
+     */
+    @Override
+    public String toString(){
+        String status = " ";
+        if(done){
+            status = "X";
+        }
+        return ("[E][" + status + "] " + description + " (at: " + period + ")");
+    }
+
+    /**
      * Print the task in certain format
      *
      */
     @Override
     public void printTask(){
-        String status = " ";
-        if(done){
-            status = "X";
-        }
-        System.out.println("[E][" + status + "] " + description + " (at: " + period + ")");
+        System.out.println(toString());
     }
 
 

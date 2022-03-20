@@ -29,6 +29,15 @@ public class Task {
     }
 
     /**
+     * Get description
+     *
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Print the task
      *
      */

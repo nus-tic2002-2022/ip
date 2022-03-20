@@ -7,16 +7,25 @@ public class Todo extends Task {
     }
 
     /**
+     * Format task to String
+     *
+     */
+    @Override
+    public String toString(){
+        String status = " ";
+        if(done){
+            status = "X";
+        }
+        return ("[T][" + status + "] " + description);
+    }
+
+    /**
      * Print the task in certain format
      *
      */
     @Override
     public void printTask(){
-        String status = " ";
-        if(done){
-            status = "X";
-        }
-        System.out.println("[T][" + status + "] " + description);
+        System.out.println(toString());
     }
 
 

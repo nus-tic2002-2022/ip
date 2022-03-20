@@ -5,14 +5,14 @@ public class TaskProcessor {
     protected static ArrayList<Task> tasks = new ArrayList<Task>();
     protected static int taskListCount = 0;
 
-    public static void changeTaskStatus(int taskIndex, boolean statusToChange) {
+    public static void changeTaskStatus(int taskIndex, boolean statusToChange)  {
         tasks.get(taskIndex).setDone(statusToChange);
         System.out.printf(tasks.get(taskIndex).getTask() + " set to %s.\n",statusToChange ? "done" : "undone");
     }
 
     public static void addTasks() {};
 
-    public static void deleteTasks (String response) {
+    public static void deleteTasks (String response) throws ArrayIndexOutOfBoundsException {
         int deleteIndex = Integer.parseInt(response.split(" ")[1]) - 1; //what if it's not int?
         System.out.printf("Okay! I've deleted the task '%s' from your list!\n", tasks.get(deleteIndex).getTask());
         tasks.remove(deleteIndex);
@@ -43,6 +43,10 @@ public class TaskProcessor {
         System.out.println(tasks.get(taskListCount));
         taskListCount ++;
         System.out.printf("You now have %d in your list!\n", taskListCount);
+    }
+
+    public static void printList() {
+        ui.printListUI(tasks, taskListCount);
     }
 
 }

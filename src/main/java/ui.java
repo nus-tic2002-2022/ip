@@ -28,7 +28,7 @@ public class ui
         System.out.println("Hello from\n" + logo);
     }
 
-    public static void printListUI(ArrayList tasks, int taskListCount ) {
+    public static void printListUI(ArrayList tasks, int taskListCount) { //
         System.out.println("Here are the tasks in your list:");
         for (int i = 0 ; i < taskListCount ; i ++) {
             System.out.println( (i+1)+"."+tasks.get(i) ); //+1 to i here due to numbering

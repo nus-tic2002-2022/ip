@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -9,12 +10,18 @@ public class Duke {
 
     public static void system() {
 
-        String[] taskList = new String[100];
-        Task[] taskIcon = new Task[100];
-        String line;
-        int counter = 0;
-        Scanner in = new Scanner(System.in);
+        // codes before level-6 implementation:
+        // String[] taskList = new String[100];
+        // Task[] taskIcon = new Task[100];
+        // String line;
+        // int counter = 0;
+        // Scanner in = new Scanner(System.in);
 
+        // codes from level-6 implementation onwards:
+        // using ArrayList for level-6 implementation:
+        ArrayList<Task> taskIcon = new ArrayList<>();
+        String line;
+        Scanner in = new Scanner(System.in);
 
         while (true) {
 
@@ -32,13 +39,13 @@ public class Duke {
             }
 
             //Print the List:
-            else if (line.equals("list") && taskIcon[0] != null) {
+            else if (line.equals("list") && taskIcon.size() != 0) {
                 separatingLine();
                 System.out.println("Hey Boss! I have summarised your task list as below:");
-                for (int i = 0; i < counter; i++) {
+                for (int i = 0; i < taskIcon.size(); i++) {
 
-                    // below codes are used from level-4 onwards:
-                    System.out.println(i + 1 + ". " + taskIcon[i].toString());
+                    // below codes are used from level-6 onwards:
+                    System.out.println(i + 1 + ". " + taskIcon.get(i).toString());
 
                     // below codes are used before level-4 implementation:
                     //System.out.println(i + 1 + ". " +
@@ -49,7 +56,7 @@ public class Duke {
                 }
                 separatingLine();
 
-            } else if (line.equals("list") && taskIcon[0] == null) {
+            } else if (line.equals("list") && taskIcon.size() == 0) {
                 separatingLine();
                 System.out.println("Your current task list is empty, Boss!\n" +
                         "Please start to add your tasks below ^<>^");
@@ -61,7 +68,7 @@ public class Duke {
 
                 try {
                     int index1 = Integer.parseInt(line.substring(7)) - 1;
-                    Task ud = taskIcon[index1];
+                    Task ud = taskIcon.get(index1);
                     ud.markAsNotDone();
                     System.out.println("Great, job completed, Boss!\n" +
                             "I've marked this task as not done yet for you:");
@@ -70,12 +77,12 @@ public class Duke {
                 }
 
                 // input invalid task number:
-                catch (NullPointerException e) {
+                catch (IndexOutOfBoundsException e) {
 
                     System.out.println("SORRY Boss! You do not have Task No. " +
                             (Integer.parseInt(line.substring(7))) +
                             " in your task list!\n" +
-                            "You only have a total of " + (counter) + " Task(s) in your List!\n" +
+                            "You only have a total of " + (taskIcon.size()) + " Task(s) in your List!\n" +
                             "Please only enter an existing task number again, Boss!");
                     separatingLine();
                 }
@@ -86,7 +93,7 @@ public class Duke {
 
                 try {
                     int index2 = Integer.parseInt(line.substring(5)) - 1;
-                    Task d = taskIcon[index2];
+                    Task d = taskIcon.get(index2);
                     d.markAsDone();
                     System.out.println("Great, job completed, Boss!\n" +
                             "I've marked this task as done for you:");
@@ -95,11 +102,11 @@ public class Duke {
                 }
 
                 // input invalid task number:
-                catch (NullPointerException e) {
+                catch (IndexOutOfBoundsException e) {
                     System.out.println("SORRY Boss! You do not have Task No. " +
                             (Integer.parseInt(line.substring(5))) +
                             " in your task list!\n" +
-                            "You only have a total of " + (counter) + " Task(s) in your List!\n" +
+                            "You only have a total of " + (taskIcon.size()) + " Task(s) in your List!\n" +
                             "Please only enter an existing task number again, Boss!");
                     separatingLine();
                 }
@@ -133,11 +140,11 @@ public class Duke {
                     int index3 = line.indexOf("/");
 
                     //Initiate Deadline Class
-                    taskIcon[counter] = new Deadline(line.substring(9, index3-1),line.substring(index3+4));
+                    taskIcon.add(new Deadline(line.substring(9, index3-1),line.substring(index3+4)));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
-                    System.out.println(taskIcon[counter].toString());
-                    counter++;
-                    System.out.println("Now you have " + (counter) + " tasks in total within the list.");
+                    System.out.println(taskIcon.get(taskIcon.size()-1).toString());
+                    // counter++;
+                    System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
                     separatingLine();
 
                 }
@@ -189,11 +196,11 @@ public class Duke {
                     }
 
                     //Initiate Tod0 Class
-                    taskIcon[counter] = new Todo(line.substring(5));
+                    taskIcon.add(new Todo(line.substring(5)));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
-                    System.out.println(taskIcon[counter].toString());
-                    counter++;
-                    System.out.println("Now you have " + (counter) + " tasks in total within the list.");
+                    System.out.println(taskIcon.get(taskIcon.size()-1).toString());
+                    // counter++;
+                    System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
                     separatingLine();
                 }
                 catch (DukeException e) {
@@ -215,7 +222,7 @@ public class Duke {
                 }
             }
 
-            //Add Event Execution:
+            //Add Event Execution (with error handling):
             else if (line.contains("event")){
 
                 try {
@@ -243,11 +250,11 @@ public class Duke {
                     int index4 = line.indexOf("/");
 
                     //Initiate Event Class
-                    taskIcon[counter] = new Event(line.substring(6, index4-1),line.substring(index4+4));
+                    taskIcon.add(new Event(line.substring(6, index4-1),line.substring(index4+4)));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
-                    System.out.println(taskIcon[counter].toString());
-                    counter++;
-                    System.out.println("Now you have " + (counter) + " tasks in total within the list.");
+                    System.out.println(taskIcon.get(taskIcon.size()-1).toString());
+                    // counter++;
+                    System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
                     separatingLine();
                 }
 
@@ -280,24 +287,51 @@ public class Duke {
 
             }
 
+            // add delete function (with error handling):
+            else if (line.contains("delete")) {
+
+                try {
+
+                    // -1 as Array starts from 0
+                    int delete = Integer.parseInt(line.substring(7)) - 1;
+                    Task del = taskIcon.get(delete);
+                    taskIcon.remove(delete);
+                    System.out.println("Hey Boss! Got it. I've deleted this task for you:");
+                    System.out.println(del.toString());
+                    System.out.println("Now you have " + taskIcon.size() + " tasks in the list.");
+
+                }
+
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println("SORRY Boss! You do not have Task No. " +
+                            (Integer.parseInt(line.substring(7))) +
+                            " in your task list!\n" +
+                            "You only have a total of " + (taskIcon.size()) + " Task(s) in your List!\n" +
+                            "Please only enter an existing task number again, Boss!");
+                    separatingLine();
+                }
+
+            }
+
+            //below codes are implemented before level-5:
             //Add user input to task list:
-            else {
-                separatingLine();
-                System.out.println("The below task has been added to your task list:\n " +
-                        line);
+            // else {
+            //  separatingLine();
+            //  System.out.println("The below task has been added to your task list:\n " +
+            //          line);
 
                 //assign to task list from input for printing out task description when request for printing lists:
-                taskList[counter] = line;
+                //taskList[counter] = line;
 
                 //Add to task for separate icon tracking and print status mark:
-                Task t = new Task(line);
-                t.description = line;
-                taskIcon[counter] = t;
+                //Task t = new Task(line);
+                //t.description = line;
+                //taskIcon[counter] = t;
 
                 //update counter to show sequence numbering when print result:
-                separatingLine();
-                counter = counter + 1;
-            }
+                //separatingLine();
+                //counter = counter + 1;
+            //}
 
         }
 

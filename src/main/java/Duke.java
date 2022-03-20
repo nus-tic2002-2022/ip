@@ -1,12 +1,16 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import exceptions.InvalidTaskException;
-import exceptions.UnknownCommandException;
 
 public class Duke {
 
     private static Task[] taskList = new Task[100];
     private static int taskCount = 0;
+
+    public static void addItem(Task item) {
+        taskList[taskCount] = item;
+        taskCount++;
+        System.out.println("added this task: " + item);
+        System.out.println("you have " + taskCount + " tasks in your list.");
+    }
 
     public static void bye() {
         System.out.println("Bye bye!");
@@ -25,98 +29,50 @@ public class Duke {
         }
     }
 
-    private static void mark(String input, int taskIndex){
+    private static void mark(String input, int taskIndex) {
 
         String markTask = input.substring(0, input.indexOf(' ')).trim();
-        boolean success;
-        try {
-            if (taskIndex<1) throw new UnknownCommandException("List is empty.");
-            if (taskCount<taskIndex) throw new UnknownCommandException("Selected task to mark is invalid.");
-            taskIndex = taskIndex-1;
-            if (markTask.equals("mark")) {
-                success = taskList[taskIndex].markAsDone();
-                if (success) {
-                    System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println(taskList[taskIndex]);
-                }
-                else {
-                    System.out.println("Task is already marked as done: ");
-                    System.out.println(taskList[taskIndex]);
-                }
-            }
-            else if (markTask.equals("unmark")) {
-                success = taskList[taskIndex].markAsUndone();
-                if (success) {
-                    System.out.println("OK, I've marked this task as not done yet: ");
-                    System.out.println(taskList[taskIndex]);
-                }
-                else {
-                    System.out.println("Task is already marked as not done: ");
-                    System.out.println(taskList[taskIndex]);
-                }
-            }
-        }
-        catch (UnknownCommandException e) {
-            System.out.println(e.getMessage());
-        }
+        if (markTask.equals("mark")) {
+            taskList[taskIndex].isDone = true;
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println(taskList[taskIndex]);
 
-    }
-
-    public static void addItem(String type, String input){
-        try {
-            if (type.equals("todo")) {
-                if (input.isEmpty()) throw new InvalidTaskException("Todo cannot be empty.");
-                taskList[taskCount] = new Todo(input);
-                taskCount++;
-            }
-            else if (type.equals("event")){
-                if (!input.contains("/at")) throw new InvalidTaskException("Use the correct command (event DESCRIPTION /at EVENT_DATE).");
-                String[] task = input.split("/at");
-                if (task[0].isEmpty()) throw new InvalidTaskException("Include description (event DESCRIPTION /at EVENT_DATE).");
-                if (task.length != 2) throw new InvalidTaskException("Include description and event date (event DESCRIPTION /at EVENT_DATE).");
-                taskList[taskCount] = new Event(task[0], task[1]);
-                taskCount++;
-            }
-            else if (type.equals("deadline")){
-                if (!input.contains("/by")) throw new InvalidTaskException("Use the correct command (deadline DESCRIPTION /by DEADLINE).");
-                String[] task = input.split("/by");
-                if (task[0].isEmpty()) throw new InvalidTaskException("Include description (deadline DESCRIPTION /by DEADLINE).");
-                if (task.length != 2) throw new InvalidTaskException("Include deadline (deadline DESCRIPTION /by DEADLINE).");
-                taskList[taskCount] = new Event(task[0], task[1]);
-                taskCount++;
-            }
-            System.out.println("added this task: " + taskList[taskCount-1]);
-            System.out.println("you have " + taskCount + " tasks in your list.");
         }
-        catch (InvalidTaskException e) {
-            System.out.println(e.getMessage());
+        else if (markTask.equals("unmark")) {
+            taskList[taskIndex].isDone = false;
+            System.out.println("OK, I've marked this task as not done yet: ");
+            System.out.println(taskList[taskIndex]);
         }
     }
 
-    private static void processInput(String input) throws UnknownCommandException {
+    private static String getWords(String text, int where) { // first word = 1, event/deadline = 2, rest is 3
 
-        if (input.startsWith("bye")) {
-            bye();
+        int index = text.indexOf(' ');
+
+        if (where == 1) {
+            if (index > -1) { // Check if there is more than one word.
+                return text.substring(0, index).trim(); // Extract first word.
+            }
+            else {
+                return text; // Text is the first word itself.
+            }
         }
-        else if (input.startsWith("list")) {
-            list(taskList, taskCount);
+        else if (where == 2){
+            return text.substring(index, text.lastIndexOf('/')).trim();
         }
-        else if (input.startsWith("todo")) {
-            addItem("todo", input.replaceFirst("todo", "").trim());
-        }
-        else if (input.startsWith("event")) {
-            addItem("event", input.replaceFirst("event", "").trim());
-        }
-        else if (input.startsWith("deadline")) {
-            addItem("deadline", input.replaceFirst("deadline", "").trim());
-        }
-        else if (input.startsWith("mark") || input.startsWith("unmark")) {
-            String index = input.replaceAll("\\D+","");
-            mark(input, Integer.parseInt(index));
+        else if (text.contains("/by") || text.contains("/at")){
+            index = text.lastIndexOf('/')+3;
+            return text.substring(index).trim();
         }
         else {
-            throw new UnknownCommandException();
+            return text.substring(index);
         }
+    }
+
+    private static String indexer(String input) {
+
+        String index = input.replaceAll("\\D+","");
+        return index;
     }
 
     public static void main(String[] args) {
@@ -134,12 +90,47 @@ public class Duke {
 
         while (true) {
             input = in.nextLine();
+            String firstWord = getWords(input, 1);
 
-            try {
-                processInput(input);
-            } catch (UnknownCommandException e) {
-                System.out.println(e.getMessage());
+            if (firstWord.equals("bye")) {
+                bye();
             }
+
+            if (firstWord.equals("list")) {
+                list(taskList, taskCount);
+                continue;
+            }
+
+            if(firstWord.contains("todo")) {
+                Task t = new Todo(getWords(input, 3).trim());
+                addItem(t);
+                continue;
+            }
+
+            if(firstWord.contains("event")) {
+                Task t = new Event(getWords(input, 2),getWords(input, 3));
+                addItem(t);
+                continue;
+            }
+
+            if(firstWord.contains("deadline")) {
+                Task t = new Deadline(getWords(input, 2),getWords(input, 3));
+                addItem(t);
+                continue;
+            }
+
+            if(firstWord.contains("mark")) {
+                String index = input.replaceAll("\\D+","");
+                int taskIndex = Integer.parseInt(index)-1;
+                if(taskIndex == -1){
+                    continue;
+                }
+                mark(input, taskIndex);
+                continue;
+            }
+
+            Task t = new Task(input);
+            addItem(t);
         }
     }
 }

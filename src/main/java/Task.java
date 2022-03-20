@@ -17,6 +17,22 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public boolean markAsDone() {
+        if (isDone == false) {
+            isDone = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean markAsUndone() {
+        if (isDone == true) {
+            isDone = false;
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

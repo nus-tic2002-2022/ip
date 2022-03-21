@@ -1,22 +1,31 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.FileTaskList;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
-
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
 
 
 
 public class Duke {
 
-    static void checkLineEmpty(String line)throws DukeCheckLineEmptyException{
+    static void checkLineEmpty(String line)throws DukeCheckLineEmptyException {
         if (line.equals("")){
             throw new DukeCheckLineEmptyException();
         }
     }
 
-    static void checkWord(String line)throws DukeCheckLineException{
+    static void checkWord(String line)throws DukeCheckLineException {
         String keyword = line.split(" ")[0].toLowerCase();
 
         if (!keyword.equals("list") && !keyword.equals("bye")
@@ -51,19 +60,33 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("______________________________________________");
+
+        printWithLine(List.of("Hello from\n" + logo));
         printWithLine(List.of("Hello! I'm Duke", "What can I do for you?"));
 
         String line;
         Scanner in = new Scanner(System.in);
-        List<Task> items = new ArrayList<>();
+        List<Task> items = new ArrayList<Task>();
+
+        try {
+            String fileList;
+            File f = new File("data/tasks.txt");
+            Scanner s = new Scanner(f);
+
+            while (s.hasNext()) {
+                fileList = s.nextLine();
+                Task fileListTask = new FileTaskList(fileList);
+                items.add(fileListTask);
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("File not found, please add new tasks.");
+        }
 
         do {
             line = in.nextLine();
@@ -149,6 +172,12 @@ public class Duke {
             }
 
         }while (!line.equals("bye"));
+
+        FileWriter writer = new FileWriter("data/tasks.txt");
+        for(Task taskList: items){
+            writer.write(taskList + System.lineSeparator());
+        }
+        writer.close();
     }
 
             private static void printWithLine (List < String > messages) {

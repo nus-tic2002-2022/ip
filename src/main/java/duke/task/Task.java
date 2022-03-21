@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
 
     protected String description;
@@ -19,5 +21,9 @@ public class Task {
 
     public String toString(){
         return "[" + getStatusIcon() + "]" + description;
+    }
+
+    public String fileListToString(){
+        return  description;
     }
 }

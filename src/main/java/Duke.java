@@ -1,4 +1,6 @@
+import duke.*;
 import java.util.Scanner;
+
 
 public class Duke {
     private Scanner in = new Scanner(System.in);

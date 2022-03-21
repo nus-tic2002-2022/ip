@@ -1,7 +1,70 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 public class Duke {
 
+    private fileaccess f;//Storage
+    private echo e; //UI
+
+    private UI user_interface;
+
+    private static ArrayList<Task> tasklist = new ArrayList<>();
+    public static String basepath = new File("").getAbsolutePath();
+    private static String filepath = basepath + "/buffer.txt";
+
+    public Duke(String filepath)//declare variable //file path should be relative file path, useable in differetn OS
+    {
+        this.user_interface = new UI();
+        //e = new echo();
+        f = new fileaccess(filepath);
+        try{
+            f.load(tasklist);
+        }
+        catch (FileLoadException e)
+        {
+            System.out.println("Error in loading file");
+        }
+
+    }
+    public void run()
+    {
+        user_interface.showWelcome();
+        boolean isExit = false;
+        while (!isExit)
+        {
+            try{
+                String command = user_interface.readCommand();
+                user_interface.showLine();
+                Command c = Parser.parsing(command);
+                c.execute(tasklist,user_interface,f);
+                isExit = c.isExit();
+            }
+            catch (NullPointerException e)
+            {
+                System.out.println("Null pointer exception");
+            }
+            catch (DukeException e)
+            {
+                System.out.println("Error in command");
+            }
+            finally
+            {
+                try{
+                    f.writetoFile(tasklist);
+                    user_interface.showLine();
+                }
+                catch (CannotWriteException e)
+                {
+                    System.out.println("Cannot write");
+                }
+                catch (IOException e)
+                {
+                    System.out.println("Error in creating file");
+                }
+
+            }
+        }
+    }
     //public static ArrayList<String> buffer = new ArrayList<>();
     public static void main(String[] args) {
 
@@ -14,7 +77,9 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you");
 
-        fileaccess.access();
+        Duke project = new Duke(filepath);
+        project.run();
+        //fileaccess.access(filepath);
         //echo.greet();
 
     }

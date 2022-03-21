@@ -8,6 +8,10 @@ public class Events extends Task {
     }
 
     public String getStatus() {
-        return (isDone ? "[E][X] " + this.description + " ( " + details + ")": "[E][ ]" + this.description + " ( " + details + ")");
+        return (isDone ? "[E][X] " + this.description + "( " + details + ")": "[E][ ] " + this.description + " (" + details + ")");
+    }
+    public String getDetails()
+    {
+        return details;
     }
 }

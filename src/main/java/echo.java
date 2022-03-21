@@ -3,7 +3,7 @@ import java.util.*;
 public class echo {
     private static ArrayList<Task> buffer = new ArrayList<>();
 
-    public static void marking(int number, String mark_str)
+    private static void marking(int number, String mark_str)
     {
         if (mark_str.equals("mark")) {
             //System.out.println("Mark Task Number : " + number);
@@ -20,7 +20,7 @@ public class echo {
         }
 
     }
-    public static void printcomment (Task t_passed, int mode)
+    private static void printcomment (Task t_passed, int mode)
     {
         //int mode being passed in here is either add in task(1) or delete task(0)
         try {
@@ -38,7 +38,7 @@ public class echo {
             System.out.println("Something wrong");
         }
     }
-    public static String str_concat(String[] str, int start, int end)
+    private static String str_concat(String[] str, int start, int end)
     {
         String ans="";
         for(int i = start; i<= end;i++)
@@ -47,7 +47,7 @@ public class echo {
         }
         return ans;
     }
-    public static boolean contains_in_arraylist (Task t_passed)
+    private static boolean contains_in_arraylist (Task t_passed)
     {
         for (Task e: buffer)
         {
@@ -59,7 +59,7 @@ public class echo {
         }
         return false;
     }
-    public static String get_mode(int mode) throws printcommentException
+    private static String get_mode(int mode) throws printcommentException
     {
         if(mode == 1 )
         {
@@ -70,7 +70,7 @@ public class echo {
         }
         throw new printcommentException();
     }
-    public static boolean check_length(String [] passed) throws DukeException
+    private static boolean check_length(String [] passed) throws DukeException
     {
         if(passed[1].isEmpty())
         {

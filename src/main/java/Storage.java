@@ -13,9 +13,7 @@ public class Storage {
     }
 
     public static void writeFile(String textToAdd) throws IOException {
-
-
-        FileWriter fw = new FileWriter(filePath,true);
+        FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     };
@@ -30,19 +28,20 @@ public class Storage {
     };
 
     public static void main(String[] args) {
-        Storage duke = new Storage("duke.txt");
-    /*
+        Storage duke = new Storage("data/duke.txt");
+
         try {
             duke.writeFile("this is not funny3");
         } catch (IOException e) {
             System.out.println("fail read bro.");
         };
-    */
+
+
         try {
             duke.readFile();
         } catch (FileNotFoundException e) {
             System.out.println("fail scan bro.");
         }
-        System.out.println("hahha");
+
     }
 }

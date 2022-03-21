@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Parser {
 
-    public static void processUserInput(String userInput, ArrayList<Task> tasks , int taskListCount) { //
+    public static void processUserInput(TaskProcessor tasklist, String userInput) { //
         if (userInput.equals("list")) {
-            TaskProcessor.printList();
+            tasklist.printList();
         } else if ( userInput.startsWith("mark") ) {
 
             try {
                 int indexToChange = Integer.parseInt(userInput.split(" ")[1]) - 1 ;
-                TaskProcessor.changeTaskStatus(indexToChange,true);
+                tasklist.changeTaskStatus(indexToChange,true);
             } catch (NumberFormatException e) {
                 //ui.printErrorMessage()
                 System.out.println("Task number not specified properly..");
@@ -21,7 +21,7 @@ public class Parser {
         } else if ( userInput.startsWith("unmark")) {
             try {
                 int indexToChange = Integer.parseInt(userInput.split(" ")[1]) - 1 ;
-                TaskProcessor.changeTaskStatus(indexToChange,false);
+                tasklist.changeTaskStatus(indexToChange,false);
             } catch (NumberFormatException e) {
                 //ui.printErrorMessage()
                 System.out.println("Task number not specified properly..");
@@ -33,7 +33,7 @@ public class Parser {
         } else if (userInput.startsWith("todo " ) || userInput.startsWith("event ") || userInput.startsWith("deadline ")) {
             String taskType = userInput.split(" ")[0];
             try {
-                TaskProcessor.processTaskToList(taskType,userInput);
+                tasklist.processTaskToList(taskType,userInput);
             } catch (ArrayIndexOutOfBoundsException e) {
                 //ui.printErrorMessage()
                 System.out.println("=^-.-^= You didn't provide your task description...");
@@ -41,7 +41,7 @@ public class Parser {
 
         } else if (userInput.startsWith("delete")) {
             try {
-                TaskProcessor.deleteTasks(userInput);
+                tasklist.deleteTasks(userInput);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 //ui.printErrorMessage()
                 System.out.println("The delete input is not correct... please specify an integer within the bounds ^=.=^");

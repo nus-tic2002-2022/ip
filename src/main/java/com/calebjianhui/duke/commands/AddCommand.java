@@ -10,17 +10,28 @@ public class AddCommand extends Command {
 
     private final String type;
     private final String command;
+    private final boolean isSilent;
+    private final boolean isDone;
 
     public AddCommand(String type, String command) {
         this.type = type.toUpperCase();
         this.command = command;
+        this.isSilent = false;
+        this.isDone = false;
+    }
+
+    public AddCommand(boolean isSilent, String type, boolean isDone, String command) {
+        this.type = type.toUpperCase();
+        this.command = command;
+        this.isSilent = isSilent;
+        this.isDone = isDone;
     }
 
     /**
      * Execute the specified command
      */
     @Override
-    public void execute() {
-        TaskManager.getInstance().addToTaskList(TaskType.valueOf(type), command);
+    public boolean execute() {
+        return TaskManager.getInstance().addToTaskList(isSilent, TaskType.valueOf(type), isDone, command);
     }
 }

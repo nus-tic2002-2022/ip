@@ -10,15 +10,15 @@ import java.util.Scanner;
  * - Convert to different types of commands which will then perform their own actions
  * - Perform minor checks, does not check with task list. This is done is the task manager.
  */
-public class Parser {
+public class InputParser {
     private Scanner in ;
     DukeUI ui;
 
-    private Parser () {
+    private InputParser() {
         ui = new DukeUI();
     }
 
-    public Parser(Scanner in) {
+    public InputParser(Scanner in) {
         this();
         this.in = in;
     }
@@ -58,6 +58,8 @@ public class Parser {
         if (commandList.length < 2) {
             throw new UnsupportedOperationException();
         }
+
+        System.out.print(commandList[0]);
         // Check what type of command
         switch (commandList[0]) {
             case UpdateCommand.MARK_COMMAND:
@@ -75,6 +77,8 @@ public class Parser {
             case AddCommand.TODO_COMMAND:
             case AddCommand.EVENT_COMMAND:
             case AddCommand.DEADLINE_COMMAND:
+
+                System.out.print("ine");
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
             case DeleteCommand.COMMAND:
                 if (commandList.length > 2) {

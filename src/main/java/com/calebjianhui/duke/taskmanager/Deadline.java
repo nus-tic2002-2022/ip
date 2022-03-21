@@ -1,10 +1,13 @@
 package com.calebjianhui.duke.taskmanager;
 
 public class Deadline extends Task {
-    private String dueDate;
+    public static final String COMMAND_SEPARATOR = " /by ";
+    public static final String TYPE_INDICATOR = "D";
 
-    public Deadline (String description, String dueDate) {
-        super(description);
+    private final String dueDate;
+
+    public Deadline (boolean isDone, String description, String dueDate) {
+        super(isDone, description);
         this.dueDate = dueDate;
     }
 
@@ -16,9 +19,23 @@ public class Deadline extends Task {
     }
 
     /**
+     * Getter for description (raw)
+     * **/
+    public String getRawDescription() {
+        return description + COMMAND_SEPARATOR + dueDate + ")";
+    }
+
+    /**
      * Getter for type of task
      * **/
     public String getType() {
-        return "D";
+        return TYPE_INDICATOR;
+    }
+
+    /**
+     * Getter for date of task
+     * **/
+    public String getDate() {
+        return dueDate;
     }
 }

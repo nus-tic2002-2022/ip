@@ -1,8 +1,10 @@
 package com.calebjianhui.duke.taskmanager;
 
 public class ToDos extends Task {
-    public ToDos (String description) {
-        super(description);
+    public static final String TYPE_INDICATOR = "T";
+
+    public ToDos (boolean isDone, String description) {
+        super(isDone, description);
     }
 
     /**
@@ -16,6 +18,6 @@ public class ToDos extends Task {
      * Getter for type of task
      * **/
     public String getType() {
-        return "T";
+        return TYPE_INDICATOR;
     }
 }

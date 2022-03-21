@@ -1,6 +1,7 @@
 package com.calebjianhui.duke.taskmanager;
 
 import com.calebjianhui.duke.enums.TaskType;
+import com.calebjianhui.duke.parser.TaskEncoder;
 import com.calebjianhui.duke.taskmanager.exceptions.InvalidIndexException;
 import com.calebjianhui.duke.taskmanager.exceptions.InvalidTaskInputException;
 import com.calebjianhui.duke.taskmanager.exceptions.NoChangesException;
@@ -8,6 +9,9 @@ import com.calebjianhui.duke.ui.DukeUI;
 import com.calebjianhui.duke.ui.Messages;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Singleton creation of task manager
@@ -15,11 +19,9 @@ import java.util.ArrayList;
  * - Ensure that only one version of task manager exist at a time (Singleton)
  */
 public class TaskManager {
-    // Generic error message. Should not happen
-
     private static TaskManager taskManager;
     private final DukeUI ui;
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     private TaskManager () {
         ui = new DukeUI();
@@ -33,6 +35,28 @@ public class TaskManager {
         if (taskManager == null)
             taskManager = new TaskManager();
         return taskManager;
+    }
+
+    /**
+     * Get a set of all possible type alias
+     * **/
+    public Set<String> getAllPossibleTypes() {
+        return new HashSet<>(Arrays.asList(ToDos.TYPE_INDICATOR, Event.TYPE_INDICATOR, Deadline.TYPE_INDICATOR));
+    }
+
+    /**
+     * Decode the given alias
+     * **/
+    public String decodeTypeAlias(String alias) {
+        if (ToDos.TYPE_INDICATOR.equals(alias)) {
+            return TaskType.TODO.toString();
+        } else if (Event.TYPE_INDICATOR.equals(alias)) {
+            return TaskType.EVENT.toString();
+        } else if (Deadline.TYPE_INDICATOR.equals(alias)) {
+            return TaskType.DEADLINE.toString();
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -60,11 +84,22 @@ public class TaskManager {
     }
 
     /**
+     * Retrieve the tasklist in string format for encoding purposes
+     *
+     * @return Arraylist containing all the task in Pair<S, T> format
+     * S: Type
+     * T: description
+     * **/
+    public ArrayList<String> getAllTask() {
+        return TaskEncoder.encodeTaskList(taskList);
+    }
+
+    /**
      * Return the current amount of task
      *
      * @return String containing the amount of task
      * **/
-    public String getTaskAmount() {
+    private String getTaskAmount() {
         return "You currently have " + taskList.size() + " task in your list.";
     }
 
@@ -74,7 +109,7 @@ public class TaskManager {
      * @param selected The selected task
      * @return String containing the task details
      * **/
-    public static String getTaskDetails(Task selected) {
+    private static String getTaskDetails(Task selected) {
         // Type
         String details = "[".concat(selected.getType()).concat("]");
         // Status
@@ -89,54 +124,60 @@ public class TaskManager {
      *
      * @param type Type of task to be added
      * @param command Task to be added
+     *
+     * @return Should the action be successful
      * **/
-    public void addToTaskList(TaskType type, String command) {
+    public boolean addToTaskList(boolean isSilent, TaskType type, boolean isDone, String command) {
         try {
             String[] commandList;
             switch (type) {
                 case TODO:
                     // Add task
-                    taskList.add(new ToDos(command));
+                    taskList.add(new ToDos(isDone, command));
                     break;
                 case DEADLINE:
                     // Terminate should there be no date input
-                    if (!command.contains(" /by ")) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_NO_DATE);
+                    if (!command.contains(Deadline.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_NO_DATE);
                     // Else, proceed to add deadline task
-                    commandList = command.split(" /by ");
+                    commandList = command.split(Deadline.COMMAND_SEPARATOR);
                     // - Terminate should there be description and date input
                     if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_INVALID_LENGTH);
                     // Add deadline task
-                    taskList.add(new Deadline(commandList[0], commandList[1]));
+                    taskList.add(new Deadline(isDone, commandList[0], commandList[1]));
                     break;
                 case EVENT:
                     // Terminate should there be no date input
-                    if (!command.contains(" /at ")) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_NO_DATE);
-                    // Else, proceed to add deadline task
-                    commandList = command.split(" /at ");
+                    if (!command.contains(Event.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_NO_DATE);
+                    // Else, proceed to add event task
+                    commandList = command.split(Event.COMMAND_SEPARATOR);
                     // - Terminate should there be description and date input
                     if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_INVALID_LENGTH);
-                    // Add deadline task
-                    taskList.add(new Event(commandList[0], commandList[1]));
+                    // Add event task
+                    taskList.add(new Event(isDone, commandList[0], commandList[1]));
                     break;
                 default:
                     throw new IllegalArgumentException();
             }
-            ui.formatDukeReply(Messages.REPLY_ADD_TASK + getTaskDetails(taskList.get(taskList.size()-1)) + "\n" + getTaskAmount());
+            if (!isSilent) ui.formatDukeReply(Messages.REPLY_ADD_TASK + getTaskDetails(taskList.get(taskList.size()-1)) + "\n" + getTaskAmount());
+            return true;
         } catch (InvalidTaskInputException e) {
-            ui.formatDukeReply(e.getMessage());
+            if (!isSilent) ui.formatDukeReply(e.getMessage());
+            return false;
         } catch (IllegalArgumentException e) {
-            ui.formatDukeReply(Messages.UNKNOWN_ERROR);
+            if (!isSilent) ui.formatDukeReply(Messages.UNKNOWN_ERROR);
+            return false;
         }
     }
-
 
     /**
      * Update a task status
      *
      * @param isMark Determine to mark/unmark task
      * @param index Index of selected task
+     *
+     * @return Should the action be successful
      * **/
-    public void updateTaskStatus(boolean isMark, int index) {
+    public boolean updateTaskStatus(boolean isMark, int index) {
         try {
             // Check if task list is empty
             if (taskList.isEmpty()) {
@@ -158,14 +199,17 @@ public class TaskManager {
             String reply = isMark ? Messages.REPLY_CONFIRM_MARK_TASK : Messages.REPLY_CONFIRM_UNMARK_TASK;
             reply = reply.concat("\n\t").concat(getTaskDetails(selected));
             ui.formatDukeReply(reply);
+            return true;
         } catch (InvalidIndexException e) {
             ui.formatDukeReply(e.getMessage());
             if (e.getType().equals(InvalidIndexException.OPTION_GENERIC)) {
                 listTask();
             }
+            return false;
         } catch (NoChangesException e) {
             ui.formatDukeReply(e.getMessage());
             listTask();
+            return false;
         }
     }
 
@@ -173,8 +217,10 @@ public class TaskManager {
       * Delete a task based on the index
       *
       * @param index Index of the task in the arraylist
+     *
+     * @return Should the action be successful
       * **/
-    public void deleteTask(int index) {
+    public boolean deleteTask(int index) {
         try {
             // Check if task list is empty
             if (taskList.isEmpty()) {
@@ -191,11 +237,13 @@ public class TaskManager {
             taskList.remove(index);
             output += getTaskAmount();
             ui.formatDukeReply(output);
+            return true;
         } catch (InvalidIndexException e) {
             ui.formatDukeReply(e.getMessage());
             if (e.getType().equals(InvalidIndexException.OPTION_GENERIC)) {
                 listTask();
             }
+            return false;
         }
     }
 

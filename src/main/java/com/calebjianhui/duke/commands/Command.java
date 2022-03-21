@@ -4,5 +4,5 @@ public abstract class Command {
     /**
      * Execute the specified command
      */
-    public abstract void execute();
+    public abstract boolean execute();
 }

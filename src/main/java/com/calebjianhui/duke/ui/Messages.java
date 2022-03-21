@@ -2,7 +2,7 @@ package com.calebjianhui.duke.ui;
 
 public class Messages {
     // Public Variables
-    public static final String MESSAGE_LOGO =
+    protected static final String MESSAGE_LOGO =
             "\t\t\t ____        _        \n"
                     + "\t\t\t|  _ \\ _   _| | _____ \n"
                     + "\t\t\t| | | | | | | |/ / _ \\\n"
@@ -17,4 +17,11 @@ public class Messages {
     // Private Variables
     private static final String[] MESSAGE_WELCOME_LIST = {"Test"};
 
+    public static String getWelcomeMessage(boolean successMessage) {
+        if (successMessage) {
+            return "Hello! I'm Duke\nWe managed to load your saved tasks!\nWhat else can I do for you today?";
+        } else {
+            return "Hello! I'm Duke\nWhat can I do for you?";
+        }
+    }
 }

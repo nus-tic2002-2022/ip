@@ -8,7 +8,8 @@ public class ListCommand extends Command {
     /**
      * Execute the specified command
      */
-    public void execute() {
+    public boolean execute() {
         TaskManager.getInstance().listTask();
+        return false;
     }
 }

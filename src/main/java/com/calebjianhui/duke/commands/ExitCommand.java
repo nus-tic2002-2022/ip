@@ -27,7 +27,8 @@ public class ExitCommand extends Command {
     /**
      * Execute the specified command
      */
-    public void execute() {
+    public boolean execute() {
         new DukeUI().printEndingMessage();
+        return false;
     }
 }

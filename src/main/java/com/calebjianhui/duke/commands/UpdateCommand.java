@@ -18,7 +18,7 @@ public class UpdateCommand extends Command {
      * Execute the specified command
      */
     @Override
-    public void execute() {
-        TaskManager.getInstance().updateTaskStatus(isMark, index);
+    public boolean execute() {
+        return TaskManager.getInstance().updateTaskStatus(isMark, index);
     }
 }

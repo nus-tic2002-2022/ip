@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
      * Execute the specified command
      */
     @Override
-    public void execute() {
-        TaskManager.getInstance().deleteTask(index);
+    public boolean execute() {
+        return TaskManager.getInstance().deleteTask(index);
     }
 }

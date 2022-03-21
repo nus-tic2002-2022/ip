@@ -2,7 +2,8 @@ package com.calebjianhui.duke;
 
 import com.calebjianhui.duke.commands.Command;
 import com.calebjianhui.duke.commands.ExitCommand;
-import com.calebjianhui.duke.parser.Parser;
+import com.calebjianhui.duke.parser.InputParser;
+import com.calebjianhui.duke.storage.FileHandler;
 import com.calebjianhui.duke.ui.DukeUI;
 
 import java.util.Scanner;
@@ -22,7 +23,7 @@ public class Duke {
         ui = new DukeUI();
 
         // Start up tasks
-        ui.printWelcomeMessage();
+        ui.printWelcomeMessage(FileHandler.readAndUpdateTask());
         readCommandTillExitLoop();
     }
 
@@ -30,13 +31,17 @@ public class Duke {
      * Perform a loop to constantly read the user's input till termination
      * **/
     private void readCommandTillExitLoop() {
-        Parser pr = new Parser(new Scanner(System.in));
+        InputParser pr = new InputParser(new Scanner(System.in));
         Command command = null;
 
         // Constantly loop till break command is received
         while (!ExitCommand.isSelectedCommand(command)) {
             command = pr.parseCommand();
-            command.execute();
+            boolean isUpdated = command.execute();
+            // Save to file should there be updates
+            if (isUpdated) {
+                FileHandler.saveTask();
+            }
         }
     }
 

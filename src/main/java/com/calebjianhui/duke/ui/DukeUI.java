@@ -3,6 +3,7 @@ package com.calebjianhui.duke.ui;
 import java.io.PrintStream;
 
 import static com.calebjianhui.duke.ui.Messages.MESSAGE_LOGO;
+import static com.calebjianhui.duke.ui.Messages.getWelcomeMessage;
 
 /**
  * Handle all UI related matters in duke
@@ -40,7 +41,7 @@ public class DukeUI {
      * @param message Message to be print to User
      * **/
     private void printToUser(String message) {
-        out.println(message);
+        out.print(message);
     }
 
     /**
@@ -57,13 +58,15 @@ public class DukeUI {
     /**
      * Print welcome message
      * - Used at start of program
+     *
+     * @param savedSuccess Whether to show loading of file success
      * **/
-    public void printWelcomeMessage() {
+    public void printWelcomeMessage(boolean savedSuccess) {
         String output = DIVIDER_UNDERSCORE;
         output += MESSAGE_LOGO + "\n";
-        output += "............................................................";
+        output += "............................................................\n";
         printToUser(output);
-        formatDukeReply("Hello! I'm Duke\nWhat can I do for you?");
+        formatDukeReply(getWelcomeMessage(savedSuccess));
     }
 
     /**

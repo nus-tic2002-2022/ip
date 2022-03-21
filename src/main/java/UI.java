@@ -8,6 +8,7 @@ public class UI {
     private Pattern t = Pattern.compile("^todo.*$");
     private Pattern d = Pattern.compile("^deadline.*$");
     private Pattern e = Pattern.compile("^event.*$");
+    private Pattern find = Pattern.compile("^find.*$");
 
     public void UI(){
     }
@@ -67,7 +68,11 @@ public class UI {
                     } catch (DukeException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
-                } else if (input.length() > 0) {
+                } else if (find.matcher(input).matches()) {
+                    System.out.println("Here are the matching tasks in your list:");
+                    input = input.replaceAll("^find\\s", "");
+                    tasks.list(input);
+                }else if (input.length() > 0) {
                     tasks.add(new Task(input));
                     System.out.println("added: " + input);
                 } else {

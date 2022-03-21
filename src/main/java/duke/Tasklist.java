@@ -21,6 +21,16 @@ public class Tasklist {
         }
     }
 
+    public void list(String find){
+        int number = 1;
+        for(int i=0;i<taskArr.size();i++){
+            if(taskArr.get(i).getDescription().contains(find)){
+                System.out.println(number + ". " + taskArr.get(i).getDescription());
+                number++;
+            }
+        }
+    }
+
     //This method is used to mark an item on the taskArr. There is an input validation to check if the number supplied is within bounds of the Array List.
     public void mark(int i){
         if(i <= taskArr.size() && i != 0){
@@ -49,6 +59,12 @@ public class Tasklist {
         }else{
             System.out.println("Out of range!");
         }
+    }
+
+    //function to delete all tasks in tasklist, used for the C-Archive feature.
+    public void deleteAll(){
+        taskArr.clear();
+        System.out.println("The tasks list will now start new!");
     }
 
     //Used to add a new task.

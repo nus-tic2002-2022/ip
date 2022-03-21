@@ -27,6 +27,27 @@ public class Storage {
         }
     }
 
+    //The following method is for the C-Archive feature.
+    public void saveToFile(Tasklist tasks, String filename) {
+        String filepath = System.getProperty("user.dir") + "\\archive\\";
+        new File(filepath).mkdirs();
+        f = new File(filepath + filename + (filename.contains(".txt") ? "" : ".txt"));
+        try (PrintWriter out = new PrintWriter(f.getAbsoluteFile())) {
+            for(int i=0;i<tasks.size();i++){
+                out.println(tasks.get(i).getDescription());
+            }
+            System.out.println("Your current tasks have been archived under: " + filepath + filename + (filename.contains(".txt") ? "" : ".txt"));
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //
+    public File returnFile(){
+        return this.f;
+    }
+
     //The following method returns an ArrayList containing the values stored in file (specified in File f)
     public ArrayList<Task> readFromFile(){
         int counter = 0;
@@ -35,6 +56,7 @@ public class Storage {
         Pattern deadline = Pattern.compile("^\\[D\\].*$");
         Pattern todo = Pattern.compile("^\\[T\\].*$");
         Pattern isMarked = Pattern.compile("^\\[X\\]\\s.*$");
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(f.getAbsoluteFile()));
             String st;

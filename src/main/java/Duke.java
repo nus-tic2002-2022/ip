@@ -1,5 +1,6 @@
 import duke.*;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 
 public class Duke {
@@ -8,12 +9,17 @@ public class Duke {
     private Storage storage;
     private Tasklist tasks;
     private UI ui;
+    private Pattern archive = Pattern.compile("^archive.*$");
 
     //The following method takes an input file and reads it. It attempts to store the values from the file into a tasks Tasklist.
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
-       try {
+
+        //A-Assertion feature, asserts file type is .txt
+        assert storage.returnFile().getName().contains(".txt"):"Invalid file type!";
+
+        try {
            tasks = new Tasklist(storage.readFromFile());
         } catch (Exception e) {
            ui.showLoadingError();
@@ -29,6 +35,17 @@ public class Duke {
                 ui.exit();
                 in.close();
                 break;
+            }else if(archive.matcher(input).matches()){
+                try {
+                    if (input.split("\\s").length < 2) {
+                        throw new DukeException("Insufficient arguments!");
+                    }
+                    input = input.replaceAll("^archive\\s", "").replaceAll("\\s", "");
+                    storage.saveToFile(tasks, input);
+                    tasks.deleteAll();
+                } catch (DukeException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
             }else{
                 ui.Query(tasks, input);
             }

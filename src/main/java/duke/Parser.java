@@ -1,4 +1,4 @@
-import java.util.List;
+package duke;
 
 public class Parser {
 
@@ -119,6 +119,10 @@ public class Parser {
             {
                 System.out.println("Index out of bound");
             }
+            catch (dateparseException e)
+            {
+                System.out.println("Date format wrong");
+            }
 
         }
         /***********************************************************************/
@@ -171,6 +175,7 @@ public class Parser {
             {
                 System.out.println("Index out of bound");
             }
+
         }
 
 /***********************************************************************/

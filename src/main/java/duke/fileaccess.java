@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,10 +29,10 @@ public class fileaccess {
                 String[] str = new String [20];
                 //String line = s.nextLine();
                 //line = line.trim();
-                str = s.nextLine().split("[ | ] ", 5);
+                str = s.nextLine().split("[ | ] ", 4);
                 //System.out.println(str.length);
                 if (str[0].trim().replace("\\s", "").equals("T")) {
-                    ToDo t_flag = new ToDo(str[2]);  // str[0] = T , str[1]= 1 or 0 , str[2] description, str[3] details
+                    ToDo t_flag = new ToDo(str[2].trim());  // str[0] = T , str[1]= 1 or 0 , str[2] description, str[3] details
                     if (str[1].trim().equals("1")) {
                         t_flag.setDone();
                     }
@@ -40,7 +42,7 @@ public class fileaccess {
                     tasklist.add(t_flag);
                     System.out.println(t_flag.getStatus());
                 } else if (str[0].trim().replace("\\s", "").equals("E")) {
-                    Events t_flag = new Events(str[2], str[3]);
+                    Events t_flag = new Events(str[2].trim(), str[3].trim());
                     if (str[1].trim().equals("1")) {
                         t_flag.setDone();
                     }
@@ -50,15 +52,26 @@ public class fileaccess {
                     tasklist.add(t_flag);
                     System.out.println(t_flag.getStatus());
                 } else if (str[0].trim().replace("\\s", "").equals("D")) {
-                    Deadlines t_flag = new Deadlines(str[2], str[3]);
-                    if (str[1].trim().equals("1")) {
-                        t_flag.setDone();
+                    try {
+                        for(String a: str)
+                        {
+                            System.out.println(a);
+                        }
+                        Deadlines t_flag = new Deadlines(str[2].trim(), str[3].trim());
+                        if (str[1].trim().equals("1")) {
+                            t_flag.setDone();
+                        }
+                        if (str[1].trim().equals("0") ) {
+                            t_flag.set_unDone();
+                        }
+                        tasklist.add(t_flag);
+                        System.out.println(t_flag.getStatus());
                     }
-                    if (str[1].trim().equals("0") ) {
-                        t_flag.set_unDone();
+                    catch (dateparseException e)
+                    {
+                        System.out.println("Date format wrong");
+
                     }
-                    tasklist.add(t_flag);
-                    System.out.println(t_flag.getStatus());
                 } else {
                     continue;
                 }

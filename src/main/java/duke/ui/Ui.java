@@ -7,14 +7,24 @@ import duke.tasklist.TaskList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class handles UI interaction between Haro and User by capturing user input and generate reply message then output it to user.
+ * It also stores the user's name requested at the start of every session.
+ */
 public class Ui {
 
     public static String userName;
 
+    /**
+     * Constructor for Ui and set userName as unknown.
+     */
     public Ui() {
         userName = "???";
     }
 
+    /**
+     * Show welcome message on UI.
+     */
     public static void showWelcomeMessage() {
         String helloFiglet = "\n"
                 + " _   _        _  _              My Name is \n"
@@ -37,34 +47,58 @@ public class Ui {
 
     }
 
+    /**
+     * Show username on UI.
+     */
     public static void displayUsername() {
         System.out.println(userName + " : ");
     }
 
+    /**
+     * Show goodbye message on UI.
+     */
     public static void goodbyeMessage() {
         String message = generateMessage("goodbye", " ");
         System.out.println("\t\t\t\t\t\t\t\t Haro : ");
         System.out.println(message + "\n\n");
     }
 
+    /**
+     * Show error message generated on UI based on DukeException provided.
+     *
+     * @param e DukeException error with details on type of error
+     */
     public static void errorMessage(DukeException e) {
         String message = generateMessage(e.getError(), " ");
         System.out.println("\t\t\t\t\t\t\t\t Haro : ");
         System.out.println(message);
     }
 
+    /**
+     * Show io error message generated on UI.
+     */
     public static void ioErrorMessage() {
         String message = generateMessage("fileLoadFail", " ");
         System.out.println("\t\t\t\t\t\t\t\t Haro : ");
         System.out.println(message);
     }
 
+    /**
+     * Echo String variable provided with generated message on UI.
+     *
+     * @param placeholder String to be echoed.
+     */
     public static void echoMessage(String placeholder) {
         String message = generateMessage("echo", placeholder);
         System.out.println("\t\t\t\t\t\t\t\t Haro : ");
         System.out.println(message);
     }
 
+    /**
+     * Output generated response message to user on UI based on details on ResultCommand.
+     *
+     * @param result ResultCommand with information of executed action.
+     */
     public static void replyMessage(ResultCommand result) {
         String placeholder = "";
         if (result.getTargetString() == null) {
@@ -84,6 +118,11 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Output taskList on UI based on TaskList provided.
+     *
+     * @param taskList TaskList to be outputted onto UI.
+     */
     public static void showTaskList(TaskList taskList) {
         String message = generateMessage("getList", "");
         System.out.println("\t\t\t\t\t\t\t\t Haro : ");
@@ -92,11 +131,22 @@ public class Ui {
         System.out.println("\t\t\t\t\t\t\t\t Haro ! You now have " + taskList.size() + " tasks in the list ! Haro !");
     }
 
+    /**
+     * Return user input as String after obtaining it from UI.
+     *
+     * @return user input as String.
+     */
     public static String getUserInput() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
 
+    /**
+     * Return generated message based on command and placeholder variable provided.
+     * Some command has multiple possible response and the decision on which message to return is determined by a random number generator.
+     *
+     * @return message generated based on command and placeholder variable as String.
+     */
     public static String generateMessage(String command, String placeholder) {
         Random rand = new Random();
         int randomNumber = rand.nextInt(3);

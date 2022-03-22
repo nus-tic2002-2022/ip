@@ -11,12 +11,21 @@ import duke.parser.*;
 import java.io.IOException;
 import java.lang.*;
 
+/**
+ * This class contains the main method and it handles processes from start to end of the application.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructor for Duke
+     *
+     * @param filePath Filepath for text file containing TaskList content
+     *                 which will be loaded into taskList variable in Duke class.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -31,16 +40,30 @@ public class Duke {
         }
     }
 
+    /**
+     * Run the application by starting it and looping it until the exit command is given by user.
+     *
+     * @param launchArgs variable passed from the main method.
+     */
     public void run(String[] launchArgs) {
         start(launchArgs);
         runCommandLoopUntilExitCommand();
         exit();
     }
 
+    /**
+     * Start the application by showing welcome message on UI.
+     *
+     * @param launchArgs variable passed from the main method.
+     */
     private void start(String[] launchArgs) {
         Ui.showWelcomeMessage();
     }
 
+    /**
+     * Loop the process of asking user for input, executing the user command
+     * and responding to user based on result of execution.
+     */
     private void runCommandLoopUntilExitCommand() {
         Command command = new Command(-1);
         do {
@@ -53,6 +76,11 @@ public class Duke {
         } while (true);
     }
 
+    /**
+     * Execute command provided and respond to user correctly based on the command executed.
+     *
+     * @param command Command provided by the user.
+     */
     private void executeCommand(Command command) {
         try {
             ResultCommand output = command.execute();
@@ -72,6 +100,9 @@ public class Duke {
         }
     }
 
+    /**
+     * End the application by showing goodbye message on UI and stop the program.
+     */
     private void exit() {
         Ui.goodbyeMessage();
         System.exit(0);

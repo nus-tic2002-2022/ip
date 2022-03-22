@@ -3,8 +3,17 @@ package duke.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Extended class of Parser with method that converts user input from String into an ArrayList.
+ */
 public class Tokenizer extends Parser {
 
+    /**
+     * Returns user input in ArrayList format after separating each individual word in String.
+     *
+     * @param input User Input obtain from UI.
+     * @return ArrayList containing individual words from user input.
+     */
     public static ArrayList<String> tokenizer(String input) {
         ArrayList<String> output = new ArrayList<String>();
 

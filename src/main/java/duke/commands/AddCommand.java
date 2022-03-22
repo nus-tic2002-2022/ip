@@ -4,8 +4,18 @@ import duke.parser.Parser;
 import duke.tasklist.*;
 import duke.exception.DukeException;
 
+/**
+ * Extended class of Command with methods involving addition of Task into TaskList.
+ */
 public class AddCommand extends Command{
 
+    /**
+     * Returns Task after adding Task created based on userInput into the TaskList.
+     *
+     * @param userInput User Input obtain from UI.
+     * @param taskList TaskList which specified Task should be added to.
+     * @return Task as Task that has been added into TaskList.
+     */
     public static Task addTodo (Parser userInput, TaskList taskList) throws DukeException{
         String content = "";
         for (int i = 1; i < userInput.getUserInputSize(); i++) {
@@ -23,6 +33,13 @@ public class AddCommand extends Command{
         }
     }
 
+    /**
+     * Returns Deadline after adding Deadline created based on userInput into the TaskList.
+     *
+     * @param userInput User Input obtain from UI.
+     * @param taskList TaskList which specified Task should be added to.
+     * @return Deadline as Task that has been added into TaskList.
+     */
     public static Task addDeadline (Parser userInput, TaskList taskList) throws DukeException{
         String content = "";
         String by = "";
@@ -62,6 +79,13 @@ public class AddCommand extends Command{
 
     }
 
+    /**
+     * Returns Event after adding Event created based on userInput into the TaskList.
+     *
+     * @param userInput User Input obtain from UI.
+     * @param taskList TaskList which specified Task should be added to.
+     * @return Event as Task that has been added into TaskList.
+     */
     public static Task addEvent (Parser userInput, TaskList taskList) throws DukeException {
         String content = "";
         String at = "";

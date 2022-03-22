@@ -3,8 +3,17 @@ package duke.commands;
 import duke.exception.DukeException;
 import duke.tasklist.TaskList;
 
+/**
+ * Extended class of Command with methods involving deletion of Task into TaskList.
+ */
 public class DeleteCommand extends Command{
 
+    /**
+     * Removal of specified Task by index from TaskList.
+     *
+     * @param index index of Task, input obtained from UI (in String format), which to be removed from TaskList.
+     * @param taskList TaskList which specified Task to be deleted.
+     */
     public static void deleteTask (String index, TaskList taskList) throws DukeException {
         if (taskList.size() == 0) {
             throw new DukeException("emptyList");

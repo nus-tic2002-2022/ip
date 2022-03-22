@@ -5,18 +5,36 @@ import java.util.List;
 
 import static duke.parser.Tokenizer.tokenizer;
 
+/**
+ * This class will store the userInput that has been tokenized and contain methods for accessing the userInput value and size.
+ * This class also contain fileContentParser for conversion of text file content and removing the template.
+ */
 public class Parser {
 
     protected ArrayList<String> userInput;
 
+    /**
+     * Constructor for Parser
+     *
+     * @param input User input from UI.
+     */
     public Parser(String input) {
         this.userInput = tokenizer(input);
     }
 
+    /**
+     * Constructor for Parser
+     */
     public Parser() {
         this.userInput = new ArrayList<String>();
     }
 
+    /**
+     * Returns List of String after converting text file content and removing template information.
+     *
+     * @param input File input from text file in String.
+     * @return a list of Strings on text file content.
+     */
     public static List<String> fileContentParser(String input) {
         List<String> output = new ArrayList<String>();
 
@@ -40,9 +58,21 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Returns userInput variable in Parser class at specific index.
+     *
+     * @param index index of userInput to be accessed.
+     * @return the Strings at specific index of userInput.
+     */
     public String getUserInput(int index) {
         return this.userInput.get(index);
     }
+
+    /**
+     * Returns size of userInput variable in Parser class.
+     *
+     * @return the size of userInput.
+     */
     public int getUserInputSize() {
         return this.userInput.size();
     }

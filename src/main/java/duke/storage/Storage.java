@@ -12,21 +12,43 @@ import duke.tasklist.*;
 
 import static duke.parser.Parser.fileContentParser;
 
+/**
+ * This class will store filePath of a text file used for storage of TaskList
+ * and provide methods to create, read and modify the text file.
+ */
 public class Storage {
     protected String filePath;
 
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath Filepath for text file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Constructor for Storage
+     */
     public Storage() {
         this.filePath = "";
     }
 
+    /**
+     * Return filepath variable in Storage class.
+     *
+     * @return filepath in String format.
+     */
     public String getFilePath(){
         return this.filePath;
     }
 
+    /**
+     * Create new text file with template at filepath.
+     *
+     * @param taskList TaskList which Task content to be saved in text file.
+     */
     public void create(TaskList taskList) throws IOException {
         File f = new File(filePath);
         f.createNewFile();
@@ -55,6 +77,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Return TaskList with the Task information saved in the text file in filepath.
+     *
+     * @return taskList in ArrayList format.
+     */
     public ArrayList<Task> load() throws DukeException, IOException {
         ArrayList<Task> taskList = new ArrayList<Task>();
 
@@ -102,6 +129,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves and updates text file in the filepath with the content of TaskList provided.
+     *
+     * @param taskList TaskList which Task content to be saved in text file.
+     */
     public void save(TaskList taskList) throws IOException, DukeException {
         String textToAdd = "|type|status|task|Deadline/Duration";
 
@@ -131,6 +163,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Returns the entire content of text file in a single line String format.
+     *
+     * @return content of text file in String format.
+     */
     public String read() throws IOException {
         String output = "";
         File f = new File(filePath);

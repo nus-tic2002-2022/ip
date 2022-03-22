@@ -1,9 +1,11 @@
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -96,8 +98,15 @@ public class Duke {
                     //Find Position of '/'
                     int slash = line.indexOf("/");
 
+                    //Create Date and Time Variables
+                    DateTimeFormatter Standard = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    String UserInput = line.substring(slash+4);
+                    LocalDateTime UserInputDT = LocalDateTime.parse(UserInput, Standard);
+
+                    String Format = UserInputDT.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mma"));
+
                     //Initiate Deadline Class
-                    tasks.add(new Deadline(line.substring(9, slash - 1), line.substring(slash + 4)));
+                    tasks.add(new Deadline(line.substring(9, slash - 1), Format));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1).toString());
                     System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
@@ -118,6 +127,10 @@ public class Duke {
 
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
+
+                } catch (DateTimeParseException e) {
+                    System.out.println("☹ OOPS!!! Please enter the date and time in this format: DD/MM/YYYY HHmm " +
+                            "e.g 22/03/2022 2359");
                 }
             }
 
@@ -165,8 +178,15 @@ public class Duke {
                     //Find Position of '/'
                     int slash = line.indexOf("/");
 
+                    //Create Date and Time Variables
+                    DateTimeFormatter Standard = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    String UserInput = line.substring(slash+4);
+                    LocalDateTime UserInputDT = LocalDateTime.parse(UserInput, Standard);
+
+                    String Format = UserInputDT.format(DateTimeFormatter.ofPattern("d MMM yyyy hh:mma"));
+
                     //Initiate Event Class
-                    tasks.add(new Event(line.substring(6, slash - 1), line.substring(slash + 4)));
+                    tasks.add(new Event(line.substring(6, slash - 1), Format));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1).toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -185,6 +205,10 @@ public class Duke {
 
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
+
+                } catch (DateTimeParseException e) {
+                    System.out.println("☹ OOPS!!! Please enter the date and time in this format: DD/MM/YYYY HHmm " +
+                            "e.g 22/03/2022 2359");
                 }
             }
 
@@ -259,7 +283,7 @@ public class Duke {
                 //Find '('
                 int by_pos = text.indexOf("(");
                 String Deadline = text.substring(7, by_pos-1);
-                String by = text.substring(by_pos + 5);
+                String by = text.substring(by_pos + 5, by_pos + 24);
 
                 tasks.add(new Deadline(Deadline, by));
 
@@ -276,7 +300,7 @@ public class Duke {
                 int at_pos = text.indexOf("(");
 
                 String Event = text.substring(7, at_pos-1);
-                String at = text.substring(at_pos + 5);
+                String at = text.substring(at_pos + 5, at_pos + 24);
 
                 tasks.add(new Event(Event, at));
 
@@ -297,7 +321,8 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
         printLine();
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println("Hello! I'm Duke\n" + "How can I help you today?");
+        System.out.println("Psst, this is something that I can do for you:\n" + "(e.g event read book /at 23/03/2022 12:00)");
         printLine();
 
         //Read File

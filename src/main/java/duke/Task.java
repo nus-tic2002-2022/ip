@@ -1,7 +1,7 @@
 /**
  * Creates a Task object. There are 3 subtypes - Todo, Deadline, Event.
  */
-
+package duke;
 public class Task {
 
     protected String description;

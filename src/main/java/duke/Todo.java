@@ -1,7 +1,7 @@
 /**
  * Creates a Todo object. Todo object is inherited from Task object.
  */
-
+package duke;
 public class Todo extends Task {
 
     protected String taskType = "T";

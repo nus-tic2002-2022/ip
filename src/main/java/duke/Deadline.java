@@ -1,7 +1,7 @@
 /**
  * Creates a Deadline object. Deadline object is inherited from Task object.
  */
-
+package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

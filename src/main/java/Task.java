@@ -8,7 +8,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (this.isDone ? "[X] " : "[ ] "); // mark done task with X
+        return (this.isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
     public void setStatus(boolean isDone){
@@ -17,5 +17,8 @@ public class Task {
     public String getDescription(){
         return description;
     }
-
+    @Override
+    public String toString() {
+        return description;
+    }
 }

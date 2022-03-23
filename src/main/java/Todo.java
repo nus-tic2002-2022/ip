@@ -1,3 +1,6 @@
+/**
+ * Creates a Todo object. Todo object is inherited from Task object.
+ */
 
 public class Todo extends Task {
 

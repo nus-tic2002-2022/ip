@@ -1,3 +1,7 @@
+/**
+ * Creates a Deadline object. Deadline object is inherited from Task object.
+ */
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

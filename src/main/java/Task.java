@@ -1,3 +1,6 @@
+/**
+ * Creates a Task object. There are 3 subtypes - Todo, Deadline, Event.
+ */
 
 public class Task {
 

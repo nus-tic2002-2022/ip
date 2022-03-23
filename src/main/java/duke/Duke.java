@@ -8,8 +8,8 @@ import java.io.IOException;
 public class Duke {
 
     private static ArrayList<Task> list = new ArrayList<>(); // ArrayList of Tasks
-    private static String filePath = System.getProperty("user.dir");
-    private static String fileName = "\\docs\\duke.txt";
+    //private static String filePath = "..\\src\\main\\java";
+    private static String fileName = "data\\duke.txt";
 
     public static void main(String[] args) throws IllegalCommandException, IOException {
 
@@ -131,7 +131,7 @@ public class Duke {
 
     private static void writeFile(ArrayList<Task> list) throws IOException {
 
-        FileWriter myFile = new FileWriter(filePath+fileName);
+        FileWriter myFile = new FileWriter(fileName); //filePath+
         System.out.println("Now you have " + list.size() + " task(s) in the list.");
 
         for (int i = 0; i < list.size(); i++) {
@@ -144,7 +144,7 @@ public class Duke {
 
     private static ArrayList<Task> readFile() throws IOException {
 
-        File myFile = new File(filePath+fileName);
+        File myFile = new File(fileName); //filePath+
 
         if (myFile.createNewFile()) {
             System.out.print("A new list file has been created for you. ");

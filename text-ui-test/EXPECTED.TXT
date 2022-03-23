@@ -4,15 +4,18 @@ Hello from
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
-The list file already exists and has been loaded for you. Now you have 4 task(s) in the list.
-What can I do for you? (type 'commands' if you need help to remember the commands) 
-1.[T] [X] read a book
-2.[D] [X] submit duke (by: 2022-03-16T18:00)
-3.[D] [ ] submit assignment 2 (by: 2022-03-27T23:59)
-4.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
-Now you have 4 task(s) in the list.
-What can I do for you? (type 'commands' if you need help to remember the commands) 
-Nice! I've added this task: 
+
+The list file already exists and has been loaded for you. Now you have 3 task(s) in the list.
+What can I do for you? (type 'commands' if you need help to remember the commands) 1.[T] [X] read a book
+2.[D] [ ] submit duke (by: 2022-03-16T18:00)
+3.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
+Now you have 3 task(s) in the list.
+What can I do for you? (type 'commands' if you need help to remember the commands) Nice! I've added this task: 
 [T] [ ] read textbook
-Now you have 5 task(s) in the list.
-What can I do for you? (type 'commands' if you need help to remember the commands) 
+Now you have 4 task(s) in the list.
+What can I do for you? (type 'commands' if you need help to remember the commands) Sorry, I don't understand. Here are the commands you can type: 
+1. type 'bye' to escape
+2. type 'list' to check your list
+3. type 'todo <add task here>' (e.g. todo read a book)
+4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)
+5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)Bye. Hope to see you again soon!

@@ -1,13 +1,17 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
     protected String taskType = "D";
-    protected String by;
-    protected int index;
+    //protected String by;
+    protected LocalDateTime by;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public Deadline(String description) {
         super(description.substring(0, description.lastIndexOf("by") -2).trim());
-        this.by = description.substring(description.lastIndexOf("by") + 3, description.length()).trim();
+        //this.by = description.substring(description.lastIndexOf("by") + 3, description.length()).trim();
+        this.by = LocalDateTime.parse(description.substring(description.lastIndexOf("by") + 3, description.length()).trim(), formatter);
     }
 
     @Override

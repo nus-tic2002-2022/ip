@@ -26,8 +26,8 @@ public class Duke {
                 + "1. type 'bye' to escape\n"
                 + "2. type 'list' to check your list\n"
                 + "3. type 'todo <add task here>' (e.g. todo read a book)\n"
-                + "4. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)\n"
-                + "5. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)\n";
+                + "4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)\n"
+                + "5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)\n";
 
         System.out.println("Hello from\n" + logo);
 

@@ -1,12 +1,17 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
     protected String taskType = "E";
-    protected String at;
+    //protected String at;
+    protected LocalDateTime at;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public Event(String description) {
         super(description.substring(0,description.lastIndexOf("at") -2).trim());
-        this.at = description.substring(description.lastIndexOf("at") + 3, description.length()).trim();
+        //this.at = description.substring(description.lastIndexOf("at") + 3, description.length()).trim();
+        this.at = LocalDateTime.parse(description.substring(description.lastIndexOf("at") + 3, description.length()).trim(), formatter);
     }
 
     @Override

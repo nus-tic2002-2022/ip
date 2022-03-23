@@ -1,3 +1,4 @@
 [T] [X] read a book
-[D] [ ] submit duke (by: 7pm)
-[E] [ ] genus (at: 10pm)
+[D] [ ] submit duke (by: 2022-03-16T18:00)
+[D] [ ] submit assignment 2 (by: 2022-03-27T23:59)
+[E] [ ] tic2002 class (at: 2022-03-23T19:00)

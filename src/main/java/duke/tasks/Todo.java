@@ -1,4 +1,7 @@
-package duke;
+package duke.tasks;
+
+import duke.tasks.Task;
+
 public class Todo extends Task {
 
     //When todo is created, it takes in the value of String description and stores it in the protected String description.

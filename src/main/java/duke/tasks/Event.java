@@ -1,14 +1,13 @@
-package duke;
+package duke.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 public class Event extends Task{
-    protected LocalDate at;
-    protected LocalTime time;
-    protected Pattern timePattern = Pattern.compile("^[0-2][0-9]:[0-5][0-9]$");
+    private LocalDate at;
+    private LocalTime time;
+    private Pattern timePattern = Pattern.compile("^[0-2][0-9]:[0-5][0-9]$");
 
     //This class takes in 2 parameters; String description and String input. String input is the Date/Time provided by the user.
     //It will perform a try to see if the input can be parsed into date/time format.
@@ -21,7 +20,6 @@ public class Event extends Task{
             }catch(Exception e){
                 this.at = null;
             }
-
             if(splited[1].matches(timePattern.pattern()))
                 this.time = LocalTime.parse(splited[1]);
             else

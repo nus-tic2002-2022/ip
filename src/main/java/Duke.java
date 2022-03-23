@@ -1,7 +1,6 @@
-import duke.*;
+import duke.constants.DukeConstants;
+import duke.tasklist.Tasklist;
 import java.util.Scanner;
-import java.util.regex.Pattern;
-
 
 public class Duke {
     private Scanner in = new Scanner(System.in);
@@ -9,7 +8,6 @@ public class Duke {
     private Storage storage;
     private Tasklist tasks;
     private UI ui;
-    private Pattern archive = Pattern.compile("^archive.*$");
 
     //The following method takes an input file and reads it. It attempts to store the values from the file into a tasks Tasklist.
     public Duke(String filePath) {
@@ -35,7 +33,7 @@ public class Duke {
                 ui.exit();
                 in.close();
                 break;
-            }else if(archive.matcher(input).matches()){
+            }else if(DukeConstants.ARCHIVE.matcher(input).matches()){
                 try {
                     if (input.split("\\s").length < 2) {
                         throw new DukeException("Insufficient arguments!");

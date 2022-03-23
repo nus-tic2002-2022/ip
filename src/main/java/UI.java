@@ -1,18 +1,11 @@
-import java.util.regex.Pattern;
-import duke.*;
+import duke.constants.DukeConstants;
+import duke.tasklist.Tasklist;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 public class UI {
-    private Pattern m = Pattern.compile("^mark\\s[0-9]*$");
-    private Pattern u = Pattern.compile("^unmark\\s[0-9]*$");
-    private Pattern rm = Pattern.compile("^delete\\s[0-9]*$");
-    private Pattern t = Pattern.compile("^todo.*$");
-    private Pattern d = Pattern.compile("^deadline.*$");
-    private Pattern e = Pattern.compile("^event.*$");
-    private Pattern find = Pattern.compile("^find.*$");
-
-    public void UI(){
-    }
-
     //The following method takes in the user input and attempts to identify what to do with the input (i.e. store as a Deadline, Event or Task, etc).
     //It will then add the new task to the existing Tasklist.
     public Tasklist Query(Tasklist tasks, String input) {
@@ -21,16 +14,16 @@ public class UI {
                 tasks.list();
                 break;
             default:
-                if (m.matcher(input).matches()) {
+                if (DukeConstants.MARK.matcher(input).matches()) {
                     input = input.replaceAll("\\D+", "");
                     tasks.mark(Integer.parseInt(input));
-                } else if (u.matcher(input).matches()) {
+                } else if (DukeConstants.UNMARK.matcher(input).matches()) {
                     input = input.replaceAll("\\D+", "");
                     tasks.unmark(Integer.parseInt(input));
-                } else if (rm.matcher(input).matches()) {
+                } else if (DukeConstants.REMOVE.matcher(input).matches()) {
                     input = input.replaceAll("\\D+", "");
                     tasks.delete(Integer.parseInt(input));
-                } else if (t.matcher(input).matches()) {
+                } else if (DukeConstants.TODO.matcher(input).matches()) {
                     try {
                         String[] check = input.split(" ");
                         if (check.length < 2) {
@@ -42,7 +35,7 @@ public class UI {
                     } catch (DukeException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
-                } else if (d.matcher(input).matches()) {
+                } else if (DukeConstants.DEADLINE.matcher(input).matches()) {
                     try {
                         String[] check = input.split("/by");
                         if (check.length < 2) {
@@ -55,7 +48,7 @@ public class UI {
                     } catch (DukeException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
-                } else if (e.matcher(input).matches()) {
+                } else if (DukeConstants.EVENT.matcher(input).matches()) {
                     try {
                         String[] check = input.split("/at");
                         if (check.length < 2) {
@@ -68,7 +61,7 @@ public class UI {
                     } catch (DukeException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
-                } else if (find.matcher(input).matches()) {
+                } else if (DukeConstants.FIND.matcher(input).matches()) {
                     System.out.println("Here are the matching tasks in your list:");
                     input = input.replaceAll("^find\\s", "");
                     tasks.list(input);

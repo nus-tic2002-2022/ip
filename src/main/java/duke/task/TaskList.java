@@ -1,6 +1,7 @@
-package  java.duke.task;
+package duke.task;
 
-import java.duke.importutil.*;
+import duke.importer.TaskFile;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -98,7 +99,7 @@ public class TaskList {
     public static void deadline(String userInput){
         //Creating new deadline task
         String description = userInput.replaceFirst("\\w+\\s", "");
-        String date = description.substring(description.indexOf("/by")+3);
+        String date = description.substring(description.indexOf("/by")+3).trim();
         description = description.substring(0,description.indexOf("/by"));
 
         Deadline task = new Deadline(description, date);
@@ -110,7 +111,7 @@ public class TaskList {
     public static void event(String userInput){
         //Creating new event task
         String description = userInput.replaceFirst("\\w+\\s", "");
-        String date = description.substring(description.indexOf("/at")+3);
+        String date = description.substring(description.indexOf("/at")+3).trim();
         description = description.substring(0,description.indexOf("/at"));
 
         Event task = new Event(description, date);
@@ -159,7 +160,7 @@ public class TaskList {
         try {
             TaskFile.overwriteTask();
             for (int i=0;i<numOfTasks;i++) {
-                TaskFile.appendTask(taskList.get(i).toString());
+                TaskFile.appendTask(taskList.get(i).addToFile());
             }
         }catch(IOException i){
             System.out.println("Unable to make changes to the save file");

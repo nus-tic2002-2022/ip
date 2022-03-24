@@ -1,4 +1,4 @@
-package java.duke.utils;
+package duke.utils;
 
 public class Ui {
 

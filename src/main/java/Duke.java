@@ -1,7 +1,7 @@
-import java.duke.utils.*;
-import java.duke.importutil.*;
-import java.duke.task.*;
 import java.util.Scanner;
+import duke.importer.TaskFile;
+import duke.task.TaskList;
+import duke.utils.*;
 
 
 public class Duke {

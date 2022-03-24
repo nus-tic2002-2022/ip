@@ -1,4 +1,2 @@
-[D][ ] submit (by: 28th feb)
-[D][X] finish (by: 1hour)
-[D][X] return book (by: 5th may)
 [T][ ] read book
+[D][X] test1 (by: 2022-02-02 2020)

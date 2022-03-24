@@ -1,6 +1,6 @@
-package java.duke.importutil;
+package duke.importer;
 
-import java.duke.task.*;
+import duke.task.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,7 +31,11 @@ public class TaskFile {
             Scanner readFile = new Scanner(taskFile);
             System.out.println("Save file is loaded from: " + taskFile.getCanonicalPath());
             while(readFile.hasNext()){
-                ImportTasks.importTask(readFile.nextLine());
+                try{
+                    ImportTasks.importTask(readFile.nextLine());
+                } catch (ImportErrorException i){
+                    System.out.println("Skipping...");
+                }
             }
         } catch (IOException i){
             System.out.println("☹ OOPS!!! Save file is not found, a new file will be created.");

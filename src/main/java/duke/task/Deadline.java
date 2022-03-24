@@ -1,4 +1,4 @@
-package java.duke.task;
+package duke.task;
 
 public class Deadline extends Task {
 
@@ -8,19 +8,24 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        System.out.println("Got it. I've added this task:");
+        setDT(by);
         System.out.println(this);
         newTask();
     }
 
-    public Deadline(String description, String by, boolean isDone) {
-        super(description);
+    public Deadline(String description, String by, boolean isDone){
+        super(description, isDone);
         this.by = by;
-        this.isDone = isDone;
+        setDT(by);
+    }
+
+    @Override
+    public String addToFile() {
+        return "[D]" + super.toString() + "(by: " + by + ")";
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + "(by: " + getDT() + ")";
     }
 }

@@ -10,6 +10,14 @@ public class TaskFile {
 
     private static String filePath;
 
+    /**
+     * Constructor for the task file.
+     * Loads the file if it can be found.
+     * Otherwise, tries to create the file.
+     * Else, warns the user that changes to the task list will not be saved.
+     * @param fp Directory location of the task file
+     * @see {@link #loadFile()}
+     */
     public TaskFile (String fp){
         filePath = fp;
         try{
@@ -24,7 +32,11 @@ public class TaskFile {
         }
     }
 
-
+    /**
+     * Method that loads the task file and initiates the import
+     * @throws IOException throws exception when the task file cannot be found
+     * @see {@link ImportTasks#importTask(String)}
+     */
     public static void loadFile() throws IOException {
         try{
             File taskFile = new File(filePath);
@@ -43,6 +55,10 @@ public class TaskFile {
         }
     }
 
+    /**
+     * Method that creates a new task file
+     * @throws IOException Throws exception if Duke is unable to create the save file
+     */
     public static void newFile() throws IOException{
         try{
             File newDir = new File(filePath.substring(0,filePath.lastIndexOf('/')));
@@ -56,6 +72,11 @@ public class TaskFile {
         }
     }
 
+    /**
+     * This method adds task to the task file
+     * @param task Tasks that are to be added into the task file
+     * @throws IOException throws exception if the task file cannot be found
+     */
     public static void appendTask(String task) throws IOException {
         try{
             FileWriter fw = new FileWriter(filePath, true);
@@ -67,6 +88,10 @@ public class TaskFile {
         }
     }
 
+    /**
+     * This method overwrites all existing content in the task file
+     * @throws IOException throws exception if the task file cannot be found
+     */
     public static void overwriteTask() throws IOException {
         try{
             FileWriter fw = new FileWriter(filePath);

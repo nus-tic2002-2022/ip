@@ -1,15 +1,23 @@
 package duke.utils;
 
+import duke.task.DateFunctions;
 import duke.task.TaskList;
+import static duke.utils.SearchDate.searchDate;
 
 public class Parser extends Exception{
-
+    /**
+     * User inputs are parsed here so Duke I can understand what to do
+     * @param userInput the user input read from scanner
+     * @see {@link duke.task.TaskList} used for making changes to the task list
+     * @see {@link duke.utils.SearchDate} used for searching day of week or month
+     */
 
     public static void parse(String userInput){
 
         String command = userInput.split(" ")[0];
 
         switch(command) {
+            case "?":
             case "help":
                 CommandList.help();
                 break;
@@ -67,6 +75,27 @@ public class Parser extends Exception{
                     return;
                 }
                 TaskList.event(userInput);
+                break;
+            case "ascend":
+                DateFunctions.listSort(true);
+                break;
+            case "descend":
+                DateFunctions.listSort(false);
+                break;
+            case "expired":
+                DateFunctions.expiredList();
+                break;
+            case "upcoming":
+                DateFunctions.upcomingList();
+                break;
+            case "search":
+                searchDate(userInput);
+                break;
+            case "days":
+                Ui.showDays();
+                break;
+            case "months":
+                Ui.showMonths();
                 break;
             default:
                 //Level 5 Else, unrecognized command

@@ -7,15 +7,17 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
-    private static int numOfTasks;
+    protected static ArrayList<Task> taskList = new ArrayList<>();
+    protected static int numOfTasks;
 
-    //Constructor of TaskList
+    /**
+     * Constructor of TaskList
+     * Initializes with 0 tasks
+     */
     public TaskList() {
         numOfTasks = 0;
     }
 
-    //Finding index of taskList
     private static int indexer(String userInput){
         if(numOfTasks == 0){
         System.out.println("☹ OOPS!!! There is no task in your list!");
@@ -32,11 +34,17 @@ public class TaskList {
         return index-1;
     }
 
+    /**
+     * Gets the number of tasks in the task list
+     * @return number of tasks in the task list
+     */
     public static int getNumOfTasks(){
         return numOfTasks;
     }
 
-    //Level 2 List
+    /**
+     * This method lists all the task in the task list
+     */
     public static void list(){
         try {
             taskList.clear();
@@ -55,7 +63,11 @@ public class TaskList {
         }
     }
 
-    //Level 3 Mark as Done
+    /**
+     * Changes the isDone of the task to true (done) [X]
+     * @param userInput index of the task according to the task list
+     * @see {@link #list()}
+     */
     public static void mark(String userInput) {
         int index = indexer(userInput);
         if(index == -1){
@@ -71,6 +83,11 @@ public class TaskList {
         System.out.println(taskList.get(index).toString());
     }
 
+    /**
+     * Changes the isDone of the task to false (not done) [ ]
+     * @param userInput index of the task according to the task list
+     * @see {@link #list()}
+     */
     public static void unmark(String userInput) {
         int index = indexer(userInput);
         if(index == -1){
@@ -86,41 +103,52 @@ public class TaskList {
         System.out.println(taskList.get(index).toString());
     }
 
-    //Level 4 Todos, Events, Deadlines
+    /**
+     * Adds a new Todo task to the task list
+     * @param userInput the description of the task
+     */
     public static void todo(String userInput){
         String description = userInput.replaceFirst("\\w+\\s", "");
-        //Creating new todo task
         Todo task = new Todo(description);
         taskList.add(task);
         numOfTasks++;
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
+    /**
+     * Adds a new Deadline task to the task list
+     * @param userInput the description and date/time of the task
+     */
     public static void deadline(String userInput){
-        //Creating new deadline task
         String description = userInput.replaceFirst("\\w+\\s", "");
         String date = description.substring(description.indexOf("/by")+3).trim();
         description = description.substring(0,description.indexOf("/by"));
-
         Deadline task = new Deadline(description, date);
         taskList.add(task);
         numOfTasks++;
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
+    /**
+     * Adds a new Event task to the task list
+     * @param userInput the description and date/time of the task
+     */
     public static void event(String userInput){
-        //Creating new event task
         String description = userInput.replaceFirst("\\w+\\s", "");
         String date = description.substring(description.indexOf("/at")+3).trim();
         description = description.substring(0,description.indexOf("/at"));
-
         Event task = new Event(description, date);
         taskList.add(task);
         numOfTasks++;
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
-    //Level 6 Delete
+    /**
+     * Deletes a task in the task list
+     * @param userInput index of the task according to the task list
+     * @see {@link #list()}
+     * @see {@link TaskFile#overwriteTask()}
+     */
     public static void delete(String userInput){
         int index = indexer(userInput);
         if(index == -1){
@@ -134,29 +162,42 @@ public class TaskList {
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
-    //Level 7 Save
+    /**
+     * Imports a Todo task from the task file to the task list
+     * @param fileInputDescription the description of the task
+     * @param fileInputMark the status of the task
+     */
     public static void importTodo(String fileInputDescription, boolean fileInputMark){
-        //Importing todo task
         Todo task = new Todo(fileInputDescription, fileInputMark);
         taskList.add(task);
         numOfTasks++;
     }
 
+    /**
+     * Imports a Deadline task from the task file to the task list
+     * @param fileInputDescription the description of the task
+     * @param fileInputDate the date/time of the task
+     * @param fileInputMark the status of the task
+     */
     public static void importDeadline(String fileInputDescription, String fileInputDate, boolean fileInputMark){
-        //Importing deadline task
         Deadline task = new Deadline(fileInputDescription, fileInputDate, fileInputMark);
         taskList.add(task);
         numOfTasks++;
     }
 
+    /**
+     * Imports an Event task from the task file to the task list
+     * @param fileInputDescription the description of the task
+     * @param fileInputDate the date/time of the task
+     * @param fileInputMark the status of the task
+     */
     public static void importEvent(String fileInputDescription, String fileInputDate, boolean fileInputMark){
-        //Importing deadline task
         Event task = new Event(fileInputDescription, fileInputDate, fileInputMark);
         taskList.add(task);
         numOfTasks++;
     }
 
-    public static void overwriteTaskFile(){
+    private static void overwriteTaskFile(){
         try {
             TaskFile.overwriteTask();
             for (int i=0;i<numOfTasks;i++) {

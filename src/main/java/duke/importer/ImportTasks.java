@@ -4,7 +4,11 @@ import duke.task.TaskList;
 import static duke.importer.FileContentChecker.lineChecker;
 
 public class ImportTasks {
-
+    /**
+     * This method imports the task file to the task list
+     * @param fileInput takes in each line of the task file and processes it
+     * @throws ImportErrorException
+     */
     public static void importTask (String fileInput) throws ImportErrorException {
         if(!fileInput.isBlank()){
         try {

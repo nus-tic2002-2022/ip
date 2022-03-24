@@ -3,45 +3,40 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Storage {
 
-    private static String filePath;
+    public String filePath;
 
     public Storage (String _filepath) {
         filePath = _filepath;
     }
 
-    public static void writeFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
-        fw.close();
-    };
-
-    public static void readFile()  throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-            //process each line to task
-        }
-    };
-
-    public static void main(String[] args) {
-        Storage duke = new Storage("data/duke.txt");
-
+    public void writeFile(ArrayList<Task> tasks) {
         try {
-            duke.writeFile("this is not funny3");
+            FileWriter fw = new FileWriter(filePath);
+            for (int i = 0 ; i < tasks.size() ; i ++) {
+                fw.write(tasks.get(i).taskToSaveFile() + "\n"); //+1 to i here due to numbering
+            }
+            fw.close();
         } catch (IOException e) {
-            System.out.println("fail read bro.");
-        };
-
-
-        try {
-            duke.readFile();
-        } catch (FileNotFoundException e) {
-            System.out.println("fail scan bro.");
+            System.out.println("Can't write to file!!");
         }
 
-    }
+    };
+
+    public void readFile()   { //ArrayList<Task>
+        try {
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                System.out.println(s.nextLine());
+            };
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
+    };
+
+
 }

@@ -1,20 +1,25 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskProcessor {
 
-    protected static ArrayList<Task> tasks = new ArrayList<Task>();
-    protected static int taskListCount = 0;
+    protected ArrayList<Task> tasks = new ArrayList<Task>();
+    protected int taskListCount = 0;
+    private String filePath = "data/duke.txt";
+    private Storage fileStoreman = new Storage(filePath);
 
-    public static void TaskProcessor() {};
+    public void TaskProcessor() {
+        fileStoreman = new Storage(filePath);
+    };
 
-    public static void changeTaskStatus(int taskIndex, boolean statusToChange)  {
+    public void changeTaskStatus(int taskIndex, boolean statusToChange)  {
         tasks.get(taskIndex).setDone(statusToChange);
         System.out.printf(tasks.get(taskIndex).getTask() + " set to %s.\n",statusToChange ? "done" : "undone");
     }
 
     public static void addTasks() {};
 
-    public static void deleteTasks ( String response) throws IndexOutOfBoundsException,NumberFormatException {
+    public void deleteTasks ( String response) throws IndexOutOfBoundsException,NumberFormatException {
         int deleteIndex = Integer.parseInt(response.split(" ")[1]) - 1; //what if it's not int?
         System.out.printf("Okay! I've deleted the task '%s' from your list!\n", tasks.get(deleteIndex).getTask());
         tasks.remove(deleteIndex);
@@ -23,7 +28,7 @@ public class TaskProcessor {
     }
 
 
-    public static void processTaskToList( String taskType, String response) throws ArrayIndexOutOfBoundsException,NumberFormatException {
+    public void processTaskToList( String taskType, String response) throws ArrayIndexOutOfBoundsException,NumberFormatException {
         if (taskType.equals("todo")) {
             String task = response.split(" ")[1];
             tasks.add(new ToDos(task));
@@ -47,8 +52,16 @@ public class TaskProcessor {
         System.out.printf("You now have %d in your list!\n", taskListCount);
     }
 
-    public static void printList() {
-        ui.printListUI(tasks, taskListCount);
+    public void printList() {
+        Ui.printListUI(tasks, taskListCount);
     }
+
+    public void saveTasks () {
+        fileStoreman.writeFile(tasks);
+    };
+
+    public void loadTasks () {
+        fileStoreman.readFile();
+    };
 
 }

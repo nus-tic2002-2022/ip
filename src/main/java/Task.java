@@ -27,5 +27,9 @@ public class Task {
     public String toString(){
         return String.format("[%s] %s", (done?"x":" "), this.task);
     }
+
+    public String taskToSaveFile() {
+        return String.format("%s", this.task);
+    }
 }
 //to consider: make tasks an abstract class?

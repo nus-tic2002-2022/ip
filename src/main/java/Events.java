@@ -10,4 +10,9 @@ public class Events extends Task{
     public String toString(){
         return String.format("[E][%s] %s (at %s)", (done?"x":" "), this.task,this.eventTime);
     }
+
+    @Override
+    public String taskToSaveFile() {
+        return String.format("E|%d|%s|%s", (done?1:0) ,this.task ,this.eventTime);
+    };
 }

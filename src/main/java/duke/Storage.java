@@ -1,5 +1,5 @@
 /**
- * Creates a Storage object.
+ * Storage handles the writing and reading of list file (duke.txt).
  */
 package duke;
 

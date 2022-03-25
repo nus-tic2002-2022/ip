@@ -1,5 +1,5 @@
 /**
- * Creates a Storage object.
+ * TaskList interacts between Tasks objects vs Ui and Storage.
  */
 package duke;
 
@@ -38,22 +38,15 @@ public class TaskList {
         return list.get(i).toString();
     }
 
-    public static void printLastTask () {
-        System.out.println("Now you have " + list.size() + " task(s) in the list.");
-    }
-
     public static void addTodo(String line) {
         list.add(new Todo(line));
-        //list.get(list.size() - 1).printTask(); // print newly added tasks
     }
     public static void addDeadline(String line) {
         list.add(new Deadline(line));
-        //list.get(list.size() - 1).printTask(); // print newly added tasks
     }
 
     public static void addEvent(String line) {
         list.add(new Event(line));
-        //list.get(list.size() - 1).printTask(); // print newly added tasks
     }
 
     public static void markDone(int index) {
@@ -69,8 +62,6 @@ public class TaskList {
     }
 
     public static void deleteTask(int index) {
-        //System.out.println("Noted. I've removed this task: ");
-        //list.get(index).getTask();
         list.remove(index);
     }
 }

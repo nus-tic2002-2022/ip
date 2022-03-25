@@ -4,6 +4,12 @@ read
 deadline submit duke project /by 2022-04-11T23:59
 event TIC2002 class /at 2022-04-13T19:00
 list
+todo
+todo 
+todo a
+deadline a
+list
+delete 7
 mark 1
 mark 3
 list

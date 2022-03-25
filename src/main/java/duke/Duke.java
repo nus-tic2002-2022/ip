@@ -1,11 +1,11 @@
 package duke;
-
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.lang.StringIndexOutOfBoundsException;
 
 public class Duke {
 
-    //private static ArrayList<Task> list = new ArrayList<>(); // ArrayList of Tasks
-    private final static String fileName = "data\\duke.txt";
+   private final static String fileName = "data\\duke.txt";
 
     private Storage storage;
     private TaskList list;
@@ -20,8 +20,8 @@ public class Duke {
             storage.readFile();
             TaskList.printListLength();
         } catch (IOException e) {
-            //ui.showLoadingError();
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            Ui.printFileErrorMsg();
         }
     }
 
@@ -51,9 +51,8 @@ public class Duke {
                     TaskList.printListLength();
                 } else if (line.startsWith("todo ")) {
                     if (line.substring(4, line.length()).trim().length() < 1) {
-                        System.out.println("Sorry, description cannot be blank. type 'todo <add task here>' (e.g. todo read a book)");
+                        Ui.printBlankDescMsg();
                         continue;
-                        //throw new IllegalCommandException();
                     }
                     TaskList.addTodo(line.substring(5, line.length()));
                     Ui.printAddTaskMsg();
@@ -63,9 +62,8 @@ public class Duke {
                     continue;
                 } else if (line.startsWith("deadline ")) {
                     if (line.substring(9, line.length()).trim().length() < 1) {
-                        System.out.println("Sorry, description cannot be blank. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)");
+                        Ui.printBlankDescMsg();
                         continue;
-                        //throw new IllegalCommandException();
                     }
                     TaskList.addDeadline(line.substring(9, line.length()));
                     Ui.printAddTaskMsg();
@@ -75,9 +73,8 @@ public class Duke {
                     continue;
                 } else if (line.startsWith("event ")) {
                     if (line.substring(6, line.length()).trim().length() < 1) {
-                        System.out.println("Sorry, description cannot be blank. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)");
+                        Ui.printBlankDescMsg();
                         continue;
-                        //throw new IllegalCommandException();
                     }
                     TaskList.addEvent(line.substring(6, line.length()));
                     Ui.printAddTaskMsg();
@@ -88,12 +85,11 @@ public class Duke {
                 } else if (line.startsWith("mark ")) {
                     index = Integer.parseInt(line.substring(line.indexOf("mark ") + 5, line.length())) - 1;
                     if (index >= TaskList.getListLength()) {
-                        System.out.println("Sorry, you have chosen the item number you choose to mark is out of range. type 'mark <add number that is within the list here>'.");
+                        Ui.printOutOfRangeMsg();
                         continue;
-                        //throw new IllegalCommandException();
                     }
                     if(TaskList.checkDone(index)) {
-                        System.out.println("This task has been marked done before!");
+                        Ui.printMarkDoneBeforeMsg();
                         TaskList.printOneTask(index);
                     } else {
                         TaskList.markDone(index);
@@ -105,26 +101,19 @@ public class Duke {
                 } else if (line.startsWith("unmark ")) {
                     index = Integer.parseInt(line.substring(line.indexOf("unmark ") + 7, line.length())) - 1;
                     if (index >= TaskList.getListLength()) {
-                        System.out.println("Sorry, you have chosen the item number you choose to unmark is out of range. type 'unmark <add number that is within the list here>'.");
+                        Ui.printOutOfRangeMsg();
                         continue;
-                        //throw new IllegalCommandException();
                     }
-                    if(!TaskList.checkDone(index)) {
-                        System.out.println("This task has been marked as not done before!");
-                        TaskList.printOneTask(index);
-                    } else {
-                        TaskList.markNotDone(index);
-                        Ui.printMarkNotDoneMsg();
-                        TaskList.printOneTask(index);
-                    }
+                    TaskList.markNotDone(index);
+                    Ui.printMarkNotDoneMsg();
+                    TaskList.printOneTask(index);
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("delete ")) {
                     index = Integer.parseInt(line.substring(line.indexOf("delete ") + 7, line.length())) - 1;
                     if (index >= TaskList.getListLength()) {
-                        System.out.println("Sorry, you have chosen the item number you choose to delete is out of range. type 'delete <add number that is within the list here>'.");
+                        Ui.printOutOfRangeMsg();
                         continue;
-                        //throw new IllegalCommandException();
                     }
                     Ui.printDeleteMsg();
                     TaskList.printOneTask(index);
@@ -133,12 +122,18 @@ public class Duke {
                     storage.writeFile(list); // save file
                     continue;
                 } else {
-                    System.out.print("Sorry, I don't understand. ");
+                    Ui.printUnknownCommandMsg();
                     Ui.printCommand();
-                    //throw new IllegalCommandException();
                 }
             } catch(IOException e) {
-                    System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
+                Ui.printFileErrorMsg();
+            } catch(DateTimeParseException e) {
+                //System.out.println(e.getMessage());
+                Ui.printDateFormatErrorMsg();
+            } catch(StringIndexOutOfBoundsException e) {
+                //System.out.println(e.getMessage());
+                Ui.printShortDescErrorMsg();
             }
 
         } while (status == 0);

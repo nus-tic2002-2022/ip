@@ -50,16 +50,15 @@ public class Duke {
                     TaskList.printList();
                     TaskList.printListLength();
                 } else if (line.startsWith("todo ")) {
-                    if (line.substring(5, line.length()).trim().length() < 1) {
+                    if (line.substring(4, line.length()).trim().length() < 1) {
                         System.out.println("Sorry, description cannot be blank. type 'todo <add task here>' (e.g. todo read a book)");
                         continue;
                         //throw new IllegalCommandException();
                     }
                     TaskList.addTodo(line.substring(5, line.length()));
-                    TaskList.printLastTask(TaskList.getListLength()-1);
+                    Ui.printAddTaskMsg();
+                    TaskList.printOneTask(TaskList.getListLength()-1);
                     TaskList.printListLength();
-                    //list.add(new Todo(line.substring(5, line.length())));
-                    // list.get(list.size() - 1).printTask();
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("deadline ")) {
@@ -69,9 +68,9 @@ public class Duke {
                         //throw new IllegalCommandException();
                     }
                     TaskList.addDeadline(line.substring(9, line.length()));
+                    Ui.printAddTaskMsg();
+                    TaskList.printOneTask(TaskList.getListLength()-1);
                     TaskList.printListLength();
-                    //list.add(new Deadline(line.substring(9, line.length())));
-                    //list.get(list.size() - 1).printTask(); // print newly added tasks
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("event ")) {
@@ -81,9 +80,9 @@ public class Duke {
                         //throw new IllegalCommandException();
                     }
                     TaskList.addEvent(line.substring(6, line.length()));
+                    Ui.printAddTaskMsg();
+                    TaskList.printOneTask(TaskList.getListLength()-1);
                     TaskList.printListLength();
-                    //list.add(new Event(line.substring(6, line.length())));
-                    //list.get(list.size() - 1).printTask(); // print newly added tasks
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("mark ")) {
@@ -93,8 +92,14 @@ public class Duke {
                         continue;
                         //throw new IllegalCommandException();
                     }
-                    TaskList.markDone(index);
-                    TaskList.printListLength();
+                    if(TaskList.checkDone(index)) {
+                        System.out.println("This task has been marked done before!");
+                        TaskList.printOneTask(index);
+                    } else {
+                        TaskList.markDone(index);
+                        Ui.printMarkDoneMsg();
+                        TaskList.printOneTask(index);
+                    }
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("unmark ")) {
@@ -104,8 +109,14 @@ public class Duke {
                         continue;
                         //throw new IllegalCommandException();
                     }
-                    TaskList.markNotDone(index);
-                    TaskList.printListLength();
+                    if(!TaskList.checkDone(index)) {
+                        System.out.println("This task has been marked as not done before!");
+                        TaskList.printOneTask(index);
+                    } else {
+                        TaskList.markNotDone(index);
+                        Ui.printMarkNotDoneMsg();
+                        TaskList.printOneTask(index);
+                    }
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("delete ")) {
@@ -115,6 +126,8 @@ public class Duke {
                         continue;
                         //throw new IllegalCommandException();
                     }
+                    Ui.printDeleteMsg();
+                    TaskList.printOneTask(index);
                     TaskList.deleteTask(index);
                     TaskList.printListLength();
                     storage.writeFile(list); // save file

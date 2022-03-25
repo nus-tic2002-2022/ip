@@ -13,7 +13,7 @@ public class Deadline extends Task {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public Deadline(String description) {
-        super(description.substring(0, description.lastIndexOf("by") -2).trim());
+        super(description.substring(0, description.lastIndexOf("by") -1).trim());
         //this.by = description.substring(description.lastIndexOf("by") + 3, description.length()).trim();
         this.by = LocalDateTime.parse(description.substring(description.lastIndexOf("by") + 3, description.length()).trim(), formatter);
     }
@@ -27,9 +27,9 @@ public class Deadline extends Task {
         return "[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")";
     }
 
-    public void printTask () {
+    /*public void printTask () {
         System.out.println("Nice! I've added this task: ");
         getTask ();
-    }
+    }*/
 
 }

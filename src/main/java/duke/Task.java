@@ -16,6 +16,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public Boolean getStatusBoolean() {
+        return (isDone);
+    }
+
     public String getDescription() {
         return description;
     }
@@ -36,9 +40,9 @@ public class Task {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
-    public void printTask () {
+    /*public void printTask () {
         System.out.println("Nice! I've added this task: ");
         getTask ();
-    }
+    }*/
 
 }

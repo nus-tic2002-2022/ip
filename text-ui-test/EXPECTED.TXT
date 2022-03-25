@@ -1,3 +1,4 @@
+The list file already exists and has been loaded for you. Now you have 3 task(s) in the list.
 Hello from
  ____        _        
 |  _ \ _   _| | _____ 
@@ -5,7 +6,6 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-The list file already exists and has been loaded for you. Now you have 3 task(s) in the list.
 What can I do for you? (type 'commands' if you need help to remember the commands) 1.[T] [X] read a book
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
@@ -34,9 +34,9 @@ What can I do for you? (type 'commands' if you need help to remember the command
 6.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'commands' if you need help to remember the commands) This task has been marked done before!
+[T] [X] read a book
 What can I do for you? (type 'commands' if you need help to remember the commands) Nice! I've marked this task as done: 
 [E] [X] tic2002 class (at: 2022-03-23T19:00)
-Now you have 6 task(s) in the list.
 What can I do for you? (type 'commands' if you need help to remember the commands) 1.[T] [X] read a book
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [X] tic2002 class (at: 2022-03-23T19:00)
@@ -46,7 +46,6 @@ What can I do for you? (type 'commands' if you need help to remember the command
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'commands' if you need help to remember the commands) OK, I've marked this task as not done yet: 
 [E] [ ] tic2002 class (at: 2022-03-23T19:00)
-Now you have 6 task(s) in the list.
 What can I do for you? (type 'commands' if you need help to remember the commands) Noted. I've removed this task: 
 [D] [ ] submit duke (by: 2022-03-16T18:00)
 Now you have 5 task(s) in the list.

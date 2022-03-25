@@ -27,10 +27,10 @@ public class Event extends Task {
         return "[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (at: " + at + ")";
     }
 
-    public void printTask () {
+    /*public void printTask () {
         System.out.println("Nice! I've added this task: ");
         getTask ();
-    }
+    }*/
 
 
 }

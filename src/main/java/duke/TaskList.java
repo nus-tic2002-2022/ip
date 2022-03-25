@@ -30,8 +30,8 @@ public class TaskList {
         return list.size();
     }
 
-    public static void printLastTask (int i) {
-        //System.out.println(list.get(i).printTask());
+    public static void printOneTask (int i) {
+        System.out.println(list.get(i).toString());
     }
 
     public static String getTask (int i) {
@@ -43,37 +43,29 @@ public class TaskList {
     }
 
     public static void addTodo(String line) {
-        list.add(new Todo(line.substring(5, line.length())));
+        list.add(new Todo(line));
         //list.get(list.size() - 1).printTask(); // print newly added tasks
     }
     public static void addDeadline(String line) {
-        list.add(new Deadline(line.substring(9, line.length())));
+        list.add(new Deadline(line));
         //list.get(list.size() - 1).printTask(); // print newly added tasks
     }
 
     public static void addEvent(String line) {
-        list.add(new Event(line.substring(6, line.length())));
+        list.add(new Event(line));
         //list.get(list.size() - 1).printTask(); // print newly added tasks
     }
 
     public static void markDone(int index) {
-        if (list.get(index).getStatusIcon().equals("X")) {
-            System.out.println("This task has been marked done before!");
-        } else {
-            list.get(index).markAsDone();
-            //System.out.println("Nice! I've marked this task as done: ");
-            //list.get(index).getTask();
-        }
+        list.get(index).markAsDone();
+    }
+
+    public static Boolean checkDone(int index) {
+        return list.get(index).getStatusBoolean();
     }
 
     public static void markNotDone(int index) {
-        if (list.get(index).getStatusIcon().equals(" ")) {
-            System.out.println("This task is currently marks as not done!");
-        } else {
-            list.get(index).markAsNotDone();
-            //System.out.println("OK, I've marked this task as not done yet: ");
-            //list.get(index).getTask();
-        }
+        list.get(index).markAsNotDone();
     }
 
     public static void deleteTask(int index) {

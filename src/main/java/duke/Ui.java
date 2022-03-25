@@ -40,6 +40,22 @@ public class Ui {
         System.out.println(command);
     }
 
+    public static void printAddTaskMsg() {
+        System.out.println("Nice! I've added this task: ");
+    }
+
+    public static void printMarkDoneMsg() {
+        System.out.println("Nice! I've marked this task as done: ");
+    }
+
+    public static void printMarkNotDoneMsg() {
+        System.out.println("OK, I've marked this task as not done yet: ");
+    }
+
+    public static void printDeleteMsg() {
+        System.out.println("Noted. I've removed this task: ");
+    }
+
     public static void printBye(){
         System.out.println("Bye. Hope to see you again soon!");
     }

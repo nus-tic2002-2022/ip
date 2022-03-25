@@ -42,19 +42,19 @@ public class Storage {
                 int index;
                 //add to list
                 if (line.startsWith("[T] ")) { //to do "[T] [X] "
-                    TaskList.addTodo(line.substring(3)); //
+                    TaskList.addTodo(line.substring(8, line.length())); //
                     index = TaskList.getListLength() - 1;
                     if(line.charAt(5) == 'X') {
                         TaskList.markDone(index);
                     }
                 } else if (line.startsWith("[D] ")) { //deadline
-                    TaskList.addDeadline(line.substring(1, line.length()-1));
+                    TaskList.addDeadline(line.substring(8, line.length()-1));
                     index = TaskList.getListLength() - 1;
                     if(line.charAt(5) == 'X') {
                         TaskList.markDone(index);
                     }
                 } else if (line.startsWith("[E] ")) { //event
-                    TaskList.addEvent(line.substring(1, line.length()-1));
+                    TaskList.addEvent(line.substring(8, line.length()-1));
                     index = TaskList.getListLength() - 1;
                     if(line.charAt(5) == 'X') {
                         TaskList.markDone(index);

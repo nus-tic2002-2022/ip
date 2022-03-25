@@ -1,198 +1,140 @@
 package duke;
 
-import java.util.*;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
 
-    private static ArrayList<Task> list = new ArrayList<>(); // ArrayList of Tasks
-    //private static String filePath = "..\\src\\main\\java";
-    private static String fileName = "data\\duke.txt";
+    //private static ArrayList<Task> list = new ArrayList<>(); // ArrayList of Tasks
+    private final static String fileName = "data\\duke.txt";
 
-    public static void main(String[] args) throws IllegalCommandException, IOException {
+    private Storage storage;
+    private TaskList list;
+    private Ui ui;
 
-        String line;
-        Scanner in = new Scanner(System.in);
+    private int index;
+
+    public Duke(String fileName) {
+        ui = new Ui();
+        storage = new Storage(fileName);
+        try {
+            storage.readFile();
+            TaskList.printListLength();
+        } catch (IOException e) {
+            //ui.showLoadingError();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void run(){
+
         int status = 0;
-        int index = 0;
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        String command = "Here are the commands you can type: \n"
-                + "1. type 'bye' to escape\n"
-                + "2. type 'list' to check your list\n"
-                + "3. type 'todo <add task here>' (e.g. todo read a book)\n"
-                + "4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)\n"
-                + "5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)\n";
-
-        System.out.println("Hello from\n" + logo);
-
-        readFile();
-        System.out.println("Now you have " + list.size() + " task(s) in the list.");
+        Ui.printHello();
 
         do {
 
-            System.out.print("What can I do for you? (type 'commands' if you need help to remember the commands) ");
+            Ui.printPrompt();
 
-            line = in.nextLine();
+            try {
 
-            if (line.toLowerCase().equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                status = 1; // can escape
-            } else if (line.toLowerCase().equals("commands")) {
-                System.out.println(command);
-            } else if (line.toLowerCase().equals("logo")) {
-                System.out.println(logo);
-            } else if (line.toLowerCase().equals("list")) { //Print list
-                if (list.size() == 0) {
-                    System.out.println("There is nothing on the list! :)");
-                } else {
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.print(i + 1 + ".");
-                        list.get(i).getTask();
+                String line = Ui.getLine();
+
+                if (line.toLowerCase().equals("bye")) {
+                    Ui.printBye();
+                    status = 1; // can escape from loop
+                } else if (line.toLowerCase().equals("commands")) {
+                    Ui.printCommand();
+                } else if (line.toLowerCase().equals("hello")) {
+                    Ui.printHello();
+                } else if (line.toLowerCase().equals("list")) { //Print list
+                    TaskList.printList();
+                    TaskList.printListLength();
+                } else if (line.startsWith("todo ")) {
+                    if (line.substring(5, line.length()).trim().length() < 1) {
+                        System.out.println("Sorry, description cannot be blank. type 'todo <add task here>' (e.g. todo read a book)");
+                        continue;
+                        //throw new IllegalCommandException();
                     }
-                }
-                writeFile(list); // save file
-                continue;
-            } else if (line.startsWith("todo ")) {
-                if (line.substring(5, line.length()).trim().length() < 1) {
-                    System.out.println("Sorry, description cannot be blank. type 'todo <add task here>' (e.g. todo read a book)");
+                    TaskList.addTodo(line.substring(5, line.length()));
+                    TaskList.printLastTask(TaskList.getListLength()-1);
+                    TaskList.printListLength();
+                    //list.add(new Todo(line.substring(5, line.length())));
+                    // list.get(list.size() - 1).printTask();
+                    storage.writeFile(list); // save file
                     continue;
-                    //throw new IllegalCommandException();
-                }
-                list.add(new Todo(line.substring(5, line.length())));
-                list.get(list.size() - 1).printTask(); // print newly added tasks
-                writeFile(list); // save file
-                continue;
-            } else if (line.startsWith("deadline ")) {
-                if (line.substring(9, line.length()).trim().length() < 1) {
-                    System.out.println("Sorry, description cannot be blank. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)");
+                } else if (line.startsWith("deadline ")) {
+                    if (line.substring(9, line.length()).trim().length() < 1) {
+                        System.out.println("Sorry, description cannot be blank. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit duke project /by 11 Apr 2022 2359)");
+                        continue;
+                        //throw new IllegalCommandException();
+                    }
+                    TaskList.addDeadline(line.substring(9, line.length()));
+                    TaskList.printListLength();
+                    //list.add(new Deadline(line.substring(9, line.length())));
+                    //list.get(list.size() - 1).printTask(); // print newly added tasks
+                    storage.writeFile(list); // save file
                     continue;
-                    //throw new IllegalCommandException();
-                }
-                list.add(new Deadline(line.substring(9, line.length())));
-                list.get(list.size() - 1).printTask(); // print newly added tasks
-                writeFile(list); // save file
-                continue;
-            } else if (line.startsWith("event ")) {
-                if (line.substring(6, line.length()).trim().length() < 1) {
-                    System.out.println("Sorry, description cannot be blank. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)");
+                } else if (line.startsWith("event ")) {
+                    if (line.substring(6, line.length()).trim().length() < 1) {
+                        System.out.println("Sorry, description cannot be blank. type 'event <add task here> /at <add event timing>' (e.g. event attend TIC2002 class /at 2 March 2022 7pm)");
+                        continue;
+                        //throw new IllegalCommandException();
+                    }
+                    TaskList.addEvent(line.substring(6, line.length()));
+                    TaskList.printListLength();
+                    //list.add(new Event(line.substring(6, line.length())));
+                    //list.get(list.size() - 1).printTask(); // print newly added tasks
+                    storage.writeFile(list); // save file
                     continue;
-                    //throw new IllegalCommandException();
-                }
-                list.add(new Event(line.substring(6, line.length())));
-                list.get(list.size() - 1).printTask(); // print newly added tasks
-                writeFile(list); // save file
-                continue;
-            } else if (line.startsWith("mark ")) {
-                index = Integer.parseInt(line.substring(line.indexOf("mark ") + 5, line.length())) -1;
-                if (index>= list.size()) {
-                    System.out.println("Sorry, you have chosen the item number you choose to mark is out of range. type 'mark <add number that is within the list here>'.");
+                } else if (line.startsWith("mark ")) {
+                    index = Integer.parseInt(line.substring(line.indexOf("mark ") + 5, line.length())) - 1;
+                    if (index >= TaskList.getListLength()) {
+                        System.out.println("Sorry, you have chosen the item number you choose to mark is out of range. type 'mark <add number that is within the list here>'.");
+                        continue;
+                        //throw new IllegalCommandException();
+                    }
+                    TaskList.markDone(index);
+                    TaskList.printListLength();
+                    storage.writeFile(list); // save file
                     continue;
-                    //throw new IllegalCommandException();
-                }
-                if (list.get(index).getStatusIcon().equals("X")) {
-                    System.out.println("This task has been marked done before!");
+                } else if (line.startsWith("unmark ")) {
+                    index = Integer.parseInt(line.substring(line.indexOf("unmark ") + 7, line.length())) - 1;
+                    if (index >= TaskList.getListLength()) {
+                        System.out.println("Sorry, you have chosen the item number you choose to unmark is out of range. type 'unmark <add number that is within the list here>'.");
+                        continue;
+                        //throw new IllegalCommandException();
+                    }
+                    TaskList.markNotDone(index);
+                    TaskList.printListLength();
+                    storage.writeFile(list); // save file
+                    continue;
+                } else if (line.startsWith("delete ")) {
+                    index = Integer.parseInt(line.substring(line.indexOf("delete ") + 7, line.length())) - 1;
+                    if (index >= TaskList.getListLength()) {
+                        System.out.println("Sorry, you have chosen the item number you choose to delete is out of range. type 'delete <add number that is within the list here>'.");
+                        continue;
+                        //throw new IllegalCommandException();
+                    }
+                    TaskList.deleteTask(index);
+                    TaskList.printListLength();
+                    storage.writeFile(list); // save file
+                    continue;
                 } else {
-                    list.get(index).markAsDone();
-                    System.out.println("Nice! I've marked this task as done: ");
-                    list.get(index).getTask();
-                    writeFile(list); // save file
-                }
-                continue;
-            } else if (line.startsWith("unmark ")) {
-                index = Integer.parseInt(line.substring(line.indexOf("unmark ") + 7, line.length())) -1;
-                if (index >= list.size()) {
-                    System.out.println("Sorry, you have chosen the item number you choose to unmark is out of range. type 'unmark <add number that is within the list here>'.");
-                    continue;
+                    System.out.print("Sorry, I don't understand. ");
+                    Ui.printCommand();
                     //throw new IllegalCommandException();
                 }
-                if (list.get(index).getStatusIcon().equals(" ")) {
-                    System.out.println("This task is currently marks as not done!");
-                } else {
-                    list.get(index).markAsNotDone();
-                    System.out.println("OK, I've marked this task as not done yet: ");
-                    list.get(index).getTask();
-                    writeFile(list); // save file
-                }
-                continue;
-            } else if (line.startsWith("delete ")) {
-                index = Integer.parseInt(line.substring(line.indexOf("delete ") + 7, line.length())) - 1;
-                if (index >= list.size()) {
-                    System.out.println("Sorry, you have chosen the item number you choose to delete is out of range. type 'delete <add number that is within the list here>'.");
-                    continue;
-                    //throw new IllegalCommandException();
-                }
-                System.out.println("Noted. I've removed this task: ");
-                list.get(index).getTask();
-                list.remove(index);
-                writeFile(list); // save file
-                continue;
-            } else {
-                System.out.println("Sorry, I don't understand. " + command);
-                //throw new IllegalCommandException();
+            } catch(IOException e) {
+                    System.out.println(e.getMessage());
             }
 
         } while (status == 0);
 
-    }
-
-    private static void writeFile(ArrayList<Task> list) throws IOException {
-
-        FileWriter myFile = new FileWriter(fileName); //filePath+
-        System.out.println("Now you have " + list.size() + " task(s) in the list.");
-
-        for (int i = 0; i < list.size(); i++) {
-            myFile.write(list.get(i).toString());
-            myFile.write("\n");
-        }
-        myFile.close();
 
     }
 
-    private static ArrayList<Task> readFile() throws IllegalCommandException, IOException {
-
-        File myFile = new File(fileName); //filePath+
-
-        if (myFile.createNewFile()) {
-            System.out.print("A new list file has been created for you. ");
-        } else {
-            Scanner s = new Scanner(myFile);
-            System.out.print("The list file already exists and has been loaded for you. ");
-            while (s.hasNext()) {
-                String line = s.nextLine();
-                int index = 0;
-                //add to list
-                if (line.startsWith("[T] ")) { //to do "[T] [X] "
-                    list.add(new Todo(line.substring(8, line.length())));
-                    index = list.size() - 1;
-                    if(line.charAt(5) == 'X') {
-                        list.get(index).markAsDone();
-                    }
-                } else if (line.startsWith("[D] ")) { //deadline
-                    list.add(new Deadline(line.substring(8, line.length()-1)));
-                    index = list.size() - 1;
-                    if(line.charAt(5) == 'X') {
-                        list.get(index).markAsDone();
-                    }
-                } else if (line.startsWith("[E] ")) { //event
-                    list.add(new Event(line.substring(8, line.length()-1)));
-                    index = list.size() - 1;
-                    if(line.charAt(5) == 'X') {
-                        list.get(index).markAsDone();
-                    }
-                }
-            }
-        }
-
-        return list;
-
+    public static void main(String[] args){
+        new Duke(fileName).run();
     }
 
 }

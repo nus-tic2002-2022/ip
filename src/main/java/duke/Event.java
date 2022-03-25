@@ -1,3 +1,6 @@
+/**
+ * Creates an Event object. Event object is inherited from Task object.
+ */
 package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

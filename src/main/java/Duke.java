@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import exceptions.InvalidTaskException;
@@ -7,7 +8,7 @@ public class Duke {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
 
-    public static void bye() {
+    private static void bye() {
         System.out.println("Bye bye!");
         System.exit(0);
     }
@@ -60,7 +61,7 @@ public class Duke {
 
     }
 
-    public static void addItem(String type, String input){
+    private static void addItem(String type, String input){
         try {
             if (type.equals("todo")) {
                 if (input.isEmpty()) throw new InvalidTaskException("Todo cannot be empty.");
@@ -88,7 +89,7 @@ public class Duke {
         }
     }
 
-    public static void deleteItem(int taskIndex){
+    private static void deleteItem(int taskIndex){
         try {
             if (taskIndex<1 || taskList.size()<taskIndex) throw new UnknownCommandException("Selected task to delete is invalid.");
             taskIndex--;
@@ -112,25 +113,96 @@ public class Duke {
         }
         else if (input.startsWith("todo")) {
             addItem("todo", input.replaceFirst("todo", "").trim());
+            saveFile();
         }
         else if (input.startsWith("event")) {
             addItem("event", input.replaceFirst("event", "").trim());
+            saveFile();
         }
         else if (input.startsWith("deadline")) {
             addItem("deadline", input.replaceFirst("deadline", "").trim());
+            saveFile();
         }
         else if (input.startsWith("mark") || input.startsWith("unmark")) {
             String index = input.replaceAll("\\D+","");
             if (index.isEmpty()) throw new UnknownCommandException("Invalid task input. Use an integer.");
             mark(input, Integer.parseInt(index));
+            saveFile();
         }
         else if (input.startsWith("delete")) {
             String index = input.replaceAll("\\D+","");
             if (index.isEmpty()) throw new UnknownCommandException("Invalid task input. Use an integer.");
             deleteItem(Integer.parseInt(index));
+            saveFile();
         }
         else {
             throw new UnknownCommandException();
+        }
+    }
+
+    private static String createDirectory() {
+
+        String directoryName = System.getProperty("user.dir") + File.separator + "data";
+        File directory = new File(directoryName);
+        if (! directory.exists()){
+            directory.mkdir();
+        }
+        return directoryName;
+    }
+
+    private static void saveFile() {
+
+        File fileName = new File(createDirectory() + File.separator + "list.txt");
+
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            Writer output = new BufferedWriter(fw);
+            int size = taskList.size();
+            for (int i = 0; i < size; i++){
+                output.write(taskList.get(i).toFile() + "\n");
+            }
+            output.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void loadFile() {
+
+        File fileName = new File(createDirectory() + File.separator + "list.txt");
+        String line;
+
+        try {
+            BufferedReader input = new BufferedReader(new FileReader(fileName));
+            if (!input.ready()) {
+                throw new IOException();
+            }
+            while ((line = input.readLine()) != null) {
+                loadItem(line);
+            }
+            input.close();
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void loadItem(String input) {
+
+        //split takes a regular expression and | is a special character (means 'or').
+        // requires additional \\ in regex since \ is Java's escape character in a string.
+        // Java understands the string like "\|", and the regex then understands it like "|"
+        
+        if (input.startsWith("T")) {
+            String[] task = input.split("\\|");
+            taskList.add(new Todo(task[2].trim(), Boolean.parseBoolean((task[1].trim()))));
+        }
+        else if (input.startsWith("E")) {
+            String[] task = input.split("\\|");
+            taskList.add(new Event(task[2].trim(), Boolean.parseBoolean((task[1].trim())), task[3].trim()));
+        }
+        else if (input.startsWith("D")) {
+            String[] task = input.split("\\|");
+            taskList.add(new Deadline(task[2].trim(), Boolean.parseBoolean((task[1].trim())), task[3].trim()));
         }
     }
 
@@ -144,6 +216,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("I'm Duke\n" + "What can I do for you?");
 
+        loadFile();
         String input;
         Scanner in = new Scanner(System.in);
 

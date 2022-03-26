@@ -8,9 +8,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public Task() {
-        this.description = "";
-        this.isDone = false;
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -18,7 +18,7 @@ public class Task {
     }
 
     public boolean markAsDone() {
-        if (isDone == false) {
+        if (!isDone) {
             isDone = true;
             return true;
         }
@@ -26,7 +26,7 @@ public class Task {
     }
 
     public boolean markAsUndone() {
-        if (isDone == true) {
+        if (isDone) {
             isDone = false;
             return true;
         }
@@ -36,6 +36,10 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String toFile() {
+        return isDone + " | " + description;
     }
 
 }

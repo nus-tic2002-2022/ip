@@ -4,6 +4,7 @@
 package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Deadline extends Task {
 
@@ -26,6 +27,8 @@ public class Deadline extends Task {
     public String toString () {
         return "[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")";
     }
+
+    public LocalDateTime getTaskDate () { return by; }
 
     /*public void printTask () {
         System.out.println("Nice! I've added this task: ");

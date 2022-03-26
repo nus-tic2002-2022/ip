@@ -16,26 +16,26 @@ Now you have 4 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Sorry, I don't understand. Here are the commands you can type: 
 1. type 'bye' to escape
 2. type 'list' to check your list
-3. type 'todo <add task here>' (e.g. todo read a book)
+3. type 'todo <add task here>' (e.g. todo read a book) [todo is assumed as today's date.]
 4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)
 5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)
 What can I do for you? (type 'help' if you need help to remember the commands) Nice! I've added this task: 
 [D] [ ] submit duke project (by: 2022-04-11T23:59)
 Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Nice! I've added this task: 
-[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
+[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) 1.[T] [X] read a book
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
 4.[T] [ ] read textbook
 5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-6.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
+6.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Sorry, I don't understand. Here are the commands you can type: 
 1. type 'bye' to escape
 2. type 'list' to check your list
-3. type 'todo <add task here>' (e.g. todo read a book)
+3. type 'todo <add task here>' (e.g. todo read a book) [todo is assumed as today's date.]
 4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)
 5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)
 What can I do for you? (type 'help' if you need help to remember the commands) Sorry, description cannot be blank. Type 'help' to check the format for Todo/Deadlines/Events.
@@ -43,12 +43,18 @@ What can I do for you? (type 'help' if you need help to remember the commands) N
 [T] [ ] a
 Now you have 7 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) The description is too short. Please type 'help' to check the date format for Events/Deadlines.
+What can I do for you? (type 'help' if you need help to remember the commands) Here are the commands you can type: 
+1. type 'bye' to escape
+2. type 'list' to check your list
+3. type 'todo <add task here>' (e.g. todo read a book) [todo is assumed as today's date.]
+4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)
+5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)
 What can I do for you? (type 'help' if you need help to remember the commands) 1.[T] [X] read a book
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
 4.[T] [ ] read textbook
 5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-6.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
+6.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 7.[T] [ ] a
 Now you have 7 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Noted. I've removed this task: 
@@ -58,12 +64,13 @@ What can I do for you? (type 'help' if you need help to remember the commands) T
 [T] [X] read a book
 What can I do for you? (type 'help' if you need help to remember the commands) Nice! I've marked this task as done: 
 [E] [X] tic2002 class (at: 2022-03-23T19:00)
+What can I do for you? (type 'help' if you need help to remember the commands) Sorry, you have chosen the item number you choose to mark is out of range. Please type 'list' to check the number of tasks you have.
 What can I do for you? (type 'help' if you need help to remember the commands) 1.[T] [X] read a book
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [X] tic2002 class (at: 2022-03-23T19:00)
 4.[T] [ ] read textbook
 5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-6.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
+6.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) OK, I've marked this task as not done yet: 
 [E] [ ] tic2002 class (at: 2022-03-23T19:00)
@@ -74,6 +81,13 @@ What can I do for you? (type 'help' if you need help to remember the commands) 1
 2.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
 3.[T] [ ] read textbook
 4.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-5.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
+5.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+Now you have 5 task(s) in the list.
+What can I do for you? (type 'help' if you need help to remember the commands) Noted. I've sorted the list by date: 
+1.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
+2.[T] [X] read a book
+3.[T] [ ] read textbook
+4.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
 Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Bye. Hope to see you again soon!

@@ -121,6 +121,12 @@ public class Duke {
                     TaskList.printListLength();
                     storage.writeFile(list); // save file
                     continue;
+                } else if (line.toLowerCase().equals("sort")) {
+                    Ui.printSortMsg();
+                    TaskList.sortList();
+                    TaskList.printList();
+                    TaskList.printListLength();
+                    storage.writeFile(list); // save file
                 } else {
                     Ui.printUnknownCommandMsg();
                     Ui.printHelp();

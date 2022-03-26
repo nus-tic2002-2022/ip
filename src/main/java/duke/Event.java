@@ -27,6 +27,9 @@ public class Event extends Task {
         return "[" + taskType + "] [" + getStatusIcon() + "] " + getDescription() + " (at: " + at + ")";
     }
 
+    public LocalDateTime getTaskDate () { return at; }
+
+
     /*public void printTask () {
         System.out.println("Nice! I've added this task: ");
         getTask ();

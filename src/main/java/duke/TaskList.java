@@ -13,7 +13,7 @@ public class TaskList {
 
     public static void printList () {
         if (list.size() == 0) {
-            System.out.println("There is nothing on the list! :)");
+            System.out.println("There is nothing on the list! :)"); //TODO: move to Ui.java?
         } else {
             for (int i = 0; i < list.size(); i++) {
                 System.out.print(i + 1 + ".");
@@ -23,7 +23,7 @@ public class TaskList {
     }
 
     public static void printListLength () {
-        System.out.println("Now you have " + list.size() + " task(s) in the list.");
+        System.out.println("Now you have " + list.size() + " task(s) in the list."); //TODO: move to Ui.java?
     }
 
     public static int getListLength () {
@@ -41,6 +41,7 @@ public class TaskList {
     public static void addTodo(String line) {
         list.add(new Todo(line));
     }
+
     public static void addDeadline(String line) {
         list.add(new Deadline(line));
     }
@@ -63,5 +64,36 @@ public class TaskList {
 
     public static void deleteTask(int index) {
         list.remove(index);
+    }
+
+    public static ArrayList<Task> sortList() {
+
+        if (list.size() == 0) {
+            System.out.println("There is nothing on the list! :)"); //TODO: move to Ui.java?
+        } else {
+
+            for (int i = 0; i < list.size(); i++) { //outer loop
+                for (int j = i + 1; j < list.size(); j++) { //inner loop
+
+                    //checking tasks
+                    ArrayList<Task> tempTask = new ArrayList<>();
+                    if(list.get(j).getTaskDate().compareTo(list.get(i).getTaskDate()) < 0) { //check if next task is before current task
+
+                        // swapping
+                        tempTask.add(0,list.get(i));
+                        list.set(i, list.get(j));
+                        list.set(j, tempTask.get(0));
+
+                    }
+
+                }
+
+            }
+        }
+        //update list
+        //list = tempList;
+
+        //return list
+        return list;
     }
 }

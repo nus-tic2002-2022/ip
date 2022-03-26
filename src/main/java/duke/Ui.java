@@ -31,17 +31,17 @@ public class Ui {
     }
 
     public static void printPrompt() {
-        System.out.print("What can I do for you? (type 'commands' if you need help to remember the commands) ");
+        System.out.print("What can I do for you? (type 'help' if you need help to remember the commands) ");
     }
 
-    public static void printCommand() {
-        String command = "Here are the commands you can type: \n"
+    public static void printHelp() {
+        String help = "Here are the commands you can type: \n"
                 + "1. type 'bye' to escape\n"
                 + "2. type 'list' to check your list\n"
                 + "3. type 'todo <add task here>' (e.g. todo read a book)\n"
                 + "4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)\n"
                 + "5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)";
-        System.out.println(command);
+        System.out.println(help);
     }
 
     //Print helpful messages after command
@@ -69,7 +69,7 @@ public class Ui {
     }
 
     public static void printBlankDescMsg() {
-        System.out.println("Sorry, description cannot be blank. Type 'commands' to check the format for Todo/Deadlines/Events.");
+        System.out.println("Sorry, description cannot be blank. Type 'help' to check the format for Todo/Deadlines/Events.");
     }
 
     public static void printMarkDoneBeforeMsg() {
@@ -85,11 +85,11 @@ public class Ui {
     }
 
     public static void printDateFormatErrorMsg() {
-        System.out.println("The date format is not correct. Please type 'commands' to check the date format for Events/Deadlines.");
+        System.out.println("The date format is not correct. Please type 'help' to check the date format for Events/Deadlines.");
     }
 
     public static void printShortDescErrorMsg() {
-        System.out.println("The description is too short. Please type 'commands' to check the date format for Events/Deadlines.");
+        System.out.println("The description is too short. Please type 'help' to check the date format for Events/Deadlines.");
     }
 
 }

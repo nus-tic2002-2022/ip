@@ -42,8 +42,8 @@ public class Duke {
                 if (line.toLowerCase().equals("bye")) {
                     Ui.printBye();
                     status = 1; // can escape from loop
-                } else if (line.toLowerCase().equals("commands")) {
-                    Ui.printCommand();
+                } else if (line.toLowerCase().equals("help")) {
+                    Ui.printHelp();
                 } else if (line.toLowerCase().equals("hello")) {
                     Ui.printHello();
                 } else if (line.toLowerCase().equals("list")) { //Print list
@@ -123,7 +123,7 @@ public class Duke {
                     continue;
                 } else {
                     Ui.printUnknownCommandMsg();
-                    Ui.printCommand();
+                    Ui.printHelp();
                 }
             } catch(IOException e) {
                 //System.out.println(e.getMessage());

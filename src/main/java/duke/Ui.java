@@ -1,8 +1,10 @@
 /**
  * Ui handles all the printing in Duke.
+ *
  */
 package duke;
-import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
 
@@ -68,6 +70,10 @@ public class Ui {
 
     public static void printFindMsg() {
         System.out.println("Here are the matching task(s) in your list: ");
+    }
+
+    public static void printNothingMsg() {
+        System.out.println("There is nothing on the list! :)");
     }
 
     //Print error messages

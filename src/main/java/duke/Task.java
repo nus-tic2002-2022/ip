@@ -1,10 +1,9 @@
 /**
  * Creates a Task object. There are 3 subtypes - Todo, Deadline, Event.
+ *
  */
 package duke;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Task {
 
@@ -46,10 +45,5 @@ public class Task {
     }
 
     public LocalDateTime getTaskDate () { return taskDate; }
-
-    /*public void printTask () {
-        System.out.println("Nice! I've added this task: ");
-        getTask ();
-    }*/
 
 }

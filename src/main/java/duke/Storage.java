@@ -1,5 +1,8 @@
 /**
  * Storage handles the writing and reading of list file (duke.txt).
+ *
+ * @throws IOException if file is not found or cannot be created or saved.
+ *
  */
 package duke;
 
@@ -10,7 +13,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private String fileName;// = "data\\duke.txt";
+    private String fileName;
 
     public Storage(String fileName) {
         this.fileName = fileName;

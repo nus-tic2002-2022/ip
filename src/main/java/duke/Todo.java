@@ -1,8 +1,8 @@
 /**
  * Creates a Todo object. Todo object is inherited from Task object.
+ * 
  */
 package duke;
-
 import java.time.LocalDateTime;
 
 public class Todo extends Task {
@@ -25,10 +25,5 @@ public class Todo extends Task {
     }
 
     public LocalDateTime getTaskDate () { return taskDate; }
-
-    /*public void printTask () {
-        System.out.println("Nice! I've added this task: ");
-        getTask ();
-    }*/
 
 }

@@ -20,7 +20,6 @@ public class Duke {
             storage.readFile();
             TaskList.printListLength();
         } catch (IOException e) {
-            //System.out.println(e.getMessage());
             Ui.printFileErrorMsg();
         }
     }
@@ -140,18 +139,14 @@ public class Duke {
                     Ui.printHelp();
                 }
             } catch(IOException e) {
-                //System.out.println(e.getMessage());
                 Ui.printFileErrorMsg();
             } catch(DateTimeParseException e) {
-                //System.out.println(e.getMessage());
                 Ui.printDateFormatErrorMsg();
             } catch(StringIndexOutOfBoundsException e) {
-                //System.out.println(e.getMessage());
                 Ui.printShortDescErrorMsg();
             }
 
         } while (status == 0);
-
 
     }
 

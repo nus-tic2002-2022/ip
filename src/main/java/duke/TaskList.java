@@ -1,10 +1,9 @@
 /**
  * TaskList interacts between Tasks objects vs Ui and Storage.
+ *
  */
 package duke;
-
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class TaskList {
 
@@ -14,7 +13,7 @@ public class TaskList {
 
     public static void printList () {
         if (list.size() == 0) {
-            System.out.println("There is nothing on the list! :)"); //TODO: move to Ui.java?
+            Ui.printNothingMsg();
         } else {
             for (int i = 0; i < list.size(); i++) {
                 System.out.print(i + 1 + ".");
@@ -70,7 +69,7 @@ public class TaskList {
     public static ArrayList<Task> sortList() {
 
         if (list.size() == 0) {
-            System.out.println("There is nothing on the list! :)"); //TODO: move to Ui.java?
+            Ui.printNothingMsg();
         } else {
 
             for (int i = 0; i < list.size(); i++) { //outer loop
@@ -98,7 +97,7 @@ public class TaskList {
     public static void findTask (String line) {
         int cnt = 0;
         if (list.size() == 0) {
-            System.out.println("There is nothing on the list! :)"); //TODO: move to Ui.java?
+            Ui.printNothingMsg();
         } else {
             for (int i = 0; i < list.size(); i++) {
                 if(list.get(i).toString().toLowerCase().contains(line.toLowerCase())) {

@@ -19,4 +19,5 @@ unmark 3
 delete 2
 list
 sort
+find tic
 bye

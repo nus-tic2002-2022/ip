@@ -4,6 +4,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TaskList {
 
@@ -23,7 +24,7 @@ public class TaskList {
     }
 
     public static void printListLength () {
-        System.out.println("Now you have " + list.size() + " task(s) in the list."); //TODO: move to Ui.java?
+        System.out.println("Now you have " + list.size() + " task(s) in the list.");
     }
 
     public static int getListLength () {
@@ -90,10 +91,23 @@ public class TaskList {
 
             }
         }
-        //update list
-        //list = tempList;
 
-        //return list
         return list;
+    }
+
+    public static void findTask (String line) {
+        int cnt = 0;
+        if (list.size() == 0) {
+            System.out.println("There is nothing on the list! :)"); //TODO: move to Ui.java?
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).toString().toLowerCase().contains(line.toLowerCase())) {
+                    cnt++;
+                    System.out.print(cnt + ".");
+                    list.get(i).getTask();
+                }
+            }
+            System.out.println("There are " + cnt + " matching task(s) in the list.");
+        }
     }
 }

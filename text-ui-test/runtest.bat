@@ -22,3 +22,6 @@ java -classpath ..\bin duke.Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+REM show results before screen close
+timeout /t 30

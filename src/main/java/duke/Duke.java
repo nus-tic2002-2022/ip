@@ -127,6 +127,14 @@ public class Duke {
                     TaskList.printList();
                     TaskList.printListLength();
                     storage.writeFile(list); // save file
+                } else if (line.startsWith("find ")) {
+                    if (line.substring(4, line.length()).trim().length() < 1) {
+                        Ui.printBlankDescMsg();
+                        continue;
+                    }
+                    Ui.printFindMsg();
+                    TaskList.findTask(line.substring(5, line.length()));
+                    continue;
                 } else {
                     Ui.printUnknownCommandMsg();
                     Ui.printHelp();

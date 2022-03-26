@@ -66,6 +66,10 @@ public class Ui {
         System.out.println("Noted. I've sorted the list by date: ");
     }
 
+    public static void printFindMsg() {
+        System.out.println("Here are the matching task(s) in your list: ");
+    }
+
     //Print error messages
 
     public static void printOutOfRangeMsg() {

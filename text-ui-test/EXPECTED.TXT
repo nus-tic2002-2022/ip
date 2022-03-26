@@ -90,4 +90,8 @@ What can I do for you? (type 'help' if you need help to remember the commands) N
 4.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
 Now you have 5 task(s) in the list.
+What can I do for you? (type 'help' if you need help to remember the commands) Here are the matching task(s) in your list: 
+1.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
+2.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+There are 2 matching task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Bye. Hope to see you again soon!

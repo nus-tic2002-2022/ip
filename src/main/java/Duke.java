@@ -22,18 +22,18 @@ public class Duke {
             String reply = in.nextLine();
             words = reply.split(" ");
             command = words[0];
+            int option = 0;
             if (command.equalsIgnoreCase("bye")) {
                 new Print(reply);
                 break;
+            } else if (command.equalsIgnoreCase("list")) {
+                new Print((ArrayList<Task>) TL, command);
             } else {
                 if (words.length < 2) {
                     System.out.println(DukeException.UnknownCommand);
-                } else if (command.equalsIgnoreCase("list")) {
-                    new Print((ArrayList<Task>) TL, command);
                 } else if (command.toLowerCase().contains("mark") || command.toLowerCase().contains("unmark")) {
-                    int option = 0;
                     try {
-                        option = Integer.parseInt(reply.replaceAll("\\D+", ""));
+                        option = Integer.parseInt(words[1]);
                     } catch (NumberFormatException ex) {
                         System.out.println("2nd param has to be number");
                     }
@@ -59,6 +59,10 @@ public class Duke {
                 } else if (command.equalsIgnoreCase("todo")) {
                     TL.add(new Todo(reply));
                     new Print((ArrayList<Task>) TL, command);
+                } else if (command.equalsIgnoreCase("delete")) {
+                    option = Integer.parseInt(words[1]);
+                    new Print((ArrayList<Task>) TL, command,(option-1));
+                    TL.remove(option - 1);
                 } else {
                     System.out.println(DukeException.invalidInputCommand);
                 }

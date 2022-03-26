@@ -19,21 +19,11 @@ public class Storage {
         this.fileName = fileName;
     }
 
-    public void writeFile(TaskList list) throws IOException {
-
-        FileWriter myFile = new FileWriter(fileName); //filePath+
-
-        for (int i = 0; i < TaskList.getListLength(); i++) {
-            myFile.write(TaskList.getTask(i));
-            myFile.write("\n");
-        }
-        myFile.close();
-
-    }
-
     public void readFile() throws IOException {
 
-        File myFile = new File(this.fileName); //filePath+
+        File myFile = new File(this.fileName);
+        final int START_INDEX_CLEAN = 8; //starting index for clean format (format in the file)
+        final int STATUS_ICON_INDEX_CLEAN = 5; //status icon index for clean format (format in the file)
 
         if (myFile.createNewFile()) {
             System.out.print("A new list file has been created for you. ");
@@ -43,28 +33,40 @@ public class Storage {
             while (s.hasNext()) {
                 String line = s.nextLine();
                 int index;
-                //add to list
-                if (line.startsWith("[T] ")) { //to do "[T] [X] "
-                    TaskList.addTodo(line.substring(8, line.length())); //
+
+                if (line.startsWith("[T] ")) { //to do
+                    TaskList.addTodo(line.substring(START_INDEX_CLEAN, line.length())); //
                     index = TaskList.getListLength() - 1;
-                    if(line.charAt(5) == 'X') {
+                    if(line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
                         TaskList.markDone(index);
                     }
                 } else if (line.startsWith("[D] ")) { //deadline
-                    TaskList.addDeadline(line.substring(8, line.length()-1));
+                    TaskList.addDeadline(line.substring(START_INDEX_CLEAN, line.length()-1));
                     index = TaskList.getListLength() - 1;
-                    if(line.charAt(5) == 'X') {
+                    if(line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
                         TaskList.markDone(index);
                     }
                 } else if (line.startsWith("[E] ")) { //event
-                    TaskList.addEvent(line.substring(8, line.length()-1));
+                    TaskList.addEvent(line.substring(START_INDEX_CLEAN, line.length()-1));
                     index = TaskList.getListLength() - 1;
-                    if(line.charAt(5) == 'X') {
+                    if(line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
                         TaskList.markDone(index);
                     }
                 }
             }
         }
+    }
+
+    public void writeFile(TaskList list) throws IOException {
+
+        FileWriter myFile = new FileWriter(fileName); //filePath+
+
+        for (int i = 0; i < TaskList.getListLength(); i++) {
+            myFile.write(TaskList.getOneTask(i));
+            myFile.write("\n");
+        }
+
+        myFile.close();
     }
 
 }

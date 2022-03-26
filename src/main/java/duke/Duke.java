@@ -5,20 +5,18 @@ import java.lang.StringIndexOutOfBoundsException;
 
 public class Duke {
 
-   private final static String fileName = "data\\duke.txt";
+    private final static String fileName = "data\\duke.txt";
 
     private Storage storage;
     private TaskList list;
     private Ui ui;
-
-    private int index;
 
     public Duke(String fileName) {
         ui = new Ui();
         storage = new Storage(fileName);
         try {
             storage.readFile();
-            TaskList.printListLength();
+            TaskList.printNoOfItemsInList();
         } catch (IOException e) {
             Ui.printFileErrorMsg();
         }
@@ -26,7 +24,7 @@ public class Duke {
 
     public void run(){
 
-        int status = 0;
+        int dukeStatus = 0;
 
         Ui.printHello();
 
@@ -38,16 +36,17 @@ public class Duke {
 
                 String line = Ui.getLine();
 
+                int index;
                 if (line.toLowerCase().equals("bye")) {
                     Ui.printBye();
-                    status = 1; // can escape from loop
+                    dukeStatus = 1; // can escape from loop
                 } else if (line.toLowerCase().equals("help")) {
                     Ui.printHelp();
                 } else if (line.toLowerCase().equals("hello")) {
                     Ui.printHello();
                 } else if (line.toLowerCase().equals("list")) { //Print list
                     TaskList.printList();
-                    TaskList.printListLength();
+                    TaskList.printNoOfItemsInList();
                 } else if (line.startsWith("todo ")) {
                     if (line.substring(4, line.length()).trim().length() < 1) {
                         Ui.printBlankDescMsg();
@@ -56,7 +55,7 @@ public class Duke {
                     TaskList.addTodo(line.substring(5, line.length()));
                     Ui.printAddTaskMsg();
                     TaskList.printOneTask(TaskList.getListLength()-1);
-                    TaskList.printListLength();
+                    TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("deadline ")) {
@@ -67,7 +66,7 @@ public class Duke {
                     TaskList.addDeadline(line.substring(9, line.length()));
                     Ui.printAddTaskMsg();
                     TaskList.printOneTask(TaskList.getListLength()-1);
-                    TaskList.printListLength();
+                    TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("event ")) {
@@ -78,7 +77,7 @@ public class Duke {
                     TaskList.addEvent(line.substring(6, line.length()));
                     Ui.printAddTaskMsg();
                     TaskList.printOneTask(TaskList.getListLength()-1);
-                    TaskList.printListLength();
+                    TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.startsWith("mark ")) {
@@ -117,14 +116,14 @@ public class Duke {
                     Ui.printDeleteMsg();
                     TaskList.printOneTask(index);
                     TaskList.deleteTask(index);
-                    TaskList.printListLength();
+                    TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
                 } else if (line.toLowerCase().equals("sort")) {
                     Ui.printSortMsg();
                     TaskList.sortList();
                     TaskList.printList();
-                    TaskList.printListLength();
+                    TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                 } else if (line.startsWith("find ")) {
                     if (line.substring(4, line.length()).trim().length() < 1) {
@@ -146,7 +145,7 @@ public class Duke {
                 Ui.printShortDescErrorMsg();
             }
 
-        } while (status == 0);
+        } while (dukeStatus == 0);
 
     }
 

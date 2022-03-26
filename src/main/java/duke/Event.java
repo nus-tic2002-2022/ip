@@ -10,7 +10,7 @@ public class Event extends Task {
 
     protected String taskType = "E";
     protected LocalDateTime at;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public Event(String description) {
         super(description.substring(0,description.lastIndexOf("at") -2).trim());

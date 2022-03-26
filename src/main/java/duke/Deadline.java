@@ -10,7 +10,7 @@ public class Deadline extends Task {
 
     protected String taskType = "D";
     protected LocalDateTime by;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public Deadline(String description) {
         super(description.substring(0, description.lastIndexOf("by") -1).trim());

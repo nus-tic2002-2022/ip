@@ -1,6 +1,6 @@
 /**
- * Creates a Todo object. Todo object is inherited from Task object.
- * 
+ * Creates a To do object. To do object is inherited from Task object.
+ *
  */
 package duke;
 import java.time.LocalDateTime;

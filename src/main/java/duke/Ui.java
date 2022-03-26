@@ -1,5 +1,5 @@
 /**
- * Ui handles all the printing in Duke.
+ * Ui handles user's commands and prints messages to user in Duke.
  *
  */
 package duke;
@@ -72,9 +72,7 @@ public class Ui {
         System.out.println("Here are the matching task(s) in your list: ");
     }
 
-    public static void printNothingMsg() {
-        System.out.println("There is nothing on the list! :)");
-    }
+    public static void printNothingInListMsg() { System.out.println("There is nothing on the list! :)"); }
 
     //Print error messages
 

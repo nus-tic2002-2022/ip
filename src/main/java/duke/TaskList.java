@@ -13,7 +13,7 @@ public class TaskList {
 
     public static void printList () {
         if (list.size() == 0) {
-            Ui.printNothingMsg();
+            Ui.printNothingInListMsg();
         } else {
             for (int i = 0; i < list.size(); i++) {
                 System.out.print(i + 1 + ".");
@@ -22,7 +22,7 @@ public class TaskList {
         }
     }
 
-    public static void printListLength () {
+    public static void printNoOfItemsInList() {
         System.out.println("Now you have " + list.size() + " task(s) in the list.");
     }
 
@@ -34,7 +34,7 @@ public class TaskList {
         System.out.println(list.get(i).toString());
     }
 
-    public static String getTask (int i) {
+    public static String getOneTask(int i) {
         return list.get(i).toString();
     }
 
@@ -69,7 +69,7 @@ public class TaskList {
     public static ArrayList<Task> sortList() {
 
         if (list.size() == 0) {
-            Ui.printNothingMsg();
+            Ui.printNothingInListMsg();
         } else {
 
             for (int i = 0; i < list.size(); i++) { //outer loop
@@ -95,18 +95,18 @@ public class TaskList {
     }
 
     public static void findTask (String line) {
-        int cnt = 0;
+        int noOfTasks = 0;
         if (list.size() == 0) {
-            Ui.printNothingMsg();
+            Ui.printNothingInListMsg();
         } else {
             for (int i = 0; i < list.size(); i++) {
                 if(list.get(i).toString().toLowerCase().contains(line.toLowerCase())) {
-                    cnt++;
-                    System.out.print(cnt + ".");
+                    noOfTasks++;
+                    System.out.print(noOfTasks + ".");
                     list.get(i).getTask();
                 }
             }
-            System.out.println("There are " + cnt + " matching task(s) in the list.");
+            System.out.println("There are " + noOfTasks + " matching task(s) in the list.");
         }
     }
 }

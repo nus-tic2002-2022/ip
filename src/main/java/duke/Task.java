@@ -1,5 +1,5 @@
 /**
- * Creates a Task object. There are 3 subtypes - Todo, Deadline, Event.
+ * Creates a Task object. There are 3 subtypes - To do, Deadline, Event.
  *
  */
 package duke;

@@ -5,3 +5,74 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+======================
+Hello! I'm Duke
+What can I do for you?
+======================
+==========================================
+ Got it. I've added this task:
+[T] [ ]todo borrow book
+Now you have 1 tasks in the list.
+==========================================
+==========================================
+ Got it. I've added this task:
+[T] [ ]todo play games
+Now you have 2 tasks in the list.
+==========================================
+==========================================
+ Got it. I've added this task:
+[D] [ ]deadline return book
+Now you have 3 tasks in the list.
+==========================================
+==========================================
+ Got it. I've added this task:
+[D] [ ]deadline return book /by Sunday
+Now you have 4 tasks in the list.
+==========================================
+==========================================
+ Got it. I've added this task:
+[E] [ ]event project meeting
+Now you have 5 tasks in the list.
+==========================================
+==========================================
+ Got it. I've added this task:
+[E] [ ]event project meeting /at Mon 2-4pm
+Now you have 6 tasks in the list.
+==========================================
+==========================================
+ Here are the tasks in your list:
+1. [T] [ ]todo borrow book
+2. [T] [ ]todo play games
+3. [D] [ ]deadline return book
+4. [D] [ ]deadline return book /by Sunday
+5. [E] [ ]event project meeting
+6. [E] [ ]event project meeting /at Mon 2-4pm
+==========================================
+==========================================
+	Nice! I've marked this task as done:
+	[D] [X]deadline return book
+==========================================
+==========================================
+	Nice! I've marked this task as done:
+	[D] [X]deadline return book
+==========================================
+==========================================
+	Nice! I've marked this task as done:
+	[D] [X]deadline return book /by Sunday
+==========================================
+==========================================
+	OK, I've marked this task as not done yet:
+	[D] [ ]deadline return book
+==========================================
+==========================================
+ Here are the tasks in your list:
+1. [T] [ ]todo borrow book
+2. [T] [ ]todo play games
+3. [D] [ ]deadline return book
+4. [D] [X]deadline return book /by Sunday
+5. [E] [ ]event project meeting
+6. [E] [ ]event project meeting /at Mon 2-4pm
+==========================================
+	================================
+	Bye. Hope to see you again soon!
+	================================

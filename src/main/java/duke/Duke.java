@@ -72,7 +72,6 @@ public class Duke {
             Parser userInputParser = new Parser(userInputUi);
             command.setData(userInputParser, taskList);
             executeCommand(command);
-
         } while (true);
     }
 

@@ -3,6 +3,8 @@ package duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -102,7 +104,9 @@ public class Storage {
                     index = index + 3;
                 }
                 else if (fileContentList.get(index).equalsIgnoreCase("D")){
-                    Task curTask = new Deadline(fileContentList.get(index + 2), fileContentList.get(index + 3));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a");
+                    LocalDateTime dateTime = LocalDateTime.parse(fileContentList.get(index + 3), formatter);
+                    Task curTask = new Deadline(fileContentList.get(index + 2), dateTime);
                     if (fileContentList.get(index + 1).equalsIgnoreCase("1")) {
                         curTask.setTaskStatus(true);
                     }
@@ -110,7 +114,9 @@ public class Storage {
                     index = index + 4;
                 }
                 else if (fileContentList.get(index).equalsIgnoreCase("E")){
-                    Task curTask = new Event(fileContentList.get(index + 2), fileContentList.get(index + 3));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a");
+                    LocalDateTime dateTime = LocalDateTime.parse(fileContentList.get(index + 3), formatter);
+                    Task curTask = new Event(fileContentList.get(index + 2), dateTime);
                     if (fileContentList.get(index + 1).equalsIgnoreCase("1")) {
                         curTask.setTaskStatus(true);
                     }

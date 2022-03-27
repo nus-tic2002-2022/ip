@@ -1,8 +1,13 @@
 package duke.commands;
 
-import duke.parser.Parser;
-import duke.tasklist.*;
 import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.tasklist.Deadline;
+import duke.tasklist.Event;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
+
+import java.time.LocalDateTime;
 
 /**
  * Extended class of Command with methods involving addition of Task into TaskList.
@@ -42,25 +47,20 @@ public class AddCommand extends Command{
      */
     public static Task addDeadline (Parser userInput, TaskList taskList) throws DukeException{
         String content = "";
-        String by = "";
-        for (int i = 1; i < userInput.getUserInputSize();) {
+        LocalDateTime by = null;
+        for (int i = 1; i < userInput.getUserInputSize()-1; i++) {
             if (!userInput.getUserInput(i).equalsIgnoreCase("/by")) {
                 content = content + " " + userInput.getUserInput(i);
-                i++;
             }
-            if (i < userInput.getUserInputSize() && userInput.getUserInput(i).equalsIgnoreCase("/by")) {
-                i++;
-                while (i < userInput.getUserInputSize()) {
-                    by = by + userInput.getUserInput(i) + " ";
-                    i++;
-                }
+            else {
+                by = Parser.dateTimeParser(i+1);
+                break;
             }
         }
         content = content.stripLeading();
         content = content.stripTrailing();
-        final boolean b = by.equalsIgnoreCase("") || by.equalsIgnoreCase(" ") || by.equalsIgnoreCase("  ");
         if (content.equalsIgnoreCase("")) {
-            if (b){
+            if (by == null){
                 throw new DukeException("missing task & missing by");
             }
             else {
@@ -68,7 +68,7 @@ public class AddCommand extends Command{
             }
         }
         else {
-            if (b) {
+            if (by == null) {
                 throw new DukeException("missing by");
             } else {
                 Deadline curTask = new Deadline(content, by);
@@ -76,7 +76,6 @@ public class AddCommand extends Command{
                 return curTask;
             }
         }
-
     }
 
     /**
@@ -88,25 +87,20 @@ public class AddCommand extends Command{
      */
     public static Task addEvent (Parser userInput, TaskList taskList) throws DukeException {
         String content = "";
-        String at = "";
-        for (int i = 1; i < userInput.getUserInputSize();) {
+        LocalDateTime at = null;
+        for (int i = 1; i < userInput.getUserInputSize(); i++) {
             if (!userInput.getUserInput(i).equalsIgnoreCase("/at")) {
                 content = content + " " + userInput.getUserInput(i);
-                i++;
             }
-            if (i < userInput.getUserInputSize() && userInput.getUserInput(i).equalsIgnoreCase("/at")) {
-                i++;
-                while (i < userInput.getUserInputSize()) {
-                    at = at + userInput.getUserInput(i) + " ";
-                    i++;
-                }
+            else {
+                at = Parser.dateTimeParser(i+1);
+                break;
             }
         }
         content = content.stripLeading();
         content = content.stripTrailing();
-        final boolean b = at.equalsIgnoreCase("") || at.equalsIgnoreCase(" ") || at.equalsIgnoreCase("  ");
         if (content.equalsIgnoreCase("")) {
-            if (b){
+            if (at == null){
                 throw new DukeException("missing task & missing at");
             }
             else {
@@ -114,7 +108,7 @@ public class AddCommand extends Command{
             }
         }
         else {
-            if (b){
+            if (at == null){
                 throw new DukeException("missing at");
             }
             else {

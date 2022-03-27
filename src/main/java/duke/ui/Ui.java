@@ -286,15 +286,39 @@ public class Ui {
                 }
                 break;
 
-            case "delete":
+            case "invalidDate":
                 if (randomNumber == 0) {
-                    output = "\t\t\t\t\t\t\t\t Haro ! \" " + placeholder + " \" has been deleted from the list ! Haro !";
+                    output = "\t\t\t\t\t\t\t\t Haro ! The date time format has to be dd/MM/yyyy HHmm or dd-MM-yyyy HHmm! Haro !";
                 }
                 else if (randomNumber == 1) {
-                    output = "\t\t\t\t\t\t\t\t Haro ! Understood ! Haro has removed \" " + placeholder + " \" from the list ! Haro !";
+                    output = "\t\t\t\t\t\t\t\t Haro ! Please make sure the date time format is in dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
                 }
                 else {
-                    output = "\t\t\t\t\t\t\t\t Haro ! Roger that ! \" " + placeholder + " \" has been removed from the list ! Haro !";
+                    output = "\t\t\t\t\t\t\t\t Haro ! Check date time format Haro ! dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
+                }
+                break;
+
+            case "missingTime":
+                if (randomNumber == 0) {
+                    output = "\t\t\t\t\t\t\t\t Haro ! Missing date time information ! Please follow dd/MM/yyyy HHmm or dd-MM-yyyy HHmm! Haro !";
+                }
+                else if (randomNumber == 1) {
+                    output = "\t\t\t\t\t\t\t\t Haro ! Please enter date time information in dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
+                }
+                else {
+                    output = "\t\t\t\t\t\t\t\t Haro ! Check date time information Haro ! dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
+                }
+                break;
+
+            case "delete":
+                if (randomNumber == 0) {
+                    output = "\t\t\t\t\t\t\t\t Haro ! Indicated task has been deleted from the list ! Haro !";
+                }
+                else if (randomNumber == 1) {
+                    output = "\t\t\t\t\t\t\t\t Haro ! Understood ! Haro has removed specified task from the list ! Haro !";
+                }
+                else {
+                    output = "\t\t\t\t\t\t\t\t Haro ! Roger that ! That task has been removed from the list ! Haro !";
                 }
                 break;
 

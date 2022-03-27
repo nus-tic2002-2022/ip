@@ -1,7 +1,12 @@
 package duke.parser;
 
+import duke.exception.DukeException;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 import static duke.parser.Tokenizer.tokenizer;
 
@@ -11,7 +16,7 @@ import static duke.parser.Tokenizer.tokenizer;
  */
 public class Parser {
 
-    protected ArrayList<String> userInput;
+    protected static ArrayList<String> userInput;
 
     /**
      * Constructor for Parser
@@ -65,7 +70,7 @@ public class Parser {
      * @return the Strings at specific index of userInput.
      */
     public String getUserInput(int index) {
-        return this.userInput.get(index);
+        return userInput.get(index);
     }
 
     /**
@@ -74,6 +79,42 @@ public class Parser {
      * @return the size of userInput.
      */
     public int getUserInputSize() {
-        return this.userInput.size();
+        return userInput.size();
+    }
+
+    /**
+     * Returns LocalDateTime based on userInput variable in Parser class.
+     *
+     * @param index the starting index of userInput which contain information of dateTime.
+     * @return dateTime information in LocalDateTime format.
+     */
+    public static LocalDateTime dateTimeParser(int index) throws DukeException {
+        LocalDateTime output = null;
+        try {
+            String d1 = userInput.get(index);
+            String t1 = userInput.get(index + 1);
+            DateTimeFormatter formatter = null;
+            if (d1.matches("(.*)-(.*)")) {
+                formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+            } else {
+                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            }
+            output = LocalDateTime.parse(d1 + " " + t1, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("invalidDate");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("missingTime");
+        }
+
+        return output;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < userInput.size(); i++) {
+            output = output + "index at " + i + " : " + userInput.get(i) + "\n";
+        }
+        return output;
     }
 }

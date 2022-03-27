@@ -1,1 +1,1 @@
-|type|status|task|Deadline/Duration
+|type|status|task|deadline/duration

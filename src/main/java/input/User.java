@@ -27,39 +27,39 @@ public class User {
     public static Task addSpecificTask(String desc, String type) throws InvalidInputException, InvalidDateException {
         LocalDate inputDate;
         switch (type) {
-            case "todo":
-                taskList.add(new Todo(desc));
-                break;
-            case "deadline":
-                String[] deadlineArr = desc.split(" /by ");
+        case "todo":
+            taskList.add(new Todo(desc));
+            break;
+        case "deadline":
+            String[] deadlineArr = desc.split(" /by ");
 
-                if (deadlineArr.length < 2) {
-                    throw new InvalidInputException();
-                }
+            if (deadlineArr.length < 2) {
+                throw new InvalidInputException();
+            }
 
-                try {
-                    inputDate = LocalDate.parse(deadlineArr[1]);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateException();
-                }
+            try {
+                inputDate = LocalDate.parse(deadlineArr[1]);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
 
-                taskList.add(new Deadline(deadlineArr[0], inputDate));
-                break;
-            case "event":
-                String[] eventArr = desc.split(" /at ");
+            taskList.add(new Deadline(deadlineArr[0], inputDate));
+            break;
+        case "event":
+            String[] eventArr = desc.split(" /at ");
 
-                if (eventArr.length < 2) {
-                    throw new InvalidInputException();
-                }
+            if (eventArr.length < 2) {
+                throw new InvalidInputException();
+            }
 
-                try {
-                    inputDate = LocalDate.parse(eventArr[1]);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateException();
-                }
+            try {
+                inputDate = LocalDate.parse(eventArr[1]);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
 
-                taskList.add(new Event(eventArr[0], inputDate));
-                break;
+            taskList.add(new Event(eventArr[0], inputDate));
+            break;
         }
         return taskList.get(taskList.size() - 1);
     }

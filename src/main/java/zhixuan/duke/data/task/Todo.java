@@ -1,3 +1,5 @@
+package zhixuan.duke.data.task;
+
 public class Todo extends Task {
 
     public Todo(String description) {

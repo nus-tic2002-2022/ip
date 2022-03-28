@@ -1,3 +1,5 @@
+package zhixuan.duke.data.task;
+
 public class Deadline extends Task {
 
     protected String by;

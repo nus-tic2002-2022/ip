@@ -1,3 +1,5 @@
+package zhixuan.duke.data.task;
+
 public class Task {
 
     protected String description;

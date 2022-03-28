@@ -1,4 +1,4 @@
-package exceptions;
+package zhixuan.duke.data.exceptions;
 
 public class UnknownCommandException extends Exception {
 

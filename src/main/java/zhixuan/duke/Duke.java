@@ -1,8 +1,14 @@
+package zhixuan.duke;
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import exceptions.InvalidTaskException;
-import exceptions.UnknownCommandException;
+import zhixuan.duke.data.exceptions.InvalidTaskException;
+import zhixuan.duke.data.exceptions.UnknownCommandException;
+import zhixuan.duke.data.task.Deadline;
+import zhixuan.duke.data.task.Event;
+import zhixuan.duke.data.task.Task;
+import zhixuan.duke.data.task.Todo;
 
 public class Duke {
 
@@ -81,8 +87,8 @@ public class Duke {
                 if (task.length != 2) throw new InvalidTaskException("Include deadline (deadline DESCRIPTION /by DEADLINE).");
                 taskList.add(new Deadline(task[0].trim(), task[1].trim()));
             }
-            System.out.println("added this task: " + taskList.get(taskList.size()-1));
-            System.out.println("you have " + (taskList.size()) + " tasks in your list.");
+            System.out.println("Added this task: " + taskList.get(taskList.size()-1));
+            System.out.println("You have " + (taskList.size()) + " tasks in your list.");
         }
         catch (InvalidTaskException e) {
             System.out.println(e.getMessage());
@@ -94,8 +100,8 @@ public class Duke {
             if (taskIndex<1 || taskList.size()<taskIndex) throw new UnknownCommandException("Selected task to delete is invalid.");
             taskIndex--;
 
-            System.out.println("deleted this task: " + taskList.get(taskIndex));
-            System.out.println("you have " + (taskList.size()-1) + " tasks in your list.");
+            System.out.println("Deleted this task: " + taskList.get(taskIndex));
+            System.out.println("You have " + (taskList.size()-1) + " tasks in your list.");
             taskList.remove(taskIndex);
         }
         catch (UnknownCommandException e) {
@@ -142,9 +148,9 @@ public class Duke {
 
     private static String createDirectory() {
 
-        String directoryName = System.getProperty("user.dir") + File.separator + "data";
+        String directoryName = System.getProperty("user.dir") + File.separator + "user-files";
         File directory = new File(directoryName);
-        if (! directory.exists()){
+        if (!directory.exists()){
             directory.mkdir();
         }
         return directoryName;
@@ -157,9 +163,8 @@ public class Duke {
         try {
             FileWriter fw = new FileWriter(fileName);
             Writer output = new BufferedWriter(fw);
-            int size = taskList.size();
-            for (int i = 0; i < size; i++){
-                output.write(taskList.get(i).toFile() + "\n");
+            for (Task task : taskList) {
+                output.write(task.toFile() + "\n");
             }
             output.close();
         } catch (IOException e) {
@@ -173,14 +178,16 @@ public class Duke {
         String line;
 
         try {
-            BufferedReader input = new BufferedReader(new FileReader(fileName));
-            if (!input.ready()) {
-                throw new IOException();
+            if (fileName.length() > 0) { //length returns 0 if file doesn't exist or if it's empty
+                BufferedReader input = new BufferedReader(new FileReader(fileName));
+                if (!input.ready()) {
+                    throw new IOException();
+                }
+                while ((line = input.readLine()) != null) {
+                    loadItem(line);
+                }
+                input.close();
             }
-            while ((line = input.readLine()) != null) {
-                loadItem(line);
-            }
-            input.close();
         } catch (IOException e){
             System.out.println(e.getMessage());
         }
@@ -191,7 +198,7 @@ public class Duke {
         //split takes a regular expression and | is a special character (means 'or').
         // requires additional \\ in regex since \ is Java's escape character in a string.
         // Java understands the string like "\|", and the regex then understands it like "|"
-        
+
         if (input.startsWith("T")) {
             String[] task = input.split("\\|");
             taskList.add(new Todo(task[2].trim(), Boolean.parseBoolean((task[1].trim()))));

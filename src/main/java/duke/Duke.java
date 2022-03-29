@@ -32,6 +32,8 @@ public class Duke {
 
             Ui.printPrompt();
 
+            assert dukeStatus == 0 : "dukeStatus should be FALSE (cannot escape).";
+
             try {
 
                 String line = Ui.getLine();

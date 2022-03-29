@@ -322,7 +322,7 @@ public class Duke {
         System.out.println(logo);
         printLine();
         System.out.println("Hello! I'm Duke\n" + "How can I help you today?");
-        System.out.println("Psst, this is something that I can do for you:\n" + "(e.g event read book /at 23/03/2022 12:00)");
+        System.out.println("Psst, this is something that I can do for you:\n" + "(e.g event read book /at 23/03/2022 1200)");
         printLine();
 
         //Read File

@@ -145,6 +145,8 @@ public class Duke {
                 Ui.printDateFormatErrorMsg();
             } catch(StringIndexOutOfBoundsException e) {
                 Ui.printShortDescErrorMsg();
+            } catch(IndexOutOfBoundsException e) {
+                Ui.printShortDescErrorMsg();
             }
 
         } while (dukeStatus == 0);

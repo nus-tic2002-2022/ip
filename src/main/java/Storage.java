@@ -24,8 +24,7 @@ public class Storage {
             for(int i=0;i<tasks.size();i++){
                 out.println(tasks.get(i).getDescription());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -40,8 +39,7 @@ public class Storage {
                 out.println(tasks.get(i).getDescription());
             }
             System.out.println("Your current tasks have been archived under: " + filepath + filename + (filename.contains(".txt") ? "" : ".txt"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -71,7 +69,6 @@ public class Storage {
                     st = st.replaceAll("^\\[\\s\\]\\s","");
                     String[] splited = st.split("\\(at:", 2);
                     splited[1] = splited[1].replaceAll("\\)$", "");
-                    //System.out.println("test : " + splited[0] + ", " + splited[1] +"\n");
                     taskArr.add(new Event(splited[0].replaceAll("\\s+$",""), splited[1].replaceAll("^\\s+","")));
                 }
             }else if(DukeConstants.STORAGE_DEADLINE.matcher(st).matches()) {

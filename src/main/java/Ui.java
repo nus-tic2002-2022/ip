@@ -1,4 +1,7 @@
+package seedu.tojava.util;
+
 import java.util.ArrayList;
+
 public class Ui
 {
     public Ui() { };

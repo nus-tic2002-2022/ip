@@ -12,15 +12,15 @@ then
     rm ACTUAL.TXT
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+# compile the code into the bin folder, terminates if error occurred -d ../bin ../src/main/java/duke/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/duke/*.java ../src/main/java/duke/UI/*.java ../src/main/java/duke/Tasklist/*.java ../src/main/java/duke/Storage/*.java ../src/main/java/duke/Exception/*.java ../src/main/java/duke/command/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin Duke <input.txt> ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

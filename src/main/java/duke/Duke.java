@@ -12,18 +12,20 @@ import duke.command.Command;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
+
 public class Duke {
 
     private fileaccess f;
-
-
     private UI user_interface;
-
     private static ArrayList<Task> tasklist = new ArrayList<>();
     public static String basepath = new File("").getAbsolutePath();
     private static String filepath = basepath + "/buffer.txt";
 
-    public Duke(String filepath)//declare variable //file path should be relative file path, useable in differetn OS
+
+    //declare variable file path should be relative file path, useable in different OS
+
+    public Duke(String filepath)
+
     {
         this.user_interface = new UI();
         //e = new duke.echo();
@@ -76,19 +78,18 @@ public class Duke {
             }
         }
     }
-    //public static ArrayList<String> buffer = new ArrayList<>();
     public static void main(String[] args) {
-
+        System.out.println("Hihi\n");
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|____/ \\__,_|_|\\_\\___|\n\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm duke.Duke");
-        System.out.println("What can I do for you");
+        //System.out.println("Hello! I'm duke.Duke");
+        //System.out.println("What can I do for you");
 
-        Duke project = new Duke(filepath);
-        project.run();
+        //Duke project = new Duke(filepath);
+       // project.run();
     }
 }

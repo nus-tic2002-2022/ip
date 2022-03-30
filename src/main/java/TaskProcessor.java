@@ -1,6 +1,6 @@
-package seedu.tojava.util;
-
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TaskProcessor {
 
@@ -62,7 +62,46 @@ public class TaskProcessor {
     };
 
     public void loadTasks () {
-        fileStoreman.readFile();
+        ArrayList<String> stringsFromDataFile = fileStoreman.readFile();
+
+        for (int counter = 0 ; counter < stringsFromDataFile.size() ; counter++) {
+            loadStringsToTasklist(stringsFromDataFile.get(counter));
+            taskListCount++;
+        }
     };
+
+
+    public void loadStringsToTasklist (String task) {
+        Character taskType = task.charAt(0);
+        if (taskType.equals('T')) {
+            String todoName = task.split("\\|")[2];
+            ToDos newTodos = new ToDos(todoName);
+            if (task.split("\\|")[1].equals('1')) {
+                newTodos.setDone(true);
+            }
+            tasks.add(newTodos);
+
+        } else if (taskType.equals('D')) {
+            String deadlineName = task.split("\\|")[2];
+            String deadlineDate = task.split("\\|")[3];
+
+            Deadlines newDeadline = new Deadlines(deadlineName,deadlineDate);
+            if (task.split("\\|")[1].equals('1')) {
+                newDeadline.setDone(true);
+            }
+            tasks.add(newDeadline);
+
+        } else if (taskType.equals('E')) {
+            String eventName = task.split("\\|")[2];
+            String eventDate = task.split("\\|")[3];
+
+            Events newEvent = new Events(eventName,eventDate);
+            if (task.split("\\|")[1].equals('1')) {
+                newEvent.setDone(true);
+            }
+            tasks.add(newEvent);
+        }
+
+    }
 
 }

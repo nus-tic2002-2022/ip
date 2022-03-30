@@ -1,4 +1,4 @@
-public class userInputParser {
+public class UserInputParser extends Parser{
 
     public static void processUserInput(TaskProcessor tasklist, String userInput) { //
         if (userInput.equals("list")) {

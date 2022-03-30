@@ -26,17 +26,18 @@ public class Storage {
 
     };
 
-    public void readFile()   { //ArrayList<Task>
+    public ArrayList<String> readFile()   { //ArrayList<Task>
+        ArrayList<String> tasks  = new ArrayList<String>();
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                System.out.println(s.nextLine());
+                //System.out.println(s.nextLine());
+                tasks.add(s.nextLine());
             };
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
         }
+        return tasks;
     };
-
-
 }

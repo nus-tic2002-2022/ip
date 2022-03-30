@@ -7,6 +7,8 @@ import java.util.ArrayList;
 //catch error when directory is not present when trying to initialize text file
 //obviously something is wrong with the taskprocessor file path... should it be with constructor or as method?
 //last stopped - text file parser! maybe make parser an abstract, then text file, user input, time parser etc
+//throw error when input wrong date format. currently, only accepts yyyy-mm-dd
+//javadocs for all methods
 
 public class Duke {
 
@@ -37,7 +39,7 @@ public class Duke {
                 return;
             };
 
-            Parser.processUserInput(tasklist, response); //, tasks, taskListCount
+            UserInputParser.processUserInput(tasklist, response); //, tasks, taskListCount
         }
     }
     

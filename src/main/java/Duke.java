@@ -81,6 +81,26 @@ public class Duke {
                 }
             }
 
+            //Set Priority
+            else if (line.toLowerCase().contains("priority")) {
+                try {
+                    // -1 as Array starts from 0
+                    int num = Integer.parseInt(line.substring(9)) - 1;
+
+                    Task m = tasks.get(num);
+                    m.setPriorityHigh();
+                    System.out.println("I've indicated this task as Priority HIGH");
+                    System.out.println("[Priority: " + m.getPriority() + "] " + m.description);
+                    saveFile("data/duke.txt");
+
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! Please enter a valid task number.");
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
             //Run Deadline Class
             else if (line.toLowerCase().contains("deadline")) {
 
@@ -268,12 +288,22 @@ public class Duke {
             System.out.println(text);
             //Read [T] from File and Update to ArrayList
             if (text.contains("[T]")) {
-                String Todo = text.substring(7);
+                String Todo = text.substring(23);
                 tasks.add(new Todo(Todo));
 
                 if (text.contains("[X]")) {
                     Task m = tasks.get(counter);
                     m.markAsDone();
+                }
+
+                if (text.contains("[Priority: HIGH")) {
+                    Task m = tasks.get(counter);
+                    m.setPriorityHigh();
+                }
+
+                if (text.contains("[Priority: LOW")) {
+                    Task m = tasks.get(counter);
+                    m.setPriorityLow();
                 }
                 counter++;
 
@@ -282,7 +312,7 @@ public class Duke {
 
                 //Find '('
                 int by_pos = text.indexOf("(");
-                String Deadline = text.substring(7, by_pos-1);
+                String Deadline = text.substring(23, by_pos-1);
                 String by = text.substring(by_pos + 5, by_pos + 24);
 
                 tasks.add(new Deadline(Deadline, by));
@@ -290,6 +320,16 @@ public class Duke {
                 if (text.contains("[X]")) {
                     Task m = tasks.get(counter);
                     m.markAsDone();
+                }
+
+                if (text.contains("[Priority: HIGH")) {
+                    Task m = tasks.get(counter);
+                    m.setPriorityHigh();
+                }
+
+                if (text.contains("[Priority: LOW")) {
+                    Task m = tasks.get(counter);
+                    m.setPriorityLow();
                 }
                 counter++;
 
@@ -299,7 +339,7 @@ public class Duke {
                 //Find '('
                 int at_pos = text.indexOf("(");
 
-                String Event = text.substring(7, at_pos-1);
+                String Event = text.substring(23, at_pos-1);
                 String at = text.substring(at_pos + 5, at_pos + 24);
 
                 tasks.add(new Event(Event, at));
@@ -307,6 +347,16 @@ public class Duke {
                 if (text.contains("[X]")) {
                     Task m = tasks.get(counter);
                     m.markAsDone();
+                }
+
+                if (text.contains("[Priority: HIGH")) {
+                    Task m = tasks.get(counter);
+                    m.setPriorityHigh();
+                }
+
+                if (text.contains("[Priority: LOW")) {
+                    Task m = tasks.get(counter);
+                    m.setPriorityLow();
                 }
                 counter++;
             }

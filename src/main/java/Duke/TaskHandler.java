@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,7 +36,6 @@ public class TaskHandler {
         String list = "";
         for (int i = 0; i < TaskList.getTaskLists().size(); i++) {
             int number = i + 1;
-            //list = list + number + "." + "[" + TaskList.getTaskLists().get(i).getIsDone() + "] " + TaskList.getTaskLists().get(i).description + "\n";
             list = list + number + TaskList.getTaskLists().get(i) + "\n";
         }
         return tasks + "\n" + list;
@@ -45,13 +44,11 @@ public class TaskHandler {
         String[] v1 = t.split(" ");
         TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).markAsDone();
         return mark + "\n" + TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).toString();
-        //return mark + "\n" + "[" + TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).getIsDone()+ "] " + TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).description + "\n";
     }
     public String unmark(String t) {
         String[] v1 = t.split(" ");
         TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).unmarkAsDone();
         return unmark + "\n" + TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).toString();
-        //return unmark + "\n" + "[" + TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).getIsDone()+ "] " + TaskList.getTaskLists().get(Integer.parseInt(v1[1]) - 1).description + "\n";
     }
     public String todo(String t) {
         String[] v1 = t.split(" ",2);

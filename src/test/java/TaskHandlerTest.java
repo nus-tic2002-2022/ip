@@ -1,7 +1,7 @@
-import Duke.Task;
-import Duke.TaskHandler;
-import Duke.TaskList;
-import Duke.Todo;
+import duke.Task;
+import duke.TaskHandler;
+import duke.TaskList;
+import duke.Todo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

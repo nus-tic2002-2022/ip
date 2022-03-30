@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -40,8 +40,7 @@ public class Storage {
                 TaskHandler.deadline(texts);
             } else if(texts.startsWith("event")){
                 TaskHandler.event(texts);
-            }
-            else{
+            } else{
                 System.out.println("error input");
             }
         }

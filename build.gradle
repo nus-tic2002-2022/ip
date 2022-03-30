@@ -37,7 +37,7 @@ run {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "duke.Duke"
     archiveClassifier = null
 }
 

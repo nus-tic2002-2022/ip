@@ -11,6 +11,8 @@ public class UI {
     public Tasklist Query(Tasklist tasks, String input) {
         if(input.equalsIgnoreCase("list")) {
             tasks.list();
+        }else if(input.equalsIgnoreCase("help")) {
+            help();
         }else if (DukeConstants.MARK.matcher(input).matches()) {
             input = input.replaceAll("\\D+", "");
             tasks.mark(Integer.parseInt(input));
@@ -26,8 +28,7 @@ public class UI {
             tasks.delete(Integer.parseInt(input));
         } else if (DukeConstants.TODO.matcher(input).matches()) {
             try {
-                String[] check = input.split(" ");
-                if (check.length < 2) {
+                if (input.split(" ").length < 2) {
                     throw new DukeException("Insufficient arguments!");
                 }
                 input = input.replaceAll("^todo\\s", "");
@@ -35,6 +36,7 @@ public class UI {
                 System.out.println("Got it. I've added this task: \n" + tasks.get(tasks.size() - 1).getDescription() + "\nNow you have " + tasks.size() + " tasks in the list.");
             } catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
+                System.out.println("Tip: An example command would be, 'todo task'.");
             }
         } else if (DukeConstants.DEADLINE.matcher(input).matches()) {
             try {
@@ -49,6 +51,7 @@ public class UI {
                 System.out.println("Got it. I've added this task: \n" + tasks.get(tasks.size() - 1).getDescription() + "\nNow you have " + tasks.size() + " tasks in the list.");
             } catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
+                System.out.println("Tip: An example command would be, 'deadline task /by 2022-10-20 23:59'.");
             }
         } else if (DukeConstants.EVENT.matcher(input).matches()) {
             try {
@@ -63,6 +66,7 @@ public class UI {
                 System.out.println("Got it. I've added this task: \n" + tasks.get(tasks.size() - 1).getDescription() + "\nNow you have " + tasks.size() + " tasks in the list.");
             } catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
+                System.out.println("Tip: An example command would be, 'event concert /at school'.");
             }
         } else if (DukeConstants.FIND.matcher(input).matches()) {
             System.out.println("Here are the matching tasks in your list:");
@@ -80,6 +84,19 @@ public class UI {
     //Exit method. Prints an exit message to the user.
     public void exit(){
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    //Help method. Prints out a list of possible commands.
+    public void help(){
+        System.out.println("Hi, this is Duke. I am here to help you keep track of your schedule.");
+        System.out.println("Here are a list of possible commands I will understand:");
+        System.out.println("1. list");
+        System.out.println("2. todo");
+        System.out.println("3. event");
+        System.out.println("4. deadline");
+        System.out.println("5. archive");
+        System.out.println("6. find");
+        System.out.println("7. bye");
     }
 
     //The following method prints an error to inform the user that the specified file location is invalid or the file is unavailable.

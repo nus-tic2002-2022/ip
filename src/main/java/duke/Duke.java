@@ -1,12 +1,21 @@
 package duke;
 
+import duke.Exception.CannotWriteException;
+import duke.Exception.DukeException;
+import duke.Exception.FileLoadException;
+import duke.Storage.fileaccess;
+import duke.Tasklist.Parser;
+import duke.Tasklist.Task;
+import duke.UI.UI;
+import duke.command.Command;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 public class Duke {
 
-    private fileaccess f;//Storage
-    //private echo e; //duke.UI
+    private fileaccess f;
+
 
     private UI user_interface;
 
@@ -81,8 +90,5 @@ public class Duke {
 
         Duke project = new Duke(filepath);
         project.run();
-        //duke.fileaccess.access(filepath);
-        //duke.echo.greet();
-
     }
 }

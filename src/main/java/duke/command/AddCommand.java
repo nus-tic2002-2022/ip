@@ -1,10 +1,14 @@
-package duke;
+package duke.command;
+
+import duke.Tasklist.Task;
+import duke.UI.UI;
+import duke.Storage.fileaccess;
 
 import java.util.ArrayList;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
-    private Task passed_task;
+    protected Task passed_task;
     public AddCommand(String passed, Task t_passed)
     {
         super(passed);

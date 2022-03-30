@@ -1,4 +1,6 @@
-package duke;
+package duke.UI;
+
+import duke.Exception.DukeException;
 
 import java.util.*;
 public class UI {

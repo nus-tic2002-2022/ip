@@ -1,8 +1,12 @@
-package duke;
+package duke.command;
+
+import duke.Tasklist.Task;
+import duke.UI.UI;
+import duke.Storage.fileaccess;
 
 import java.util.ArrayList;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     protected int numbertomark;
     public MarkCommand(String passed, int number)

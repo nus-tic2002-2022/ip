@@ -1,4 +1,4 @@
-package duke;
+package duke.Tasklist;
 
 public class Events extends Task {
 

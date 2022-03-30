@@ -1,8 +1,12 @@
-package duke;
+package duke.command;
+
+import duke.Tasklist.Task;
+import duke.UI.UI;
+import duke.Storage.fileaccess;
 
 import java.util.ArrayList;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     protected int numbertodelete;
     public DeleteCommand(String passed, int numberpassed)

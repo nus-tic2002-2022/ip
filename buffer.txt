@@ -1,5 +1,5 @@
 T | 1 | read book | 
-T | 0 | hello world | 
+T | 1 | hello world | 
 D | 1 | return book | 2021-02-10 1800
 D | 0 | return book2 | 2021-02-10
-D | 1 | return book3 | 2021-02-10
+D | 0 | return book3 | 2021-02-10

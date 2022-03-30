@@ -1,4 +1,8 @@
-package duke;
+package duke.command;
+
+import duke.Tasklist.Task;
+import duke.UI.UI;
+import duke.Storage.fileaccess;
 
 import java.util.*;
 public abstract class Command {

@@ -1,13 +1,8 @@
-[E][X] test (at:[invalid_date] [time_unspecified])
-[D][ ] test (by:2019-12-01 [time_unspecified])
-[T][X] test123
-[ ] asdf
 [E][X] test (at:2019-12-21 17:30)
 [D][X] test (by:2019-12-01 17:00)
-[T][X] test123
-[X] asdf
-[X] asdftest
-[T][ ] test test
-[ ] llist
-[X] lllist
 [D][ ] test (by:2019-12-01 17:00)
+[D][ ] return books (by:2021-04-01 10:30)
+[E][X] piano concert (at:2022-04-29 14:59)
+[T][ ] test
+[D][ ] assignment (by:sunday 23:59)
+[E][ ] test (at:school)

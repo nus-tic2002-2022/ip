@@ -16,7 +16,7 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
 
         boolean start = true;
@@ -25,12 +25,12 @@ public class Duke {
             line = in.nextLine();
             System.out.println("---------------------------------");
 
-            String[] splittedLine = line.split(" ", 2);
-            String firstWord = splittedLine[0];
+            String[] splitLine = line.split(" ", 2);
+            String firstWord = splitLine[0];
             firstWord = firstWord.toLowerCase();
             String restOfLine = "";
-            if (splittedLine.length > 1) {
-                restOfLine = splittedLine[1];
+            if (splitLine.length > 1) {
+                restOfLine = splitLine[1];
             }
 
             switch (firstWord) {
@@ -45,45 +45,47 @@ public class Duke {
                         System.out.println("There is currently nothing in the list");
                     } else {
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < taskList.size(); i++) {
-                            System.out.println(taskList.get(i).getId()+ ". " + taskList.get(i));
+                        for (Task task : taskList) {
+                            System.out.println(task.getId()+ ". " + task);
                         }
                     }
                     break;
                 }
                 case "mark": {
-                    if (isNumeric(restOfLine)) {
+                    try{
                         int taskNumber = Integer.parseInt(restOfLine);
-                        if (taskNumber > Task.getNumberOfTask() || taskNumber <= 0) {
-                            System.out.println("task does not exist");
+//                        if (taskNumber > Task.getNumberOfTask() || taskNumber <= 0) {
+//                            System.out.println("task does not exist");
+//                        } else {
+                        if (taskList.get(taskNumber - 1).getDoneStatus()) {
+                            System.out.println("task is already done");
                         } else {
-                            if (taskList.get(taskNumber - 1).getDoneStatus()) {
-                                System.out.println("task is already done");
-                            } else {
-                                taskList.get(taskNumber - 1).markDone();
-                                System.out.println("marked task as done");
-                            }
+                            taskList.get(taskNumber - 1).markDone();
+                            System.out.println("marked task as done");
                         }
-                    } else {
-                        System.out.println("invalid task number");
+                    } catch (IndexOutOfBoundsException e){
+                            System.out.println("Task does not exist: " + restOfLine);
+                    } catch(NumberFormatException e) {
+                        System.out.println("Invalid task number: " + restOfLine);
                     }
                     break;
                 }
                 case "unmark": {
-                    if (isNumeric(restOfLine)) {
+                    try {
                         int taskNumber = Integer.parseInt(restOfLine);
-                        if (taskNumber > Task.getNumberOfTask() || taskNumber <= 0) {
-                            System.out.println("task does not exist");
+//                        if (taskNumber > Task.getNumberOfTask() || taskNumber <= 0) {
+//                            System.out.println("task does not exist");
+//                        } else {
+                        if (taskList.get(taskNumber - 1).getDoneStatus()) {
+                            taskList.get(taskNumber - 1).unmarkDone();
+                            System.out.println("Unmarked task");
                         } else {
-                            if (taskList.get(taskNumber - 1).getDoneStatus()) {
-                                taskList.get(taskNumber - 1).unmarkDone();
-                                System.out.println("Unmarked task");
-                            } else {
-                                System.out.println("task is not yet done");
-                            }
+                            System.out.println("Task is not yet done");
                         }
-                    } else {
-                        System.out.println("invalid task number");
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("Task does not exist: " + restOfLine);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid task number: " + restOfLine);
                     }
                     break;
                 }
@@ -92,44 +94,44 @@ public class Duke {
                         Task newTask = new Todo(restOfLine);
                         taskList.add(newTask);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + newTask.toString());
+                        System.out.println("  " + newTask);
                         System.out.println("Now you have " + Task.getNumberOfTask() + " in the list.");
                     }else{
-                        System.out.println("Error!");
+                        System.out.println("Missing information!");
                     }
                     break;
                 }
                 case "deadline":{
                     if(!restOfLine.isEmpty()){
-                        if(restOfLine.contains(" /by ")){
+                        try{
                             String[] parts = restOfLine.split(" /by ");
                             Task newTask = new Deadline(parts[0], parts[1]);
                             taskList.add(newTask);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println("  " + newTask.toString());
+                            System.out.println("  " + newTask);
                             System.out.println("Now you have " + Task.getNumberOfTask() + " in the list.");
-                        }else{
-                            System.out.println("Missing by date");
+                        } catch(IndexOutOfBoundsException e) {
+                            System.out.println("Description or Date is missing: " + restOfLine);
                         }
                     }else{
-                        System.out.println("Error!");
+                        System.out.println("Missing information!");
                     }
                     break;
                 }
                 case "event":{
                     if(!restOfLine.isEmpty()){
-                        if(restOfLine.contains(" /at ")){
+                        try{
                             String[] parts = restOfLine.split(" /at ");
                             Task newTask = new Event(parts[0], parts[1]);
                             taskList.add(newTask);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println("  " + newTask.toString());
+                            System.out.println("  " + newTask);
                             System.out.println("Now you have " + Task.getNumberOfTask() + " in the list.");
-                        }else{
-                            System.out.println("Missing at what date");
+                        } catch (IndexOutOfBoundsException e){
+                            System.out.println("Description or Date is missing: " + restOfLine);
                         }
                     }else{
-                        System.out.println("Error!");
+                        System.out.println("Missing information!");
                     }
                     break;
                 }
@@ -139,13 +141,4 @@ public class Duke {
             System.out.println("---------------------------------");
         }
     }
-
-    public static boolean isNumeric(String str) { 
-        try {  
-            Integer.parseInt(str);  
-            return true;
-        } catch(NumberFormatException e){  
-            return false;  
-        }  
-      }
 }

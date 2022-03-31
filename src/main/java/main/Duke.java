@@ -50,18 +50,15 @@ public class Duke {
             }
             printTask();
             return;
-        }
-        else if(input.startsWith("mark")){
+        } else if(input.startsWith("mark")){
             System.out.println("=========================================" );
             System.out.println("That's pretty fast");
             markTask(input, true);
-        }
-        else if(input.startsWith("unmark")){
+        } else if(input.startsWith("unmark")){
             System.out.println("=========================================" );
             System.out.println("Oh, it is not done?");
             markTask(input, false);
-        }
-        else if(input.startsWith("todo") || input.startsWith("event") || input.startsWith("deadline")){
+        } else if(input.startsWith("todo") || input.startsWith("event") || input.startsWith("deadline")){
             String[] userInputArr = input.split(" ", 2);
             if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
                 System.out.println("=========================================" );
@@ -72,9 +69,7 @@ public class Duke {
             System.out.println("=========================================" );
             System.out.println("Mission added!");
             System.out.println("Now you have " + getTaskList() + " missions in the list.");
-
-        }
-        else if(input.startsWith("delete")){
+        } else if(input.startsWith("delete")){
             String[] userInputArr = input.split(" ", 2);
             if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
                 System.out.println("=========================================" );
@@ -85,8 +80,7 @@ public class Duke {
             System.out.println("Mission deleted!");
             deleteTask(Integer.parseInt(userInputArr[1]) - 1).printTask();
             System.out.println("Now you have " + getTaskList() + " missions in the list.");
-        }
-        else if(input.startsWith("viewtask")){
+        } else if(input.startsWith("viewtask")){
             String[] userInputArr = input.split(" ", 2);
             if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
                 System.out.println("=========================================" );
@@ -104,8 +98,7 @@ public class Duke {
                 System.out.print((i + 1) + ". ");
                 System.out.println(taskStringList.get(i));
             }
-        }
-        else if(input.startsWith("find")){
+        } else if(input.startsWith("find")){
             String[] userInputArr = input.split(" ", 2);
             if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
                 System.out.println("=========================================" );
@@ -123,8 +116,7 @@ public class Duke {
                 System.out.print((i + 1) + ". ");
                 System.out.println(taskStringList.get(i));
             }
-        }
-        else {
+        } else {
             throw new InvalidInputException();
         }
         saveData();

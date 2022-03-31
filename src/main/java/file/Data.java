@@ -58,11 +58,9 @@ public class Data {
         Task task;
         if(lineList[0].equals("E")){
             task = new Event(lineList[2], lineList[3]);
-        }
-        else if(lineList[0].equals("D")){
+        } else if(lineList[0].equals("D")){
             task = new Deadline(lineList[2], lineList[3]);
-        }
-        else {
+        } else {
             task = new Todo(lineList[2]);
         }
         if(lineList[1].equals("1")){

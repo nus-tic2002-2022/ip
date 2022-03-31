@@ -125,8 +125,7 @@ public class User {
                 if (taskDeadline.compareTo(date) < 1) {
                     result.add(task.toString());
                 }
-            }
-            else if(task instanceof Event){
+            } else if(task instanceof Event){
                 LocalDate taskPeriod = ((Event) task).getPeriod();
                 if(taskPeriod.compareTo(date) == 0){
                     result.add(task.toString());

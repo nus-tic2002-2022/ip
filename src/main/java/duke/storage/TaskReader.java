@@ -1,11 +1,10 @@
-package main.java.duke.storage;
+package duke.storage;
 
-
-import main.java.duke.data.entity.Deadline;
-import main.java.duke.data.entity.Event;
-import main.java.duke.data.entity.Task;
-import main.java.duke.data.entity.Todo;
-import main.java.duke.data.exception.DukeException;
+import duke.data.entity.Deadline;
+import duke.data.entity.Event;
+import duke.data.entity.Task;
+import duke.data.entity.Todo;
+import duke.data.exception.DukeException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,8 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
+/**
+ * This class will read the data from text file according to user input.
+ */
 public class TaskReader {
     public static List<Task> readTaskList(List<String> taskToRead) throws ParseException, DukeException {
         final List<Task> tasks = new ArrayList<Task>();

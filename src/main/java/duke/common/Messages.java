@@ -1,9 +1,9 @@
-package main.java.duke.common;
+package duke.common;
 /**
  * Container for user visible messages.
  */
 public class Messages {
-    public static final String MESSAGE_WELCOME = "Hello Mater! I'm Gennie ^_^ What can I do for you?";
+    public static final String MESSAGE_WELCOME = "Hello Mater! My name is ";
     public static final String MESSAGE_GOODBYE = "Bye. Summon me when you need me again!!";
     public static final String MESSAGE_ERROR = "☹ OOPS!!! I'm sorry, but I don't know what that means :-( ";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "Now you have %1$d tasks in the list!";

@@ -1,4 +1,4 @@
-package main.java.duke.data.exception;
+package duke.data.exception;
 
 /**
  * This class will store information of error related to operations in Duke.

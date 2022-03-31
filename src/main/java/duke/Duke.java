@@ -1,36 +1,25 @@
-package main.java.duke;
+package duke;
 
-
-import main.java.duke.commands.Command;
-import main.java.duke.data.entity.TaskList;
-import main.java.duke.data.exception.DukeException;
-import main.java.duke.parser.Parser;
-import main.java.duke.storage.Storage;
-import main.java.duke.ui.Ui;
+import duke.commands.Command;
+import duke.data.entity.TaskList;
+import duke.data.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 import java.text.ParseException;
 
-import static main.java.duke.common.Messages.MESSAGE_DATE_FORMAT_ERROR;
-
-
+import static duke.common.Messages.MESSAGE_DATE_FORMAT_ERROR;
+/**
+ * This class contains the main method to run the application.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks = new TaskList();
     private Ui ui;
-
-    public Duke() {
-        ui = new Ui();
-        try {
-            storage = new Storage();
-            tasks = new TaskList(storage.load());
-        } catch (Storage.StorageOperationException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
-            System.exit(0);
-        }
-    }
+    /**
+     * Constructor for Duke
+     */
     public Duke(String filePath) {
         ui = new Ui();
         try {
@@ -44,14 +33,16 @@ public class Duke {
             System.exit(0);
         }
     }
-
+    /**
+     * Run the application until user type 'bye' or 'b'.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();

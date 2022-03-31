@@ -1,8 +1,10 @@
-package main.java.duke.data.entity;
+package duke.data.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/**
+ * Extension of Task class to modify Event.
+ */
 public class Event extends Task {
 
     protected Date at;
@@ -12,7 +14,9 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
-
+    /**
+     * @return status of Event with user input and save.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + sdf.format(at) + ")";

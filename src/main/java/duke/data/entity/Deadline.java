@@ -1,8 +1,10 @@
-package main.java.duke.data.entity;
+package duke.data.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/**
+ * Extension of Task class to modify deadline.
+ */
 public class Deadline extends Task {
 
     protected Date by;
@@ -11,7 +13,10 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
-
+    /**
+     * Returns status of Task.
+     * @return status of Deadline with user input and save.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + sdf.format(by) + ")";

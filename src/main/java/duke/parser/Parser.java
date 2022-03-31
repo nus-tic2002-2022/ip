@@ -1,28 +1,36 @@
-package main.java.duke.parser;
+package duke.parser;
 
-import main.java.duke.commands.Command;
-import main.java.duke.commands.Commands;
-import main.java.duke.data.entity.Deadline;
-import main.java.duke.data.entity.Event;
-import main.java.duke.data.entity.Task;
-import main.java.duke.data.entity.Todo;
-import main.java.duke.data.exception.DukeException;
+import duke.commands.Command;
+import duke.commands.Commands;
+import duke.data.entity.Deadline;
+import duke.data.entity.Event;
+import duke.data.entity.Task;
+import duke.data.entity.Todo;
+import duke.data.exception.DukeException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
+/**
+ * This class will store the user input after tokenizer and access the methods to process according to user command.
+ */
 public class Parser {
 
     public static Command parse(String fullCommand) throws DukeException, ParseException {
         Command com = new Command();
         String first = fullCommand.split(" ")[0];
+        /**
+         * Methods to check user input is equal to commands created in enums
+         */
         if (first.equals(Commands.LIST.getCommand()) || first.equals(Commands.LIST.getShr())) {
             com.setCommands(Commands.LIST);
         } else if (first.equals(Commands.BYE.getCommand()) || first.equals(Commands.BYE.getShr())) {
             com.setCommands(Commands.BYE);
-        } else if (first.equals(Commands.UNMARK.getCommand()) || first.equals(Commands.UNMARK.getShr())) {
+        }
+        /**
+         * Check user input command is in correct format or not.
+         */
+        else if (first.equals(Commands.UNMARK.getCommand()) || first.equals(Commands.UNMARK.getShr())) {
             if (fullCommand.trim().equals(Commands.UNMARK.getCommand()))
                 throw new DukeException("☹ OOPS!!! The index that want to unmark cannot be empty.");
             else {
@@ -80,12 +88,16 @@ public class Parser {
         }
         return com;
     }
-
+    /**
+     * @return index to process the command.
+     */
     public static int getIndex(String fullCommand, String command) {
         int i = Integer.parseInt(fullCommand.substring(command.length() + 1));
         return i - 1;
     }
-
+    /**
+     * @return tsk after tokenize and check user input.
+     */
     public static Task getTask(String fullCommand, String command) throws ParseException, DukeException {
         Task tsk = new Task();
         try {
@@ -100,21 +112,31 @@ public class Parser {
                 String name = fullCommand.substring(command.length() + 1, buffer - 1);
                 String date = fullCommand.substring(buffer + 4);
                 System.out.println(name+" "+date);
-                //Check if user key in empty event description or event date
+                /**
+                 * Check if user key in empty event description or event date.
+                 */
                 if (name.equals("") || date.equals("")) {
                     return null;
                 }
                 Date dateObj = null;
-
+                /**
+                 * Set the correct date format.
+                 */
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
                 dateObj = sdf.parse(date);
-                //Else check event or deadline
+                /**
+                 * Update event or deadline with description and date.
+                 */
                 if (command.equals(Commands.EVENT.getCommand()) || command.equals(Commands.EVENT.getShr()))
                     tsk = new Event(name, dateObj);
                 if (command.equals(Commands.DEADLINE.getCommand()) || command.equals(Commands.DEADLINE.getShr()))
                     tsk = new Deadline(name, dateObj);
             }
-        } catch (StringIndexOutOfBoundsException e) {
+        }
+        /**
+         * Show error if user type incorrect command format.
+         */
+        catch (StringIndexOutOfBoundsException e) {
             if (command.equals(Commands.TODO.getCommand()) || command.equals(Commands.TODO.getShr())) {
                 throw new DukeException("Please type as [todo task] or [t task]");
             }

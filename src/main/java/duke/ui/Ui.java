@@ -1,16 +1,14 @@
-package main.java.duke.ui;
+package duke.ui;
 
-
-import main.java.duke.data.entity.Task;
-import main.java.duke.data.entity.TaskList;
+import duke.data.entity.Task;
+import duke.data.entity.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 
-import static main.java.duke.common.Messages.*;
-
+import static duke.common.Messages.*;
 
 public class Ui {
 
@@ -36,8 +34,27 @@ public class Ui {
         showToUser(
                 TAB + DIVIDER,
                 TAB + DIVIDER,
-                TAB + MESSAGE_WELCOME,
-                TAB + DIVIDER);
+                TAB + MESSAGE_WELCOME);
+
+        String hello = "\n"
+      + "GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEENNNNNNNN        NNNNNNNNNNNNNNNN        NNNNNNNNIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE\n"
+      + "GGG::::::::::::GE::::::::::::::::::::EN:::::::N       N::::::NN:::::::N       N::::::NI::::::::IE::::::::::::::::::::E\n"
+      + "GG:::::::::::::::GE::::::::::::::::::::EN::::::::N      N::::::NN::::::::N      N::::::NI::::::::IE::::::::::::::::::::E\n"
+      + "G:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::EN:::::::::N     N::::::NN:::::::::N     N::::::NII::::::IIEE::::::EEEEEEEEE::::E\n"
+      + "G:::::G       GGGGGG  E:::::E       EEEEEEN::::::::::N    N::::::NN::::::::::N    N::::::N  I::::I    E:::::E       EEEEEE\n"
+      + "G:::::G                E:::::E             N:::::::::::N   N::::::NN:::::::::::N   N::::::N  I::::I    E:::::E\n"
+      + "G:::::G                E::::::EEEEEEEEEE   N:::::::N::::N  N::::::NN:::::::N::::N  N::::::N  I::::I    E::::::EEEEEEEEEE\n"
+      + "G:::::G    GGGGGGGGGG  E:::::::::::::::E   N::::::N N::::N N::::::NN::::::N N::::N N::::::N  I::::I    E:::::::::::::::E\n"
+      + "G:::::G    G::::::::G  E:::::::::::::::E   N::::::N  N::::N:::::::NN::::::N  N::::N:::::::N  I::::I    E:::::::::::::::E\n"
+      + "G:::::G    GGGGG::::G  E::::::EEEEEEEEEE   N::::::N   N:::::::::::NN::::::N   N:::::::::::N  I::::I    E::::::EEEEEEEEEE\n"
+      + "G:::::G        G::::G  E:::::E             N::::::N    N::::::::::NN::::::N    N::::::::::N  I::::I    E:::::E\n"
+      + "G:::::G       G::::G  E:::::E       EEEEEEN::::::N     N:::::::::NN::::::N     N:::::::::N  I::::I    E:::::E       EEEEEE\n"
+      + "G:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::EN::::::N      N::::::::NN::::::N      N::::::::NII::::::IIEE::::::EEEEEEEE:::::E\n"
+      + "GG:::::::::::::::GE::::::::::::::::::::EN::::::N       N:::::::NN::::::N       N:::::::NI::::::::IE::::::::::::::::::::E\n"
+      + "GGG::::::GGG:::GE::::::::::::::::::::EN::::::N        N::::::NN::::::N        N::::::NI::::::::IE::::::::::::::::::::E\n"
+      + "GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEENNNNNNNN         NNNNNNNNNNNNNNN         NNNNNNNIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE  \n";
+
+        System.out.println(hello);
     }
 
     /**
@@ -56,8 +73,9 @@ public class Ui {
     public String readCommand() {
         showToUser(TAB + "Enter command: ");
         String fullInputLine = in.nextLine();
-
-        // silently consume all ignored lines
+        /**
+         * silently consume all ignored lines
+         */
         while (shouldIgnore(fullInputLine)) {
             fullInputLine = in.nextLine();
         }

@@ -1,14 +1,14 @@
-package main.java.duke.commands;
+package duke.commands;
 
+import duke.data.entity.Task;
+import duke.data.entity.TaskList;
+import duke.data.exception.DukeException;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
-import main.java.duke.data.entity.Task;
-import main.java.duke.data.entity.TaskList;
-import main.java.duke.data.exception.DukeException;
-import main.java.duke.storage.Storage;
-import main.java.duke.ui.Ui;
+import static duke.common.Messages.MESSAGE_ERROR;
+import static duke.common.Messages.MESSAGE_GOODBYE;
 
-import static main.java.duke.common.Messages.MESSAGE_ERROR;
-import static main.java.duke.common.Messages.MESSAGE_GOODBYE;
 
 /**
  * Represents an executable command.
@@ -69,7 +69,7 @@ public class Command {
     /**
      * Add the task into List.
      */
-    public TaskList add(TaskList tasks, Ui ui) {
+    public TaskList add(TaskList tasks,Ui ui) {
         if (task != null) {
             tasks.add(task);
         }
@@ -80,7 +80,7 @@ public class Command {
     /**
      * Delete the task from List.
      */
-    public TaskList delete(TaskList tasks, Ui ui) throws DukeException {
+    public TaskList delete(TaskList tasks,Ui ui) throws DukeException {
         /**
          * Check if user key in invalid number
          */
@@ -95,7 +95,7 @@ public class Command {
     /**
      * Mark the task from List.
      */
-    public TaskList mark(TaskList tasks, Ui ui) throws DukeException {
+    public TaskList mark(TaskList tasks,Ui ui) throws DukeException {
         /**
          * Check if user key in invalid number and show error
          */
@@ -110,7 +110,7 @@ public class Command {
     /**
      * Unmark the task from List.
      */
-    public TaskList unMark(TaskList tasks, Ui ui) throws DukeException {
+    public TaskList unMark(TaskList tasks,Ui ui) throws DukeException {
         /**
          * Check if user key in invalid number
          */
@@ -128,7 +128,7 @@ public class Command {
     /**
      * Show the task list.
      */
-    public void list(TaskList tasks, Ui ui) {
+    public void list(TaskList tasks,Ui ui) {
         if (tasks.getSize() == 0) {
             ui.showTaskSize(tasks.getSize());
         } else {

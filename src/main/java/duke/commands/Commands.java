@@ -1,4 +1,4 @@
-package main.java.duke.commands;
+package duke.commands;
 /**
  * Define data type for commands in this class.
  */

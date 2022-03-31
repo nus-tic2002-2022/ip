@@ -1,7 +1,7 @@
-package main.java.duke.storage;
+package duke.storage;
 
-import main.java.duke.data.entity.Task;
-import main.java.duke.data.exception.DukeException;
+import duke.data.entity.Task;
+import duke.data.exception.DukeException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,17 +11,14 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 /**
- *
+ * This class will store filePath of a text file
+ * and provide methods to create, read and modify the text file.
  */
 public class Storage {
 
     /** Default file path used if the user doesn't provide the file name. */
     public static final String DEFAULT_STORAGE_FILEPATH = "task.txt";
-
 
     public final Path path;
 
@@ -80,14 +77,6 @@ public class Storage {
             throw new DukeException("Error reading from file: "+path);
         }
     }
-
-    public String getPath() {
-        return path.toString();
-    }
-
-    /* Note: Note the use of nested classes below.
-     * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
-     */
 
     /**
      * Signals that the given file path does not fulfill the storage filepath constraints.

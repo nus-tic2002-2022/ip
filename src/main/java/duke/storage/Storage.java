@@ -1,14 +1,18 @@
-package duke.storage;
+package main.java.duke.storage;
+
+import main.java.duke.data.entity.Task;
+import main.java.duke.data.exception.DukeException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.data.entity.Task;
-import duke.data.exception.DukeException;
+
 
 /**
  *
@@ -61,19 +65,19 @@ public class Storage {
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public List<Task> load() throws StorageOperationException {
-
+    public List<Task> load() throws DukeException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
             return new ArrayList<Task>();
         }
-
         try {
             return TaskReader.readTaskList(Files.readAllLines(path));
-        } catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fe) {
             throw new AssertionError("A non-existent file scenario is already handled earlier.");
             // other errors
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
+        } catch (ParseException pe ) {
+            throw new DukeException("Error reading from file: "+path);
         }
     }
 

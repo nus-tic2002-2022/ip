@@ -1,14 +1,16 @@
-package duke.ui;
+package main.java.duke.ui;
 
-import duke.data.entity.Task;
-import duke.data.entity.TaskList;
+
+import main.java.duke.data.entity.Task;
+import main.java.duke.data.entity.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 
-import static duke.common.Messages.*;
+import static main.java.duke.common.Messages.*;
+
 
 public class Ui {
 
@@ -16,7 +18,6 @@ public class Ui {
      * A platform independent line separator.
      */
     private static final String LS = System.lineSeparator();
-
     private static final String DIVIDER = "------------------------------------------";
     private static final String TAB = "\t";
     private final Scanner in;
@@ -88,7 +89,7 @@ public class Ui {
     }
 
     public void showUnMarked(Task task) {
-        showToUser(TAB +MESSAGE_TASK_MARK);
+        showToUser(TAB +MESSAGE_TASK_UNMARK);
         showToUser(TAB +task.toString());
     }
 
@@ -103,9 +104,8 @@ public class Ui {
     }
 
     public void showTask(TaskList s) {
-        showToUser(TAB +MESSAGE_TAKS_SHOW);
+        showToUser(TAB +MESSAGE_TASK_SHOW);
         List<String> str = s.getTasksString();
-
         for (int i = 0; i < str.size(); i++) {
             showToUser(TAB +str.get(i));
 

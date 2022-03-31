@@ -1,4 +1,4 @@
-package duke.data.entity;
+package main.java.duke.data.entity;
 public class Task {
     private String description;
     private boolean isDone;

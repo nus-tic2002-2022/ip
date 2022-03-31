@@ -1,4 +1,4 @@
-package duke.data.entity;
+package main.java.duke.data.entity;
 
 import java.util.ArrayList;
 import java.util.List;

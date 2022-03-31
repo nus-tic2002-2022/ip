@@ -19,6 +19,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public int getId(){
+        return id;
+    }
+
     public void unmarkDone() {
         this.isDone = false;
     }
@@ -37,7 +41,7 @@ public class Task {
 
     @Override
     public String toString(){
-        return id + ".[" + getStatusIcon() + "] " + getDescription();
+        return "[" + getStatusIcon() + "] " + getDescription();
     }
 
 

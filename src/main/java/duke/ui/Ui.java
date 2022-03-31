@@ -37,22 +37,22 @@ public class Ui {
                 TAB + MESSAGE_WELCOME);
 
         String hello = "\n"
-      + "GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEENNNNNNNN        NNNNNNNNNNNNNNNN        NNNNNNNNIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE\n"
-      + "GGG::::::::::::GE::::::::::::::::::::EN:::::::N       N::::::NN:::::::N       N::::::NI::::::::IE::::::::::::::::::::E\n"
-      + "GG:::::::::::::::GE::::::::::::::::::::EN::::::::N      N::::::NN::::::::N      N::::::NI::::::::IE::::::::::::::::::::E\n"
-      + "G:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::EN:::::::::N     N::::::NN:::::::::N     N::::::NII::::::IIEE::::::EEEEEEEEE::::E\n"
-      + "G:::::G       GGGGGG  E:::::E       EEEEEEN::::::::::N    N::::::NN::::::::::N    N::::::N  I::::I    E:::::E       EEEEEE\n"
-      + "G:::::G                E:::::E             N:::::::::::N   N::::::NN:::::::::::N   N::::::N  I::::I    E:::::E\n"
-      + "G:::::G                E::::::EEEEEEEEEE   N:::::::N::::N  N::::::NN:::::::N::::N  N::::::N  I::::I    E::::::EEEEEEEEEE\n"
-      + "G:::::G    GGGGGGGGGG  E:::::::::::::::E   N::::::N N::::N N::::::NN::::::N N::::N N::::::N  I::::I    E:::::::::::::::E\n"
-      + "G:::::G    G::::::::G  E:::::::::::::::E   N::::::N  N::::N:::::::NN::::::N  N::::N:::::::N  I::::I    E:::::::::::::::E\n"
-      + "G:::::G    GGGGG::::G  E::::::EEEEEEEEEE   N::::::N   N:::::::::::NN::::::N   N:::::::::::N  I::::I    E::::::EEEEEEEEEE\n"
-      + "G:::::G        G::::G  E:::::E             N::::::N    N::::::::::NN::::::N    N::::::::::N  I::::I    E:::::E\n"
-      + "G:::::G       G::::G  E:::::E       EEEEEEN::::::N     N:::::::::NN::::::N     N:::::::::N  I::::I    E:::::E       EEEEEE\n"
-      + "G:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::EN::::::N      N::::::::NN::::::N      N::::::::NII::::::IIEE::::::EEEEEEEE:::::E\n"
-      + "GG:::::::::::::::GE::::::::::::::::::::EN::::::N       N:::::::NN::::::N       N:::::::NI::::::::IE::::::::::::::::::::E\n"
-      + "GGG::::::GGG:::GE::::::::::::::::::::EN::::::N        N::::::NN::::::N        N::::::NI::::::::IE::::::::::::::::::::E\n"
-      + "GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEENNNNNNNN         NNNNNNNNNNNNNNN         NNNNNNNIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE  \n";
+                + "GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEENNNNNNNN        NNNNNNNNNNNNNNNN        NNNNNNNNIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE\n"
+                + "GGG::::::::::::GE::::::::::::::::::::EN:::::::N       N::::::NN:::::::N       N::::::NI::::::::IE::::::::::::::::::::E\n"
+                + "GG:::::::::::::::GE::::::::::::::::::::EN::::::::N      N::::::NN::::::::N      N::::::NI::::::::IE::::::::::::::::::::E\n"
+                + "G:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::EN:::::::::N     N::::::NN:::::::::N     N::::::NII::::::IIEE::::::EEEEEEEEE::::E\n"
+                + "G:::::G       GGGGGG  E:::::E       EEEEEEN::::::::::N    N::::::NN::::::::::N    N::::::N  I::::I    E:::::E       EEEEEE\n"
+                + "G:::::G                E:::::E             N:::::::::::N   N::::::NN:::::::::::N   N::::::N  I::::I    E:::::E\n"
+                + "G:::::G                E::::::EEEEEEEEEE   N:::::::N::::N  N::::::NN:::::::N::::N  N::::::N  I::::I    E::::::EEEEEEEEEE\n"
+                + "G:::::G    GGGGGGGGGG  E:::::::::::::::E   N::::::N N::::N N::::::NN::::::N N::::N N::::::N  I::::I    E:::::::::::::::E\n"
+                + "G:::::G    G::::::::G  E:::::::::::::::E   N::::::N  N::::N:::::::NN::::::N  N::::N:::::::N  I::::I    E:::::::::::::::E\n"
+                + "G:::::G    GGGGG::::G  E::::::EEEEEEEEEE   N::::::N   N:::::::::::NN::::::N   N:::::::::::N  I::::I    E::::::EEEEEEEEEE\n"
+                + "G:::::G        G::::G  E:::::E             N::::::N    N::::::::::NN::::::N    N::::::::::N  I::::I    E:::::E\n"
+                + "G:::::G       G::::G  E:::::E       EEEEEEN::::::N     N:::::::::NN::::::N     N:::::::::N  I::::I    E:::::E       EEEEEE\n"
+                + "G:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::EN::::::N      N::::::::NN::::::N      N::::::::NII::::::IIEE::::::EEEEEEEE:::::E\n"
+                + "GG:::::::::::::::GE::::::::::::::::::::EN::::::N       N:::::::NN::::::N       N:::::::NI::::::::IE::::::::::::::::::::E\n"
+                + "GGG::::::GGG:::GE::::::::::::::::::::EN::::::N        N::::::NN::::::N        N::::::NI::::::::IE::::::::::::::::::::E\n"
+                + "GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEENNNNNNNN         NNNNNNNNNNNNNNN         NNNNNNNIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE  \n";
 
         System.out.println(hello);
     }
@@ -98,34 +98,35 @@ public class Ui {
     }
 
     public void showDeleted(Task task) {
-        showToUser(TAB +MESSAGE_TASK_DELETE);
-        showToUser(TAB +task.toString());
+        showToUser(TAB + MESSAGE_TASK_DELETE);
+        showToUser(TAB + task.toString());
     }
+
     public void showMarked(Task task) {
-        showToUser(TAB +MESSAGE_TASK_MARK);
-        showToUser(TAB +task.toString());
+        showToUser(TAB + MESSAGE_TASK_MARK);
+        showToUser(TAB + task.toString());
     }
 
     public void showUnMarked(Task task) {
-        showToUser(TAB +MESSAGE_TASK_UNMARK);
-        showToUser(TAB +task.toString());
+        showToUser(TAB + MESSAGE_TASK_UNMARK);
+        showToUser(TAB + task.toString());
     }
 
 
     public void showAdded(Task task) {
-        showToUser(TAB +MESSAGE_TASK_ADD);
-        showToUser(TAB +task.toString());
+        showToUser(TAB + MESSAGE_TASK_ADD);
+        showToUser(TAB + task.toString());
     }
 
     public void showTaskSize(int size) {
-        showToUser(TAB +String.format(MESSAGE_TASKS_LISTED_OVERVIEW, size));
+        showToUser(TAB + String.format(MESSAGE_TASKS_LISTED_OVERVIEW, size));
     }
 
     public void showTask(TaskList s) {
-        showToUser(TAB +MESSAGE_TASK_SHOW);
+        showToUser(TAB + MESSAGE_TASK_SHOW);
         List<String> str = s.getTasksString();
         for (int i = 0; i < str.size(); i++) {
-            showToUser(TAB +str.get(i));
+            showToUser(TAB + str.get(i));
 
         }
     }

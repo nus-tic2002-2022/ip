@@ -34,6 +34,7 @@ public class Command {
     public Task getTask() {
         return task;
     }
+
     /**
      * Executes the command and returns the result.
      */
@@ -66,10 +67,11 @@ public class Command {
         else ui.showError(MESSAGE_ERROR);
         return tasks;
     }
+
     /**
      * Add the task into List.
      */
-    public TaskList add(TaskList tasks,Ui ui) {
+    public TaskList add(TaskList tasks, Ui ui) {
         if (task != null) {
             tasks.add(task);
         }
@@ -77,10 +79,11 @@ public class Command {
         ui.showTaskSize(tasks.getSize());
         return tasks;
     }
+
     /**
      * Delete the task from List.
      */
-    public TaskList delete(TaskList tasks,Ui ui) throws DukeException {
+    public TaskList delete(TaskList tasks, Ui ui) throws DukeException {
         /**
          * Check if user key in invalid number
          */
@@ -92,10 +95,11 @@ public class Command {
         ui.showTaskSize(tasks.getSize());
         return tasks;
     }
+
     /**
      * Mark the task from List.
      */
-    public TaskList mark(TaskList tasks,Ui ui) throws DukeException {
+    public TaskList mark(TaskList tasks, Ui ui) throws DukeException {
         /**
          * Check if user key in invalid number and show error
          */
@@ -107,10 +111,11 @@ public class Command {
         ui.showTaskSize(tasks.getSize());
         return tasks;
     }
+
     /**
      * Unmark the task from List.
      */
-    public TaskList unMark(TaskList tasks,Ui ui) throws DukeException {
+    public TaskList unMark(TaskList tasks, Ui ui) throws DukeException {
         /**
          * Check if user key in invalid number
          */
@@ -125,16 +130,18 @@ public class Command {
         ui.showTaskSize(tasks.getSize());
         return tasks;
     }
+
     /**
      * Show the task list.
      */
-    public void list(TaskList tasks,Ui ui) {
+    public void list(TaskList tasks, Ui ui) {
         if (tasks.getSize() == 0) {
             ui.showTaskSize(tasks.getSize());
         } else {
             ui.showTask(tasks);
         }
     }
+
     /**
      * Exit the program when user type 'Bye'.
      */

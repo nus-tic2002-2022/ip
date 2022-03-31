@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * This class will store filePath of a text file
  * and provide methods to create, read and modify the text file.

@@ -2,6 +2,7 @@ package duke.data.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * This class stores List of Tasks and methods to access and modify them.
  */
@@ -16,12 +17,14 @@ public class TaskList {
     public TaskList(List<Task> load) {
         tasks = load;
     }
+
     /**
      * @return tasks in TaskList.
      */
     public static List<Task> getTasks() {
         return tasks;
     }
+
     /**
      * @return tasks in TaskList in string.
      */
@@ -33,18 +36,21 @@ public class TaskList {
         }
         return str;
     }
+
     /**
-     * @param  tsk Task to add into TaskList.
+     * @param tsk Task to add into TaskList.
      */
     public void add(Task tsk) {
         tasks.add(tsk);
     }
+
     /**
      * @return number of task in TaskList.
      */
     public int getSize() {
         return tasks.size();
     }
+
     /**
      * @return index to delete task from TaskList.
      */

@@ -1,4 +1,5 @@
 package duke.common;
+
 /**
  * Container for user visible messages.
  */
@@ -13,5 +14,5 @@ public class Messages {
     public static final String MESSAGE_TASK_MARK = "Nice! I've marked this task as done.";
     public static final String MESSAGE_TASK_UNMARK = "OK, I've marked this task as not done yet.";
     public static final String MESSAGE_INIT_FAILED = "☹ OOPS!!! Failed to wake up our Gennie.";
-    public static final String MESSAGE_DATE_FORMAT_ERROR="Please enter date format correctly (eg. 2/12/2022 1800).";
+    public static final String MESSAGE_DATE_FORMAT_ERROR = "Please enter date format correctly (eg. 2/12/2022 1800).";
 }

@@ -13,8 +13,10 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+
     /**
      * Returns status of Task.
+     *
      * @return status of Deadline with user input and save.
      */
     @Override

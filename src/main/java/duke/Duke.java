@@ -10,6 +10,7 @@ import duke.ui.Ui;
 import java.text.ParseException;
 
 import static duke.common.Messages.MESSAGE_DATE_FORMAT_ERROR;
+
 /**
  * This class contains the main method to run the application.
  */
@@ -17,6 +18,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks = new TaskList();
     private Ui ui;
+
     /**
      * Constructor for Duke
      */
@@ -33,6 +35,7 @@ public class Duke {
             System.exit(0);
         }
     }
+
     /**
      * Run the application until user type 'bye' or 'b'.
      */

@@ -11,6 +11,7 @@ import duke.data.exception.DukeException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
  * This class will store the user input after tokenizer and access the methods to process according to user command.
  */
@@ -45,7 +46,7 @@ public class Parser {
                 com.setIndex(getIndex(fullCommand, first));
             }
         } else if (first.equals(Commands.TODO.getCommand()) || first.equals(Commands.TODO.getShr())) {
-            if (fullCommand.trim().equals(Commands.TODO.getCommand())||fullCommand.trim().equals(Commands.TODO.getShr()))
+            if (fullCommand.trim().equals(Commands.TODO.getCommand()) || fullCommand.trim().equals(Commands.TODO.getShr()))
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             else {
                 com.setCommands(Commands.TODO);
@@ -55,7 +56,7 @@ public class Parser {
                 }
             }
         } else if (first.equals(Commands.DEADLINE.getCommand()) || first.equals(Commands.DEADLINE.getShr())) {
-            if (fullCommand.trim().equals(Commands.DEADLINE.getCommand())||fullCommand.trim().equals(Commands.DEADLINE.getShr()))
+            if (fullCommand.trim().equals(Commands.DEADLINE.getCommand()) || fullCommand.trim().equals(Commands.DEADLINE.getShr()))
                 throw new DukeException("☹ OOPS!!! The description of an deadline cannot be empty.");
             else {
                 com.setCommands(Commands.DEADLINE);
@@ -67,7 +68,7 @@ public class Parser {
                 }
             }
         } else if (first.equals(Commands.EVENT.getCommand()) || first.equals(Commands.EVENT.getShr())) {
-            if (fullCommand.trim().equals(Commands.EVENT.getCommand())||fullCommand.trim().equals(Commands.EVENT.getShr()))
+            if (fullCommand.trim().equals(Commands.EVENT.getCommand()) || fullCommand.trim().equals(Commands.EVENT.getShr()))
                 throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
             else {
                 com.setCommands(Commands.EVENT);
@@ -79,7 +80,7 @@ public class Parser {
                 }
             }
         } else if (first.equals(Commands.DELETE.getCommand()) || first.equals(Commands.DELETE.getShr())) {
-            if (fullCommand.trim().equals(Commands.DELETE.getCommand())||fullCommand.trim().equals(Commands.DELETE.getShr()))
+            if (fullCommand.trim().equals(Commands.DELETE.getCommand()) || fullCommand.trim().equals(Commands.DELETE.getShr()))
                 throw new DukeException("☹ OOPS!!! The index that want to delete cannot be empty.");
             else {
                 com.setCommands(Commands.DELETE);
@@ -88,6 +89,7 @@ public class Parser {
         }
         return com;
     }
+
     /**
      * @return index to process the command.
      */
@@ -95,6 +97,7 @@ public class Parser {
         int i = Integer.parseInt(fullCommand.substring(command.length() + 1));
         return i - 1;
     }
+
     /**
      * @return tsk after tokenize and check user input.
      */
@@ -103,7 +106,8 @@ public class Parser {
         try {
             if (command.equals(Commands.TODO.getCommand()) || command.equals(Commands.TODO.getShr())) {
                 tsk = new Todo(fullCommand.substring(command.length() + 1));
-            }System.out.println(command);
+            }
+            System.out.println(command);
             if (command.equals(Commands.EVENT.getCommand()) || command.equals(Commands.EVENT.getShr()) ||
                     command.equals(Commands.DEADLINE.getCommand()) || command.equals(Commands.DEADLINE.getShr())) {
                 int buffer = fullCommand.indexOf("/");
@@ -111,7 +115,7 @@ public class Parser {
                     return null;
                 String name = fullCommand.substring(command.length() + 1, buffer - 1);
                 String date = fullCommand.substring(buffer + 4);
-                System.out.println(name+" "+date);
+                System.out.println(name + " " + date);
                 /**
                  * Check if user key in empty event description or event date.
                  */
@@ -135,8 +139,7 @@ public class Parser {
         }
         /**
          * Show error if user type incorrect command format.
-         */
-        catch (StringIndexOutOfBoundsException e) {
+         */ catch (StringIndexOutOfBoundsException e) {
             if (command.equals(Commands.TODO.getCommand()) || command.equals(Commands.TODO.getShr())) {
                 throw new DukeException("Please type as [todo task] or [t task]");
             }

@@ -2,6 +2,7 @@ package duke.data.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
  * Extension of Task class to modify Event.
  */
@@ -14,6 +15,7 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
+
     /**
      * @return status of Event with user input and save.
      */

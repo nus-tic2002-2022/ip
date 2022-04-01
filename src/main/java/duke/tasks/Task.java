@@ -4,9 +4,9 @@ public class Task {
     protected String description;
 
     //When task is created, it takes in the value of String description and stores it in the protected String description.
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        isDone = false;
+        this.isDone = isDone;
     }
 
     //The following method returns the description.

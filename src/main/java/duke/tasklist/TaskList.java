@@ -1,17 +1,12 @@
 package duke.tasklist;
-
 import java.util.ArrayList;
-
 import duke.tasks.Task;
 
-public class Tasklist {
+public class TaskList {
     protected ArrayList<Task> taskArr;
 
-    public Tasklist(){
-    }
-
     //This class takes in an ArrayList and passes the value to the protected ArrayList taskArr.
-    public Tasklist(ArrayList<Task> taskArr){
+    public TaskList(ArrayList<Task> taskArr){
         this.taskArr = taskArr;
     }
 

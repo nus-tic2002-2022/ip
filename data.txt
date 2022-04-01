@@ -6,3 +6,4 @@
 [T][ ] test
 [D][ ] assignment (by:sunday 23:59)
 [E][ ] test (at:school)
+[D][ ] test (by:Sunday 23:59)

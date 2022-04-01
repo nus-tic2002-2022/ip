@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+Duke <|-- Application
+Tasklist <|-- Duke
+
+class Application {
+    private final static String DIR = "user.dir"
+    public static void main(String[] args)
+}
+
+class Duke {
+    private Scanner in = new Scanner(System.in)
+    private String input
+    private Storage storage
+    private Tasklist tasks
+    private UI ui
+    public Duke(String filePath)
+    public void run()
+}
+
+public class Tasklist {
+    protected ArrayList<Task> taskArr;
+
+    public Tasklist(){
+    }
+
+    //This class takes in an ArrayList and passes the value to the protected ArrayList taskArr.
+    public Tasklist(ArrayList<Task> taskArr){
+        this.taskArr = taskArr;
+    }
+
+    //This method prints out all values found in the taskArr
+    public void list()
+    public void list(String find)
+    public void mark(int i)
+    public void unmark(int i)
+    public void delete(int i)
+    public void deleteAll()
+    public void add(Task task)
+    public Task get(int i)
+    public int size()
+}
+
+class Task {
+    protected boolean isDone;
+    protected String description;
+    public Task(String description)
+    public String getDescription()
+    public void setDone(boolean isDone)
+    public boolean isDone()
+}
+
+class Todo extends Task {
+    public Todo(String description)
+    public String getDescription()
+}
+@enduml

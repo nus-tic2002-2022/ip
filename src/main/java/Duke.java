@@ -35,8 +35,6 @@ public class Duke {
 
     //The following method runs a loop to take in user inputs, until a user types in 'bye' to signal an exit to the program.
     public void run() {
-        final String archiveTip = "\nTip: An example command would be, 'archive file1.txt'.";
-        final String retrieveTip = "\nTip: An example command would be, 'retrieve file1.txt'.";
         final Scanner in = new Scanner(System.in);
         String input;
         while (true) {
@@ -46,7 +44,7 @@ public class Duke {
                 in.close();
                 break;
             } else if (DukeConstants.ARCHIVE.matcher(input).matches()) {
-                archiveTaskList(archiveTip, input);
+                archiveTaskList(input);
             } else {
                 ui.Query(tasks, input);
             }
@@ -54,7 +52,8 @@ public class Duke {
         }
     }
 
-    private void archiveTaskList(String archiveTip, String input) {
+    private void archiveTaskList(String input) {
+        final String archiveTip = "\nTip: An example command would be, 'archive file1.txt'.";
         try {
             if (input.split("\\s").length < 2) {
                 throw new DukeException("Insufficient arguments!");

@@ -97,7 +97,7 @@ public class Storage {
         taskArr.add(new Event(dateTime[0], dateTime[1], isDone));
     }
 
-    private String removeMarker(String st){
+    private String removeMarker(String st) {
         st = st.replaceAll("^\\[X\\]\\s", "");
         st = st.replaceAll("^\\[\\s\\]\\s", "");
         return st;

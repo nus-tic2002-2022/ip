@@ -3,8 +3,6 @@ import duke.tasklist.TaskList;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,42 +16,54 @@ public class Duke {
         storage = new Storage(filePath);
 
         //A-Assertion feature, asserts file type is .txt
-        assert storage.returnFile().getName().contains(".txt"):"Invalid file type!";
+        assert storage.returnFile().getName().contains(".txt") : "Invalid file type!";
 
         ArrayList<Task> taskArrayList = new ArrayList<>();
-        try {
-            taskArrayList = storage.readFromFile();
-        } catch (Exception e) {
-           ui.showLoadingError();
-        }
+        taskArrayList = getTasksFromSave(taskArrayList);
         tasks = new TaskList(taskArrayList);
     }
 
+
+    private ArrayList<Task> getTasksFromSave(ArrayList<Task> taskArrayList) {
+        try {
+            taskArrayList = storage.readFromFile();
+        } catch (Exception e) {
+            ui.showLoadingError();
+        }
+        return taskArrayList;
+    }
+
     //The following method runs a loop to take in user inputs, until a user types in 'bye' to signal an exit to the program.
-    public void run(){
-        Scanner in = new Scanner(System.in);
+    public void run() {
+        final String archiveTip = "\nTip: An example command would be, 'archive file1.txt'.";
+        final String retrieveTip = "\nTip: An example command would be, 'retrieve file1.txt'.";
+        final Scanner in = new Scanner(System.in);
         String input;
-        while(true) {
+        while (true) {
             input = in.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 ui.exit();
                 in.close();
                 break;
-            }else if(DukeConstants.ARCHIVE.matcher(input).matches()){
-                try {
-                    if (input.split("\\s").length < 2) {
-                        throw new DukeException("Insufficient arguments!");
-                    }
-                    input = input.replaceAll("^archive\\s", "").replaceAll("\\s", "");
-                    storage.saveToFile(tasks, input);
-                    tasks.deleteAll();
-                } catch (DukeException e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
-            }else{
+            } else if (DukeConstants.ARCHIVE.matcher(input).matches()) {
+                archiveTaskList(archiveTip, input);
+            } else {
                 ui.Query(tasks, input);
             }
+            storage.saveToFile(tasks);
         }
-        storage.saveToFile(tasks);
+    }
+
+    private void archiveTaskList(String archiveTip, String input) {
+        try {
+            if (input.split("\\s").length < 2) {
+                throw new DukeException("Insufficient arguments!");
+            }
+            input = input.replaceAll("^archive\\s", "").replaceAll("\\s", "");
+            storage.saveToFile(tasks, input);
+            tasks.deleteAll();
+        } catch (DukeException e) {
+            System.out.println("Error: " + e.getMessage() + archiveTip);
+        }
     }
 }

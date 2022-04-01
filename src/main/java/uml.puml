@@ -1,13 +1,12 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
 Duke <|-- Application
+UI <|-- Duke
 Tasklist <|-- Duke
+Storage <|-- Duke
+Tasklist <|-- Storage
+Tasklist <|-- UI
 
 class Application {
     private final static String DIR = "user.dir"
@@ -15,27 +14,19 @@ class Application {
 }
 
 class Duke {
-    private Scanner in = new Scanner(System.in)
-    private String input
-    private Storage storage
-    private Tasklist tasks
-    private UI ui
-    public Duke(String filePath)
+    private final TaskList tasks
+    private final UI ui
+    private final Storage storage
+    public Duke(final String filePath)
+    private ArrayList<Task> getTasksFromSave(ArrayList<Task> taskArrayList)
     public void run()
+    private void archiveTaskList(String archiveTip, String input)
 }
 
-public class Tasklist {
-    protected ArrayList<Task> taskArr;
-
-    public Tasklist(){
-    }
-
-    //This class takes in an ArrayList and passes the value to the protected ArrayList taskArr.
-    public Tasklist(ArrayList<Task> taskArr){
-        this.taskArr = taskArr;
-    }
-
-    //This method prints out all values found in the taskArr
+class Tasklist {
+    protected ArrayList<Task> taskArr
+    public Tasklist()
+    public Tasklist(ArrayList<Task> taskArr)
     public void list()
     public void list(String find)
     public void mark(int i)
@@ -47,17 +38,63 @@ public class Tasklist {
     public int size()
 }
 
+class Storage {
+    private final File f;
+    private ArrayList<Task> taskArr;
+    public Storage(String filepath)
+    public void saveToFile(TaskList tasks)
+    public void saveToFile(TaskList tasks, String filename)
+    public File returnFile()
+    public ArrayList<Task> readFromFile() throws IOException
+    private void saveTask(final String line)
+    private void saveTodo(final String line)
+    private void saveDeadline(final String line)
+    private void saveEvent(final String line)
+    private String removeMarker(String st)
+    private String[] getDateTime(final String st, final String designation)
+}
+
+class UI {
+    public TaskList Query(TaskList tasks, String input)
+    private void addTask(final TaskList tasks, final String input)
+    private void findTask(final TaskList tasks, final String st)
+    private void addEvent(final TaskList tasks, final String st)
+    private void addDeadline(final TaskList tasks, final String st)
+    private void addTodo(final TaskList tasks, final String st)
+    public void exit()
+    public void help()
+    public void showLoadingError()
+}
+
 class Task {
     protected boolean isDone;
-    protected String description;
-    public Task(String description)
+    protected String description
+    public Task(String description, boolean isDone)
     public String getDescription()
     public void setDone(boolean isDone)
     public boolean isDone()
 }
 
 class Todo extends Task {
-    public Todo(String description)
+    public Todo(String description, boolean isDone)
     public String getDescription()
-}
+ }
+
+class Event extends Task{
+    private LocalDate at;
+    private LocalTime time;
+    private String dateString;
+    public Event(String description, String input, boolean isDone)
+    public String getDescription()
+ }
+
+ class Deadline extends Task{
+     private LocalDate by;
+     private LocalTime time;
+     private String dateString;
+     public Deadline(String description, String input, boolean isDone)
+     public String getDescription()
+ }
+
+
 @enduml

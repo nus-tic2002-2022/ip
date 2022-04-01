@@ -10,6 +10,6 @@ public class Todo extends Task {
     //The following method returns the description.
     @Override
     public String getDescription() {
-        return "[T]" +  super.getDescription();
+        return "[T]" + super.getDescription();
     }
 }

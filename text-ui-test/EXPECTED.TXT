@@ -88,7 +88,7 @@ What can I do for you? (type 'help' if you need help to remember the commands) T
 [T] [X] read a book
 What can I do for you? (type 'help' if you need help to remember the commands) Nice! I've marked this task as done: 
 [E] [X] tic2002 class (at: 2022-03-23T19:00)
-What can I do for you? (type 'help' if you need help to remember the commands) Sorry, you have chosen the item number you choose to mark is out of range. Please type 'list' to check the number of tasks you have.
+What can I do for you? (type 'help' if you need help to remember the commands) Sorry, you have chosen the task number you choose is out of range. Please type 'list' to check the number of tasks you have.
 What can I do for you? (type 'help' if you need help to remember the commands) 1.[T] [X] read a book
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [X] tic2002 class (at: 2022-03-23T19:00)
@@ -115,7 +115,7 @@ What can I do for you? (type 'help' if you need help to remember the commands) N
 5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
 Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Here are the matching task(s) in your list: 
-1.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
-2.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+0.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
+3.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 There are 2 matching task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Bye. Hope to see you again soon!

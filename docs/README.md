@@ -48,9 +48,11 @@ Say Bye to Duke when you are logging out! See you soon! :)
 
 ### How to start Duke
 
-1. Download and unzip duke-JAR_v1.zip.
-2. Open command prompt/ terminal in the location of the folder.
-3. Type `java -jar duke.Duke.jar` in the command prompt/ terminal to start Duke.
+1. Download duke-JAR_v1.zip.
+2. Unzip the file. You should see "data" and "docs" folder and "duke.Duke.jar".
+3. Open command prompt from the folder.
+4. Type `java -jar duke.Duke.jar` in the command prompt.
+5. Duke will start.
 
 ### `List` - Type "list"
 
@@ -125,9 +127,9 @@ Nice! I've added this task:
 Now you have 6 task(s) in the list.
 ```
 
-### `Mark` - Type "mark [task number]"
+### `Mark` - Type "mark [task position]"
 
-Type in "mark [task number]" and Duke will mark the task as completed/done for you. This action will automatically save the tasks into duke.txt.
+Type in "mark [task position]" and Duke will mark the task as completed/done for you. This action will automatically save the tasks into duke.txt.
 
 Example of usage:
 
@@ -142,9 +144,9 @@ Nice! I've marked this task as done:
 [E] [X] tic2002 class (at: 2022-03-23T19:00)
 ```
 
-### `Unmark` - Type "unmark [task number]"
+### `Unmark` - Type "unmark [task position]"
 
-Type in "unmark [task number]" and Duke will unmark the task as completed/done for you. The task will then be considered as still not done. This action will automatically save the tasks into duke.txt.
+Type in "unmark [task position]" and Duke will unmark the task as completed/done for you. The task will then be considered as still not done. This action will automatically save the tasks into duke.txt.
 
 Example of usage:
 
@@ -178,9 +180,9 @@ Here are the matching task(s) in your list:
 There are 2 matching task(s) in the list.
 ```
 
-### `Delete` - Type "delete [task number]"
+### `Delete` - Type "delete [task position]"
 
-Type in "delete [task number]" and Duke will delete the chosen task.
+Type in "delete [task position]" and Duke will delete the chosen task.
 
 Example of usage:
 
@@ -231,12 +233,18 @@ Expected outcome:
 Duke shows you the list of commands you can type. 
 
 ```
-Here are the commands you can type:
-1. type 'bye' to escape
-2. type 'list' to check your list
-3. type 'todo <add task here>' (e.g. todo read a book) [todo is assumed as today's date.]
-4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)
-5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)
+Here are the commands you can type: 
+1. type 'list' to see your current list.
+2. type 'todo <add task here>' (e.g. todo read a book).
+3. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59).
+4. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00).
+5. type 'mark <add task number here>' (e.g. mark 1).
+6. type 'unmark <add task number here>' (e.g. unmark 2).
+7. type 'find <add keywords here>' (e.g. find tic).
+8. type 'delete <add task number here>' (e.g. delete 2).
+9. type 'sort' to sort the tasks by dates in ascending order.
+10. type 'bye' to escape.
+Find more in docs/README.md!
 ```
 
 ### `Hello` - Type "hello"
@@ -276,13 +284,10 @@ Duke says Bye to you too! :)
 Bye. Hope to see you again soon!
 ```
 
-## Using the file
+## Errors
 
-1. Download duke-JAR_v1.zip.
-2. Unzip the file. You should see "data" and "docs" folder and "duke.Duke.jar".
-3. Open command prompt from the folder.
-4. Type `java -jar duke.Duke.jar` in the command prompt.
-5. Duke will start.
+#### 
 
 
------ This document is last updated on 30 Mar 2022, 6pm. -----
+
+----- This document is last updated on 2 Apr 2022, 2pm. -----

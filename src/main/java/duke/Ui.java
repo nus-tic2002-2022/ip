@@ -84,7 +84,7 @@ public class Ui {
     //Print error messages
 
     public static void printOutOfRangeMsg() {
-        System.out.println("Sorry, you have chosen the item number you choose to mark is out of range. Please type 'list' to check the number of tasks you have.");
+        System.out.println("Sorry, you have chosen the task number you choose is out of range. Please type 'list' to check the number of tasks you have.");
     }
 
     public static void printBlankDescMsg() {
@@ -99,8 +99,8 @@ public class Ui {
         System.out.print("Sorry, I don't understand. ");
     }
 
-    public static void printFileErrorMsg() {
-        System.out.println("The list file (duke.txt) is not found and/or cannot be created/saved.");
+    public static void printFileErrorMsg(String fileName) {
+        System.out.println("The list file " + fileName  + " is not found and/or cannot be created/saved. Please check.");
     }
 
     public static void printDateFormatErrorMsg() {

@@ -18,7 +18,7 @@ public class Duke {
             storage.readFile();
             TaskList.printNoOfItemsInList();
         } catch (IOException e) {
-            Ui.printFileErrorMsg();
+            Ui.printFileErrorMsg(fileName);
         }
     }
 
@@ -140,7 +140,7 @@ public class Duke {
                     Ui.printHelp();
                 }
             } catch(IOException e) {
-                Ui.printFileErrorMsg();
+                Ui.printFileErrorMsg(fileName);
             } catch(DateTimeParseException e) {
                 Ui.printDateFormatErrorMsg();
             } catch(StringIndexOutOfBoundsException e) {

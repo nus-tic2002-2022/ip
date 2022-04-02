@@ -18,7 +18,7 @@ public class StorageTest {
             s.readFile();
             len = TaskList.getListLength();
         } catch (IOException e) {
-            Ui.printFileErrorMsg();
+            Ui.printFileErrorMsg(fileName);
         }
 
         assertEquals(5, len); //number of tasks might change at the point of testing.

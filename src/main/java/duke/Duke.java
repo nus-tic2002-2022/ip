@@ -1,11 +1,13 @@
 package duke;
+import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.lang.StringIndexOutOfBoundsException;
 
 public class Duke {
 
-    private final static String fileName = "data\\duke.txt";
+    private static String fileSeparator = File.separator; // to change accordingly to the OS
+    private final static String fileName = "data" + fileSeparator + "duke.txt";
 
     private Storage storage;
     private TaskList list;

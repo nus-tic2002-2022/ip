@@ -50,9 +50,11 @@ Say Bye to Duke when you are logging out! See you soon! :)
 
 1. Download duke-JAR_v1.zip.
 2. Unzip the file. You should see "data" and "docs" folder and "duke.Duke.jar".
-3. Open command prompt from the folder.
-4. Type `java -jar duke.Duke.jar` in the command prompt.
+3. Open command prompt/ terminal from the folder.
+4. Type `java -jar duke.Duke.jar` in the command prompt/ terminal.
 5. Duke will start.
+
+Duke can be run on various platforms - Windows, Unix and macOS.
 
 ### `List` - Type "list"
 
@@ -286,8 +288,40 @@ Bye. Hope to see you again soon!
 
 ## Errors
 
-#### 
+### File Error (IOException)
+If the file cannot be saved or created, Duke prints the file error message, prompting the user to check the file in the mentioned path. Note that if the duke.txt file is not found, Duke will automatically create it. 
 
+Example in Windows:
+```
+The list file data\duke.txt is not found and/or cannot be created/saved. Please check.
+```
+
+Example in Unix/ macOS:
+```
+The list file data/duke.txt is not found and/or cannot be created/saved. Please check.
+```
+
+### Incorrect Date format (DateTimeParseException)
+If the datetime format when adding Deadline or Event is not the right format, Duke prints the date format error message, prompting the user to check the required format by typing `help`.
+
+Example:
+```
+The date format is not correct. Please type 'help' to check the date format for Events/Deadlines.
+```
+
+### Adding a Deadline/ Event without the proper format (StringIndexOutOfBoundsException)
+If there is no proper description and datetime when creating deadline and event, Duke will print the short description error message, prompting the user to check the required format by typing `help`. 
+
+Example:
+```
+The description is too short. Please type 'help' to check the date format for Events/Deadlines.
+```
+
+### Marking, Unmarking and Deleting more than 1 task at a time (NumberFormatException)
+If a user happens to use mark, unmark or delete in this way, i.e. " mark 1 2", Duke prints the out of range message, prompting the user to type `list` to check the number of items on the list. 
+
+### Blank Task Description
+If a user types "todo " or "deadline " or "event ", Duke prints the blank description error message, prompting the user to type `help` to check the format for Todo/Deadlines/Events. 
 
 
 ----- This document is last updated on 2 Apr 2022, 2pm. -----

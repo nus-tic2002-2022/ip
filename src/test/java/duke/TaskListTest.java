@@ -38,7 +38,6 @@ public class TaskListTest {
 
     @Test
     public void toStringTest() {
-        //assertEquals(2,2);
 
         assertEquals("[T] [ ] buy pens", t1.toString());
         assertEquals("[E] [ ] go shopping w mum (at: 2022-03-30T17:00)", t2.toString());

@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -16,8 +15,7 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
-
+        TaskList taskList = new TaskList();
 
         boolean start = true;
 
@@ -41,22 +39,12 @@ public class Duke {
                     break;
                 }
                 case "list": {
-                    if (Task.getNumberOfTask() == 0) {
-                        System.out.println("There is currently nothing in the list");
-                    } else {
-                        System.out.println("Here are the tasks in your list:");
-                        for (Task task : taskList) {
-                            System.out.println(task.getId()+ ". " + task);
-                        }
-                    }
+                    taskList.printTask();
                     break;
                 }
                 case "mark": {
                     try{
                         int taskNumber = Integer.parseInt(restOfLine);
-//                        if (taskNumber > Task.getNumberOfTask() || taskNumber <= 0) {
-//                            System.out.println("task does not exist");
-//                        } else {
                         if (taskList.get(taskNumber - 1).getDoneStatus()) {
                             System.out.println("task is already done");
                         } else {
@@ -73,9 +61,6 @@ public class Duke {
                 case "unmark": {
                     try {
                         int taskNumber = Integer.parseInt(restOfLine);
-//                        if (taskNumber > Task.getNumberOfTask() || taskNumber <= 0) {
-//                            System.out.println("task does not exist");
-//                        } else {
                         if (taskList.get(taskNumber - 1).getDoneStatus()) {
                             taskList.get(taskNumber - 1).unmarkDone();
                             System.out.println("Unmarked task");
@@ -92,10 +77,10 @@ public class Duke {
                 case "todo":{
                     if(!restOfLine.isEmpty()){
                         Task newTask = new Todo(restOfLine);
-                        taskList.add(newTask);
+                        taskList.addTask(newTask);
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + newTask);
-                        System.out.println("Now you have " + Task.getNumberOfTask() + " in the list.");
+                        System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
                     }else{
                         System.out.println("Missing information!");
                     }
@@ -106,10 +91,10 @@ public class Duke {
                         try{
                             String[] parts = restOfLine.split(" /by ");
                             Task newTask = new Deadline(parts[0], parts[1]);
-                            taskList.add(newTask);
+                            taskList.addTask(newTask);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newTask);
-                            System.out.println("Now you have " + Task.getNumberOfTask() + " in the list.");
+                            System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
                         } catch(IndexOutOfBoundsException e) {
                             System.out.println("Description or Date is missing: " + restOfLine);
                         }
@@ -123,15 +108,33 @@ public class Duke {
                         try{
                             String[] parts = restOfLine.split(" /at ");
                             Task newTask = new Event(parts[0], parts[1]);
-                            taskList.add(newTask);
+                            taskList.addTask(newTask);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newTask);
-                            System.out.println("Now you have " + Task.getNumberOfTask() + " in the list.");
+                            System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
                         } catch (IndexOutOfBoundsException e){
                             System.out.println("Description or Date is missing: " + restOfLine);
                         }
                     }else{
                         System.out.println("Missing information!");
+                    }
+                    break;
+                }
+                case "delete": {
+                    try {
+                        int taskNumber = Integer.parseInt(restOfLine);
+                        Task taskToDelete = taskList.get(taskNumber-1);
+                        taskList.deleteTask(taskNumber-1);
+
+
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + taskToDelete);
+                        System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
+
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("Task does not exist: " + restOfLine);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid task number: " + restOfLine);
                     }
                     break;
                 }

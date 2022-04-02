@@ -1,19 +1,13 @@
+package duke.task;
+
+import duke.task.Task;
+
 public class Deadline extends Task {
     protected String by;
-    protected boolean isDeadline;
 
     public Deadline(String description, String by) {
         super (description);
         this.by = by;
-        isDeadline = false;
-    }
-
-    public void markAsDeadline() {isDeadline = true;}
-
-    public void unmarkTodo() {isDeadline = false;}
-
-    public String getDeadlineStatusIcon() {
-        return (isDeadline? "D" : " ");
     }
 
     @Override

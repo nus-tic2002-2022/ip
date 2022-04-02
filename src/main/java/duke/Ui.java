@@ -37,12 +37,19 @@ public class Ui {
     }
 
     public static void printHelp() {
-        String help = "Here are the commands you can type: \n"
-                + "1. type 'bye' to escape\n"
-                + "2. type 'list' to check your list\n"
-                + "3. type 'todo <add task here>' (e.g. todo read a book) [todo is assumed as today's date.]\n"
-                + "4. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59)\n"
-                + "5. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00)";
+        String help = "\nHere are the commands you can type: \n"
+                + "1. type 'list' to see your current list.\n"
+                + "2. type 'todo <add task here>' (e.g. todo read a book).\n"
+                + "3. type 'deadline <add task here> /by <add deadline  in yyyy-MM-dd'T'HH:mm>' (e.g. deadline submit duke project /by 2022-04-11T23:59).\n"
+                + "4. type 'event <add task here> /at <add event timing in yyyy-MM-dd'T'HH:mm>' (e.g. event attend TIC2002 class /at 2022-03-11T19:00).\n"
+                + "5. type 'mark <add task number here>' (e.g. mark 1).\n"
+                + "6. type 'unmark <add task number here>' (e.g. unmark 2).\n"
+                + "7. type 'find <add keywords here>' (e.g. find tic).\n"
+                + "8. type 'delete <add task number here>' (e.g. delete 2).\n"
+                + "9. type 'sort' to sort the tasks by dates in ascending order.\n"
+                + "10. type 'bye' to escape.\n"
+                + "Find more in docs/README.md!\n";
+
         System.out.println(help);
     }
 

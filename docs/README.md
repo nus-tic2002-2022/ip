@@ -46,6 +46,12 @@ Say Bye to Duke when you are logging out! See you soon! :)
 
 ## Usage
 
+### How to start Duke
+
+1. Download and unzip duke-JAR_v1.zip.
+2. Open command prompt/ terminal in the location of the folder.
+3. Type `java -jar duke.Duke.jar` in the command prompt/ terminal to start Duke.
+
 ### `List` - Type "list"
 
 Type in "list" and Duke will show you the list of tasks that you currently have.

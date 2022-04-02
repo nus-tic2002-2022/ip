@@ -147,6 +147,8 @@ public class Duke {
                 Ui.printShortDescErrorMsg();
             } catch(IndexOutOfBoundsException e) {
                 Ui.printShortDescErrorMsg();
+            } catch (NumberFormatException e) {
+                Ui.printOutOfRangeMsg();
             }
 
         } while (dukeStatus == 0);

@@ -8,6 +8,7 @@ public class Duke {
 
     private static String fileSeparator = File.separator; // to change accordingly to the OS
     private final static String fileName = "data" + fileSeparator + "duke.txt";
+    final int LEN_FILENAME = 12; //starting index for clean format (format in the file)
 
     private Storage storage;
     private TaskList list;
@@ -15,6 +16,7 @@ public class Duke {
 
     public Duke(String fileName) {
         ui = new Ui();
+        assert fileName.length() > LEN_FILENAME; //length will be more than 12 if there is a fileSeparator
         storage = new Storage(fileName);
         try {
             storage.readFile();

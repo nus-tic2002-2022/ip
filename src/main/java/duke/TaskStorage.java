@@ -24,6 +24,8 @@ public class TaskStorage implements Storage {
      */
     @Override
     public void init() throws Exception {
+
+        assert !this.path.equals("") : "No file path found";
         try {
             this.file = new File(this.path);
             path = this.file.getPath();

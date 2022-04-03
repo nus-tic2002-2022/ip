@@ -20,6 +20,7 @@ public class Duke {
             System.out.print("\nCan I help you?\n");
             String command;
             command = in.nextLine();
+            assert command != null : "No input inserted";
             input = new UserInput();
             tokens = command.split(" ");
 
@@ -57,6 +58,9 @@ public class Duke {
                         break;
                     case DELETE:
                         tasks.delete(input);
+                        break;
+                    case FIND:
+                        tasks.findTasks(input.item.toString());
                         break;
                 }
             } else {

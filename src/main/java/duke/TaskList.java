@@ -15,6 +15,34 @@ public class TaskList {
     }
 
     /**
+     * Find task with keyword exist in task description
+     */
+    protected void findTasks(String key) {
+        assert !key.equals("") : "Cant find tasks with empty key";
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        String desc;
+        for (Task task : this.getAllTasks()) {
+            desc = task.getDesc();
+            for (String d : desc.split(" ")) {
+                if (d.equals(key)) {
+                    filteredTasks.add(task);
+                }
+            }
+        }
+        printFilteredList(filteredTasks);
+    }
+
+    /**
+     * Print all filtered tasks
+     */
+    protected void printFilteredList(ArrayList<Task> filteredTasks) {
+        for (Task task : filteredTasks) {
+            int id = task.getId();
+            System.out.println(id + ": " + task);
+        }
+    }
+
+    /**
      * Print all tasks
      */
     protected void printList() {
@@ -141,6 +169,7 @@ public class TaskList {
 
     /**
      * Delete task based on user input
+     * Delete multiple tasked base on user input x,y,z
      *
      * @param input of user to indicate which object to delete
      */
@@ -168,15 +197,6 @@ public class TaskList {
      * @param task to be removed from the arraylist
      */
     private void deleteTask(Task task) {
-        tasks.remove(task.getId() - 1);
-    }
-
-    /**
-     * Removed task from arraylist
-     *
-     * @param task to be removed from the arraylist
-     */
-    private void deleteTasks(Task task) {
         tasks.remove(task.getId() - 1);
     }
 }

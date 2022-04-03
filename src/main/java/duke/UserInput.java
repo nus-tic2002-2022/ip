@@ -46,6 +46,7 @@ public class UserInput {
                     case "mark":
                     case "unmark":
                     case "delete":
+                    case "find":
                         this.command = Command.valueOf(tokens[i].toUpperCase());
                         if (tokens.length > 1) {
                             this.item.append(tokens[i + 1]);
@@ -63,7 +64,7 @@ public class UserInput {
     }
 
     protected enum Command {
-        LIST, MARK, UNMARK, NO, DELETE
+        LIST, MARK, UNMARK, NO, DELETE, FIND
     }
 
     protected enum Category {

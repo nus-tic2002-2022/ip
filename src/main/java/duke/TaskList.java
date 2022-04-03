@@ -38,6 +38,7 @@ public class TaskList {
             tasks.add(new Todo(task));
         }
         printList();
+        storage.save(tasks);
     }
 
     public ArrayList<Task> getAllTasks() {

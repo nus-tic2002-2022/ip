@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskStorage implements Storage {
@@ -50,11 +51,11 @@ public class TaskStorage implements Storage {
 
                 switch (tokens[1].charAt(0)) {
                     case 'd':
-                        task = new Deadline(task, tokens[4]);
+                        task = new Deadline(task, LocalDate.parse(tokens[4]));
                         tasks.insertTask(task);
                         break;
                     case 'e':
-                        task = new Events(task, tokens[4], tokens[5]);
+                        task = new Events(task, LocalDate.parse(tokens[4]), tokens[5]);
                         tasks.insertTask(task);
                         break;
                     case 't':
@@ -77,7 +78,7 @@ public class TaskStorage implements Storage {
     @Override
     public void save(ArrayList<Task> tasks) {
         try {
-            FileWriter fw = new FileWriter("testing.txt");
+            FileWriter fw = new FileWriter("duke.txt");
             tasks.forEach(task -> {
                 try {
                     fw.write(task.toStorage() + "\n");

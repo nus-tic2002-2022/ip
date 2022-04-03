@@ -3,6 +3,7 @@ package duke;
 import duke.exceptions.InputException;
 import duke.task.Task;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -21,7 +22,7 @@ public class Duke {
             command = in.nextLine();
             input = new UserInput();
             tokens = command.split(" ");
-//
+
             try {
                 input = input.parseInput(tokens);
                 // Got category with no item
@@ -35,8 +36,10 @@ public class Duke {
             } catch (InputException e) {
                 e.printError();
                 continue;
+            } catch (DateTimeParseException e) {
+                System.out.println("Date input format should be: yyyy-mm-dd");
+                continue;
             }
-
             if (input.command == UserInput.Command.NO) {
                 break;
             }

@@ -146,12 +146,16 @@ public class TaskList {
      */
     protected void delete(UserInput input) {
         int index = 0;
-        if (input.item != null) {
-            index = Integer.parseInt(input.item.toString());
-        }
-        Task task = getTask(index);
-        if (task != null) {
-            deleteTask(task);
+        String ids = input.item.toString();
+        for (String id : ids.split(",")) {
+            if (id != null) {
+                index = Integer.parseInt(id);
+            }
+
+            Task task = getTask(index);
+            if (task != null) {
+                deleteTask(task);
+            }
         }
         update();
         storage.save(tasks);
@@ -164,6 +168,15 @@ public class TaskList {
      * @param task to be removed from the arraylist
      */
     private void deleteTask(Task task) {
+        tasks.remove(task.getId() - 1);
+    }
+
+    /**
+     * Removed task from arraylist
+     *
+     * @param task to be removed from the arraylist
+     */
+    private void deleteTasks(Task task) {
         tasks.remove(task.getId() - 1);
     }
 }

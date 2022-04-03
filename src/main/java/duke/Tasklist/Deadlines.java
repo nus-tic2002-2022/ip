@@ -1,10 +1,13 @@
 package duke.Tasklist;
+import duke.Exception.DukeException;
 import duke.Exception.dateparseException;
 import duke.Exception.timeparseException;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
@@ -18,31 +21,34 @@ public class Deadlines extends Task {
     protected LocalDate deadliner;
     private String timerliner;
 
-    public Deadlines (String description, String by) throws dateparseException
+    public Deadlines (String description, String by) throws dateparseException, ParseException, DukeException, NullPointerException
     {
-
         super(description);
         this.by = by;
         System.out.println(by);
         //DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        String[] d_t = by.split(" ",2);
-
-        try {
-                this.deadliner = LocalDate.parse(d_t[0]);
-                String time = tokenize_date(Integer.parseInt(d_t[1]));
-                SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
-                SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-                Date _24HourDt = _24HourSDF.parse(time);
-                this.timerliner = _12HourSDF.format(_24HourDt);
+        String[] d_t = by.split(" "); // by YYYY-MM-DD HHMM  (in 24 hours format)
+        System.out.println(d_t[1]);
+        Integer by_index = -1;
+        for (Integer i = 0; (i<d_t.length && by_index == -1); i++)
+        {
+            if (d_t[i].equals("by"))
+            {
+               by_index = i;
+               System.out.println("What is this : " +d_t[by_index+1]);
             }
-            catch (timeparseException e) {}
-        catch (ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("Deadline without time");
         }
-        catch (java.text.ParseException e)
+        this.deadliner = LocalDate.parse(d_t[by_index+1]); //YYYY-MM-DD
+        try {
+            String time = tokenize_date(Integer.parseInt(d_t[by_index+2]));
+            SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+            Date _24HourDt = _24HourSDF.parse(time);
+            this.timerliner = _12HourSDF.format(_24HourDt);
+        }
+        catch (timeparseException e)
         {
-            System.out.println("Time error");
+            System.out.println("Time parse Error");
         }
     }
     private static String tokenize_date(Integer passed) throws timeparseException {
@@ -63,10 +69,6 @@ public class Deadlines extends Task {
         }
         return (isDone ? "[D][X] " + this.description  + " (" +deadliner.format(DateTimeFormatter.ofPattern("MMM d yyyy "))+timerliner+")" : "[D][ ] " + this.description +"("+deadliner.format(DateTimeFormatter.ofPattern("MMM d yyyy ")) +timerliner+")");
     }
-
-    /*public String getStatus() {
-        return (isDone ? "[D][X] " + this.description  + "(" +by +")" : "[D][ ] " + this.description +"("+by +")");
-    }*/
 
     public String getBy() {
         return by;

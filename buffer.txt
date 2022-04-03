@@ -1,5 +1,47 @@
-T | 1 | read book | 
-T | 1 | hello world | 
-D | 1 | return book | 2021-02-10 1800
-D | 0 | return book2 | 2021-02-10
-D | 0 | return book3 | 2021-02-10
+E | 0 | attend workshop | bedok 2022-12-16
+E | 0 | attend workshop | bedok 2022-12-16
+E | 0 | attend workshop | bedok 2022-12-16
+E | 0 | submit | happy 2020-01-09
+E | 0 | submit | happy 2020-01-09
+E | 0 | submit report | bp  2022-01-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit appraisal | bm 2020-03-01
+E | 0 | submit proposal | bc 2021-01-08
+E | 0 | submit proposal | bc 2021-01-08
+E | 0 | recurring | hougang 2021-03-23
+E | 0 | recurring | hougang 2021-03-23
+E | 0 | recurring | hougang 2021-03-23
+E | 0 | recurring | hougang 2021-03-23
+E | 0 | hello world | expo 1009-03-27
+E | 0 | hello world | expo 1009-03-27
+E | 0 | hello world | expo 1009-03-27
+E | 0 | hello world | expo 1009-03-27
+E | 0 | hello world | expo 1009-03-27
+E | 0 | hello | kovan 2020-08-20
+E | 0 | hello | kovan 2020-08-20
+E | 0 | haha | maple 2021-08-20
+E | 0 | haha | maple 2021-08-20
+E | 0 | haha | maple 2021-08-20
+E | 0 | haha | maple 2021-08-20
+E | 0 | haha | maple 2021-08-20
+E | 0 | attend seminar | yoko 2022-10-11
+E | 0 | attend seminar | yoko 2022-10-11
+E | 0 | attend seminar | yoko 2022-10-11
+E | 0 | attend seminar | yoko 2022-10-11
+E | 0 | attend parent day | Yuhua 2022-05-05
+E | 0 | attend parent day | Yuhua 2022-05-05
+E | 0 | attend seminar | kallang 2022-01-09
+E | 0 | attend seminar | kallang 2022-01-09
+E | 0 |  go gym  |  bj 2022-12-09
+E | 0 |  go gym  |  bj 2022-12-09
+E | 0 |  go gym  |  bj 2022-12-09
+E | 0 |  go gym  |  bj 2022-12-09
+E | 0 |  go gym  |  bj 2022-12-09
+E | 0 |  go gym  |  bj 2022-12-09
+E | 0 |  go gym  |  bj 2022-12-09

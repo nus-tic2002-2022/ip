@@ -11,4 +11,10 @@ public class ToDo extends Task {
     {
         return (isDone ? "[T][X] "  + this.description : "[T][ ] " + this.description);
     }
+    public static String testgetStatus(String passed)
+    {
+        return (passed);
+
+    }
+
 }

@@ -3,8 +3,9 @@ package duke;
 import duke.Exception.CannotWriteException;
 import duke.Exception.DukeException;
 import duke.Exception.FileLoadException;
+import duke.Exception.dateparseException;
 import duke.Storage.fileaccess;
-import duke.Tasklist.Parser;
+import duke.UI.Parser;
 import duke.Tasklist.Task;
 import duke.UI.UI;
 import duke.command.Command;
@@ -60,6 +61,14 @@ public class Duke {
             {
                 System.out.println("Error in command");
             }
+            catch(dateparseException e)
+            {
+                System.out.println("Date Format Error");
+            }
+            catch (IndexOutOfBoundsException e)
+            {
+                System.out.println("Index out of Bound Error");
+            }
             finally
             {
                 try{
@@ -88,7 +97,7 @@ public class Duke {
         //System.out.println("Hello! I'm duke.Duke");
         //System.out.println("What can I do for you");
 
-        //Duke project = new Duke(filepath);
-       // project.run();
+        Duke project = new Duke(filepath);
+        project.run();
     }
 }

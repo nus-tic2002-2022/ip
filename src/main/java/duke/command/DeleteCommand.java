@@ -6,7 +6,7 @@ import duke.Storage.fileaccess;
 
 import java.util.ArrayList;
 
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command{
 
     protected int numbertodelete;
     public DeleteCommand(String passed, int numberpassed)
@@ -20,8 +20,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
+    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) throws IndexOutOfBoundsException{
+
+        tasklist.remove(numbertodelete);
         UI.showDelete();
-        tasklist.remove(numbertodelete-1);
     }
 }

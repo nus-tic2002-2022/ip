@@ -1,4 +1,6 @@
-import Exceptions.InputException;
+package duke;
+
+import duke.exceptions.InputException;
 
 public class UserInput {
     protected Command command;
@@ -6,6 +8,7 @@ public class UserInput {
     protected String day;
     protected String time;
     protected StringBuilder item;
+
     public UserInput() {
         this.day = "";
         this.time = "";
@@ -21,9 +24,13 @@ public class UserInput {
                     this.category = Category.valueOf(tokens[i].toUpperCase());
                     break;
                 case "/at":
-                    this.time = tokens[i + 2];
+                    if (tokens.length > 2) {
+                        this.time = tokens[i + 2];
+                    }
                 case "/by":
-                    this.day = tokens[i + 1];
+                    if (tokens.length > 1) {
+                        this.day = tokens[i + 1];
+                    }
                     break;
                 case "no":
                 case "list":
@@ -33,7 +40,9 @@ public class UserInput {
                 case "unmark":
                 case "delete":
                     this.command = Command.valueOf(tokens[i].toUpperCase());
-                    this.item.append(tokens[i + 1]);
+                    if (tokens.length > 1) {
+                        this.item.append(tokens[i + 1]);
+                    }
                     return this;
                 default:
                     this.item.append(tokens[i]).append(" ");

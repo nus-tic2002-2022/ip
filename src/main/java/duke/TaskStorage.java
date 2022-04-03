@@ -21,7 +21,6 @@ public class TaskStorage implements Storage {
     /**
      * Initialise file.
      * Create file if file does not exist on the system at run time
-     *
      */
     @Override
     public void init() throws Exception {
@@ -39,7 +38,6 @@ public class TaskStorage implements Storage {
 
     /**
      * Load all tasks from file
-     *
      */
     @Override
     public void load() {
@@ -86,7 +84,6 @@ public class TaskStorage implements Storage {
 
     /**
      * Save all tasks into file after each update
-     *
      */
     @Override
     public void save(ArrayList<Task> tasks) {

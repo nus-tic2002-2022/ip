@@ -7,6 +7,9 @@ public class InputException extends Exception {
         this.error = err;
     }
 
+    /**
+     * Print errors related to the corresponding error
+     */
     public void printError() {
         switch (this.error) {
             case "MissingItem":

@@ -1,7 +1,46 @@
-import java.util.Scanner;
+public class Duke {
 
+    ///private Storage storage;
+    private TaskList tasks;
+    private UI ui;
+
+    public Duke() {
+        ui = new UI();
+        //storage = new Storage(filePath);
+
+        tasks = new TaskList();
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = new Parser().parseCommand(fullCommand);
+                c.execute(tasks, ui);
+                isExit = c.isExit();
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
+    }
+}
+
+
+
+
+
+// old code
+/*
 public class Duke {
     public static void main(String[] args) {
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -145,3 +184,4 @@ public class Duke {
         }
     }
 }
+*/

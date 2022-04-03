@@ -18,6 +18,11 @@ public class TaskStorage implements Storage {
         this.path = "duke.txt";
     }
 
+    /**
+     * Initialise file.
+     * Create file if file does not exist on the system at run time
+     *
+     */
     @Override
     public void init() throws Exception {
         try {
@@ -32,6 +37,10 @@ public class TaskStorage implements Storage {
         }
     }
 
+    /**
+     * Load all tasks from file
+     *
+     */
     @Override
     public void load() {
         try {
@@ -75,6 +84,10 @@ public class TaskStorage implements Storage {
         }
     }
 
+    /**
+     * Save all tasks into file after each update
+     *
+     */
     @Override
     public void save(ArrayList<Task> tasks) {
         try {

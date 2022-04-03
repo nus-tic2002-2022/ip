@@ -9,6 +9,8 @@ public class UserInterface {
     }
 
     /**
+     * Create a line of special characters
+     *
      * @param count number of counts to repeat
      * @param ch    character to repeat
      * @return new string buffer
@@ -19,6 +21,9 @@ public class UserInterface {
         return new String(buf);
     }
 
+    /**
+     * Print closing message
+     */
     public static void close() {
         var lineWidth = 12;
         System.out.println(UserInterface.repeat('*', lineWidth));

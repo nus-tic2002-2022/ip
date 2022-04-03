@@ -15,6 +15,12 @@ public class UserInput {
         this.item = new StringBuilder();
     }
 
+    /**
+     * Return parsed user input
+     *
+     * @param tokens of the user input splitted by empty spaces " "
+     * @return parsed user input
+     */
     public UserInput parseInput(String[] tokens) throws DateTimeParseException {
         try {
             for (int i = 0; i < tokens.length; i++) {

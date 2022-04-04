@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EventTest {
+public class DurationTest {
     @Test
     public void testToFileString(){
-        Task testTask = new Event("test", "1996-03-12");
+        Task testTask = new Duration("test", "2");
         String actual = testTask.toFileString();
-        String expected = "E|0|test|1996-03-12";
+        String expected = "DR|0|test|2";
 
         assertEquals(actual, expected);
     }

@@ -2,10 +2,7 @@ package input;
 
 import exception.InvalidDateException;
 import exception.InvalidInputException;
-import model.Deadline;
-import model.Event;
-import model.Task;
-import model.Todo;
+import model.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -59,6 +56,15 @@ public class User {
             }
 
             taskList.add(new Event(eventArr[0], inputDate));
+            break;
+        case "duration":
+            String[] durationArr = desc.split(" /for ");
+
+            if (durationArr.length < 2) {
+                throw new InvalidInputException();
+            }
+
+            taskList.add(new Duration(durationArr[0], durationArr[1]));
             break;
         }
         return taskList.get(taskList.size() - 1);

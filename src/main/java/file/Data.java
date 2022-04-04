@@ -56,12 +56,21 @@ public class Data {
 
     private static Task categoriseTask(String[] lineList){
         Task task;
-        if(lineList[0].equals("E")){
+        switch(lineList[0]){
+        case "E":
             task = new Event(lineList[2], lineList[3]);
-        } else if(lineList[0].equals("D")){
+            break;
+        case "D":
             task = new Deadline(lineList[2], lineList[3]);
-        } else {
+            break;
+        case "T":
             task = new Todo(lineList[2]);
+            break;
+        case "DR":
+            task = new Duration(lineList[2], lineList[3]);
+            break;
+        default:
+            return null;
         }
         if(lineList[1].equals("1")){
             task.setDone(true);

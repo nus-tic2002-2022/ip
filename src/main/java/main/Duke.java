@@ -58,7 +58,7 @@ public class Duke {
             System.out.println("=========================================" );
             System.out.println("Oh, it is not done?");
             markTask(input, false);
-        } else if(input.startsWith("todo") || input.startsWith("event") || input.startsWith("deadline")){
+        } else if(input.startsWith("todo") || input.startsWith("event") || input.startsWith("deadline") || input.startsWith("duration")){
             String[] userInputArr = input.split(" ", 2);
             if(userInputArr.length < 2 || userInputArr[1].trim().isEmpty()){
                 System.out.println("=========================================" );

@@ -66,6 +66,8 @@ public class User {
 
             taskList.add(new Duration(durationArr[0], durationArr[1]));
             break;
+        default:
+            assert false;
         }
         return taskList.get(taskList.size() - 1);
     }

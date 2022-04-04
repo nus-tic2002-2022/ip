@@ -70,6 +70,7 @@ public class Data {
             task = new Duration(lineList[2], lineList[3]);
             break;
         default:
+            assert false;
             return null;
         }
         if(lineList[1].equals("1")){

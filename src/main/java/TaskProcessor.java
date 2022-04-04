@@ -28,6 +28,7 @@ public class TaskProcessor {
         System.out.printf("Okay! I've deleted the task '%s' from your list!\n", tasks.get(deleteIndex).getTask());
         tasks.remove(deleteIndex);
         taskListCount --;
+        assert(taskListCount >= 0);
         System.out.printf("You now have %d in your list!\n", taskListCount);
     }
 
@@ -71,6 +72,7 @@ public class TaskProcessor {
             loadStringsToTasklist(stringsFromDataFile.get(counter));
             taskListCount++;
         }
+        assert (taskListCount >= 0);
     };
 
     public void findTasksWithKeyword (String keyword) {

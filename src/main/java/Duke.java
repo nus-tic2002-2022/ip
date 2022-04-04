@@ -9,6 +9,7 @@ import java.util.ArrayList;
 //javadocs for all methods
 //packages!
 // one more junit - maybe for time parsing
+// more assertions
 
 public class Duke {
 

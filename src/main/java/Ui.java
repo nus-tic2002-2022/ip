@@ -44,5 +44,4 @@ public class Ui
     public static void printRescheduleInfo(int taskNum, TasksWithDate currTaskToReschedule) { //
         System.out.printf("Rescheduled task number %d to \n\t%s\n\n",taskNum + 1 , currTaskToReschedule);
     }
-
 }

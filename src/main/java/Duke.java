@@ -1,5 +1,8 @@
 import java.io.File;
 import java.lang.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -238,8 +241,12 @@ public class Duke {
                     if(dimensions2.length<2){
                         throw new DukeException("Missing Event Time and Place");
                     }
+                    DateTimeFormatter Standard = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    String UserInput = dimensions2[1].substring(1);
+                    LocalDateTime Eventdate = LocalDateTime.parse(UserInput, Standard);
+                    String Format = Eventdate.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm"));
                     //add event into tasklist
-                    Event toadd = new Event(dimensions2[0], dimensions2[1]);
+                    Event toadd = new Event(dimensions2[0], Format);
                     tasklist.add(toadd);
                     try {
                         save(filepathway, tasklist);
@@ -247,6 +254,8 @@ public class Duke {
                         System.out.println("Sir, there is an issue with your directory and I am unable save your tasks");
                     } catch (IOException e) {
                         System.out.println("Sir, there is an issue with your directory and I am unable save your tasks");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Sir, there is an issue with your date format, Let me remind you to key in this format: 22/03/2022 2359");
                     }
                     counter++;
                     printline();
@@ -284,8 +293,12 @@ public class Duke {
                     if(dimensions2.length<2){
                         throw new DukeException("Missing Deadline Date and Time");
                     }
+                    DateTimeFormatter dateFormat  = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    String UserInput = dimensions2[1].substring(1);
+                    LocalDateTime Eventdate = LocalDateTime.parse(UserInput, dateFormat);
+                    String Format = Eventdate.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm"));
                     //add Deadline items into a tasklist
-                    Deadline toadd = new Deadline(dimensions2[0], dimensions2[1]);
+                    Deadline toadd = new Deadline(dimensions2[0], Format);
                     tasklist.add(toadd);
                     try {
                         save(filepathway, tasklist);
@@ -293,6 +306,8 @@ public class Duke {
                         System.out.println("Sir, there is an issue with your directory and I am unable save your tasks");
                     } catch (IOException e) {
                         System.out.println("Sir, there is an issue with your directory and I am unable save your tasks");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Sir, there is an issue with your date format, Let me remind you to key in this format: 22/03/2022 2359");
                     }
                     counter++;
                     printline();
@@ -385,7 +400,7 @@ public class Duke {
                 }
             }
             else if(dimensions2[1].contains("[D]")){
-                String[] dimensions3 = dimensions2[3].split("\\(+by+\\:+\\s{2,2}");
+                String[] dimensions3 = dimensions2[3].split("\\(+by+\\:+\\s{1,2}");
                 dimensions3[1]=dimensions3[1].replace(")","");
                 Deadline toadd = new Deadline(dimensions3[0], dimensions3[1]);
                 tasklist.add(toadd);
@@ -395,7 +410,7 @@ public class Duke {
                 }
             }
             else if(dimensions2[1].contains("[E]")){
-                String[] dimensions3 = dimensions2[3].split("\\(+at+\\:+\\s{2,2}");
+                String[] dimensions3 = dimensions2[3].split("\\(+at+\\:+\\s{1,2}");
                 dimensions3[1]=dimensions3[1].replace(")","");
                 Event toadd = new Event(dimensions3[0], dimensions3[1]);
                 tasklist.add(toadd);

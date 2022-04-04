@@ -1,5 +1,10 @@
 public class AddCommand extends Command{
-    Task task;
+    public static final String COMMAND_WORD_TODO = "todo";
+    public static final String COMMAND_WORD_DEADLINE = "deadline";
+    public static final String COMMAND_WORD_EVENT = "event";
+
+    private Task task;
+
 
     public AddCommand(Task task){
         this.task = task;

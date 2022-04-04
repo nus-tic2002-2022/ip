@@ -1,3 +1,5 @@
+package ui;
+
 import java.util.Scanner;
 
 public class UI{
@@ -62,6 +64,10 @@ public class UI{
         System.out.println("Noted. I've removed this task:");
         printTask(task);
         printNumberOfTask(number);
+    }
+
+    public void printError(String errorMessage){
+        System.out.println(errorMessage);
     }
 
     public void printErrorTaskDoesNotExist(String msg){

@@ -1,3 +1,11 @@
+package parser;
+
+import commands.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,7 +17,7 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand();
+            return new IncorrectCommand("Invalid Command");
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -46,13 +54,13 @@ public class Parser {
                 return new ExitCommand();
 
             default:
-                return new IncorrectCommand();
+                return new IncorrectCommand("Command does not exist");
         }
     }
 
     private Command prepareTodo(String arguments){
         if(arguments.isEmpty()){
-            return new IncorrectCommand();
+            return new IncorrectCommand("Description is missing!");
         }else{
             Task taskToAdd = new Todo(arguments);
             return new AddCommand(taskToAdd);
@@ -62,7 +70,7 @@ public class Parser {
     private Command prepareDeadline(String arguments){
         final Matcher matcher = DEADLINE_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand();
+            return new IncorrectCommand("Date or Description is missing!");
         }
 
         final String description = matcher.group("description");
@@ -76,7 +84,7 @@ public class Parser {
     private Command prepareEvent(String arguments){
         final Matcher matcher = EVENT_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand();
+            return new IncorrectCommand("Date or Description is missing!");
         }
 
         final String description = matcher.group("description");
@@ -91,11 +99,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(arguments);
             return new MarkDoneCommand(taskNumber);
         }catch(NumberFormatException e) {
-            System.out.println("Invalid task number: " + arguments);
-            return new IncorrectCommand();
-        }catch(IndexOutOfBoundsException e){
-            System.out.println("Invalid task number: " + arguments);
-            return new IncorrectCommand();
+            return new IncorrectCommand("Invalid task number: " + arguments);
         }
     }
 
@@ -104,11 +108,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(arguments);
             return new UnmarkDoneCommand(taskNumber);
         }catch(NumberFormatException e) {
-            System.out.println("Invalid task number: " + arguments);
-            return new IncorrectCommand();
-        }catch(IndexOutOfBoundsException e){
-            System.out.println("Invalid task number: " + arguments);
-            return new IncorrectCommand();
+            return new IncorrectCommand("Invalid task number: " + arguments);
         }
     }
 
@@ -117,11 +117,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(arguments);
             return new DeleteCommand(taskNumber);
         }catch(NumberFormatException e) {
-            System.out.println("Invalid task number: " + arguments);
-            return new IncorrectCommand();
-        }catch(IndexOutOfBoundsException e){
-            System.out.println("Invalid task number: " + arguments);
-            return new IncorrectCommand();
+            return new IncorrectCommand("Invalid task number: " + arguments);
         }
     }
 

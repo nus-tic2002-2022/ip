@@ -1,3 +1,9 @@
+package commands;
+
+
+import tasks.*;
+import ui.UI;
+
 public class MarkDoneCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
@@ -9,12 +15,16 @@ public class MarkDoneCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, UI ui) {
+        try {
             if (taskList.get(index - 1).getDoneStatus()) {
-                System.out.println("task is already done");
+                ui.printErrorTaskAlreadyMarked();
             } else {
                 taskList.get(index - 1).markDone();
-                System.out.println("marked task as done");
+                ui.printMarkedTask();
             }
+        }catch(IndexOutOfBoundsException e){
+            ui.printErrorTaskDoesNotExist(String.valueOf(index));
+        }
     }
 
 }

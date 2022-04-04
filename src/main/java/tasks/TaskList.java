@@ -1,3 +1,4 @@
+package tasks;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,12 @@ public class TaskList {
     }
 
     public Task get(int index) throws IndexOutOfBoundsException{
-        return taskList.get(index);
+        try{
+            return taskList.get(index);
+        }catch (IndexOutOfBoundsException e){
+            throw e;
+        }
+
     }
 
 }

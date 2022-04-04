@@ -1,3 +1,8 @@
+import commands.Command;
+import parser.Parser;
+import tasks.TaskList;
+import ui.UI;
+
 public class Duke {
 
     ///private Storage storage;
@@ -54,7 +59,7 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        tasks.TaskList taskList = new tasks.TaskList();
 
         boolean start = true;
 
@@ -91,7 +96,7 @@ public class Duke {
                             System.out.println("marked task as done");
                         }
                     } catch (IndexOutOfBoundsException e){
-                            System.out.println("Task does not exist: " + restOfLine);
+                            System.out.println("tasks.Task does not exist: " + restOfLine);
                     } catch(NumberFormatException e) {
                         System.out.println("Invalid task number: " + restOfLine);
                     }
@@ -104,10 +109,10 @@ public class Duke {
                             taskList.get(taskNumber - 1).unmarkDone();
                             System.out.println("Unmarked task");
                         } else {
-                            System.out.println("Task is not yet done");
+                            System.out.println("tasks.Task is not yet done");
                         }
                     } catch (IndexOutOfBoundsException e){
-                        System.out.println("Task does not exist: " + restOfLine);
+                        System.out.println("tasks.Task does not exist: " + restOfLine);
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid task number: " + restOfLine);
                     }
@@ -115,7 +120,7 @@ public class Duke {
                 }
                 case "todo":{
                     if(!restOfLine.isEmpty()){
-                        Task newTask = new Todo(restOfLine);
+                        tasks.Task newTask = new tasks.Todo(restOfLine);
                         taskList.addTask(newTask);
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + newTask);
@@ -129,7 +134,7 @@ public class Duke {
                     if(!restOfLine.isEmpty()){
                         try{
                             String[] parts = restOfLine.split(" /by ");
-                            Task newTask = new Deadline(parts[0], parts[1]);
+                            tasks.Task newTask = new tasks.Deadline(parts[0], parts[1]);
                             taskList.addTask(newTask);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newTask);
@@ -146,7 +151,7 @@ public class Duke {
                     if(!restOfLine.isEmpty()){
                         try{
                             String[] parts = restOfLine.split(" /at ");
-                            Task newTask = new Event(parts[0], parts[1]);
+                            tasks.Task newTask = new tasks.Event(parts[0], parts[1]);
                             taskList.addTask(newTask);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newTask);
@@ -162,7 +167,7 @@ public class Duke {
                 case "delete": {
                     try {
                         int taskNumber = Integer.parseInt(restOfLine);
-                        Task taskToDelete = taskList.get(taskNumber-1);
+                        tasks.Task taskToDelete = taskList.get(taskNumber-1);
                         taskList.deleteTask(taskNumber-1);
 
 
@@ -171,7 +176,7 @@ public class Duke {
                         System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
 
                     }catch (IndexOutOfBoundsException e){
-                        System.out.println("Task does not exist: " + restOfLine);
+                        System.out.println("tasks.Task does not exist: " + restOfLine);
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid task number: " + restOfLine);
                     }

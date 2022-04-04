@@ -1,3 +1,8 @@
+package commands;
+
+import tasks.*;
+import ui.UI;
+
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
@@ -9,9 +14,13 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, UI ui) {
-            Task taskToDelete = taskList.get(index-1);
-            taskList.deleteTask(index-1);
+        try {
+            Task taskToDelete = taskList.get(index - 1);
+            taskList.deleteTask(index - 1);
             ui.printTaskDeleted(taskToDelete.toString(), taskList.getNumberOfTask());
+        }catch(IndexOutOfBoundsException e){
+            ui.printErrorTaskDoesNotExist(String.valueOf(index));
+        }
     }
 
 }

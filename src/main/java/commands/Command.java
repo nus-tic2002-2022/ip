@@ -1,3 +1,8 @@
+package commands;
+
+import tasks.*;
+import ui.UI;
+
 public abstract class Command {
     public Command(){}
 

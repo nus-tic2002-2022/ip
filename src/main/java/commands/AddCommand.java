@@ -1,3 +1,9 @@
+package commands;
+
+import tasks.*;
+import ui.UI;
+
+
 public class AddCommand extends Command{
     public static final String COMMAND_WORD_TODO = "todo";
     public static final String COMMAND_WORD_DEADLINE = "deadline";

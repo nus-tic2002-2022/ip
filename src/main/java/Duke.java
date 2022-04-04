@@ -5,10 +5,10 @@ import java.util.ArrayList;
 //make tasks abstract class
 //updates - file path string should be initialized rather than hardcoded?
 //catch error when directory is not present when trying to initialize text file
-//obviously something is wrong with the taskprocessor file path... should it be with constructor or as method?
-//last stopped - text file parser! maybe make parser an abstract, then text file, user input, time parser etc
 //throw error when input wrong date format. currently, only accepts yyyy-mm-dd
 //javadocs for all methods
+//packages!
+// one more junit - maybe for time parsing
 
 public class Duke {
 

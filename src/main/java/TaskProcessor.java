@@ -1,6 +1,8 @@
+import duke.task.*;
+import duke.task.TasksWithDate;
+import duke.utils.TaskFinder;
+
 import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class TaskProcessor {
 
@@ -8,6 +10,7 @@ public class TaskProcessor {
     protected int taskListCount = 0;
     private String filePath = "data/duke.txt";
     private Storage fileStoreman = new Storage(filePath);
+    private TaskFinder taskFinder = new TaskFinder();
 
     public void TaskProcessor() {
         fileStoreman = new Storage(filePath);
@@ -38,13 +41,13 @@ public class TaskProcessor {
             String task = response.substring(response.indexOf(' ') + 1); //can be improved
             String[] taskDetails = task.split(" /by ");
             tasks.add(new Deadlines(taskDetails[0],taskDetails[1]));
-            //tasks[taskListCount] = new Deadlines(taskDetails[0],taskDetails[1]);
+            //tasks[taskListCount] = new duke.task.Deadlines(taskDetails[0],taskDetails[1]);
         } else if (taskType.equals("event")) {
             //throw error (what if wrong format)?
             String task = response.substring(response.indexOf(' ') + 1); //can be improved
             String[] taskDetails = task.split(" /at ");
             tasks.add(new Events(taskDetails[0],taskDetails[1]));
-            //tasks[taskListCount] = new Events(taskDetails[0],taskDetails[1]);
+            //tasks[taskListCount] = new duke.task.Events(taskDetails[0],taskDetails[1]);
         }
 
         System.out.println("Added the following task to your list:");
@@ -70,6 +73,18 @@ public class TaskProcessor {
         }
     };
 
+    public void findTasksWithKeyword (String keyword) {
+        ArrayList<Task> tasksWithKeyword = taskFinder.findTask(tasks, keyword);
+        int tasksWithKeywordCount = tasksWithKeyword.size();
+        Ui.printListUI(tasksWithKeyword,tasksWithKeywordCount);
+    }
+
+    public void rescheduleTask (int taskNum, String rescheduleTaskDate) {
+        Task currTask = tasks.get(taskNum);
+        TasksWithDate currTaskToReschedule = (TasksWithDate)currTask;
+        currTaskToReschedule.rescheduleTask(rescheduleTaskDate);
+        Ui.printRescheduleInfo(taskNum,currTaskToReschedule);
+    }
 
     public void loadStringsToTasklist (String task) {
         Character taskType = task.charAt(0);

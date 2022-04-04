@@ -1,4 +1,4 @@
-public class UserInputParser extends Parser{
+public class UserInputParser extends Parser {
 
     public static void processUserInput(TaskProcessor tasklist, String userInput) { //
         if (userInput.equals("list")) {
@@ -10,7 +10,7 @@ public class UserInputParser extends Parser{
                 tasklist.changeTaskStatus(indexToChange,true);
             } catch (NumberFormatException e) {
                 //ui.printErrorMessage()
-                System.out.println("tojava.util.Task number not specified properly..");
+                System.out.println("tojava.util.duke.task.Task number not specified properly..");
             } catch (IndexOutOfBoundsException e) {
                 //ui.printErrorMessage()
                 System.out.println("I don't think you have that many tasks on your list...");
@@ -22,7 +22,7 @@ public class UserInputParser extends Parser{
                 tasklist.changeTaskStatus(indexToChange,false);
             } catch (NumberFormatException e) {
                 //ui.printErrorMessage()
-                System.out.println("tojava.util.Task number not specified properly..");
+                System.out.println("tojava.util.duke.task.Task number not specified properly..");
             } catch (IndexOutOfBoundsException e) {
                 //ui.printErrorMessage()
                 System.out.println("I don't think you have that many tasks on your list...");
@@ -44,10 +44,16 @@ public class UserInputParser extends Parser{
                 //ui.printErrorMessage()
                 System.out.println("The delete input is not correct... please specify an integer within the bounds ^=.=^");
             }
-
-        } else {
+        } else if (userInput.startsWith("find")) {
+            String keyword = userInput.split(" ")[1];
+            tasklist.findTasksWithKeyword(keyword);
+        } else if (userInput.startsWith("reschedule")) {
+            Integer taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            String postponeTaskDate =  userInput.split(" ")[2];
+            tasklist.rescheduleTask(taskNumber,postponeTaskDate);
+        }
+        else {
             System.out.println("=^-.-^= Not sure what that means...");
         }
     }
-
 }

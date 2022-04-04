@@ -1,4 +1,6 @@
-public class Task {
+package duke.task;
+
+public abstract class Task {
 
     enum taskType {
         TODOS,DEADLINES,EVENTS
@@ -28,6 +30,7 @@ public class Task {
         return String.format("[%s] %s", (done?"x":" "), this.task);
     }
 
-    public String taskToSaveFile() { return String.format("%s", this.task);   }
+    public abstract String taskToSaveFile();
+
 }
 //to consider: make tasks an abstract class?

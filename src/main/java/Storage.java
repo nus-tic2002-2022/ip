@@ -1,3 +1,4 @@
+import duke.task.Task;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -26,7 +27,7 @@ public class Storage {
 
     };
 
-    public ArrayList<String> readFile()   { //ArrayList<Task>
+    public ArrayList<String> readFile()   { //ArrayList<duke.task.Task>
         ArrayList<String> tasks  = new ArrayList<String>();
         try {
             File f = new File(filePath);

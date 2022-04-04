@@ -1,3 +1,4 @@
+import duke.task.*;
 import java.util.ArrayList;
 
 public class Ui
@@ -30,9 +31,18 @@ public class Ui
     }
 
     public static void printListUI(ArrayList<Task> tasks, int taskListCount) { //
+        if (taskListCount==0) {
+            System.out.println("No tasks available...");
+            return;
+        }
+
         System.out.println("Here are the tasks in your list:");
         for (int i = 0 ; i < taskListCount ; i ++) {
             System.out.println( (i+1)+"."+tasks.get(i) ); //+1 to i here due to numbering
         }
     }
+    public static void printRescheduleInfo(int taskNum, TasksWithDate currTaskToReschedule) { //
+        System.out.printf("Rescheduled task number %d to \n\t%s\n\n",taskNum + 1 , currTaskToReschedule);
+    }
+
 }

@@ -23,6 +23,10 @@ public class Duke {
         System.out.println("__________________________________________________________");
     }
 
+    /**
+     * This is the main method which is very important for the execution of Duke program.
+     * It contains key functions like: Todo, Event, Deadline, Mark, Unmark, Find, Priority
+     */
     public static void system() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -33,7 +37,6 @@ public class Duke {
             //Ask User for Input
             line = in.nextLine();
 
-            //Print the List
             if (line.toLowerCase().contains("list")) {
                 printLine();
                 System.out.println("Here are the task in your lists:");
@@ -143,7 +146,9 @@ public class Duke {
 
                     String Format = UserInputDT.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mma"));
 
-                    //Initiate Deadline Class
+                    /**
+                     * Initiate Deadline Class
+                     */
                     tasks.add(new Deadline(line.substring(9, slash - 1), Format));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1).toString());
@@ -286,7 +291,10 @@ public class Duke {
             }
         }
     }
-
+    /**
+     * This method will be called at each key function (e.g Deadline, Mark) that makes changes to the File.
+     * The purpose is to update the file with the updated information based on the User's input.
+     */
     //Save the File to Data Folder
     public static void saveFile(String myFile) throws IOException {
         FileWriter fw = new FileWriter(myFile);
@@ -296,6 +304,10 @@ public class Duke {
         fw.close();
     }
 
+    /**
+     * This method will be called immediately upon running the Duke program.
+     * The purpose is to read the file and load it into the program.
+     */
     //Read the File from Data Folder
     public static void readFile(String myFile) throws FileNotFoundException {
         File f = new File(myFile);
@@ -389,8 +401,8 @@ public class Duke {
         System.out.println(logo);
         printLine();
         System.out.println("Hello! I'm Duke\n" + "How can I help you today?");
-        System.out.println("Psst, these are something that I can do for you:\n"
-                + "TODO [DESCRIPTION]\n" + "EVENT [DESCRIPTION] /at [DATETIME]\n\n" +
+        System.out.println("Psst, these are something that I can do for you:\n\n"
+                + "TODO [DESCRIPTION]\n" + "EVENT [DESCRIPTION] /at [DATETIME]\n" +
                 "DEADLINE [DESCRIPTION] /by [DATETIME]\n" + "MARK [TASK NO.]\n" + "UNMARK [TASK NO.]\n" +
                 "PRIORITY [TASK NO.]\n" + "FIND [DESCRIPTION]");
         printLine();

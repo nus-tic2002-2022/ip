@@ -2,6 +2,7 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -87,19 +88,19 @@ public class Duke {
             //Find a Task
             else if (line.toLowerCase().contains("find")) {
 
-                    String word = line.substring(5);
-                    int counter = 0;
+                String word = line.substring(5);
+                int counter = 0;
 
-                    for (Task m : tasks) {
-                        if (m.description.toLowerCase().contains(word)) {
-                            counter++;
-                            System.out.println(counter + ". " + m);
-                        }
+                for (Task m : tasks) {
+                    if (m.description.toLowerCase().contains(word)) {
+                        counter++;
+                        System.out.println(counter + ". " + m);
                     }
+                }
 
-                    if (counter == 0) {
-                        System.out.println("☹ OOPS!!! We couldn't find this task.");
-                    }
+                if (counter == 0) {
+                    System.out.println("☹ OOPS!!! We couldn't find this task.");
+                }
             }
 
             //Set Priority
@@ -116,6 +117,23 @@ public class Duke {
 
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! Please enter a valid task number.");
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            //Sort by Priority
+            else if (line.toLowerCase().contains("sort")) {
+                try {
+                    tasks.sort(Comparator.comparing(Task::getPriority));
+                    System.out.println("Your tasks have been sorted based on priority!");
+
+                    for (int x = 0; x < tasks.size(); x++) {
+                        //Amended to Use toString()
+                        System.out.println(x + 1 + ". " + tasks.get(x).toString());
+                    }
+                    saveFile("data/duke.txt");
 
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
@@ -146,9 +164,6 @@ public class Duke {
 
                     String Format = UserInputDT.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mma"));
 
-                    /**
-                     * Initiate Deadline Class
-                     */
                     tasks.add(new Deadline(line.substring(9, slash - 1), Format));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1).toString());
@@ -291,6 +306,7 @@ public class Duke {
             }
         }
     }
+
     /**
      * This method will be called at each key function (e.g Deadline, Mark) that makes changes to the File.
      * The purpose is to update the file with the updated information based on the User's input.
@@ -404,7 +420,7 @@ public class Duke {
         System.out.println("Psst, these are something that I can do for you:\n\n"
                 + "TODO [DESCRIPTION]\n" + "EVENT [DESCRIPTION] /at [DATETIME]\n" +
                 "DEADLINE [DESCRIPTION] /by [DATETIME]\n" + "MARK [TASK NO.]\n" + "UNMARK [TASK NO.]\n" +
-                "PRIORITY [TASK NO.]\n" + "FIND [DESCRIPTION]");
+                "PRIORITY [TASK NO.]\n" + "FIND [DESCRIPTION]\n" + "SORT");
         printLine();
 
         //Read File

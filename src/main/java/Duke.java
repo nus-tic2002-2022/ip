@@ -1,25 +1,40 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+    public static int counter = 0;
+    public static int sequence = 1;
+    public static String[] list = new String[100];
 
-        String line = "    ____________________________________________________________\n";
-        System.out.println(line + "    Hello! I'm Duke\n" + "    What can I do for you?\n" + line);
-        Scanner input = new Scanner(System.in);
-        String value = "";
-        value = input.nextLine();
+    public static void echo(){
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
 
-        while(!value.equals("bye")){
-            System.out.println(line + "    " +  value + "\n" + line);
-            value = input.nextLine();
+        if(line.equals("bye")){
+            System.out.println("Bye. HOpe to see you again soon!");
         }
+        else if (line.equals("list")){
+            String[] print = Arrays.copyOf(list, counter);
+            for (String p : print){
+                System.out.println(sequence + ". " + p);
+                sequence ++;
+            }
+            System.out.println("\n");
+            sequence = 1;
+            echo();
+        }
+        else {
+            System.out.println("added: " + line + "\n");
+            list[counter] = line;
+            counter ++;
+            echo();
+        }
+    }
 
-        System.out.println(line + "    " + "Bye. Hope to see you again soon!\n" + line);
+    public static void main(String[] args){
+        String opening = "Hello! I'm Duke\n" + "What can I do for you?\n";
+        System.out.println(opening);
+        echo();
     }
 }

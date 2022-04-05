@@ -81,6 +81,24 @@ public class Duke {
                 }
             }
 
+            //Find a Task
+            else if (line.toLowerCase().contains("find")) {
+
+                    String word = line.substring(5);
+                    int counter = 0;
+
+                    for (Task m : tasks) {
+                        if (m.description.toLowerCase().contains(word)) {
+                            counter++;
+                            System.out.println(counter + ". " + m);
+                        }
+                    }
+
+                    if (counter == 0) {
+                        System.out.println("☹ OOPS!!! We couldn't find this task.");
+                    }
+            }
+
             //Set Priority
             else if (line.toLowerCase().contains("priority")) {
                 try {
@@ -285,7 +303,6 @@ public class Duke {
 
         while (s.hasNext()) {
             String text = s.nextLine();
-            System.out.println(text);
             //Read [T] from File and Update to ArrayList
             if (text.contains("[T]")) {
                 String Todo = text.substring(23);
@@ -372,7 +389,10 @@ public class Duke {
         System.out.println(logo);
         printLine();
         System.out.println("Hello! I'm Duke\n" + "How can I help you today?");
-        System.out.println("Psst, this is something that I can do for you:\n" + "(e.g event read book /at 23/03/2022 1200)");
+        System.out.println("Psst, these are something that I can do for you:\n"
+                + "TODO [DESCRIPTION]\n" + "EVENT [DESCRIPTION] /at [DATETIME]\n\n" +
+                "DEADLINE [DESCRIPTION] /by [DATETIME]\n" + "MARK [TASK NO.]\n" + "UNMARK [TASK NO.]\n" +
+                "PRIORITY [TASK NO.]\n" + "FIND [DESCRIPTION]");
         printLine();
 
         //Read File

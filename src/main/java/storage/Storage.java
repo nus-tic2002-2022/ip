@@ -1,5 +1,6 @@
 package storage;
 
+import exceptions.TooManyDatesException;
 import tasks.*;
 
 import java.io.File;
@@ -11,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Scanner;
 import parser.DateParser;
-import java.util.Date;
 
 import java.util.ArrayList;
 
@@ -73,8 +73,8 @@ public class Storage {
                 String line = scanner.nextLine();
                 tempTaskList.addTask(convertStrToTask(line));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ioExceptionObj) {
+            System.out.println("Problem Occurred While Loading Data " + ioExceptionObj.getMessage());
         }
 
         return tempTaskList;
@@ -109,8 +109,8 @@ public class Storage {
                 task.markDone();
             }
         }
-        catch(IndexOutOfBoundsException e){
-                System.out.println("Something went wrong with the safe file");
+        catch(IndexOutOfBoundsException | TooManyDatesException e){
+            System.out.println("Something went wrong with the safe file");
         }
 
         return task;

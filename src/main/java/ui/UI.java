@@ -74,20 +74,4 @@ public class UI{
         System.out.println("Task does not exist: " + msg);
     }
 
-    public void printErrorInvalidTaskNumber(String msg){
-        System.out.println("Invalid task number: " + msg);
-    }
-
-    public void printErrorDescriptionDateMissing(String msg){
-        System.out.println("Description or Date is missing: " + msg);
-    }
-
-    public void printErrorInvalidCommand(){
-        System.out.println("please enter a valid command");
-    }
-
-    public void printErrorInformationMissing(){
-        System.out.println("Missing information!");
-    }
-
 }

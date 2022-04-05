@@ -1,6 +1,7 @@
 package parser;
 
 import commands.*;
+import exceptions.TooManyDatesException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -83,6 +84,8 @@ public class Parser {
             return new AddCommand((taskToAdd));
         }catch(IndexOutOfBoundsException e) {
             return new IncorrectCommand("Invalid Date");
+        }catch(TooManyDatesException e){
+            return new IncorrectCommand("Too many Dates Provided");
         }
 
     }
@@ -101,6 +104,8 @@ public class Parser {
             return new AddCommand((taskToAdd));
         }catch(IndexOutOfBoundsException e){
             return new IncorrectCommand("Invalid Date");
+        }catch(TooManyDatesException e){
+            return new IncorrectCommand("Too many Dates Provided");
         }
 
     }

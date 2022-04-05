@@ -10,12 +10,12 @@ public class Duke {
     private TaskList tasks;
     private UI ui;
 
+
     public Duke() {
         ui = new UI();
         storage = new Storage();
         storage.init();
         tasks = storage.loadTasks();
-        //tasks = new TaskList();
 
     }
 

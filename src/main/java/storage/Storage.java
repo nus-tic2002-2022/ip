@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Scanner;
+import parser.DateParser;
+import java.util.Date;
 
 import java.util.ArrayList;
 
@@ -20,13 +23,13 @@ public class Storage {
         Path dirPathObj = Paths.get(FILE_PATH);
         boolean dirExists = Files.exists(dirPathObj);
         if(dirExists) {
-            System.out.println("! Directory Already Exists !");
+            //System.out.println("! Directory Already Exists !");
         } else {
             try {
                 Files.createDirectories(dirPathObj);
-                System.out.println("! New Directory Successfully Created !");
+                //System.out.println("! New Directory Successfully Created !");
             } catch (IOException ioExceptionObj) {
-                System.out.println("Problem Occured While Creating The Directory Structure= " + ioExceptionObj.getMessage());
+                System.out.println("Problem Occurred While Creating The Directory Structure= " + ioExceptionObj.getMessage());
             }
         }
     }
@@ -36,7 +39,7 @@ public class Storage {
             try {
                 file.createNewFile();
             }catch( IOException ioExceptionObj){
-                System.out.println("Problem Occured While Creating Save File= " + ioExceptionObj.getMessage());
+                System.out.println("Problem Occurred While Creating Save File= " + ioExceptionObj.getMessage());
             }
         }
     }
@@ -54,7 +57,7 @@ public class Storage {
             }
             myWriter.close();
         }catch( IOException ioExceptionObj) {
-            System.out.println("Problem Occured While Saving Data " + ioExceptionObj.getMessage());
+            System.out.println("Problem Occurred While Saving Data " + ioExceptionObj.getMessage());
         }
     }
 
@@ -85,7 +88,7 @@ public class Storage {
             String taskType = splittedString[0];
             String status = splittedString[1];
             String description = splittedString[2];
-            String date = splittedString[3];
+
 
             switch (taskType) {
                 case "T":
@@ -93,11 +96,13 @@ public class Storage {
                     break;
 
                 case "D":
-                    task = new Deadline(description, date);
+                    Date dateD = DateParser.parseDate(splittedString[3]);
+                    task = new Deadline(description, dateD);
                     break;
 
                 case "E":
-                    task = new Event(description, date);
+                    Date dateE = DateParser.parseDate(splittedString[3]);
+                    task = new Event(description, dateE);
                     break;
             }
             if (status.equals("1")) {

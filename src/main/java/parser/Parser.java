@@ -8,6 +8,7 @@ import tasks.Todo;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Date;
 
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -73,11 +74,16 @@ public class Parser {
             return new IncorrectCommand("Date or Description is missing!");
         }
 
-        final String description = matcher.group("description");
-        final String date = matcher.group("date");
+        try {
+            final String description = matcher.group("description");
+            final String dateString = matcher.group("date");
+            final Date date = DateParser.parseDate(dateString);
 
-        Task taskToAdd = new Deadline(description, date);
-        return new AddCommand((taskToAdd));
+            Task taskToAdd = new Deadline(description, date);
+            return new AddCommand((taskToAdd));
+        }catch(IndexOutOfBoundsException e) {
+            return new IncorrectCommand("Invalid Date");
+        }
 
     }
 
@@ -86,12 +92,17 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand("Date or Description is missing!");
         }
+        try{
+            final String description = matcher.group("description");
+            final String dateString = matcher.group("date");
+            final Date date = DateParser.parseDate(dateString);
 
-        final String description = matcher.group("description");
-        final String date = matcher.group("date");
+            Task taskToAdd = new Event(description, date);
+            return new AddCommand((taskToAdd));
+        }catch(IndexOutOfBoundsException e){
+            return new IncorrectCommand("Invalid Date");
+        }
 
-        Task taskToAdd = new Event(description, date);
-        return new AddCommand((taskToAdd));
     }
 
     private Command prepareMarkDone(String arguments){

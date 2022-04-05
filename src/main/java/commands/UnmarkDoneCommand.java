@@ -1,7 +1,7 @@
 package commands;
 
 import storage.Storage;
-import tasks.*;
+import tasks.TaskList;
 import ui.UI;
 
 public class UnmarkDoneCommand extends Command {
@@ -14,8 +14,8 @@ public class UnmarkDoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage)  {
-        try{
+    public void execute(TaskList taskList, UI ui, Storage storage) {
+        try {
             if (taskList.get(index - 1).getDoneStatus()) {
                 taskList.get(index - 1).unmarkDone();
                 ui.printUnmarkedTask();
@@ -23,8 +23,7 @@ public class UnmarkDoneCommand extends Command {
             } else {
                 ui.printErrorTaskAlreadyUnmarked();
             }
-        }
-        catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             ui.printErrorTaskDoesNotExist(String.valueOf(index));
         }
     }

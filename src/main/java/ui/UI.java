@@ -2,10 +2,10 @@ package ui;
 
 import java.util.Scanner;
 
-public class UI{
+public class UI {
     private final Scanner in = new Scanner(System.in);
 
-    public void showLine(){
+    public void showLine() {
         System.out.println("---------------------------------");
     }
 
@@ -22,39 +22,39 @@ public class UI{
         showLine();
     }
 
-    public String readCommand(){
+    public String readCommand() {
         return in.nextLine();
     }
 
-    public void showBye(){
+    public void showBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void printMarkedTask(){
+    public void printMarkedTask() {
         System.out.println("Marked task as done");
     }
 
-    public void printErrorTaskAlreadyMarked(){
+    public void printErrorTaskAlreadyMarked() {
         System.out.println("Task is already marked as done");
     }
 
-    public void printUnmarkedTask(){
+    public void printUnmarkedTask() {
         System.out.println("Unmarked task");
     }
 
-    public void printErrorTaskAlreadyUnmarked(){
+    public void printErrorTaskAlreadyUnmarked() {
         System.out.println("Task is already unmarked");
     }
 
-    public void printNumberOfTask(int number){
+    public void printNumberOfTask(int number) {
         System.out.println("Now you have " + number + " in the list.");
     }
 
-    public void printTask(String task){
+    public void printTask(String task) {
         System.out.println("  " + task);
     }
 
-    public void printTaskAdded(String task, int number){
+    public void printTaskAdded(String task, int number) {
         System.out.println("Got it. I've added this task:");
         printTask(task);
         printNumberOfTask(number);
@@ -66,11 +66,11 @@ public class UI{
         printNumberOfTask(number);
     }
 
-    public void printError(String errorMessage){
+    public void printError(String errorMessage) {
         System.out.println(errorMessage);
     }
 
-    public void printErrorTaskDoesNotExist(String msg){
+    public void printErrorTaskDoesNotExist(String msg) {
         System.out.println("Task does not exist: " + msg);
     }
 

@@ -1,7 +1,7 @@
 package commands;
 
 import storage.Storage;
-import tasks.*;
+import tasks.TaskList;
 import ui.UI;
 
 public class ExitCommand extends Command {

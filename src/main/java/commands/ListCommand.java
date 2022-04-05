@@ -1,10 +1,10 @@
 package commands;
 
 import storage.Storage;
-import tasks.*;
+import tasks.TaskList;
 import ui.UI;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
 

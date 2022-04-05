@@ -1,11 +1,11 @@
 package commands;
 
-import tasks.*;
-import ui.UI;
 import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.UI;
 
-
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     public static final String COMMAND_WORD_TODO = "todo";
     public static final String COMMAND_WORD_DEADLINE = "deadline";
     public static final String COMMAND_WORD_EVENT = "event";
@@ -13,7 +13,7 @@ public class AddCommand extends Command{
     private Task task;
 
 
-    public AddCommand(Task task){
+    public AddCommand(Task task) {
         this.task = task;
     }
 

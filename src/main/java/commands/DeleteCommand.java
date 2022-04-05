@@ -1,15 +1,16 @@
 package commands;
 
-import tasks.*;
-import ui.UI;
 import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.UI;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     private int index;
 
-    public DeleteCommand(int index){
+    public DeleteCommand(int index) {
         this.index = index;
     }
 
@@ -20,7 +21,7 @@ public class DeleteCommand extends Command {
             taskList.deleteTask(index - 1);
             ui.printTaskDeleted(taskToDelete.toString(), taskList.getNumberOfTask());
             storage.save(taskList);
-        }catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             ui.printErrorTaskDoesNotExist(String.valueOf(index));
         }
     }

@@ -7,7 +7,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -20,7 +20,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean getDoneStatus(){
+    public boolean getDoneStatus() {
         return this.isDone;
     }
 
@@ -30,18 +30,18 @@ public class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
-    public String getStatusCode(){
-        if(isDone) {
+    public String getStatusCode() {
+        if (isDone) {
             return "1";
         }
         return "0";
     }
 
-    public String getSaveFormat(){
+    public String getSaveFormat() {
         return "|" + getStatusCode() + "|" + getDescription();
     }
 

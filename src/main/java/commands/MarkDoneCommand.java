@@ -1,8 +1,7 @@
 package commands;
 
-
 import storage.Storage;
-import tasks.*;
+import tasks.TaskList;
 import ui.UI;
 
 public class MarkDoneCommand extends Command {
@@ -10,7 +9,7 @@ public class MarkDoneCommand extends Command {
 
     private int index;
 
-    public MarkDoneCommand(int index){
+    public MarkDoneCommand(int index) {
         this.index = index;
     }
 
@@ -24,7 +23,7 @@ public class MarkDoneCommand extends Command {
                 ui.printMarkedTask();
                 storage.save(taskList);
             }
-        }catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             ui.printErrorTaskDoesNotExist(String.valueOf(index));
         }
 

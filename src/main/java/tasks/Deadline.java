@@ -23,7 +23,7 @@ public class Deadline extends Task {
         return "D" + super.getSaveFormat() + "|" + by;
     }
 
-    public String printDate(Date date){
+    public String printDate(Date date) {
         return new SimpleDateFormat("MMM dd").format(date);
     }
 }

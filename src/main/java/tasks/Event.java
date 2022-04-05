@@ -22,7 +22,7 @@ public class Event extends Task {
         return "E" + super.getSaveFormat() + "|" + at;
     }
 
-    public String printDate(Date date){
+    public String printDate(Date date) {
         return new SimpleDateFormat("MMM dd Ka").format(date);
     }
 }

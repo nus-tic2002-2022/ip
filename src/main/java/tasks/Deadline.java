@@ -1,5 +1,6 @@
 package tasks;
 
+
 public class Deadline extends Task {
 
     protected String by;
@@ -9,8 +10,14 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String getSaveFormat() {
+        return "D" + super.getSaveFormat() + "|" + by;
     }
 }

@@ -1,6 +1,7 @@
 package commands;
 
 
+import storage.Storage;
 import tasks.*;
 import ui.UI;
 
@@ -14,17 +15,19 @@ public class MarkDoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui) {
+    public void execute(TaskList taskList, UI ui, Storage storage) {
         try {
             if (taskList.get(index - 1).getDoneStatus()) {
                 ui.printErrorTaskAlreadyMarked();
             } else {
                 taskList.get(index - 1).markDone();
                 ui.printMarkedTask();
+                storage.save(taskList);
             }
         }catch(IndexOutOfBoundsException e){
             ui.printErrorTaskDoesNotExist(String.valueOf(index));
         }
+
     }
 
 }

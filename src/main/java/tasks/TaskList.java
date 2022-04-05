@@ -10,6 +10,11 @@ public class TaskList {
         taskList = new ArrayList<>();
     }
 
+    public TaskList(TaskList loadedTaskList){
+        this.taskList = loadedTaskList.taskList;
+
+    }
+
     public int getNumberOfTask(){
         return taskList.size();
     }
@@ -39,7 +44,10 @@ public class TaskList {
         }catch (IndexOutOfBoundsException e){
             throw e;
         }
+    }
 
+    public ArrayList<Task> getAllTask(){
+        return taskList;
     }
 
 }

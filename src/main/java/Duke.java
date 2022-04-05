@@ -2,18 +2,21 @@ import commands.Command;
 import parser.Parser;
 import tasks.TaskList;
 import ui.UI;
+import storage.Storage;
 
 public class Duke {
 
-    ///private Storage storage;
+    private Storage storage;
     private TaskList tasks;
     private UI ui;
 
     public Duke() {
         ui = new UI();
-        //storage = new Storage(filePath);
+        storage = new Storage();
+        storage.init();
+        tasks = storage.loadTasks();
+        //tasks = new TaskList();
 
-        tasks = new TaskList();
     }
 
     public void run() {
@@ -24,7 +27,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = new Parser().parseCommand(fullCommand);
-                c.execute(tasks, ui);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } finally {
                 ui.showLine();
@@ -39,154 +42,3 @@ public class Duke {
 
 
 
-
-
-// old code
-/*
-public class Duke {
-    public static void main(String[] args) {
-
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
-        System.out.println("---------------------------------");
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println("---------------------------------");
-
-        String line;
-        Scanner in = new Scanner(System.in);
-        tasks.TaskList taskList = new tasks.TaskList();
-
-        boolean start = true;
-
-        while (start) {
-            line = in.nextLine();
-            System.out.println("---------------------------------");
-
-            String[] splitLine = line.split(" ", 2);
-            String firstWord = splitLine[0];
-            firstWord = firstWord.toLowerCase();
-            String restOfLine = "";
-            if (splitLine.length > 1) {
-                restOfLine = splitLine[1];
-            }
-
-            switch (firstWord) {
-                case "bye": {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    start = false;
-                    in.close();
-                    break;
-                }
-                case "list": {
-                    taskList.printTask();
-                    break;
-                }
-                case "mark": {
-                    try{
-                        int taskNumber = Integer.parseInt(restOfLine);
-                        if (taskList.get(taskNumber - 1).getDoneStatus()) {
-                            System.out.println("task is already done");
-                        } else {
-                            taskList.get(taskNumber - 1).markDone();
-                            System.out.println("marked task as done");
-                        }
-                    } catch (IndexOutOfBoundsException e){
-                            System.out.println("tasks.Task does not exist: " + restOfLine);
-                    } catch(NumberFormatException e) {
-                        System.out.println("Invalid task number: " + restOfLine);
-                    }
-                    break;
-                }
-                case "unmark": {
-                    try {
-                        int taskNumber = Integer.parseInt(restOfLine);
-                        if (taskList.get(taskNumber - 1).getDoneStatus()) {
-                            taskList.get(taskNumber - 1).unmarkDone();
-                            System.out.println("Unmarked task");
-                        } else {
-                            System.out.println("tasks.Task is not yet done");
-                        }
-                    } catch (IndexOutOfBoundsException e){
-                        System.out.println("tasks.Task does not exist: " + restOfLine);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid task number: " + restOfLine);
-                    }
-                    break;
-                }
-                case "todo":{
-                    if(!restOfLine.isEmpty()){
-                        tasks.Task newTask = new tasks.Todo(restOfLine);
-                        taskList.addTask(newTask);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + newTask);
-                        System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
-                    }else{
-                        System.out.println("Missing information!");
-                    }
-                    break;
-                }
-                case "deadline":{
-                    if(!restOfLine.isEmpty()){
-                        try{
-                            String[] parts = restOfLine.split(" /by ");
-                            tasks.Task newTask = new tasks.Deadline(parts[0], parts[1]);
-                            taskList.addTask(newTask);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println("  " + newTask);
-                            System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
-                        } catch(IndexOutOfBoundsException e) {
-                            System.out.println("Description or Date is missing: " + restOfLine);
-                        }
-                    }else{
-                        System.out.println("Missing information!");
-                    }
-                    break;
-                }
-                case "event":{
-                    if(!restOfLine.isEmpty()){
-                        try{
-                            String[] parts = restOfLine.split(" /at ");
-                            tasks.Task newTask = new tasks.Event(parts[0], parts[1]);
-                            taskList.addTask(newTask);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println("  " + newTask);
-                            System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
-                        } catch (IndexOutOfBoundsException e){
-                            System.out.println("Description or Date is missing: " + restOfLine);
-                        }
-                    }else{
-                        System.out.println("Missing information!");
-                    }
-                    break;
-                }
-                case "delete": {
-                    try {
-                        int taskNumber = Integer.parseInt(restOfLine);
-                        tasks.Task taskToDelete = taskList.get(taskNumber-1);
-                        taskList.deleteTask(taskNumber-1);
-
-
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println("  " + taskToDelete);
-                        System.out.println("Now you have " + taskList.getNumberOfTask() + " in the list.");
-
-                    }catch (IndexOutOfBoundsException e){
-                        System.out.println("tasks.Task does not exist: " + restOfLine);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid task number: " + restOfLine);
-                    }
-                    break;
-                }
-                default:
-                    System.out.println("please enter a valid command");
-            }
-            System.out.println("---------------------------------");
-        }
-    }
-}
-*/

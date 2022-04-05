@@ -1,5 +1,6 @@
 package commands;
 
+import storage.Storage;
 import tasks.*;
 import ui.UI;
 
@@ -11,7 +12,7 @@ public class IncorrectCommand extends Command {
         this.errorMessage = errorMessage;
     }
 
-    public void execute(TaskList taskList, UI ui) {
+    public void execute(TaskList taskList, UI ui, Storage storage) {
         ui.printError(errorMessage);
     }
 }

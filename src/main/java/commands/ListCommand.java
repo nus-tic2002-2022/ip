@@ -1,5 +1,6 @@
 package commands;
 
+import storage.Storage;
 import tasks.*;
 import ui.UI;
 
@@ -8,7 +9,7 @@ public class ListCommand extends Command{
 
 
     @Override
-    public void execute(TaskList taskList, UI ui) {
+    public void execute(TaskList taskList, UI ui, Storage storage) {
         taskList.printTask();
     }
 }

@@ -34,5 +34,15 @@ public class Task {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
+    public String getStatusCode(){
+        if(isDone) {
+            return "1";
+        }
+        return "0";
+    }
+
+    public String getSaveFormat(){
+        return "|" + getStatusCode() + "|" + getDescription();
+    }
 
 }

@@ -2,6 +2,7 @@ package commands;
 
 import tasks.*;
 import ui.UI;
+import storage.Storage;
 
 
 public class AddCommand extends Command{
@@ -17,9 +18,10 @@ public class AddCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui) {
+    public void execute(TaskList taskList, UI ui, Storage storage) {
         taskList.addTask(task);
         ui.printTaskAdded(task.toString(), taskList.getNumberOfTask());
+        storage.save(taskList);
     }
 
 }

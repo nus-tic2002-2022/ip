@@ -1,9 +1,11 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) throws AllException {
+    public static void main(String[] args) throws AllException, IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -15,6 +17,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String[] words;
         String command;
+        String filePath="data/duke.txt";
         System.out.println("======================");
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         System.out.println("======================");
@@ -53,16 +56,20 @@ public class Duke {
                 } else if (command.equalsIgnoreCase("deadline")) {
                     TL.add(new Todo(reply));
                     new Print((ArrayList<Task>) TL, command);
+                    new save(filePath,(ArrayList<Task>) TL);
                 } else if (command.equalsIgnoreCase("event")) {
                     TL.add(new Todo(reply));
+                    new save(filePath,(ArrayList<Task>) TL);
                     new Print((ArrayList<Task>) TL, command);
                 } else if (command.equalsIgnoreCase("todo")) {
                     TL.add(new Todo(reply));
+                    new save(filePath,(ArrayList<Task>) TL);
                     new Print((ArrayList<Task>) TL, command);
                 } else if (command.equalsIgnoreCase("delete")) {
                     option = Integer.parseInt(words[1]);
                     new Print((ArrayList<Task>) TL, command,(option-1));
                     TL.remove(option - 1);
+                    new save(filePath,(ArrayList<Task>) TL);
                 } else {
                     System.out.println(DukeException.invalidInputCommand);
                 }

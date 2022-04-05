@@ -1,7 +1,7 @@
 package tasks;
 
 public class Task {
-    private String description;
+    protected String description;
     protected boolean isDone = false;
 
     public Task(String description) {

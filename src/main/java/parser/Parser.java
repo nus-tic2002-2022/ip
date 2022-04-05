@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
 import java.util.Date;
 
 public class Parser {
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final Pattern DEADLINE_FORMAT= Pattern.compile("(?<description>.*) /by (?<date>.*)");
-    public static final Pattern EVENT_FORMAT= Pattern.compile("(?<description>.*) /at (?<date>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern DEADLINE_FORMAT= Pattern.compile("(?<description>.*) /by (?<date>.*)");
+    private static final Pattern EVENT_FORMAT= Pattern.compile("(?<description>.*) /at (?<date>.*)");
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());

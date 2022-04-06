@@ -1,7 +1,9 @@
 package duke.utils;
 
 import java.time.LocalDateTime;
-import java.time.format.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.time.format.DateTimeParseException;
 
 /**
  * Contains methods that do validation to make sure errors are handled properly before making changes to the task list
@@ -12,8 +14,9 @@ public class Validator {
 
     /**
      * Validates if the user input is a valid Todo task
-     * @param userInput
-     * @throws StringIndexOutOfBoundsException
+     *
+     * @param userInput description of task
+     * @throws StringIndexOutOfBoundsException thrown when description of task is empty
      */
     public static void todoValidate (String userInput) throws StringIndexOutOfBoundsException{
         try {
@@ -26,8 +29,9 @@ public class Validator {
 
     /**
      * Validates if the user input is a valid Deadline task
-     * @param userInput
-     * @throws StringIndexOutOfBoundsException
+     *
+     * @param userInput description and timestamp of Deadline
+     * @throws StringIndexOutOfBoundsException thrown when deadline is empty
      */
     public static void deadlineValidate (String userInput) throws StringIndexOutOfBoundsException {
         //Below checks are for deadline
@@ -52,8 +56,9 @@ public class Validator {
 
     /**
      * Validates if the user input is a valid Event task
-     * @param userInput
-     * @throws StringIndexOutOfBoundsException
+     *
+     * @param userInput description and timestamp of Event
+     * @throws StringIndexOutOfBoundsException thrown when timestamp is empty
      */
     public static void eventValidate (String userInput) throws StringIndexOutOfBoundsException {
         //Below checks are for event
@@ -78,9 +83,10 @@ public class Validator {
 
     /**
      * Validate if date is part of the user input for Deadline and Event tasks before passing to other methods.
-     * @param date
-     * @throws StringIndexOutOfBoundsException
-     * @see {@link #dateTimeFormatValidate(String)}
+     *
+     * @param date timestamp of the task
+     * @throws StringIndexOutOfBoundsException thrown when date is empty
+     * @see Validator#dateTimeFormatValidate(String)
      */
     private static void dateValidate (String date) throws StringIndexOutOfBoundsException{
         if (date.isBlank()) {
@@ -94,6 +100,7 @@ public class Validator {
             }
         }
     }
+
     private static void descriptionValidate (String description) throws StringIndexOutOfBoundsException {
         if (description.isBlank()) {
             System.out.println("☹ OOPS!!! The description of a task cannot be empty.");
@@ -111,12 +118,14 @@ public class Validator {
 
     /**
      * Make sure the index exists for actions that require the task list to be indexed
-     * @param userInput
-     * @param action
-     * @throws NumberFormatException
-     * @see {@link duke.task.TaskList#delete(String)}
-     * @see {@link duke.task.TaskList#mark(String)}
-     * @see {@link duke.task.TaskList#unmark(String)}
+     *
+     * @param userInput action and the index of the task
+     * @param action mark, unmark, delete, find
+     * @throws NumberFormatException thrown when the index given is not in the task list
+     * @see duke.task.TaskList#delete(String)
+     * @see duke.task.TaskList#mark(String)
+     * @see duke.task.TaskList#unmark(String)
+     * @see duke.task.TaskList#find(String)
      */
     public static void indexValidate (String userInput, String action) throws NumberFormatException{
         try {

@@ -16,7 +16,9 @@ public class Task implements Comparable<Task> {
     protected LocalDateTime dateTime;
 
     /**
-     * Constructor for user input
+     * Task generic constructor.
+     * Created from user input.
+     *
      * @param description The description of the task
      */
     public Task(String description) {
@@ -26,7 +28,9 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Constructor for importing from task file
+     * Task generic constructor.
+     * For importing from task file.
+     *
      * @param description The description of the task
      * @param isDone The status of the task
      */
@@ -36,7 +40,7 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * This method calls to add the new tasks created from user input into the task file
+     * newTask method to add the new tasks created from user input into the task file
      */
     public void newTask(){
         try {
@@ -48,8 +52,9 @@ public class Task implements Comparable<Task> {
     }
 
     /**
+     * getTaskType to show Todo, Deadline or Event task.
      * Returns the task type of the task.
-     * Todo, Deadline or Event task.
+     *
      * @return T, D or E
      */
     public String getTaskType(){
@@ -57,16 +62,18 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Stores the date/time of the task in this format.
-     * 1999-30-06 1800
+     * setDT sets the date and time of a task.
+     * Stores the date/time of the task in this format: 1999-30-06 1800.
+     *
      * @param date Date in String format
      */
     protected void setDT(String date){
-                    dateTime = LocalDateTime.parse(date, DATE_TIME_FORMAT);
+        dateTime = LocalDateTime.parse(date, DATE_TIME_FORMAT);
     }
 
     /**
-     * Returns the date/time of the task
+     * getDT returns the date/time of the task.
+     *
      * @return LocalDateTime
      */
     public LocalDateTime getDT() {
@@ -74,8 +81,8 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Prints the date/time of the task in this format.
-     * Jun 30 1999, 06:00pm
+     * printDT returns the date/time of the task in this format: Jun 30 1999, 06:00pm.
+     *
      * @return String
      */
     protected String printDT() {
@@ -83,7 +90,8 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Gets the status icon of the task where "X" indicates done and " " indicates it is not done
+     * getStatusIcon of the task where "X" indicates done and " " indicates it is not done.
+     *
      * @return "X" or " "
      * @see #isDone
      */
@@ -91,14 +99,16 @@ public class Task implements Comparable<Task> {
         return (isDone ? "X" : " "); // mark done task with X
     }
     /**
-     * Returns a string that is to be saved into the task file
+     * addToFile string is appended to the task file.
+     *
      * @return the status and description of the task
      */
     protected String addToFile() {
         return "[" + getStatusIcon() + "] " + description;
     }
     /**
-     * Returns a string that is used for displaying to the user
+     * toString string used for displaying to the user.
+     *
      * @return the status and description of the task
      */
     public String toString() {
@@ -106,7 +116,8 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Compares the date of 2 tasks that are having date/time associated with them
+     * compareTo method compares the date of 2 tasks that are having date/time associated with them.
+     *
      * @param otherTask
      * @return -1 if given is smaller, 0 if both are equal and 1 if given is bigger
      * @see {@link java.time.LocalDateTime#compareTo(ChronoLocalDateTime)}

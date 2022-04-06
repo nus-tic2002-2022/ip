@@ -2,15 +2,15 @@
 import java.util.Scanner;
 import duke.importer.TaskFile;
 import duke.task.TaskList;
-import duke.utils.*;
-
+import duke.utils.Parser;
+import duke.utils.Ui;
 
 public class Duke {
     /**
      * Duke in an interactive program that helps the user keep track of tasks.
      * This class creates new instances of the Ui object, TaskList object and TaskFile object.
+     *
      * @param fp takes in the location of the file with Tasks and passes it to construct the TaskFile object
-     * @see Duke constructor
      */
     public Duke (String fp) {
         Ui ui = new Ui();
@@ -19,9 +19,9 @@ public class Duke {
     }
 
     /**
+     * Run method continues running until the program is exited.
      * Waits for user input and executes certain instructions.
      * Does not end until the user inputs "bye" or the program exits due to errors.
-     * @see {@link duke.utils.CommandList#help()}
      */
     public void run (){
         while(true) {
@@ -32,12 +32,14 @@ public class Duke {
     }
 
     /**
+     * Main function of the program.
      * The input file "./data/tasks.txt" is an optional argument when executing Duke.
      * If the file does not exist or cannot be found Duke will help the user create one.
      * This essentially creates Duke, it starts interacting with the user.
+     *
      * @param args takes in a directory path where a task file is located
-     * @see #Duke(String fp)
-     * @see #run()
+     * @see Duke#Duke(String fp)
+     * @see Duke#run()
      */
     public static void main(String[] args) {
         new Duke("./data/tasks.txt").run();

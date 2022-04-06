@@ -1,4 +1,5 @@
 package duke.utils;
+
 import duke.task.DateFunctions;
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
@@ -9,9 +10,10 @@ public class SearchDate {
     /**
      * Determine whether the user input query is valid or not.
      * If it is, then Duke will display tasks with the corresponding day or month.
+     *
      * @param userInput user input should be something like "search sunday" or "search december"
-     * @see {@link duke.task.DateFunctions#daySearch(DayOfWeek)}
-     * @see {@link duke.task.DateFunctions#monthSearch(Month)}
+     * @see duke.task.DateFunctions#daySearch(DayOfWeek)
+     * @see duke.task.DateFunctions#monthSearch(Month)
      */
     protected static void searchDate (String userInput){
         String date = "";

@@ -2,32 +2,34 @@ package duke.task;
 
 import java.time.DayOfWeek;
 import java.time.Month;
-import java.util.*;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 
-import static java.util.Collections.*;
+import static java.util.Collections.sort;
+import static java.util.Collections.reverseOrder;
 
 public class DateFunctions {
 
     /**
-     * Sorts the tasks in order.
+     * listSort sorts the tasks by date.
      * Todo task will always appear on top as they have neither date nor time.
-     * @param ascendingOrder true = ascending order, false = descending order
+     *
+     * @param isAscendingOrder true = ascending order, false = descending order
      */
-    public static void listSort(boolean ascendingOrder){
-        ArrayList<Task> sortTask = new ArrayList<>(TaskList.taskList);
+    public static void listSort(boolean isAscendingOrder){
+        ArrayList<Task> copyOfTaskList = new ArrayList<>(TaskList.taskList);
         ArrayList<Task> sortedTaskList = new ArrayList<>();
         ArrayList<Task> taskWithNoDates = new ArrayList<>();
         ArrayList<Task> taskWithDates = new ArrayList<>();
 
-        for (Task task : sortTask) {
+        for (Task task : copyOfTaskList) {
             if (task.getTaskType().equals("T")) {
                 taskWithNoDates.add(task);
             } else {
                 taskWithDates.add(task);
             }
         }
-        if(ascendingOrder) {
+        if(isAscendingOrder) {
             dateSort(taskWithDates);
         }else{
             dateSortReverse(taskWithDates);
@@ -46,14 +48,15 @@ public class DateFunctions {
     }
 
     /**
-     * The tasks are compared to current time to determine which tasks have expired.
+     * expiredList shows tasks past their due date.
+     * Tasks are compared to current time to determine which tasks have expired.
      * Results are then displayed on screen.
      * Todo tasks never expire as they do not have an end date.
      */
     public static void expiredList(){
-        ArrayList<Task> sortTask = new ArrayList<>(TaskList.taskList);
+        ArrayList<Task> copyOfTaskList = new ArrayList<>(TaskList.taskList);
         ArrayList<Task> expiredTaskList = new ArrayList<>();
-        for (Task task : sortTask) {
+        for (Task task : copyOfTaskList) {
             if (task.getTaskType().equals("D") || task.getTaskType().equals("E")) {
                 if (task.getDT().compareTo(LocalDateTime.now()) < 0) {
                     expiredTaskList.add(task);
@@ -66,15 +69,16 @@ public class DateFunctions {
         }
     }
     /**
-     * The tasks are compared to current time to determine which tasks are still valid
+     * upcoming list shows tasks that have an upcoming date.
+     * Tasks are compared to current time to determine which tasks are still valid.
      * Results are then displayed on screen.
      * Todo tasks never expire as they do not have an end date.
      */
     public static void upcomingList(){
-        ArrayList<Task> sortTask = new ArrayList<>(TaskList.taskList);
+        ArrayList<Task> copyOfTaskList = new ArrayList<>(TaskList.taskList);
         ArrayList<Task> taskWithNoDates = new ArrayList<>();
         ArrayList<Task> upcomingTaskList = new ArrayList<>();
-        for (Task task : sortTask) {
+        for (Task task : copyOfTaskList) {
             if (task.getTaskType().equals("D") || task.getTaskType().equals("E")) {
                 if (task.getDT().compareTo(LocalDateTime.now()) >= 0) {
                     upcomingTaskList.add(task);
@@ -92,13 +96,14 @@ public class DateFunctions {
 
     /**
      * Displays all the tasks which fall on the provided day parameter
-     * @param day
-     * for Month @see {@link #monthSearch(Month)}
+     *
+     * @param day Day
+     * @see DateFunctions#monthSearch(Month)
      */
     public static void daySearch(DayOfWeek day){
-        ArrayList<Task> sortTask = new ArrayList<>(TaskList.taskList);
+        ArrayList<Task> copyOfTaskList = new ArrayList<>(TaskList.taskList);
         ArrayList<Task> taskWithDates = new ArrayList<>();
-        for (Task task : sortTask) {
+        for (Task task : copyOfTaskList) {
             if (task.getTaskType().equals("D") || task.getTaskType().equals("E")) {
                 if (task.getDT().getDayOfWeek() == day) {
                     taskWithDates.add(task);
@@ -111,8 +116,9 @@ public class DateFunctions {
     }
     /**
      * Displays all the tasks which fall on the provided month parameter
-     * @param month
-     * for day @see {@link #daySearch(DayOfWeek)}
+     *
+     * @param month Month
+     * @see DateFunctions#daySearch(DayOfWeek)
      */
     public static void monthSearch(Month month){
         ArrayList<Task> sortTask = new ArrayList<>(TaskList.taskList);
@@ -126,6 +132,31 @@ public class DateFunctions {
         }
         for(Task t : taskWithDates){
             System.out.println(t.toString());
+        }
+    }
+
+    /**
+     * Search for tasks to be done after a given tasks
+     *
+     * @param t task which contains the timestamp for comparison
+     */
+    public static void after(Task t){
+        ArrayList<Task> copyOfTaskList = new ArrayList<>(TaskList.taskList);
+        ArrayList<Task> taskWithDates = new ArrayList<>();
+        for (Task task : copyOfTaskList) {
+            if (task.getTaskType().equals("D") || task.getTaskType().equals("E")) {
+                if (task.getDT().compareTo(t.getDT()) > 0) {
+                    taskWithDates.add(task);
+                }
+            }
+        }
+        dateSort(taskWithDates);
+        if(taskWithDates.size() == 0){
+            System.out.println("There are no tasks after this!");
+        }else {
+            for (Task task : taskWithDates) {
+                System.out.println(task.toString());
+            }
         }
     }
 }

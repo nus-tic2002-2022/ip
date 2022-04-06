@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.importer.TaskFile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,8 +10,9 @@ public class TaskList {
     protected static int numOfTasks;
 
     /**
-     * Constructor of TaskList
-     * Initializes with 0 tasks
+     * TaskList Constructor.
+     * Maintains the list of tasks.
+     * Initializes with 0 task.
      */
     public TaskList() {
         numOfTasks = 0;
@@ -35,7 +35,8 @@ public class TaskList {
     }
 
     /**
-     * Gets the number of tasks in the task list
+     * getNumOfTasks returns number of tasks in the task list.
+     *
      * @return number of tasks in the task list
      */
     public static int getNumOfTasks(){
@@ -43,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * This method lists all the task in the task list
+     * list method lists all the task in the task list
      */
     public static void list(){
         try {
@@ -64,9 +65,10 @@ public class TaskList {
     }
 
     /**
-     * Changes the isDone of the task to true (done) [X]
+     * Mark methods changes the isDone status of the task to "done".
+     *
      * @param userInput index of the task according to the task list
-     * @see {@link #list()}
+     * @see TaskList#list()
      */
     public static void mark(String userInput) {
         int index = indexer(userInput);
@@ -84,9 +86,10 @@ public class TaskList {
     }
 
     /**
-     * Changes the isDone of the task to false (not done) [ ]
+     * Mark methods changes the isDone status of the task to not done.
+     *
      * @param userInput index of the task according to the task list
-     * @see {@link #list()}
+     * @see TaskList#list()
      */
     public static void unmark(String userInput) {
         int index = indexer(userInput);
@@ -104,7 +107,8 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Todo task to the task list
+     * todo method adds a new Todo task to the task list.
+     *
      * @param userInput the description of the task
      */
     public static void todo(String userInput){
@@ -116,7 +120,8 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Deadline task to the task list
+     * deadline method adds a new Deadline task to the task list.
+     *
      * @param userInput the description and date/time of the task
      */
     public static void deadline(String userInput){
@@ -130,7 +135,8 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Event task to the task list
+     * event method adds a new Event task to the task list.
+     *
      * @param userInput the description and date/time of the task
      */
     public static void event(String userInput){
@@ -144,10 +150,12 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task in the task list
+     * delete method Deletes a task in the task list.
+     *
      * @param userInput index of the task according to the task list
-     * @see {@link #list()}
-     * @see {@link TaskFile#overwriteTask()}
+     * @see TaskList#list()
+     * @see TaskList#overwriteTaskFile()
+     * @see TaskFile#overwriteTask()
      */
     public static void delete(String userInput){
         int index = indexer(userInput);
@@ -163,7 +171,52 @@ public class TaskList {
     }
 
     /**
-     * Imports a Todo task from the task file to the task list
+     * Search for tasks to be done after a given tasks
+     * @see DateFunctions#after(Task t)
+     * @param userInput is the index of the task in the Task List
+     */
+    public static void doAfter(String userInput){
+        int index = indexer(userInput);
+        if(index == -1){
+            return;
+        }
+
+        if(!taskList.get(index).getTaskType().equals("T")) {
+            System.out.println("Tasks to be done after" + taskList.get(index) + "are: ");
+            DateFunctions.after(taskList.get(index));
+        }else{
+            System.out.println("Please query for Deadline or Event tasks that have timestamps!");
+        }
+    }
+
+    /**
+     * Returns tasks that have description matching the user's query
+     * @param userInput string of text in the description of the tasks that user wants to find
+     */
+    public static void find(String userInput){
+        String query = userInput.substring(userInput.indexOf(' ')+1);
+        ArrayList<Task> results = new ArrayList<>();
+        int numOfResults = 0;
+
+        for (Task t : taskList){
+            if(t.toString().contains(query)){
+                results.add(t);
+                numOfResults++;
+            }
+        }
+        if(numOfResults == 0){
+            System.out.println("There are no matching results!");
+        }else{
+            System.out.println("I have found "+numOfResults+" result(s):");
+            for(Task t : results){
+                System.out.println(t.toString());
+            }
+        }
+    }
+
+    /**
+     * importTodo Imports a Todo task from the task file to the task list.
+     *
      * @param fileInputDescription the description of the task
      * @param fileInputMark the status of the task
      */
@@ -174,7 +227,8 @@ public class TaskList {
     }
 
     /**
-     * Imports a Deadline task from the task file to the task list
+     * importDeadline imports a Deadline task from the task file to the task list.
+     *
      * @param fileInputDescription the description of the task
      * @param fileInputDate the date/time of the task
      * @param fileInputMark the status of the task
@@ -186,7 +240,8 @@ public class TaskList {
     }
 
     /**
-     * Imports an Event task from the task file to the task list
+     * importEvent imports an Event task from the task file to the task list.
+     *
      * @param fileInputDescription the description of the task
      * @param fileInputDate the date/time of the task
      * @param fileInputMark the status of the task

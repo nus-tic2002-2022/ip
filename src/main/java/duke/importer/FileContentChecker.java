@@ -10,9 +10,11 @@ public class FileContentChecker {
     protected static String line;
 
     /**
-     * Throws an exception if the current line of the task file fails any of the checks
+     * lineChecker validates the tasks in each line of the file.
+     * Throws an exception if the current line of the task file fails any of the checks.
+     *
      * @param input This is the current line of the task file
-     * @throws ImportErrorException
+     * @throws ImportErrorException Is thrown when the format of the line is not acceptable
      */
     public static void lineChecker (String input) throws ImportErrorException {
 

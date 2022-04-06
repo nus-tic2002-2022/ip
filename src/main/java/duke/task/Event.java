@@ -4,8 +4,11 @@ public class Event extends Task {
 
     protected String at;
 
-    /**Constructs a task that has a happening time from user input
+    /**
+     * Event task constructor.
+     * That has a happening time from user input.
      * Expects input like "event read book /at 2022-02-22 2200".
+     *
      * @param description The description of the task
      * @param at The date and time which the task happens
      */
@@ -18,7 +21,9 @@ public class Event extends Task {
         newTask();
     }
     /**
-     * Constructs a task that has a happening time imported from a task file
+     * Event task constructor.
+     * That has a happening time imported from a task file.
+     *
      * @param description The description of the task
      * @param at The date and time which the task happens
      * @param isDone The status of the task
@@ -30,7 +35,8 @@ public class Event extends Task {
         setDT(at);
     }
     /**
-     * Returns a string that is to be saved into the task file
+     * addToFile string is appended to the task file.
+     *
      * @return [taskType][status] description (at: date)
      */
     @Override
@@ -38,7 +44,8 @@ public class Event extends Task {
         return "[E]" + super.toString() + "(at: " + at + ")";
     }
     /**
-     * Returns a string that is used for displaying to the user
+     * toString string used for displaying to the user.
+     *
      * @return [taskType][status] description (at: date)
      */
     @Override

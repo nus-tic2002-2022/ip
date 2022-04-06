@@ -14,12 +14,12 @@ public class Task {
         return description;
     }
 
-    public void updateDescription(String newContent){
+    public void updateDescription(String newContent) {
         this.description = newContent;
     }
 
-    public void updateDate(Date date){
-        System.out.println("Task does not have a date to update");
+    public void updateDate(Date date) {
+        System.out.println("This should never print");
     }
 
     public void markDone() {

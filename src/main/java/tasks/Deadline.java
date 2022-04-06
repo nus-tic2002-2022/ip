@@ -13,7 +13,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void updateDate(Date newDate){
+    public void updateDate(Date newDate) {
         this.by = newDate;
     }
 

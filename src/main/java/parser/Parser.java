@@ -4,16 +4,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import commands.AddCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.ExitCommand;
-import commands.FindCommand;
-import commands.IncorrectCommand;
-import commands.ListCommand;
-import commands.MarkDoneCommand;
-import commands.UnmarkDoneCommand;
-import commands.UpdateCommand;
+import commands.*;
 import exceptions.TooManyDatesException;
 import tasks.Deadline;
 import tasks.Event;
@@ -189,6 +180,11 @@ public class Parser {
     }
 
     private Command prepareDelete(String arguments) {
+
+        if (arguments.equalsIgnoreCase("all") || arguments.equalsIgnoreCase("marked")) {
+            return new MassDeleteCommand(arguments);
+        }
+
         try {
             int taskNumber = Integer.parseInt(arguments);
             return new DeleteCommand(taskNumber);

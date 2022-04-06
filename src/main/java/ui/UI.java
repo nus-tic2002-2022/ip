@@ -69,12 +69,12 @@ public class UI {
         printNumberOfTask(number);
     }
 
-    public void printUpdatedTask(String task){
+    public void printUpdatedTask(String task) {
         System.out.println("Got it. I've updated this task:");
         printTask(task);
     }
 
-    public void printTaskNotUpdated(String task){
+    public void printTaskNotUpdated(String task) {
         System.out.println("Task did not have a date to update");
         printTask(task);
     }
@@ -107,6 +107,14 @@ public class UI {
                 System.out.println((i + 1) + ". " + taskList.get(i));
             }
         }
+    }
+
+    public void printAllTasksDeleted() {
+        System.out.println("All task have been deleted!");
+    }
+
+    public void printAllMarkedTasksDeleted() {
+        System.out.println("All marked tasks have been deleted!");
     }
 
 }

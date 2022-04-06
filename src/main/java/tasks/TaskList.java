@@ -27,15 +27,14 @@ public class TaskList {
         taskList.remove(index);
     }
 
-    public void printTask() {
-        if (this.getNumberOfTask() == 0) {
-            System.out.println("There is currently nothing in the list");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < getNumberOfTask(); i++) {
-                System.out.println((i + 1) + ". " + taskList.get(i));
+    public TaskList getSearchResults(String searchTerm) {
+        TaskList tempList = new TaskList();
+        for (Task task: this.taskList) {
+            if (task.getDescription().toLowerCase().contains(searchTerm.toLowerCase())) {
+                tempList.addTask(task);
             }
         }
+        return tempList;
     }
 
     public Task get(int index) throws IndexOutOfBoundsException {

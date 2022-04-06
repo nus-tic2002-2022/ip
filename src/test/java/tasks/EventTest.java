@@ -36,6 +36,6 @@ public class EventTest {
 
     @Test
     public void printDate_validDeadline_success() {
-        assertEquals("Jan 01 0AM", event.printDate(date));
+        assertEquals("Jan 01 0AM", event.dateToString(date));
     }
 }

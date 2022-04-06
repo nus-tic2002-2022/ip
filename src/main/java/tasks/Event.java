@@ -14,7 +14,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + printDate(at) + ")";
+        return "[E]" + super.toString() + " (at: " + dateToString(at) + ")";
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Event extends Task {
         return "E" + super.getSaveFormat() + "|" + at;
     }
 
-    public String printDate(Date date) {
+    public String dateToString(Date date) {
         return new SimpleDateFormat("MMM dd Ka").format(date);
     }
 }

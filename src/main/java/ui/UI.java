@@ -2,6 +2,9 @@ package ui;
 
 import java.util.Scanner;
 
+import tasks.TaskList;
+
+
 public class UI {
     private final Scanner in = new Scanner(System.in);
 
@@ -72,6 +75,28 @@ public class UI {
 
     public void printErrorTaskDoesNotExist(String msg) {
         System.out.println("Task does not exist: " + msg);
+    }
+
+    public void printAllTasks(TaskList taskList) {
+        if (taskList.getNumberOfTask() == 0) {
+            System.out.println("There is currently nothing in the list");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskList.getNumberOfTask(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i));
+            }
+        }
+    }
+
+    public void printSearchResults(TaskList taskList) {
+        if (taskList.getNumberOfTask() == 0) {
+            System.out.println("There is currently nothing matching your search");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < taskList.getNumberOfTask(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i));
+            }
+        }
     }
 
 }

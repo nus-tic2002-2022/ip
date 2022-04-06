@@ -36,6 +36,6 @@ public class DeadlineTest {
 
     @Test
     public void printDate_validDeadline_success() {
-        assertEquals("Jan 01", deadline.printDate(date));
+        assertEquals("Jan 01", deadline.dateToString(date));
     }
 }

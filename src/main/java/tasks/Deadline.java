@@ -15,7 +15,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + printDate(by) + ")";
+        return "[D]" + super.toString() + " (by: " + dateToString(by) + ")";
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Deadline extends Task {
         return "D" + super.getSaveFormat() + "|" + by;
     }
 
-    public String printDate(Date date) {
+    public String dateToString(Date date) {
         return new SimpleDateFormat("MMM dd").format(date);
     }
 }

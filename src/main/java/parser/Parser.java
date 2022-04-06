@@ -8,6 +8,7 @@ import commands.AddCommand;
 import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
+import commands.FindCommand;
 import commands.IncorrectCommand;
 import commands.ListCommand;
 import commands.MarkDoneCommand;
@@ -53,8 +54,8 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
-        //case FindCommand.COMMAND_WORD:
-            //return prepareFind(arguments);
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -67,6 +68,14 @@ public class Parser {
         }
     }
 
+    private Command prepareFind(String arguments) {
+        if (arguments.isEmpty()) {
+            return new IncorrectCommand("Search term is missing!");
+        } else {
+            return new FindCommand(arguments);
+        }
+    }
+
     private Command prepareTodo(String arguments) {
         if (arguments.isEmpty()) {
             return new IncorrectCommand("Description is missing!");
@@ -75,6 +84,7 @@ public class Parser {
             return new AddCommand(taskToAdd);
         }
     }
+
 
     private Command prepareDeadline(String arguments) {
         final Matcher matcher = DEADLINE_FORMAT.matcher(arguments.trim());

@@ -23,15 +23,14 @@ public class Storage {
     private static final String FILE_PATH = "data";
     private static final String FILE_NAME = "duke.txt";
 
+    @SuppressWarnings("empty")
     public void init() {
         Path dirPathObj = Paths.get(FILE_PATH);
         boolean dirExists = Files.exists(dirPathObj);
         if (dirExists) {
-            //System.out.println("! Directory Already Exists !");
         } else {
             try {
                 Files.createDirectories(dirPathObj);
-                //System.out.println("! New Directory Successfully Created !");
             } catch (IOException ioExceptionObj) {
                 System.out.println("Problem Occurred While Creating The Directory " + ioExceptionObj.getMessage());
             }

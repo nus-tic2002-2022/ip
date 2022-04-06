@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.Date;
+
 public class Task {
     protected String description;
     protected boolean isDone = false;
@@ -10,6 +12,14 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public void updateDescription(String newContent){
+        this.description = newContent;
+    }
+
+    public void updateDate(Date date){
+        System.out.println("Task does not have a date to update");
     }
 
     public void markDone() {

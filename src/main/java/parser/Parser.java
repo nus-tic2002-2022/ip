@@ -13,6 +13,7 @@ import commands.IncorrectCommand;
 import commands.ListCommand;
 import commands.MarkDoneCommand;
 import commands.UnmarkDoneCommand;
+import commands.UpdateCommand;
 import exceptions.TooManyDatesException;
 import tasks.Deadline;
 import tasks.Event;
@@ -23,6 +24,7 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern DEADLINE_FORMAT = Pattern.compile("(?<description>.*) /by (?<date>.*)");
     private static final Pattern EVENT_FORMAT = Pattern.compile("(?<description>.*) /at (?<date>.*)");
+    private static final Pattern UPDATE_FORMAT = Pattern.compile("\\d+ (desc|date) (?<content>.*)");
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -57,6 +59,9 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
+        case UpdateCommand.COMMAND_WORD:
+            return prepareUpdate(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
@@ -75,6 +80,44 @@ public class Parser {
             return new FindCommand(arguments);
         }
     }
+
+    private Command prepareUpdate(String arguments) {
+        final Matcher matcher = UPDATE_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand("Wrong Format of Update Command");
+        }
+        String[] splittedString = arguments.split(" ",3);
+
+        String taskNumber = splittedString[0];
+        String partToUpdate = splittedString[1];
+        String newContent = splittedString[2];
+        int taskNumberInInt;
+
+        try {
+            taskNumberInInt = Integer.parseInt(taskNumber);
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand("Invalid task number: " + arguments);
+        }
+
+        if (partToUpdate.equalsIgnoreCase("desc")) {
+            return new UpdateCommand(taskNumberInInt,partToUpdate, newContent);
+        }
+
+        if (partToUpdate.equalsIgnoreCase("date")) {
+            try{
+                final Date date = DateParser.parseDate(newContent);
+                return new UpdateCommand(taskNumberInInt, partToUpdate, date);
+            } catch (IndexOutOfBoundsException e) {
+                return new IncorrectCommand("Invalid Date");
+            } catch (TooManyDatesException e) {
+                return new IncorrectCommand("Too many Dates Provided");
+            }
+
+        }
+        return new IncorrectCommand("Wrong Format of Update Command");
+
+    }
+
 
     private Command prepareTodo(String arguments) {
         if (arguments.isEmpty()) {

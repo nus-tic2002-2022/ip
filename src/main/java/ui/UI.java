@@ -69,6 +69,11 @@ public class UI {
         printNumberOfTask(number);
     }
 
+    public void printUpdatedTask(String task){
+        System.out.println("Got it. I've updated this task:");
+        printTask(task);
+    }
+
     public void printError(String errorMessage) {
         System.out.println(errorMessage);
     }

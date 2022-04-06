@@ -13,6 +13,11 @@ public class Event extends Task {
     }
 
     @Override
+    public void updateDate(Date newDate){
+        this.at = newDate;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + dateToString(at) + ")";
     }

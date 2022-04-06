@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class taskListTest {
+public class TaskListTest {
     private static TaskList taskList;
 
     @BeforeAll

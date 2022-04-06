@@ -59,7 +59,6 @@ public class InputParser {
             throw new UnsupportedOperationException();
         }
 
-        System.out.print(commandList[0]);
         // Check what type of command
         switch (commandList[0]) {
             case UpdateCommand.MARK_COMMAND:
@@ -77,8 +76,6 @@ public class InputParser {
             case AddCommand.TODO_COMMAND:
             case AddCommand.EVENT_COMMAND:
             case AddCommand.DEADLINE_COMMAND:
-
-                System.out.print("ine");
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
             case DeleteCommand.COMMAND:
                 if (commandList.length > 2) {

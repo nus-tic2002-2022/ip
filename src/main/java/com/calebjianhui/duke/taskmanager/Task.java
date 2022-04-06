@@ -1,5 +1,7 @@
 package com.calebjianhui.duke.taskmanager;
 
+import com.calebjianhui.duke.enums.TaskDateStructure;
+
 public abstract class Task {
     protected boolean isDone;
     protected String description;
@@ -40,7 +42,17 @@ public abstract class Task {
      *
      * @param description New description
      * **/
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Get the current date structure of the task
+     * - Default return NO_DATE
+     *
+     * @return TaskDateStructure of Task
+     * **/
+    public TaskDateStructure getDateStructure() {
+        return TaskDateStructure.NO_DATE;
     }
 }

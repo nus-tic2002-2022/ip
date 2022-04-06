@@ -1,28 +1,36 @@
 package com.calebjianhui.duke.taskmanager;
 
+import com.calebjianhui.duke.common.Pair;
+import com.calebjianhui.duke.enums.TaskDateStructure;
+import com.calebjianhui.duke.parser.DateParser;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     public static final String COMMAND_SEPARATOR = " /at ";
     public static final String TYPE_INDICATOR = "E";
 
-    private final String startTime;
+    private final String rawDate;
+    private final Pair<TaskDateStructure, LocalDateTime> dateStructure;
 
     public Event (boolean isDone, String description, String startTime) {
         super(isDone, description);
-        this.startTime = startTime;
+        this.rawDate = startTime;
+        this.dateStructure = DateParser.parseDateTimeString(startTime);
     }
 
     /**
      * Getter for description
      * **/
     public String getDescription() {
-        return description + " (at: " + startTime + ")";
+        return description + " (at: " + rawDate + ")";
     }
 
     /**
      * Getter for description (raw)
      * **/
     public String getRawDescription() {
-        return description + COMMAND_SEPARATOR + startTime + ")";
+        return description + COMMAND_SEPARATOR + rawDate + ")";
     }
 
     /**
@@ -33,9 +41,11 @@ public class Event extends Task {
     }
 
     /**
-     * Getter for date of task
+     * Get the current date structure
      * **/
-    public String getDate() {
-        return startTime;
+    @Override
+    public TaskDateStructure getDateStructure() {
+        return dateStructure.getFirst();
     }
+
 }

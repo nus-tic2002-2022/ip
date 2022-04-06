@@ -5,9 +5,11 @@ public class FileTaskList extends Task{
     public FileTaskList (String description){
         super(description);
     }
-
+    public FileTaskList (String isDone,String description){
+        super(isDone,description);
+    }
     @Override
     public String toString(){
-        return super.fileListToString();
+        return super.toString();
     }
 }

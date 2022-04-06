@@ -13,6 +13,8 @@ public class ExitCommand extends Command {
         super(passed);
     }
 
+
+
     @Override
     public boolean isExit() {
         return true;

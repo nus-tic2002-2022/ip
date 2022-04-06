@@ -14,6 +14,9 @@ public class DeleteCommand extends Command{
         super(passed);
         numbertodelete= numberpassed;
     }
+
+
+
     @Override
     public boolean isExit() {
         return false;

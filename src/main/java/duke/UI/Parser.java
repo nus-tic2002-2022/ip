@@ -170,7 +170,7 @@ public class Parser {
                     //Task t_flag = null;
                     UI recurr_UI = new UI();
                     String recurr_command = recurr_UI.readCommand();
-                    assert (recurr_command.equals("Y") || recurr_command.equals("y") || recurr_command.equals("N") || recurr_command.equals("n"));
+                    assert (recurr_command.equals("Y") || recurr_command.equals("N")||recurr_command.equals("y") || recurr_command.equals("n"));
                     if (recurr_command.equals("Y") || recurr_command.equals("y")){
                         System.out.println("First time event date on: YYYY-MM-DD");
                         String firstdate = recurr_UI.readCommand();
@@ -182,8 +182,12 @@ public class Parser {
                         System.out.println("How many times to be recurred : ");
                         String recurr_count = recurr_UI.readCommand();
                         Integer number = checkRecurring_count(recurr_count);
-                        RecurringTask t_flag = new RecurringTask(descrip,detail,firstdate,number,between);
-                        Add_Recur_Command passed_command = new Add_Recur_Command(str[0],t_flag);
+                        Add_Recur_Command passed_command = new Add_Recur_Command(str[0]);
+                        for(Integer j=0; j < number; j++) { // recurring task list is created in Add_Recur_Command, hence adding the task into this command
+                            RecurringTask t_flag = new RecurringTask(descrip, detail, firstdate, number, between);
+                            t_flag.add_day(j);
+                            passed_command.add_task(t_flag);
+                        }
                         return passed_command;
                     }
                     else

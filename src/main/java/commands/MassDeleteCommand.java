@@ -1,11 +1,12 @@
 package commands;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class MassDeleteCommand extends Command {
     private String deleteOption;
@@ -18,7 +19,7 @@ public class MassDeleteCommand extends Command {
     public void execute(TaskList taskList, UI ui, Storage storage) {
         if (deleteOption.equalsIgnoreCase("all")) {
             int totalNumberOfTask = taskList.getNumberOfTask();
-            for ( int i = 0; i < totalNumberOfTask; i++){
+            for (int i = 0; i < totalNumberOfTask; i++) {
                 taskList.deleteTask(0);
             }
             ui.printAllTasksDeleted();
@@ -26,15 +27,15 @@ public class MassDeleteCommand extends Command {
         } else {
             ArrayList<Integer> indexesToDelete = new ArrayList<>();
 
-            for ( int i = 0; i < taskList.getNumberOfTask(); i++) {
-                if(taskList.get(i).getDoneStatus()){
+            for (int i = 0; i < taskList.getNumberOfTask(); i++) {
+                if (taskList.get(i).getDoneStatus()) {
                     indexesToDelete.add(i);
                 }
             }
 
             Collections.sort(indexesToDelete, Collections.reverseOrder());
 
-            for ( int i = 0; i < indexesToDelete.size(); i++) {
+            for (int i = 0; i < indexesToDelete.size(); i++) {
                 taskList.deleteTask(indexesToDelete.get(i));
             }
 

@@ -4,19 +4,46 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import commands.*;
+import commands.AddCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.IncorrectCommand;
+import commands.ListCommand;
+import commands.MarkDoneCommand;
+import commands.MassDeleteCommand;
+import commands.UnmarkDoneCommand;
+import commands.UpdateCommand;
 import exceptions.TooManyDatesException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
+    /** Used for initial separation of command word and args.*/
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    /** Used for initial separation of deadline description and date.*/
     private static final Pattern DEADLINE_FORMAT = Pattern.compile("(?<description>.*) /by (?<date>.*)");
+
+    /** Used for initial separation of event description and date.*/
     private static final Pattern EVENT_FORMAT = Pattern.compile("(?<description>.*) /at (?<date>.*)");
+
+    /** Used for checking if the user input for updating a task is in the right format.*/
     private static final Pattern UPDATE_FORMAT = Pattern.compile("\\d+ (desc|date) (?<content>.*)");
 
+
+    /**
+     * Parses user input into commands for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -64,6 +91,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the find tasks command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareFind(String arguments) {
         if (arguments.isEmpty()) {
             return new IncorrectCommand("Search term is missing!");
@@ -72,12 +105,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the update tasks command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareUpdate(String arguments) {
         final Matcher matcher = UPDATE_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand("Wrong Format of Update Command");
         }
-        String[] splittedString = arguments.split(" ",3);
+        String[] splittedString = arguments.split(" ", 3);
 
         String taskNumber = splittedString[0];
         String partToUpdate = splittedString[1];
@@ -91,11 +130,11 @@ public class Parser {
         }
 
         if (partToUpdate.equalsIgnoreCase("desc")) {
-            return new UpdateCommand(taskNumberInInt,partToUpdate, newContent);
+            return new UpdateCommand(taskNumberInInt, partToUpdate, newContent);
         }
 
         if (partToUpdate.equalsIgnoreCase("date")) {
-            try{
+            try {
                 final Date date = DateParser.parseDate(newContent);
                 return new UpdateCommand(taskNumberInInt, partToUpdate, date);
             } catch (IndexOutOfBoundsException e) {
@@ -110,6 +149,12 @@ public class Parser {
     }
 
 
+    /**
+     * Parses arguments in the context of the add todotask command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareTodo(String arguments) {
         if (arguments.isEmpty()) {
             return new IncorrectCommand("Description is missing!");
@@ -120,6 +165,12 @@ public class Parser {
     }
 
 
+    /**
+     * Parses arguments in the context of the add deadlinetask command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareDeadline(String arguments) {
         final Matcher matcher = DEADLINE_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
@@ -141,6 +192,12 @@ public class Parser {
 
     }
 
+    /**
+     * Parses arguments in the context of the add event task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareEvent(String arguments) {
         final Matcher matcher = EVENT_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
@@ -161,6 +218,12 @@ public class Parser {
 
     }
 
+    /**
+     * Parses arguments in the context of the mark task as done command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareMarkDone(String arguments) {
         try {
             int taskNumber = Integer.parseInt(arguments);
@@ -170,6 +233,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the unmark task as done command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareUnmarkDone(String arguments) {
         try {
             int taskNumber = Integer.parseInt(arguments);
@@ -179,6 +248,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the delete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareDelete(String arguments) {
 
         if (arguments.equalsIgnoreCase("all") || arguments.equalsIgnoreCase("marked")) {

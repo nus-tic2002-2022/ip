@@ -1,15 +1,13 @@
 package commands;
 
+import java.util.Date;
+
 import storage.Storage;
-import tasks.Deadline;
-import tasks.Event;
 import tasks.TaskList;
 import tasks.Todo;
 import ui.UI;
 
-import java.util.Date;
-
-public class UpdateCommand extends Command{
+public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
     private int index;
@@ -17,13 +15,27 @@ public class UpdateCommand extends Command{
     private String partToUpdate;
     private Date date;
 
-    public UpdateCommand(int index, String partToUpdate, String newContent){
+    /**
+     * Constructor for the Update Command Class
+     *
+     * @param index index of the task to be updated
+     * @param partToUpdate which part of the task you want updated: date or description
+     * @param newContent the new description to be updated
+     * */
+    public UpdateCommand(int index, String partToUpdate, String newContent) {
         this.index = index;
         this.partToUpdate = partToUpdate;
         this.newContent = newContent;
     }
 
-    public UpdateCommand(int index, String partToUpdate, Date date){
+    /**
+     * Constructor for the Update Command Class
+     *
+     * @param index index of the task to be updated
+     * @param partToUpdate which part of the task you want updated: date or description
+     * @param date the new date to be updated
+     * */
+    public UpdateCommand(int index, String partToUpdate, Date date) {
         this.index = index;
         this.partToUpdate = partToUpdate;
         this.date = date;
@@ -35,19 +47,19 @@ public class UpdateCommand extends Command{
         try {
             if (partToUpdate.equalsIgnoreCase("desc")) {
                 taskList.get(index - 1).updateDescription(newContent);
-                ui.printUpdatedTask(taskList.get(index-1).toString());
+                ui.printUpdatedTask(taskList.get(index - 1).toString());
             }
 
             if (taskList.get(index - 1).getClass().equals(Todo.class)) {
-                ui.printTaskNotUpdated(taskList.get(index-1).toString());
+                ui.printTaskNotUpdated(taskList.get(index - 1).toString());
             } else {
                 taskList.get(index - 1).updateDate(date);
-                ui.printUpdatedTask(taskList.get(index-1).toString());
+                ui.printUpdatedTask(taskList.get(index - 1).toString());
             }
 
         } catch (IndexOutOfBoundsException e) {
             ui.printErrorTaskDoesNotExist(String.valueOf(index));
-        }finally {
+        } finally {
             storage.save(taskList);
         }
     }

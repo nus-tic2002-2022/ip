@@ -2,14 +2,16 @@ package tasks;
 
 import java.util.ArrayList;
 
+/** A TaskList Object that holds tasks */
 public class TaskList {
     private final ArrayList<Task> taskList;
 
-
+    /** Constructor for the TaskList Class */
     public TaskList() {
         taskList = new ArrayList<>();
     }
 
+    /** Constructor for the TaskList Class with a loaded task list */
     public TaskList(TaskList loadedTaskList) {
         this.taskList = loadedTaskList.taskList;
 

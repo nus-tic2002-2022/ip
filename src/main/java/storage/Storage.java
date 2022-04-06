@@ -18,11 +18,19 @@ import tasks.Task;
 import tasks.TaskList;
 import tasks.Todo;
 
-
+/**
+ * A class to deal with all file related matters.
+ */
 public class Storage {
     private static final String FILE_PATH = "data";
     private static final String FILE_NAME = "duke.txt";
 
+    /**
+     * Checks if directory exists and creates it if it does not
+     *
+     * @exception IOException if directory cannot be created
+     * @see IOException
+     */
     @SuppressWarnings("empty")
     public void init() {
         Path dirPathObj = Paths.get(FILE_PATH);
@@ -37,6 +45,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if file exists and creates it if it does not
+     *
+     * @param file the file to be checked
+     * @exception IOException if file cannot be created
+     * @see IOException
+     */
     public void checkIfFileExists(File file) {
         if (!file.exists()) {
             try {
@@ -47,6 +62,14 @@ public class Storage {
         }
     }
 
+
+
+    /**
+     * This method is used to save the task list into a txt file for storage
+     *
+     * @param taskList the list of tasks to be saved
+     * @exception IOException if file cannot be saved
+     */
     public void save(TaskList taskList) {
         File yourFile = new File(FILE_PATH, FILE_NAME);
         checkIfFileExists(yourFile);
@@ -64,6 +87,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This method is used to load the saved task list from a txt file to a new TaskList object
+     *
+     * @return A TaskList Object containing all saved Task Objects
+     * @exception IOException if file cannot be saved
+     */
     public TaskList loadTasks() {
         TaskList tempTaskList = new TaskList();
 
@@ -83,6 +112,14 @@ public class Storage {
         return tempTaskList;
     }
 
+
+    /**
+     * This method is used to convert a line of saved text into a task
+     *
+     * @param str String of the saved text
+     * @return A Task Object
+     * @exception IndexOutOfBoundsException if saved file is in the wrong format
+     */
     public Task convertStrToTask(String str) {
         Task task = null;
         try {

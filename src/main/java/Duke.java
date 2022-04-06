@@ -4,14 +4,20 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
-
+/**
+ * Entry point of the Duke Chat Bot application.
+ * Initializes the application and starts prompting the user for input.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private UI ui;
 
-
+    /**
+     * Constructor of Duke.
+     * Sets up the required objects and loads up the data from the storage file if exists.
+     */
     public Duke() {
         ui = new UI();
         storage = new Storage();
@@ -20,6 +26,10 @@ public class Duke {
 
     }
 
+    /**
+     * Shows the Welcome Message
+     * Performs a loop to accept user input until termination.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

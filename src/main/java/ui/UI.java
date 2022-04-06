@@ -74,6 +74,11 @@ public class UI {
         printTask(task);
     }
 
+    public void printTaskNotUpdated(String task){
+        System.out.println("Task did not have a date to update");
+        printTask(task);
+    }
+
     public void printError(String errorMessage) {
         System.out.println(errorMessage);
     }

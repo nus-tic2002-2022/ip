@@ -4,6 +4,7 @@ import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.TaskList;
+import tasks.Todo;
 import ui.UI;
 
 import java.util.Date;
@@ -35,10 +36,15 @@ public class UpdateCommand extends Command{
             if (partToUpdate.equalsIgnoreCase("desc")) {
                 taskList.get(index - 1).updateDescription(newContent);
                 ui.printUpdatedTask(taskList.get(index-1).toString());
+            }
+
+            if (taskList.get(index - 1).getClass().equals(Todo.class)) {
+                ui.printTaskNotUpdated(taskList.get(index-1).toString());
             } else {
                 taskList.get(index - 1).updateDate(date);
                 ui.printUpdatedTask(taskList.get(index-1).toString());
             }
+
         } catch (IndexOutOfBoundsException e) {
             ui.printErrorTaskDoesNotExist(String.valueOf(index));
         }finally {

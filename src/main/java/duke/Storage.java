@@ -2,7 +2,6 @@
  * Storage handles the writing and reading of list file (duke.txt).
  *
  * @throws IOException if file is not found or cannot be created or saved.
- *
  */
 package duke;
 
@@ -38,19 +37,19 @@ public class Storage {
                 if (line.startsWith("[T] ")) { //to do
                     TaskList.addTodo(line.substring(START_INDEX_CLEAN, line.length())); //
                     index = TaskList.getListLength() - 1;
-                    if(line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
+                    if (line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
                         TaskList.markDone(index);
                     }
                 } else if (line.startsWith("[D] ")) { //deadline
-                    TaskList.addDeadline(line.substring(START_INDEX_CLEAN, line.length()-1));
+                    TaskList.addDeadline(line.substring(START_INDEX_CLEAN, line.length() - 1));
                     index = TaskList.getListLength() - 1;
-                    if(line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
+                    if (line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
                         TaskList.markDone(index);
                     }
                 } else if (line.startsWith("[E] ")) { //event
-                    TaskList.addEvent(line.substring(START_INDEX_CLEAN, line.length()-1));
+                    TaskList.addEvent(line.substring(START_INDEX_CLEAN, line.length() - 1));
                     index = TaskList.getListLength() - 1;
-                    if(line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
+                    if (line.charAt(STATUS_ICON_INDEX_CLEAN) == 'X') {
                         TaskList.markDone(index);
                     }
                 }

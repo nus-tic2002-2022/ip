@@ -1,5 +1,1 @@
-[D] [ ] submit duke (by: 2022-03-16T18:00)
-[E] [ ] tic2002 class (at: 2022-03-23T19:00)
-[T] [X] read a book
-[D] [ ] hmwk 7 (by: 2022-03-28T23:59)
-[E] [ ] TIC2002 class (at: 2022-03-30T19:00)
+[T] [ ] read a book

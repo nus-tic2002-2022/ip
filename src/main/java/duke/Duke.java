@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -6,9 +7,9 @@ import java.lang.StringIndexOutOfBoundsException;
 
 public class Duke {
 
-    private static String fileSeparator = File.separator; // to change accordingly to the OS
-    private final static String fileName = "data" + fileSeparator + "duke.txt";
-    final int LEN_FILENAME = 12; //starting index for clean format (format in the file)
+    public static String fileSeparator = File.separator; // to change accordingly to the OS
+    public final static String fileName = "data" + fileSeparator + "duke.txt";
+    private final static int LEN_FILENAME = 12; //starting index for clean format (format in the file)
 
     private Storage storage;
     private TaskList list;
@@ -26,7 +27,7 @@ public class Duke {
         }
     }
 
-    public void run(){
+    public void run() {
 
         int dukeStatus = 0;
 
@@ -40,17 +41,17 @@ public class Duke {
 
             try {
 
-                String line = Ui.getLine();
+                String line = Ui.getInput();
 
                 int index;
-                if (line.toLowerCase().equals("bye")) {
+                if (line.equalsIgnoreCase("bye")) {
                     Ui.printBye();
                     dukeStatus = 1; // can escape from loop
-                } else if (line.toLowerCase().equals("help")) {
+                } else if (line.equalsIgnoreCase("help")) {
                     Ui.printHelp();
-                } else if (line.toLowerCase().equals("hello")) {
+                } else if (line.equalsIgnoreCase("hello")) {
                     Ui.printHello();
-                } else if (line.toLowerCase().equals("list")) { //Print list
+                } else if (line.equalsIgnoreCase("list")) { //Print list
                     TaskList.printList();
                     TaskList.printNoOfItemsInList();
                 } else if (line.startsWith("todo ")) {
@@ -60,7 +61,7 @@ public class Duke {
                     }
                     TaskList.addTodo(line.substring(5, line.length()));
                     Ui.printAddTaskMsg();
-                    TaskList.printOneTask(TaskList.getListLength()-1);
+                    TaskList.printOneTask(TaskList.getListLength() - 1);
                     TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
@@ -71,7 +72,7 @@ public class Duke {
                     }
                     TaskList.addDeadline(line.substring(9, line.length()));
                     Ui.printAddTaskMsg();
-                    TaskList.printOneTask(TaskList.getListLength()-1);
+                    TaskList.printOneTask(TaskList.getListLength() - 1);
                     TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
@@ -82,7 +83,7 @@ public class Duke {
                     }
                     TaskList.addEvent(line.substring(6, line.length()));
                     Ui.printAddTaskMsg();
-                    TaskList.printOneTask(TaskList.getListLength()-1);
+                    TaskList.printOneTask(TaskList.getListLength() - 1);
                     TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
@@ -92,7 +93,7 @@ public class Duke {
                         Ui.printOutOfRangeMsg();
                         continue;
                     }
-                    if(TaskList.checkDone(index)) {
+                    if (TaskList.checkDone(index)) {
                         Ui.printMarkDoneBeforeMsg();
                         TaskList.printOneTask(index);
                     } else {
@@ -125,7 +126,7 @@ public class Duke {
                     TaskList.printNoOfItemsInList();
                     storage.writeFile(list); // save file
                     continue;
-                } else if (line.toLowerCase().equals("sort")) {
+                } else if (line.equalsIgnoreCase("sort")) {
                     Ui.printSortMsg();
                     TaskList.sortList();
                     TaskList.printList();
@@ -143,11 +144,11 @@ public class Duke {
                     Ui.printUnknownCommandMsg();
                     Ui.printHelp();
                 }
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Ui.printFileErrorMsg(fileName);
-            } catch(DateTimeParseException e) {
+            } catch (DateTimeParseException e) {
                 Ui.printDateFormatErrorMsg();
-            } catch(StringIndexOutOfBoundsException e) {
+            } catch (StringIndexOutOfBoundsException e) {
                 Ui.printShortDescErrorMsg();
             } catch (NumberFormatException e) {
                 Ui.printOutOfRangeMsg();
@@ -157,7 +158,7 @@ public class Duke {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Duke(fileName).run();
     }
 

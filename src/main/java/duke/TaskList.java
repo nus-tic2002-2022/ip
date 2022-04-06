@@ -1,17 +1,18 @@
 /**
  * TaskList interacts between Tasks objects vs Ui and Storage.
- *
  */
 package duke;
+
 import java.util.ArrayList;
 
 public class TaskList {
 
     private static ArrayList<Task> list = new ArrayList<>();
 
-    public TaskList() {    }
+    public TaskList() {
+    }
 
-    public static void printList () {
+    public static void printList() {
         if (list.size() == 0) {
             Ui.printNothingInListMsg();
         } else {
@@ -26,11 +27,11 @@ public class TaskList {
         System.out.println("Now you have " + list.size() + " task(s) in the list.");
     }
 
-    public static int getListLength () {
+    public static int getListLength() {
         return list.size();
     }
 
-    public static void printOneTask (int i) {
+    public static void printOneTask(int i) {
         System.out.println(list.get(i).toString());
     }
 
@@ -77,10 +78,10 @@ public class TaskList {
 
                     //checking tasks
                     ArrayList<Task> tempTask = new ArrayList<>();
-                    if(list.get(j).getTaskDate().compareTo(list.get(i).getTaskDate()) < 0) { //check if next task is before current task
+                    if (list.get(j).getTaskDate().compareTo(list.get(i).getTaskDate()) < 0) { //check if next task is before current task
 
                         // swapping
-                        tempTask.add(0,list.get(i));
+                        tempTask.add(0, list.get(i));
                         list.set(i, list.get(j));
                         list.set(j, tempTask.get(0));
 
@@ -94,13 +95,13 @@ public class TaskList {
         return list;
     }
 
-    public static void findTask (String line) {
+    public static void findTask(String line) {
         int noOfTasks = 0;
         if (list.size() == 0) {
             Ui.printNothingInListMsg();
         } else {
             for (int i = 0; i < list.size(); i++) {
-                if(list.get(i).toString().toLowerCase().contains(line.toLowerCase())) {
+                if (list.get(i).toString().toLowerCase().contains(line.toLowerCase())) {
                     System.out.print(i + ".");
                     list.get(i).getTask();
                     noOfTasks++;

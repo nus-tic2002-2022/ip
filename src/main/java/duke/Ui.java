@@ -1,20 +1,20 @@
 /**
  * Ui handles user's commands and prints messages to user in Duke.
- *
  */
 package duke;
+
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Ui {
 
-    private static Scanner in;
-    private static ArrayList<Task> list = new ArrayList<>(); // ArrayList of Tasks
+    private static Scanner input;
 
-    public Ui () { this.in = new Scanner(System.in); }
+    public Ui() {
+        this.input = new Scanner(System.in);
+    }
 
-    public static String getLine(){
-        return in.nextLine();
+    public static String getInput() {
+        return input.nextLine();
     }
 
     //Print general messages
@@ -28,7 +28,7 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
     }
 
-    public static void printBye(){
+    public static void printBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -79,7 +79,9 @@ public class Ui {
         System.out.println("Here are the matching task(s) in your list: ");
     }
 
-    public static void printNothingInListMsg() { System.out.println("There is nothing on the list! :)"); }
+    public static void printNothingInListMsg() {
+        System.out.println("There is nothing on the list! :)");
+    }
 
     //Print error messages
 
@@ -100,7 +102,7 @@ public class Ui {
     }
 
     public static void printFileErrorMsg(String fileName) {
-        System.out.println("The list file " + fileName  + " is not found and/or cannot be created/saved. Please check.");
+        System.out.println("The list file " + fileName + " is not found and/or cannot be created/saved. Please check.");
     }
 
     public static void printDateFormatErrorMsg() {

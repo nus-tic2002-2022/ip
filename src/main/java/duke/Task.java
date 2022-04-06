@@ -1,11 +1,11 @@
 /**
  * Creates a Task object. There are 3 subtypes - To do, Deadline, Event.
- *
  */
 package duke;
+
 import java.time.LocalDateTime;
 
-public class Task {
+abstract class Task {
 
     protected String description;
     protected boolean isDone;
@@ -36,14 +36,16 @@ public class Task {
         isDone = false;
     }
 
-    public void getTask () {
+    public void getTask() {
         System.out.println("[" + getStatusIcon() + "] " + getDescription());
     }
 
-    public String toString () {
+    public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
-    public LocalDateTime getTaskDate () { return taskDate; }
+    public LocalDateTime getTaskDate() {
+        return taskDate;
+    }
 
 }

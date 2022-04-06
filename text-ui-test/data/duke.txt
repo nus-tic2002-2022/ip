@@ -1,5 +1,5 @@
 [E] [ ] tic2002 class (at: 2022-03-23T19:00)
+[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 [T] [X] read a book
 [T] [ ] read textbook
-[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 [D] [ ] submit duke project (by: 2022-04-11T23:59)

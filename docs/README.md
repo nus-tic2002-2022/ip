@@ -48,7 +48,10 @@ Say Bye to Duke when you are logging out! See you soon! :)
 
 ### How to start Duke
 
-1. Download duke-JAR_v1.zip.
+Prerequisites:
+Ensure that you have Java 17 on your machine. 
+
+1. Download duke-JAR_v3.zip.
 2. Unzip the file. You should see "data" and "docs" folder and "duke.Duke.jar".
 3. Open command prompt/ terminal from the folder.
 4. Type `java -jar duke.Duke.jar` in the command prompt/ terminal.

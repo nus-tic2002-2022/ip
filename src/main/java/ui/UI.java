@@ -13,7 +13,7 @@ public class UI {
 
     /** Prints the divider line. */
     public void showLine() {
-        System.out.println("---------------------------------");
+        System.out.println("--------------------------------------------------");
     }
 
     /** Prints the welcome message. */

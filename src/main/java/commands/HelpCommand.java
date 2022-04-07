@@ -11,18 +11,20 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String COMMAND_WORD_2 = "?";
 
-    public static final String MESSAGE_USAGE = "Here are the list of available Commands: \n"
-            + "list : Lists all available tasks \n"
-            + "todo <description>: Adds a new todo Task \n"
-            + "deadline <description> /by <date>: Adds a new deadline Task \n"
-            + "event <description> /at <date>: Adds a new event Task \n"
-            + "fixed <duration> <description>: Adds a new fixed duration Task \n"
-            + "mark <task id>: Marks a task as done \n"
-            + "unmark <task id>: Unmarks a task as done \n"
-            + "delete <task id> /all/marked: Deletes a task /all tasks / marked tasks \n"
-            + "find <keyword>: finds all tasks with keyword \n"
-            + "update <task id> <desc/date> <new content>: updates a task \n"
-            + "bye :Exits the application \n"
+    public static final String MESSAGE_USAGE = "Here are the list of available Commands: \n\n"
+            + "Action                        | Command\n"
+            + "----------------------------------------------------------------------\n"
+            + "Lists all tasks               | list \n"
+            + "Adds a new todo Task          | todo <description>\n"
+            + "Adds a new deadline Task      | deadline <description> /by <date>\n"
+            + "Adds a new event Task         | event <description> /at <date>\n"
+            + "Adds a new fixed duration Task| fixed <duration> <description>\n"
+            + "Marks a task as done          | mark <task id>\n"
+            + "Unmarks a task as done        | unmark <task id>\n"
+            + "Deletes a task /all /marked   | delete <task id> /all/marked\n"
+            + "Finds all tasks with keyword  | find <keyword>\n"
+            + "Updates a task                | update <task id> <desc/date> <new content>\n"
+            + "Exit                          | Bye \n\n"
             + "Type help <command> for more information.";
 
     private final String commandProvided;

@@ -11,6 +11,12 @@ import ui.UI;
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
+    public static final String MESSAGE_USAGE = "Searches the list and returns all task with keyword provided \n"
+                                               + "usage: find <keyword> \n\n"
+                                               + "Eg. find book \n"
+                                               + "Returns a list with all tasks with the word book";
+
+
     private String searchTerm;
 
     public FindCommand(String searchTerm) {

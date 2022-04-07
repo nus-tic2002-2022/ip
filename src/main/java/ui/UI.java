@@ -184,4 +184,8 @@ public class UI {
         System.out.println("All marked tasks have been deleted!");
     }
 
+    public void printHelp(String helpMsg) {
+        System.out.println(helpMsg);
+    }
+
 }

@@ -13,6 +13,26 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_DEADLINE = "deadline";
     public static final String COMMAND_WORD_EVENT = "event";
 
+    public static final String MESSAGE_USAGE_TODO = "Adds a new Todo task to the Task List \n"
+            + "usage: todo <description of task> \n\n"
+            + "Eg. todo read a book\n"
+            + "Creates a new todo task with description: read a book ";
+
+    public static final String MESSAGE_USAGE_DEADLINE = "Adds a new Deadline task to the Task List \n"
+            + "usage: deadline <description> /by <date> \n\n"
+            + "Eg. deadline read a book /by tomorrow \n"
+            + "Creates a new deadline task with description: read a book by date: tomorrow \n\n"
+            + "Note: Most date formats are accepted: \n"
+            + "Eg. Monday/Mon, Today, Tomorrow, 1/1, Three days later";
+
+    public static final String MESSAGE_USAGE_EVENT = "Adds a new Event task to the Task List \n"
+            + "usage: event <description> /at <date and time> \n\n"
+            + "Eg. event book reading session /at tomorrow 3pm \n"
+            + "Creates a new event task with description: book reading session by date: tomorrow 3pm \n\n"
+            + "Note: Most date formats are accepted: \n"
+            + "Eg. Monday/Mon, Today, Tomorrow, 1/1, Three days later";
+
+
     private Task task;
 
 

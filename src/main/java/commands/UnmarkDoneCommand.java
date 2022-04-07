@@ -10,6 +10,11 @@ import ui.UI;
 public class UnmarkDoneCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 
+    public static final String MESSAGE_USAGE = "Unmarks provided task as done \n"
+                                               + "usage: unmark <task id> \n\n"
+                                               + "Eg. unmark 1 \n"
+                                               + "Unmarks the first task in the list as done";
+
     private int index;
 
     public UnmarkDoneCommand(int index) {

@@ -11,6 +11,11 @@ import ui.UI;
 public class MarkDoneCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
+    public static final String MESSAGE_USAGE = "Marks provided task as done \n"
+                                               + "usage: mark <task id> \n\n"
+                                               + "Eg. mark 1 \n"
+                                               + "Marks the first task in the list as done";
+
     private int index;
 
     public MarkDoneCommand(int index) {

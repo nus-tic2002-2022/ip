@@ -9,6 +9,7 @@ import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 import commands.IncorrectCommand;
 import commands.ListCommand;
 import commands.MarkDoneCommand;
@@ -86,10 +87,15 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORD_2:
+            return new HelpCommand(arguments);
+
         default:
             return new IncorrectCommand("Command does not exist");
         }
     }
+
 
     /**
      * Parses arguments in the context of the find tasks command.

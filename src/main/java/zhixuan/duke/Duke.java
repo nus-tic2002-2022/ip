@@ -42,23 +42,19 @@ public class Duke {
                 success = taskList.get(taskIndex).markAsDone();
                 if (success) {
                     System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println(taskList.get(taskIndex));
-                }
-                else {
+                } else {
                     System.out.println("Task is already marked as done: ");
-                    System.out.println(taskList.get(taskIndex));
                 }
+                System.out.println(taskList.get(taskIndex));
             }
             else if (markTask.equals("unmark")) {
                 success = taskList.get(taskIndex).markAsUndone();
                 if (success) {
                     System.out.println("OK, I've marked this task as not done yet: ");
-                    System.out.println(taskList.get(taskIndex));
-                }
-                else {
+                } else {
                     System.out.println("Task is already marked as not done: ");
-                    System.out.println(taskList.get(taskIndex));
                 }
+                System.out.println(taskList.get(taskIndex));
             }
         }
         catch (UnknownCommandException e) {

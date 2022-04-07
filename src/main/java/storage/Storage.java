@@ -120,7 +120,7 @@ public class Storage {
      * @return A Task Object
      * @exception IndexOutOfBoundsException if saved file is in the wrong format
      */
-    public Task convertStrToTask(String str) {
+    public static Task convertStrToTask(String str) {
         Task task = null;
         try {
             String[] splittedString = str.split("\\|");

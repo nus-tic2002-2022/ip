@@ -19,6 +19,7 @@ import commands.UpdateCommand;
 import exceptions.TooManyDatesException;
 import tasks.Deadline;
 import tasks.Event;
+import tasks.FixedDuration;
 import tasks.Task;
 import tasks.Todo;
 
@@ -34,6 +35,9 @@ public class Parser {
 
     /** Used for initial separation of event description and date.*/
     private static final Pattern EVENT_FORMAT = Pattern.compile("(?<description>.*) /at (?<date>.*)");
+
+    /** Used for initial separation of event description and date.*/
+    private static final Pattern FIXED_FORMAT = Pattern.compile("(?<duration>\\d+) (?<description>.*)");
 
     /** Used for checking if the user input for updating a task is in the right format.*/
     private static final Pattern UPDATE_FORMAT = Pattern.compile("\\d+ (desc|date) (?<content>.*)");
@@ -65,6 +69,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD_EVENT:
             return prepareEvent(arguments);
+
+        case AddCommand.COMMAND_WORD_FIXED:
+            return prepareFixed(arguments);
 
         case MarkDoneCommand.COMMAND_WORD:
             return prepareMarkDone(arguments);
@@ -122,7 +129,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand("Wrong Format of Update Command");
         }
-        assert !arguments.isEmpty(): "Arguments cannot be empty";
+        assert !arguments.isEmpty() : "Arguments cannot be empty";
 
         String[] splittedString = arguments.split(" ", 3);
 
@@ -184,7 +191,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand("Date or Description is missing!");
         }
-        assert !arguments.isEmpty(): "Arguments cannot be empty";
+        assert !arguments.isEmpty() : "Arguments cannot be empty";
 
         try {
             final String description = matcher.group("description");
@@ -212,7 +219,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand("Date or Description is missing!");
         }
-        assert !arguments.isEmpty(): "Arguments cannot be empty";
+        assert !arguments.isEmpty() : "Arguments cannot be empty";
 
         try {
             final String description = matcher.group("description");
@@ -270,7 +277,6 @@ public class Parser {
         if (arguments.equalsIgnoreCase("all") || arguments.equalsIgnoreCase("marked")) {
             return new MassDeleteCommand(arguments);
         }
-        assert !(arguments.equals("all") && !arguments.equals("marked")) : "arguments cannot be all or marked now";
 
         try {
             int taskNumber = Integer.parseInt(arguments);
@@ -280,5 +286,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the add FixedDurationTask command.
+     *
+     * @param arguments full command args string
+     * @return the prepared command
+     */
+    private Command prepareFixed(String arguments) {
+        final Matcher matcher = FIXED_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand("Duration or Description is missing!");
+        }
+        assert !arguments.isEmpty() : "Arguments cannot be empty";
+
+        final int duration = Integer.parseInt(matcher.group("duration"));
+        final String description = matcher.group("description");
+
+        Task taskToAdd = new FixedDuration(description, duration);
+        return new AddCommand(taskToAdd);
+
+    }
 
 }

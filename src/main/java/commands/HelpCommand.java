@@ -16,6 +16,7 @@ public class HelpCommand extends Command {
             + "todo <description>: Adds a new todo Task \n"
             + "deadline <description> /by <date>: Adds a new deadline Task \n"
             + "event <description> /at <date>: Adds a new event Task \n"
+            + "fixed <duration> <description>: Adds a new fixed duration Task \n"
             + "mark <task id>: Marks a task as done \n"
             + "unmark <task id>: Unmarks a task as done \n"
             + "delete <task id> /all/marked: Deletes a task /all tasks / marked tasks \n"
@@ -50,6 +51,10 @@ public class HelpCommand extends Command {
 
         case AddCommand.COMMAND_WORD_EVENT:
             ui.printHelp(AddCommand.MESSAGE_USAGE_EVENT);
+            break;
+
+        case AddCommand.COMMAND_WORD_FIXED:
+            ui.printHelp(AddCommand.MESSAGE_USAGE_FIXED);
             break;
 
         case MarkDoneCommand.COMMAND_WORD:

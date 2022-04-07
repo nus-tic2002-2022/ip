@@ -14,6 +14,7 @@ import exceptions.TooManyDatesException;
 import parser.DateParser;
 import tasks.Deadline;
 import tasks.Event;
+import tasks.FixedDuration;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.Todo;
@@ -146,6 +147,11 @@ public class Storage {
                 task = new Event(description, dateE);
                 break;
 
+            case "F":
+                int duration = Integer.parseInt(splittedString[3]);
+                task = new FixedDuration(description, duration);
+                break;
+
             default:
                 System.out.println("Something went wrong with the safe file");
             }
@@ -153,7 +159,7 @@ public class Storage {
             if (status.equals("1")) {
                 task.markDone();
             }
-        } catch (IndexOutOfBoundsException | TooManyDatesException e) {
+        } catch (IndexOutOfBoundsException | TooManyDatesException | NumberFormatException e) {
             System.out.println("Something went wrong with the safe file");
         }
 

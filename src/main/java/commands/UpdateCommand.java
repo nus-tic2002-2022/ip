@@ -3,6 +3,7 @@ package commands;
 import java.util.Date;
 
 import storage.Storage;
+import tasks.FixedDuration;
 import tasks.TaskList;
 import tasks.Todo;
 import ui.UI;
@@ -58,9 +59,9 @@ public class UpdateCommand extends Command {
             if (partToUpdate.equalsIgnoreCase("desc")) {
                 taskList.get(index - 1).updateDescription(newContent);
                 ui.printUpdatedTask(taskList.get(index - 1).toString());
-            }
-
-            if (taskList.get(index - 1).getClass().equals(Todo.class)) {
+            } else if (taskList.get(index - 1).getClass().equals(Todo.class)) {
+                ui.printTaskNotUpdated(taskList.get(index - 1).toString());
+            } else if (taskList.get(index - 1).getClass().equals(FixedDuration.class)) {
                 ui.printTaskNotUpdated(taskList.get(index - 1).toString());
             } else {
                 taskList.get(index - 1).updateDate(date);

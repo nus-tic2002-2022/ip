@@ -12,6 +12,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_TODO = "todo";
     public static final String COMMAND_WORD_DEADLINE = "deadline";
     public static final String COMMAND_WORD_EVENT = "event";
+    public static final String COMMAND_WORD_FIXED = "fixed";
+
 
     public static final String MESSAGE_USAGE_TODO = "Adds a new Todo task to the Task List \n"
             + "usage: todo <description of task> \n\n"
@@ -31,6 +33,11 @@ public class AddCommand extends Command {
             + "Creates a new event task with description: book reading session by date: tomorrow 3pm \n\n"
             + "Note: Most date formats are accepted: \n"
             + "Eg. Monday/Mon, Today, Tomorrow, 1/1, Three days later";
+
+    public static final String MESSAGE_USAGE_FIXED = "Adds a new fixed duration task to the Task List \n"
+            + "usage: fixed <duration> <description> \n\n"
+            + "Eg. fixed 5 to read book \n"
+            + "Creates a new fixed duration task with description: to read book (needs 5 hours)";
 
 
     private final Task task;

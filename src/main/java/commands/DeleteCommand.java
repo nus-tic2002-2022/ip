@@ -5,6 +5,9 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.UI;
 
+/**
+ * Deletes a task identified using it's displayed index from the task list.
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 

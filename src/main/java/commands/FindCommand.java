@@ -4,6 +4,10 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
+/**
+ * Finds and lists all task in the Task List which contains the argument as a keyword.
+ * Keyword matching is case insensitive.
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 

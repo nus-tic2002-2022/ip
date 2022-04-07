@@ -4,6 +4,10 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
+
+/**
+ * Marks the task as done
+ */
 public class MarkDoneCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 

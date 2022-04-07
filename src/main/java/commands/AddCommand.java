@@ -5,6 +5,9 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.UI;
 
+/**
+ * Adds a task to the Task List.
+ */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD_TODO = "todo";
     public static final String COMMAND_WORD_DEADLINE = "deadline";

@@ -4,6 +4,9 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
+/**
+ * Represents an executable command.
+ */
 public abstract class Command {
     public Command() { }
 

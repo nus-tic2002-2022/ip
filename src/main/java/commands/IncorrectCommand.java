@@ -4,6 +4,9 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
+/**
+ * Represents an incorrect command. Upon execution, produces some feedback to the user.
+ */
 public class IncorrectCommand extends Command {
 
     private String errorMessage;

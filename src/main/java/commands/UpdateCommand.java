@@ -7,6 +7,9 @@ import tasks.TaskList;
 import tasks.Todo;
 import ui.UI;
 
+/**
+ * Updates a task's description or date depending on user input
+ */
 public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 

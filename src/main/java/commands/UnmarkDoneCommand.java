@@ -4,6 +4,9 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
+/**
+ * Unmarks the task as done
+ */
 public class UnmarkDoneCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 

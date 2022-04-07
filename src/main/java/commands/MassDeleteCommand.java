@@ -7,7 +7,9 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.UI;
 
-
+/**
+ * Deletes all tasks or all marked tasks as supplied by input
+ */
 public class MassDeleteCommand extends Command {
     private String deleteOption;
 

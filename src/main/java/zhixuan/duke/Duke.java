@@ -9,9 +9,11 @@ import zhixuan.duke.data.task.Deadline;
 import zhixuan.duke.data.task.Event;
 import zhixuan.duke.data.task.Task;
 import zhixuan.duke.data.task.Todo;
+import zhixuan.duke.ui.DukeUI;
 
 public class Duke {
 
+    private DukeUI ui;
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     private static void bye() {
@@ -210,6 +212,24 @@ public class Duke {
         else if (input.startsWith("D")) {
             String[] task = input.split("\\|");
             taskList.add(new Deadline(task[2].trim(), Boolean.parseBoolean((task[1].trim())), task[3].trim()));
+        }
+    }
+
+    public void run() {
+        ui.printWelcomeMessage();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
         }
     }
 

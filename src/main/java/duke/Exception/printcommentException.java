@@ -1,4 +1,4 @@
 package duke.Exception;
 
-public class printcommentException extends Exception{
+public class printcommentException extends Exception {
 }

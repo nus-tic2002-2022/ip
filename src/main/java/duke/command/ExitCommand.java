@@ -8,11 +8,9 @@ import java.util.ArrayList;
 
 public class ExitCommand extends Command {
 
-    public ExitCommand(String passed)
-    {
+    public ExitCommand(String passed) {
         super(passed);
     }
-
 
 
     @Override
@@ -21,8 +19,13 @@ public class ExitCommand extends Command {
     }
 
     @Override
+    public boolean isSort() {
+        return false;
+    }
+
+    @Override
     public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
-        this.isExit =true;
+        this.isExit = true;
         System.out.println("Bye. Hope to see you again soon!");
 
     }

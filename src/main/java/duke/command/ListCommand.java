@@ -8,11 +8,9 @@ import java.util.ArrayList;
 
 public class ListCommand extends Command {
 
-    public ListCommand(String passed)
-    {
+    public ListCommand(String passed) {
         super(passed);
     }
-
 
 
     @Override
@@ -21,10 +19,15 @@ public class ListCommand extends Command {
     }
 
     @Override
+    public boolean isSort() {
+        return false;
+    }
+
+    @Override
     public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
-        int j =1;
-        for(Task s : tasklist) {
-            System.out.println(j + "."+s.getStatus());
+        int j = 1;
+        for (Task s : tasklist) {
+            System.out.println(j + "." + s.getStatus());
             j++;
         }
     }

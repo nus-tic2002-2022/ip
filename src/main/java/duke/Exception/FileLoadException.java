@@ -1,4 +1,4 @@
 package duke.Exception;
 
-public class FileLoadException extends Exception{
+public class FileLoadException extends Exception {
 }

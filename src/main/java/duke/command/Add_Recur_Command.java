@@ -8,22 +8,29 @@ import duke.UI.UI;
 import java.util.ArrayList;
 
 
-public class Add_Recur_Command extends Command{
-    public ArrayList <Task> passed_task = new ArrayList<Task>();
-    public Add_Recur_Command (String passed)
-    {
+public class Add_Recur_Command extends Command {
+    public ArrayList<Task> passed_task = new ArrayList<Task>();
+
+    public Add_Recur_Command(String passed) {
         super(passed);
     }
-    public void add_task(RecurringTask recur_passed)
-    {
-            passed_task.add(recur_passed);
+
+    public void add_task(RecurringTask recur_passed) {
+        passed_task.add(recur_passed);
     }
+
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean isSort() {
+        return false;
+    }
+
     @Override
     public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
-        for(Integer i = 0; i<passed_task.size(); i++) {
+        for (Integer i = 0; i < passed_task.size(); i++) {
             tasklist.add(passed_task.get(i));
         }
 

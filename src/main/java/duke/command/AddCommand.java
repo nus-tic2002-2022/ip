@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class AddCommand extends Command {
 
     protected Task passed_task;
-    public AddCommand(String passed, Task t_passed)
-    {
+
+    public AddCommand(String passed, Task t_passed) {
         super(passed);
-        this.passed_task=t_passed;
+        this.passed_task = t_passed;
     }
 
 
@@ -22,11 +22,15 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute (ArrayList<Task> tasklist, UI ui, fileaccess f)
-    {
+    public boolean isSort() {
+        return false;
+    }
+
+    @Override
+    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
         tasklist.add(passed_task);
         UI.showGotit();
-        passed_task.getStatus();
+        System.out.println(passed_task.getStatus());
         UI.showAdd(tasklist.size());
     }
 }

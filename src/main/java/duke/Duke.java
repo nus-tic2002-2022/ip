@@ -11,6 +11,7 @@ import duke.Tasklist.Task;
 import duke.UI.UI;
 import duke.command.Add_Recur_Command;
 import duke.command.Command;
+import duke.command.SortCommand;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,68 +28,59 @@ public class Duke {
 
     //declare variable file path should be relative file path, useable in different OS
 
-    public Duke(String filepath)
-
-    {
+    public Duke(String filepath) {
         this.user_interface = new UI();
-        //e = new duke.echo();
         f = new fileaccess(filepath);
-        try{
+        try {
             f.load(tasklist);
+        } catch (FileLoadException e) {
+            System.out.println("Error in loading file");
         }
-        catch (FileLoadException e)
-        {
+        catch (DukeException e) {
             System.out.println("Error in loading file");
         }
 
     }
-    public void run()
-    {
+
+    public void run() {
         user_interface.showWelcome();
         boolean isExit = false;
-        while (!isExit)
-        {
-            try{
+        boolean isSort =false;
+        while (!isExit) {
+            try {
                 String command = user_interface.readCommand();
                 user_interface.showLine();
                 Command c = Parser.parsing(command);
                 c.execute(tasklist, user_interface, f);
+                isSort = c.isSort();
                 isExit = c.isExit();
-            }
-            catch (NullPointerException e)
-            {
+            } catch (NullPointerException e) {
                 System.out.println("Null pointer exception");
-            }
-            catch (DukeException e)
-            {
+            } catch (DukeException e) {
                 System.out.println("Error in command");
-            }
-            catch(dateparseException e)
-            {
+            } catch (dateparseException e) {
                 System.out.println("Date Format Error");
-            }
-            catch (IndexOutOfBoundsException e)
-            {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("Index out of Bound Error");
-            }
-            finally
-            {
-                try{
+            } finally {
+                try {
+                    if(!isSort)
+                    {
+                        SortCommand sorting = new SortCommand("sort");
+                        sorting.execute(tasklist,user_interface,f);
+                    }
                     f.writetoFile(tasklist);
                     user_interface.showLine();
-                }
-                catch (CannotWriteException e)
-                {
+                } catch (CannotWriteException e) {
                     System.out.println("Cannot write");
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     System.out.println("Error in creating file");
                 }
 
             }
         }
     }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class MarkCommand extends Command {
 
     protected int numbertomark;
-    public MarkCommand(String passed, int number)
-    {
+
+    public MarkCommand(String passed, int number) {
         super(passed);
         this.numbertomark = number;
     }
@@ -21,16 +21,20 @@ public class MarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
-    public void execute (ArrayList<Task> tasklist , UI ui, fileaccess f)
-    {
-        if(type.equals("mark") ) {
 
-            tasklist.get(numbertomark-1).setDone();
+    @Override
+    public boolean isSort() {
+        return false;
+    }
+
+    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
+        if (type.equals("mark")) {
+
+            tasklist.get(numbertomark - 1).setDone();
             UI.showMark();
         }
-        if(type .equals("unmark"))
-        {
-            tasklist.get(numbertomark-1).set_unDone();
+        if (type.equals("unmark")) {
+            tasklist.get(numbertomark - 1).set_unDone();
             UI.showUnmark();
         }
     }

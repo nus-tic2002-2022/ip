@@ -33,7 +33,7 @@ public class AddCommand extends Command {
             + "Eg. Monday/Mon, Today, Tomorrow, 1/1, Three days later";
 
 
-    private Task task;
+    private final Task task;
 
 
     public AddCommand(Task task) {

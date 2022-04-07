@@ -100,7 +100,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the find tasks command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareFind(String arguments) {
@@ -114,7 +114,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the update tasks command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareUpdate(String arguments) {
@@ -122,6 +122,8 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand("Wrong Format of Update Command");
         }
+        assert !arguments.isEmpty(): "Arguments cannot be empty";
+
         String[] splittedString = arguments.split(" ", 3);
 
         String taskNumber = splittedString[0];
@@ -158,7 +160,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the add todotask command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareTodo(String arguments) {
@@ -174,7 +176,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the add deadlinetask command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareDeadline(String arguments) {
@@ -182,6 +184,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand("Date or Description is missing!");
         }
+        assert !arguments.isEmpty(): "Arguments cannot be empty";
 
         try {
             final String description = matcher.group("description");
@@ -201,7 +204,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the add event task command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareEvent(String arguments) {
@@ -209,6 +212,8 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand("Date or Description is missing!");
         }
+        assert !arguments.isEmpty(): "Arguments cannot be empty";
+
         try {
             final String description = matcher.group("description");
             final String dateString = matcher.group("date");
@@ -227,7 +232,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the mark task as done command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareMarkDone(String arguments) {
@@ -242,7 +247,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the unmark task as done command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareUnmarkDone(String arguments) {
@@ -257,7 +262,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args full command args string
+     * @param arguments full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String arguments) {
@@ -265,6 +270,7 @@ public class Parser {
         if (arguments.equalsIgnoreCase("all") || arguments.equalsIgnoreCase("marked")) {
             return new MassDeleteCommand(arguments);
         }
+        assert !(arguments.equals("all") && !arguments.equals("marked")) : "arguments cannot be all or marked now";
 
         try {
             int taskNumber = Integer.parseInt(arguments);

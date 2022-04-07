@@ -15,7 +15,7 @@ public class UnmarkDoneCommand extends Command {
                                                + "Eg. unmark 1 \n"
                                                + "Unmarks the first task in the list as done";
 
-    private int index;
+    private final int index;
 
     public UnmarkDoneCommand(int index) {
         this.index = index;

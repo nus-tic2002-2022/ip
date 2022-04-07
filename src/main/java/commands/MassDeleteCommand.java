@@ -11,7 +11,7 @@ import ui.UI;
  * Deletes all tasks or all marked tasks as supplied by input
  */
 public class MassDeleteCommand extends Command {
-    private String deleteOption;
+    private final String deleteOption;
 
     public MassDeleteCommand (String deleteOption) {
         this.deleteOption = deleteOption;

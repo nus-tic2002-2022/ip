@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
             + "bye :Exits the application \n"
             + "Type help <command> for more information.";
 
-    private String commandProvided;
+    private final String commandProvided;
 
     public HelpCommand(String command) {
         this.commandProvided = command;
@@ -38,7 +38,7 @@ public class HelpCommand extends Command {
 
         switch (command) {
         case "":
-            ui.printHelp(this.MESSAGE_USAGE);
+            ui.printHelp(MESSAGE_USAGE);
             break;
         case AddCommand.COMMAND_WORD_TODO:
             ui.printHelp(AddCommand.MESSAGE_USAGE_TODO);

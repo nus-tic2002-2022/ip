@@ -16,7 +16,7 @@ public class MarkDoneCommand extends Command {
                                                + "Eg. mark 1 \n"
                                                + "Marks the first task in the list as done";
 
-    private int index;
+    private final int index;
 
     public MarkDoneCommand(int index) {
         this.index = index;

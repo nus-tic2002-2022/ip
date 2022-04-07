@@ -25,8 +25,7 @@ public class DateParser {
             if (dates.size() > 1) {
                 throw new TooManyDatesException("Too many dates provided");
             }
-            Date date = dates.get(0);
-            return date;
+            return dates.get(0);
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException();
         }

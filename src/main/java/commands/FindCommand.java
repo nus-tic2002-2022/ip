@@ -17,7 +17,7 @@ public class FindCommand extends Command {
                                                + "Returns a list with all tasks with the word book";
 
 
-    private String searchTerm;
+    private final String searchTerm;
 
     public FindCommand(String searchTerm) {
         this.searchTerm = searchTerm;

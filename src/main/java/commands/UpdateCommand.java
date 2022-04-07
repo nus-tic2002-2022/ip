@@ -20,9 +20,9 @@ public class UpdateCommand extends Command {
                                                + "Eg. update 1 desc sell book \n"
                                                + "Updates the description of the first task to sell book.";
 
-    private int index;
+    private final int index;
     private String newContent;
-    private String partToUpdate;
+    private final String partToUpdate;
     private Date date;
 
     /**

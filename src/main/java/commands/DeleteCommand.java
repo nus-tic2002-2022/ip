@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
                                                + "Eg. delete marked \n"
                                                + "Deletes all marked tasks on the list";
 
-    private int index;
+    private final int index;
 
     public DeleteCommand(int index) {
         this.index = index;

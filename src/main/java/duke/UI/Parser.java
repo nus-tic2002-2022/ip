@@ -15,10 +15,9 @@ import java.util.Locale;
 public class Parser {
     public static Integer checkRecurring_gap(String between) throws DukeException, NumberFormatException {
         return Integer.parseInt(between);
-
     }
 
-    public static Integer checkRecurring_count(String number) throws DukeException, dateparseException {
+    public static Integer checkRecurring_count(String number) throws DukeException, NumberFormatException {
         return Integer.parseInt(number);
     }
 
@@ -30,19 +29,12 @@ public class Parser {
         return ans;
     }
 
-    /**
-     * -------------------------------------------------------------
-     **/
     private static boolean check_length(String[] passed) throws DukeException {
         if (passed[1].isEmpty()) {
             throw new DukeException();
         }
         return true;
     }
-
-    /**
-     * -------------------------------------------------------------
-     **/
     public static String parsing_to_write(Task passed_task) {
         String str_1 = null;
         String str_2 = "0";
@@ -76,29 +68,22 @@ public class Parser {
 
         return (str_1 + " | " + str_2 + " | " + str_3 + " | " + str_4);
     }
-
-    /**
-     * -------------------------------------------------------------
-     **/
-
-
-    public static Command parsing(String passed) throws DukeException, dateparseException {
+    public static Command parsing(String passed) throws DukeException{
         String[] str = new String[20]; // to keep the passed sentence into string array
         try {       // parse to String array when received the passed task
             str = passed.split(" ");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index out of bound");
+            System.out.println("IndexOutOfBoundsException: "+"Index out of bound");
         }
         if (str.length == 2 && (str[0].equals("mark") || str[0].equals("unmark"))) //if is mark or unmark and second is numeric
         {
             int number;
             try { // if first word is "mark" or "unmark", check its second words must be an integer
                 number = Integer.parseInt(str[1]);
-                //marking(number, str[0]);
                 MarkCommand passed_command = new MarkCommand(str[0], number);
                 return passed_command;
             } catch (NumberFormatException ex) {
-                System.out.println("s[1] Not number");
+                System.out.println("NumberFormatException: "+ " No number is detected");
             }
         }
 /***********************************************************************/
@@ -111,9 +96,9 @@ public class Parser {
                     return passed_command;
                 }
             } catch (DukeException e) {
-                System.out.println("OOPS!!! The description of a " + str[0] + " cannot be empty.");
+                System.out.println("Duke Exception: "+"OOPS!!! The description of a " + str[0] + " cannot be empty.");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Index out of bound");
+                System.out.println("IndexOutOfBoundsException: "+"Index out of bound");
             }
         }
 /***********************************************************************/
@@ -129,24 +114,24 @@ public class Parser {
                     return passed_command;
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Format might be wrong. It should be");
+                System.out.println("ArrayIndexOutOfBoundsException: "+"Format might be wrong. It should be");
                 System.out.println("Eg: deadline submit assignment 5 / by 2022-12-21 1800");
-            } catch (java.text.ParseException e) {
-                System.out.println("Time error");
             } catch (DukeException e) {
-                System.out.println("OOPS!!! The format might be wrong.");
-                System.out.println("OOPS!!! deadline your task / by YYYY-MM-DD HHMM in 24 hours format");
+                System.out.println("Duke Exception: " + "OOPS!!! The format might be wrong. It should be");
+                System.out.println("Eg: deadline submit report / by 2022-12-31 2359");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Index out of bound");
+                System.out.println("IndexOutOfBoundsException: "+"Index out of bound");
             } catch (NullPointerException e) {
-                System.out.println("Should be '/by', no need space");
+                System.out.println("NullPointerException: "+"Should be '/by', no need space");
+            } catch (timeparseException e) {
+                System.out.println("timeparseException" + "Time format error");
             } catch (dateparseException e) {
-                System.out.println("Date parse Error");
+                System.out.println("timeparseException" + "Date or Time format error");
             }
 
 
         }
-        /***********************************************************************/
+/***********************************************************************/
         if (str.length > 1 && str[0].equals("event")) {
             try {
                 if (check_length(str)) {
@@ -160,9 +145,6 @@ public class Parser {
                     String recurr_command = recurr_UI.readCommand();
                     assert (recurr_command.equals("Y") || recurr_command.equals("N") || recurr_command.equals("y") || recurr_command.equals("n"));
                     if (recurr_command.equals("Y") || recurr_command.equals("y")) {
-                        //System.out.println("First time event date on: YYYY-MM-DD");
-                        //String firstdate = recurr_UI.readCommand();
-
                         System.out.println("Recurring Period : ");
                         String recurr_period = recurr_UI.readCommand();
                         Integer between = checkRecurring_gap(recurr_period);
@@ -185,36 +167,36 @@ public class Parser {
                 }
 
             } catch (DukeException e) {
-                System.out.println("OOPS!!! The description of a " + str[0] + " cannot be empty.");
+                System.out.println("Duke Exception: "+"OOPS!!! 'on' is missing in front of date or date is missing");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Format might be wrong. It should be");
-                System.out.println("event attend seminar / description or location of event");
+                System.out.println("IndexOutOfBoundsException: " + "Format might be wrong. It should be");
+                System.out.println("Eg: event attend seminar / at NUS on 2020-08-03");
             } catch (NumberFormatException e) {
-                System.out.println("Number format error");
+                System.out.println("NumberFormatException: " +"A non-number has been detected");
             } catch (DateTimeParseException e) {
-                System.out.println("Date Time Parse Error");
+                System.out.println("DateTimeParseException: "+"Date Format is wrong, should be in YYYY-MM-DD");
             }
 
         }
-        /***********************************************************************/
+/***********************************************************************/
+
 
         if (str[0].equals("list")) //if list, list out the task
         {
             ListCommand l = new ListCommand(str[0]);
             return l;
         }
-        /***********************************************************************/
+/***********************************************************************/
         if (str.length == 2 && str[0].equals("delete")) {
             int number;
             try { // if first word is "delete", check its second words must be an integer
                 number = Integer.parseInt(str[1]);
-
                 DeleteCommand d = new DeleteCommand(str[0], number - 1);
                 return d;
             } catch (NumberFormatException ex) {
-                System.out.println("Delete number is not given");
+                System.out.println("NumberFormatException: "+"Delete number is not given");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Index out of bound");
+                System.out.println("IndexOutOfBoundsException: "+"Index out of bound or probably there is no on-hand task");
             }
 
         }
@@ -224,6 +206,7 @@ public class Parser {
             ExitCommand passed_command = new ExitCommand(str[0]);
             return passed_command;
         }
+/***********************************************************************/
         if (str[0].equals("sort")) {
             SortCommand passed_command = new SortCommand(str[0]);
             return passed_command;

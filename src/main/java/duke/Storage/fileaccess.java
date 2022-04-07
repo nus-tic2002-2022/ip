@@ -1,10 +1,7 @@
 package duke.Storage;
 
 import duke.Duke;
-import duke.Exception.CannotWriteException;
-import duke.Exception.DukeException;
-import duke.Exception.FileLoadException;
-import duke.Exception.dateparseException;
+import duke.Exception.*;
 import duke.Tasklist.*;
 import duke.UI.Parser;
 
@@ -27,14 +24,19 @@ public class fileaccess {
         this.loadedfile = new File(filepath);
     }
 
-    public static void load(ArrayList<Task> tasklist) throws FileLoadException, DukeException {
+    public static void load(ArrayList<Task> tasklist) throws FileLoadException, DukeException{
         Scanner s = null;
         try {
             s = new Scanner(loadedfile);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File is not found : "+ loadedfile);
+            throw new FileLoadException();
         }
         while (s.hasNext()) {
+            if(s == null)
+            {
+                throw new NullPointerException();
+            }
             String[] str = new String[20];
             str = s.nextLine().split("[|] ", 5);
             if (str[0].trim().replace("\\s", "").equals("T")) {
@@ -46,7 +48,6 @@ public class fileaccess {
                     t_flag.set_unDone();
                 }
                 tasklist.add(t_flag);
-                //System.out.println(t_flag.getStatus());
             } else if (str[0].trim().replace("\\s", "").equals("E")) {
                 Events t_flag = new Events(str[2].trim(), str[3].trim());
                 if (str[1].trim().equals("1")) {
@@ -56,12 +57,9 @@ public class fileaccess {
                     t_flag.set_unDone();
                 }
                 tasklist.add(t_flag);
-                //System.out.println(t_flag.getStatus());
             } else if (str[0].trim().replace("\\s", "").equals("D")) {
                 try {
-                    /*for (String a : str) {
-                        System.out.println(a);
-                    }*/
+
                     String[] datetime_trim = str[3].split(" ");
                     Deadlines t_flag = new Deadlines(str[2].trim(), str[3]);
                     if (str[1].trim().equals("1")) {
@@ -71,17 +69,14 @@ public class fileaccess {
                         t_flag.set_unDone();
                     }
                     tasklist.add(t_flag);
-                    //System.out.println(t_flag.getStatus());
                 } catch (dateparseException e) {
-                    System.out.println("Date format wrong");
-                } catch (ParseException e) {
-                    System.out.println("Time format wrong");
+                    System.out.println("dateparseException: "+"Date format wrong");
                 } catch (DukeException e) {
-                    System.out.println("Error in Command");
+                    System.out.println("DukeException: "+"Error in Command");
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Index out of Bound Error");
-                } catch (DateTimeParseException e) {
-                    System.out.println("Date Time Parse Error");
+                    System.out.println("IndexOutOfBoundsException: "+"Index out of Bound Error");
+                } catch (timeparseException e) {
+                    System.out.println("timeparseException: "+"Time Info Error");
                 }
             } else {
                 continue;
@@ -107,5 +102,13 @@ public class fileaccess {
         fw.close();
 
     }
+    /*public static void writeFile() throws IOException{
+            File createFile = new File("buffer.txt");
+            if (createFile.createNewFile()) {
+                System.out.println("File created: " + createFile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+    }*/
 
 }

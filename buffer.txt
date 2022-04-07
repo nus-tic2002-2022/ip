@@ -1,5 +1,0 @@
-E | 0 | meeting direcotr | Hokkaido on 2022-05-10
-E | 0 | meeting direcotr | Hokkaido on 2022-05-20
-D | 0 |  submit report  |  by 2022-05-31 2359
-E | 0 | visit dental | raffles on 2022-06-01
-E | 0 | visit dental | raffles on 2022-06-08

@@ -29,10 +29,20 @@ public class Add_Recur_Command extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
+    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) throws NullPointerException {
+        if(passed_task.size() > 1)
+        {
+            UI.showGotthem();
+        }
+        else {
+            UI.showGotit();
+        }
         for (Integer i = 0; i < passed_task.size(); i++) {
             tasklist.add(passed_task.get(i));
+            System.out.println(passed_task.get(i).getStatus());
         }
+        UI.showAdd(tasklist.size());
+
 
     }
 }

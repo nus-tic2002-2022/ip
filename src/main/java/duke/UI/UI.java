@@ -38,6 +38,11 @@ public class UI {
             System.out.println("Got it. I've added this task: ");
         }
     }
+    public static void showGotthem() {
+        {
+            System.out.println("Got it. I've added these tasks: ");
+        }
+    }
 
     public static void showDelete() {
         System.out.println("Noted. I've removed this task:");

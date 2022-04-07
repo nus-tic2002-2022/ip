@@ -29,13 +29,14 @@ public class MarkCommand extends Command {
 
     public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
         if (type.equals("mark")) {
-
             tasklist.get(numbertomark - 1).setDone();
             UI.showMark();
+            System.out.println(tasklist.get(numbertomark-1).getStatus());
         }
         if (type.equals("unmark")) {
             tasklist.get(numbertomark - 1).set_unDone();
             UI.showUnmark();
+            System.out.println(tasklist.get(numbertomark-1).getStatus());
         }
     }
 }

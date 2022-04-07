@@ -27,7 +27,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) {
+    public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) throws NullPointerException {
         tasklist.add(passed_task);
         UI.showGotit();
         System.out.println(passed_task.getStatus());

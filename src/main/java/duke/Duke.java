@@ -3,7 +3,6 @@ package duke;
 import duke.Exception.CannotWriteException;
 import duke.Exception.DukeException;
 import duke.Exception.FileLoadException;
-import duke.Exception.dateparseException;
 import duke.Storage.fileaccess;
 import duke.Tasklist.RecurringTask;
 import duke.UI.Parser;
@@ -11,9 +10,9 @@ import duke.Tasklist.Task;
 import duke.UI.UI;
 import duke.command.Add_Recur_Command;
 import duke.command.Command;
-import duke.command.SortCommand;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.File;
 
@@ -25,19 +24,17 @@ public class Duke {
     public static String basepath = new File("").getAbsolutePath();
     private static String filepath = basepath + "/buffer.txt";
 
-
-    //declare variable file path should be relative file path, useable in different OS
-
     public Duke(String filepath) {
         this.user_interface = new UI();
         f = new fileaccess(filepath);
         try {
             f.load(tasklist);
         } catch (FileLoadException e) {
-            System.out.println("Error in loading file");
-        }
-        catch (DukeException e) {
-            System.out.println("Error in loading file");
+            System.out.println("FileLoadException: "+"Error in loading file, will create new file");
+        } catch (DukeException e) {
+            System.out.println("Duke Exception: "+"Error in loading file");
+        }catch (NullPointerException e) {
+            System.out.println("NullPointerException: "+"File contains blank line");
         }
 
     }
@@ -45,7 +42,7 @@ public class Duke {
     public void run() {
         user_interface.showWelcome();
         boolean isExit = false;
-        boolean isSort =false;
+        boolean isSort = false;
         while (!isExit) {
             try {
                 String command = user_interface.readCommand();
@@ -55,26 +52,19 @@ public class Duke {
                 isSort = c.isSort();
                 isExit = c.isExit();
             } catch (NullPointerException e) {
-                System.out.println("Null pointer exception");
-            } catch (DukeException e) {
-                System.out.println("Error in command");
-            } catch (dateparseException e) {
-                System.out.println("Date Format Error");
+                System.out.println("NullPointerException: "+"Some info is incorrect or missing");
+            }catch (DukeException e) {
+                System.out.println("Duke Exception: "+"Error in command");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Index out of Bound Error");
-            } finally {
-                try {
-                    if(!isSort)
-                    {
-                        SortCommand sorting = new SortCommand("sort");
-                        sorting.execute(tasklist,user_interface,f);
-                    }
+                System.out.println("IndexOutOfBoundsException: "+"Index out of Bound Error");
+            }finally {
+                try{
                     f.writetoFile(tasklist);
                     user_interface.showLine();
                 } catch (CannotWriteException e) {
-                    System.out.println("Cannot write");
+                    System.out.println("CannotWriteException:"+"Cannot write");
                 } catch (IOException e) {
-                    System.out.println("Error in creating file");
+                    System.out.println("IOException: "+"Error in creating file");
                 }
 
             }
@@ -88,8 +78,6 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        //System.out.println("Hello! I'm duke.Duke");
-        //System.out.println("What can I do for you");
 
         Duke project = new Duke(filepath);
         project.run();

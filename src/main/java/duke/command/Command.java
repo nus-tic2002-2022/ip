@@ -18,6 +18,7 @@ public abstract class Command {
 
 
     public abstract boolean isExit();
+
     public abstract boolean isSort();
 
     public abstract void execute(ArrayList<Task> tasklist, UI ui, fileaccess f);

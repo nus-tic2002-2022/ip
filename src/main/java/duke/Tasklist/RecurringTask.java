@@ -1,18 +1,17 @@
 package duke.Tasklist;
 
-import duke.Duke;
 import duke.Exception.DukeException;
-import duke.Exception.dateparseException;
+/**
+ * Recurring class extends Events
+ * new variable : number. number of recurring task intended
+ * new variable : between. the interval of recurring task
+ */
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class RecurringTask extends Events {
 
     protected Integer number;
     protected Integer between;
-    //public LocalDate first_occur;
-    //protected LocalDate date;
 
     public RecurringTask(String description, String info, Integer n_of_recur, Integer gap) throws DukeException {
 
@@ -31,10 +30,7 @@ public class RecurringTask extends Events {
     }
 
     public void add_day(Integer multiple) {
-        //LocalDate date = first_occur.plusDays(between*multiple);
-        //first_occur = date;
         first_occur = first_occur.plusDays(between * multiple);
-        //details+=" "+ date.toString();
     }
 
 }

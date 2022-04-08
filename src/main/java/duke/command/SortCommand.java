@@ -112,7 +112,7 @@ public class SortCommand extends Command {
 
             }
         }
-        System.out.println("Yes, The list has been sorted");
+        System.out.println("Noted, The list has been sorted");
     }
 
 }

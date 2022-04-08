@@ -102,13 +102,5 @@ public class fileaccess {
         fw.close();
 
     }
-    /*public static void writeFile() throws IOException{
-            File createFile = new File("buffer.txt");
-            if (createFile.createNewFile()) {
-                System.out.println("File created: " + createFile.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-    }*/
 
 }

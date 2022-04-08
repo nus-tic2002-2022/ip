@@ -28,8 +28,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(ArrayList<Task> tasklist, UI ui, fileaccess f) throws IndexOutOfBoundsException {
-
+        System.out.println(numbertodelete+1 +"."+ tasklist.get(numbertodelete).getStatus());
         tasklist.remove(numbertodelete);
         UI.showDelete();
+
     }
 }

@@ -13,6 +13,15 @@ public class RecurringTask extends Events {
     protected Integer number;
     protected Integer between;
 
+    /**
+     *
+     * @param description Pass the String of description of task. Eg attend seminar
+     * @param info Pass the String of task details/event details with its date. Date here always follow "on".
+     *                      Eg: at NUS with Mr Tan on 2022-10-01
+     * @param n_of_recur Pass the number of recurring of event.
+     * @param gap Pass the time interval of event that recurring in unit of day.
+     * @throws DukeException self-created exception, is throwable when there is any error in input by user.
+     */
     public RecurringTask(String description, String info, Integer n_of_recur, Integer gap) throws DukeException {
 
         super(description, info);
@@ -20,15 +29,10 @@ public class RecurringTask extends Events {
         this.number = n_of_recur;
         this.between = gap;
     }
-
-    public Integer getnumber() {
-        return number;
-    }
-
-    public Integer getbetween() {
-        return between;
-    }
-
+    /**
+     *
+     * @param multiple Pass in to calculate the next date of recurring event.
+     */
     public void add_day(Integer multiple) {
         first_occur = first_occur.plusDays(between * multiple);
     }

@@ -1,26 +1,43 @@
 package duke.UI;
 
-import duke.Duke;
 import duke.Exception.DukeException;
 import duke.Exception.dateparseException;
 import duke.Exception.timeparseException;
 import duke.Tasklist.*;
 import duke.command.*;
 
-import java.awt.desktop.SystemEventListener;
-import java.text.ParseException;
+import java.lang.module.FindException;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
+
 
 public class Parser {
-    public static Integer checkRecurring_gap(String between) throws DukeException, NumberFormatException {
+    /**
+     *
+     * @param between Pass in recurring event interval as String.
+     * @return Return the recurring event interval as Integer
+     * @throws NumberFormatException is throwable when parse non-integer character.
+     */
+    public static Integer checkRecurring_gap(String between) throws NumberFormatException {
         return Integer.parseInt(between);
     }
 
-    public static Integer checkRecurring_count(String number) throws DukeException, NumberFormatException {
+    /**
+     *
+     * @param number Pass in number of time of recurring event as String.
+     * @return Return the number of time of recurring event as Integer
+     * @throws NumberFormatException is throwable when parse non-integer character.
+     */
+    public static Integer checkRecurring_count(String number) throws NumberFormatException {
         return Integer.parseInt(number);
     }
 
+    /**
+     *
+     * @param str Pass in an array of String to be combined
+     * @param start Pass in the first index of String to be combined
+     * @param end Pass in the last index of String to be combined
+     * @return Return combined String
+     */
     private static String str_concat(String[] str, int start, int end) {
         String ans = "";
         for (int i = start; i <= end; i++) {
@@ -29,12 +46,24 @@ public class Parser {
         return ans;
     }
 
-    private static boolean check_length(String[] passed) throws DukeException {
+    /**
+     *
+     * @param passed String array to be checked
+     * @return Return true if passed array size is bigger than 1
+     * @throws IndexOutOfBoundsException is throwable when the passed array size is 1
+     */
+    private static boolean check_length(String[] passed) throws IndexOutOfBoundsException {
         if (passed[1].isEmpty()) {
-            throw new DukeException();
+            throw new IndexOutOfBoundsException();
         }
         return true;
     }
+
+    /**
+     *
+     * @param passed_task Pass Task in to be parsed and write into file
+     * @return Return String that to be written into file
+     */
     public static String parsing_to_write(Task passed_task) {
         String str_1 = null;
         String str_2 = "0";
@@ -66,9 +95,23 @@ public class Parser {
             str_4 = ((RecurringTask) passed_task).getDetails();
         }
 
-        return (str_1 + " | " + str_2 + " | " + str_3 + " | " + str_4);
+        if(passed_task instanceof ToDo) {
+            return (str_1 + " | " + str_2 + " | " + str_3);
+        }
+        else {
+            return (str_1 + " | " + str_2 + " | " + str_3 + " | " + str_4);
+        }
     }
-    public static Command parsing(String passed) throws DukeException{
+
+    /**
+     *
+     * @param passed Pass the String input by user to be parsed.
+     * @return Return command to be carried to be carried out in Duke
+     * @throws FindException is throwable when user input "find" and the format got error such as multiple target
+     *                       Eg: "find report" is correct
+     *                       EgL "find submit report" is wrong because can only find 1 word at a time.
+     */
+    public static Command parsing(String passed) throws DukeException, FindException{
         String[] str = new String[20]; // to keep the passed sentence into string array
         try {       // parse to String array when received the passed task
             str = passed.split(" ");
@@ -95,8 +138,6 @@ public class Parser {
                     AddCommand passed_command = new AddCommand(str[0], t_flag);
                     return passed_command;
                 }
-            } catch (DukeException e) {
-                System.out.println("Duke Exception: "+"OOPS!!! The description of a " + str[0] + " cannot be empty.");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("IndexOutOfBoundsException: "+"Index out of bound");
             }
@@ -124,9 +165,9 @@ public class Parser {
             } catch (NullPointerException e) {
                 System.out.println("NullPointerException: "+"Should be '/by', no need space");
             } catch (timeparseException e) {
-                System.out.println("timeparseException" + "Time format error");
+                System.out.println("timeparseException: " + "Time format error");
             } catch (dateparseException e) {
-                System.out.println("timeparseException" + "Date or Time format error");
+                System.out.println("dateparseException: " + "Date or Time format error");
             }
 
 
@@ -145,11 +186,11 @@ public class Parser {
                     String recurr_command = recurr_UI.readCommand();
                     assert (recurr_command.equals("Y") || recurr_command.equals("N") || recurr_command.equals("y") || recurr_command.equals("n"));
                     if (recurr_command.equals("Y") || recurr_command.equals("y")) {
-                        System.out.println("Recurring Period : ");
+                        System.out.println("What is the interval for this Recurring Event: ");
                         String recurr_period = recurr_UI.readCommand();
                         Integer between = checkRecurring_gap(recurr_period);
 
-                        System.out.println("How many times to be recurred : ");
+                        System.out.println("How many times to be recurred: ");
                         String recurr_count = recurr_UI.readCommand();
                         Integer number = checkRecurring_count(recurr_count);
                         Add_Recur_Command passed_command = new Add_Recur_Command(str[0]);
@@ -179,8 +220,6 @@ public class Parser {
 
         }
 /***********************************************************************/
-
-
         if (str[0].equals("list")) //if list, list out the task
         {
             ListCommand l = new ListCommand(str[0]);
@@ -211,9 +250,18 @@ public class Parser {
             SortCommand passed_command = new SortCommand(str[0]);
             return passed_command;
         }
+/***********************************************************************/
+        if (str[0].equals("find")) {
+            if(str.length > 2)
+            {
+                throw new FindException();
+            }
+        FindCommand passed_command = new FindCommand(str[0], str[1]);
+        return passed_command;
+    }
         throw new DukeException();
 
-    }
+}
 }
 
 /***********************************************************************/

@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Exception.DukeException;
 import duke.Tasklist.Task;
 import duke.UI.UI;
 import duke.Storage.fileaccess;
@@ -10,7 +11,7 @@ public class AddCommand extends Command {
 
     protected Task passed_task;
 
-    public AddCommand(String passed, Task t_passed) {
+    public AddCommand(String passed, Task t_passed) throws DukeException {
         super(passed);
         this.passed_task = t_passed;
     }

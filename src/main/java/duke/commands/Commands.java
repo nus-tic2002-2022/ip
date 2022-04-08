@@ -4,17 +4,19 @@ package duke.commands;
  * Define data type for commands in this class.
  */
 public enum Commands {
-    LIST("list", "l"),
     BYE("bye", "b"),
-    MARK("mark", "m"),
-    UNMARK("unmark", "u"),
     DEADLINE("deadline", "d"),
+    DELETE("delete", "del"),
     EVENT("event", "e"),
+    FIND("find", "f"),
+    LIST("list", "l"),
+    MARK("mark", "m"),
     TODO("todo", "t"),
-    DELETE("delete", "del");
+    UNMARK("unmark", "u");
 
-    private String command;
-    private String shr;
+
+    private final String command;
+    private final String shr;
 
     Commands(final String com, final String shr) {
         this.command = com;

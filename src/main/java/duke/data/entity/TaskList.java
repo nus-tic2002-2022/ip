@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class TaskList {
 
-    static List<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -21,7 +21,7 @@ public class TaskList {
     /**
      * @return tasks in TaskList.
      */
-    public static List<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
@@ -35,6 +35,7 @@ public class TaskList {
                 str.add((i + 1) + "." + tasks.get(i).toString());
         }
         return str;
+
     }
 
     /**

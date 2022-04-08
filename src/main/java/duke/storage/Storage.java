@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +23,9 @@ public class Storage {
 
     public final Path path;
 
-    public Storage() throws DukeException {
-        this(DEFAULT_STORAGE_FILEPATH);
-    }
-
     public Storage(String filePath) throws DukeException {
+        if(filePath==null||filePath.equals(""))
+            filePath=DEFAULT_STORAGE_FILEPATH;
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
             throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
@@ -49,6 +47,8 @@ public class Storage {
      */
     public void save(List<Task> tasks) throws  DukeException {
         try {
+
+            assert tasks!=null: "task to find cannot be empty";
             List<String> taskToStore = TaskWriter.writeTaskList(tasks);
             Files.write(path, taskToStore);
 
@@ -65,7 +65,7 @@ public class Storage {
      */
     public List<Task> load() throws DukeException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
-            return new ArrayList<Task>();
+            return new ArrayList<>();
         }
         try {
             return TaskReader.readTaskList(Files.readAllLines(path));
@@ -74,7 +74,7 @@ public class Storage {
             // other errors
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
-        } catch (ParseException pe ) {
+        } catch (DateTimeParseException pe ) {
             throw new DukeException("Error reading from file: "+path);
         }
     }

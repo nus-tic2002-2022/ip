@@ -18,128 +18,81 @@ public class Command {
     private Commands commands;
     private Task task;
     private int index;
+    private boolean isAll = false;
 
+    /**
+     * setter for isAll
+     * @param all to delete all
+     */
+    public void setAll(boolean all) {
+        isAll = all;
+    }
+
+    /**
+     * getter for isAll
+     *
+     * @return isAll
+     */
+    public boolean isAll() {
+        return isAll;
+    }
+
+    /**
+     * setter for index
+     *
+     * @param index index of the list
+     */
     public void setIndex(int index) {
         this.index = index;
     }
 
+    /**
+     * getter for index
+     *
+     * @return index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
+     * setter for Commands
+     *
+     * @param commands
+     */
     public void setCommands(Commands commands) {
         this.commands = commands;
     }
 
+    /**
+     * setter for Task
+     *
+     * @param task
+     */
     public void setTask(Task task) {
         this.task = task;
     }
 
+    /**
+     * getter for Task
+     *
+     * @return task
+     */
     public Task getTask() {
         return task;
     }
 
+
     /**
      * Executes the command and returns the result.
      */
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (this.commands != null) switch (this.commands) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
-            case BYE:
+        if (this.commands != null) {
+            if (this.commands == Commands.BYE) {
                 ui.showToUser(MESSAGE_GOODBYE);
-                break;
-            case MARK:
-                storage.save(mark(tasks, ui).getTasks());
-                break;
-            case UNMARK:
-                storage.save(unMark(tasks, ui).getTasks());
-                break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                storage.save(add(tasks, ui).getTasks());
-                break;
-            case DELETE:
-                storage.save(delete(tasks, ui).getTasks());
-                break;
-            case LIST:
-                list(tasks, ui);
-                break;
-            default:
-                ui.showError(MESSAGE_ERROR);
-        }
-        else ui.showError(MESSAGE_ERROR);
-        return tasks;
-    }
-
-    /**
-     * Add the task into List.
-     */
-    public TaskList add(TaskList tasks, Ui ui) {
-        if (task != null) {
-            tasks.add(task);
-        }
-        ui.showAdded(task);
-        ui.showTaskSize(tasks.getSize());
-        return tasks;
-    }
-
-    /**
-     * Delete the task from List.
-     */
-    public TaskList delete(TaskList tasks, Ui ui) throws DukeException {
-        /**
-         * Check if user key in invalid number
-         */
-        if (index < 0 || index > tasks.getSize()) {
-            throw new DukeException("☹ OOPS!!! There is no such task to delete.");
-        }
-        Task deleted = tasks.delete(index);
-        ui.showDeleted(deleted);
-        ui.showTaskSize(tasks.getSize());
-        return tasks;
-    }
-
-    /**
-     * Mark the task from List.
-     */
-    public TaskList mark(TaskList tasks, Ui ui) throws DukeException {
-        /**
-         * Check if user key in invalid number and show error
-         */
-        if (index < 0 || index > tasks.getSize()) {
-            throw new DukeException("☹ OOPS!!! The index that want to mark is not in the list.");
-        }
-        TaskList.getTasks().get(index).markAsDone();
-        ui.showMarked(TaskList.getTasks().get(index));
-        ui.showTaskSize(tasks.getSize());
-        return tasks;
-    }
-
-    /**
-     * Unmark the task from List.
-     */
-    public TaskList unMark(TaskList tasks, Ui ui) throws DukeException {
-        /**
-         * Check if user key in invalid number
-         */
-        if (index < 0 || index > tasks.getSize()) {
-            throw new DukeException("☹ OOPS!!! The index that want to unmark is not in the list.");
-        }
-        Task toUnMark = TaskList.getTasks().get(index);
-        if (toUnMark.getStatusIcon().equals(" "))
-            throw new DukeException("☹ OOPS!!! This task is not marked yet.");
-        TaskList.getTasks().get(index).markAsNotDone();
-        ui.showUnMarked(TaskList.getTasks().get(index));
-        ui.showTaskSize(tasks.getSize());
-        return tasks;
-    }
-
-    /**
-     * Show the task list.
-     */
-    public void list(TaskList tasks, Ui ui) {
-        if (tasks.getSize() == 0) {
-            ui.showTaskSize(tasks.getSize());
-        } else {
-            ui.showTask(tasks);
-        }
+            }
+        } else ui.showError(MESSAGE_ERROR);
     }
 
     /**
@@ -147,8 +100,7 @@ public class Command {
      */
     public boolean isExit() {
         if (this.commands != null) {
-            if (commands.equals(Commands.BYE)) return true;
-            else return false;
+            return commands.equals(Commands.BYE);
         } else return false;
     }
 }

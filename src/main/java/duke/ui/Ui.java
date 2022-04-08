@@ -54,7 +54,8 @@ public class Ui {
                 + "GGG::::::GGG:::GE::::::::::::::::::::EN::::::N        N::::::NN::::::N        N::::::NI::::::::IE::::::::::::::::::::E\n"
                 + "GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEENNNNNNNN         NNNNNNNNNNNNNNN         NNNNNNNIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE  \n";
 
-        System.out.println(hello);
+        showToUser(hello);
+        showToUser(MESSAGE_SHOW_TO_USER);
     }
 
     /**
@@ -66,16 +67,15 @@ public class Ui {
         }
     }
 
-    public void showLoadingError() {
-        showToUser(TAB + MESSAGE_INIT_FAILED);
+    public void showToUserWithTAB(String... message) {
+        for (String m : message) {
+            out.println(TAB + m.replace("\n", LS));
+        }
     }
 
     public String readCommand() {
-        showToUser(TAB + "Enter command: ");
+        showToUserWithTAB("Enter command: ");
         String fullInputLine = in.nextLine();
-        /**
-         * silently consume all ignored lines
-         */
         while (shouldIgnore(fullInputLine)) {
             fullInputLine = in.nextLine();
         }
@@ -98,37 +98,34 @@ public class Ui {
     }
 
     public void showDeleted(Task task) {
-        showToUser(TAB + MESSAGE_TASK_DELETE);
-        showToUser(TAB + task.toString());
+        showToUserWithTAB(MESSAGE_TASK_DELETE);
+        showToUserWithTAB(task.toString());
     }
 
     public void showMarked(Task task) {
-        showToUser(TAB + MESSAGE_TASK_MARK);
-        showToUser(TAB + task.toString());
+        showToUserWithTAB(MESSAGE_TASK_MARK);
+        showToUserWithTAB(task.toString());
     }
 
     public void showUnMarked(Task task) {
-        showToUser(TAB + MESSAGE_TASK_UNMARK);
-        showToUser(TAB + task.toString());
+        showToUserWithTAB(MESSAGE_TASK_UNMARK);
+        showToUserWithTAB(task.toString());
     }
 
 
     public void showAdded(Task task) {
-        showToUser(TAB + MESSAGE_TASK_ADD);
-        showToUser(TAB + task.toString());
+        showToUserWithTAB(MESSAGE_TASK_ADD);
+        showToUserWithTAB(task.toString());
     }
 
     public void showTaskSize(int size) {
-        showToUser(TAB + String.format(MESSAGE_TASKS_LISTED_OVERVIEW, size));
+        showToUserWithTAB(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, size));
     }
 
     public void showTask(TaskList s) {
-        showToUser(TAB + MESSAGE_TASK_SHOW);
         List<String> str = s.getTasksString();
-        for (int i = 0; i < str.size(); i++) {
-            showToUser(TAB + str.get(i));
-
+        for (String value : str) {
+            showToUserWithTAB(value);
         }
     }
-
 }

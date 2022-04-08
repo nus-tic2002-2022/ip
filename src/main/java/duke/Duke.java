@@ -7,29 +7,27 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.text.ParseException;
-
-import static duke.common.Messages.MESSAGE_DATE_FORMAT_ERROR;
-
 /**
  * This class contains the main method to run the application.
  */
 public class Duke {
     private Storage storage;
     private TaskList tasks = new TaskList();
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructor for Duke
+     * Read the file and load list of task into tasks(TaskList)
+     * Show error and exit the system when there is format error in reading the file
+     *
+     * @param filePath location of text file containing list of Task
+     *                 which are loaded into TaskList
      */
     public Duke(String filePath) {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
-        } catch (Storage.StorageOperationException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             System.exit(0);
@@ -37,11 +35,14 @@ public class Duke {
     }
 
     /**
-     * Run the application until user type 'bye' or 'b'.
+     * Get command from the user, parse it into Task and store it to the file.
+     * And get another command until user type 'bye' or 'b'
+     * Stop the application when user type 'bye' or 'b'.
      */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -51,9 +52,6 @@ public class Duke {
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
-            } catch (ParseException e) {
-                ui.showError(e.getMessage());
-                ui.showError(MESSAGE_DATE_FORMAT_ERROR);
             } finally {
                 ui.showLine();
             }

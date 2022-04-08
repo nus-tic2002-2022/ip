@@ -7,6 +7,18 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /**
      * @return description of Task.
      */
@@ -14,19 +26,6 @@ public class Task {
         return this.description;
     }
 
-    /**
-     * @return description status.
-     */
-    public boolean isDone() {
-        return isDone;
-    }
-
-    /**
-     * Set the description status to 'done'.
-     */
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
-    }
 
     /**
      * Constructor for Task with parameter
@@ -48,7 +47,7 @@ public class Task {
      * @return status with 'X' if the task is done.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (this.isDone()) ? "X" : " ";
     }
 
     /**
@@ -66,12 +65,17 @@ public class Task {
     }
 
     /**
-     * @return status of Task in boolean and save.
+     * @return task in string form
+     * e.g.[ ] jlpt exam
      */
     public String toString() {
-        return ("[" + this.getStatusIcon() + "] " + this.getDescription());
+        return ("[" + this.getStatusIcon() + "] " + this.getDescription() + " ");
     }
 
+    /**
+     * @return task in string form with comman format
+     * e.g. 0 , jlpt exam
+     */
     public String toSaveStr() {
         return (this.isDone() ? "1" : "0") + " , " + this.getDescription();
     }

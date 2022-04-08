@@ -4,42 +4,42 @@ Author: Ang Jing Xuan A0194262A (NUS BTech TIC2002 - AY21/22 Sem 2)
 
 ## Features 
 
-### List
+### List task(s)
 
 You can ask Duke what's on your list right now.
 
-### Todo, Deadline, Event
+### Create new task(s) - Todo, Deadline, Event
 
 You can tell Duke any todos, deadlines or events that you have. Duke will help you to remember them.
 * Todos are tasks without dates attached.
 * Deadlines are tasks with dates attached and are something that you need to do.
 * Events are tasks with dates attached and are something that you need to attend. 
 
-### Mark, Unmark
+### Mark, Unmark task(s)
 
 You can mark the task when it is done, or unmark the task when it is not done.
 
-### Find
+### Find task(s)
 
 You can look for task(s) with certain keyword(s) by using the find feature.
 
-### Delete
+### Delete task(s)
 
 You can delete tasks which you no longer want to track.
 
-### Sort
+### Sort task(s)
 
 You can sort your task list according to dates by ascending order. 
 
-### Help
+### Ask for Help
 
 Whenever you are stuck, don't worry, you can use the Help feature to get the list of commands which you can type.
 
-### Hello command
+### Say Hello to Duke
 
 Say Hello to Duke anytime you want! :)
 
-### Bye command
+### Say Bye to Duke
 
 Say Bye to Duke when you are logging out! See you soon! :)
 
@@ -51,7 +51,7 @@ Say Bye to Duke when you are logging out! See you soon! :)
 Prerequisites:
 Ensure that you have Java 17 on your machine. 
 
-1. Download duke-JAR_v3.zip.
+1. Download duke-JAR_v4.zip.
 2. Unzip the file. You should see "data" and "docs" folder and "duke.Duke.jar".
 3. Open command prompt/ terminal from the folder.
 4. Type `java -jar duke.Duke.jar` in the command prompt/ terminal.
@@ -293,6 +293,7 @@ Bye. Hope to see you again soon!
 
 ### File Error (IOException)
 If the file cannot be saved or created, Duke prints the file error message, prompting the user to check the file in the mentioned path. Note that if the duke.txt file is not found, Duke will automatically create it. 
+Kindly ensure that there is a /data/ folder at any point of time. 
 
 Example in Windows:
 ```
@@ -327,4 +328,4 @@ If a user happens to use mark, unmark or delete in this way, i.e. " mark 1 2", D
 If a user types "todo " or "deadline " or "event ", Duke prints the blank description error message, prompting the user to type `help` to check the format for Todo/Deadlines/Events. 
 
 
------ This document is last updated on 2 Apr 2022, 2pm. -----
+----- This document is last updated on 2022-04-08T10:53. -----

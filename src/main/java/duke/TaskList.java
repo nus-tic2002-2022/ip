@@ -102,7 +102,7 @@ public class TaskList {
         } else {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).toString().toLowerCase().contains(line.toLowerCase())) {
-                    System.out.print(i + ".");
+                    System.out.print(i + 1 + ".");
                     list.get(i).getTask();
                     noOfTasks++;
                 }

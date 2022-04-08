@@ -1,1 +1,2 @@
-[T] [ ] read a book
+[T] [X] read a book
+[T] [ ] buy oatmilk

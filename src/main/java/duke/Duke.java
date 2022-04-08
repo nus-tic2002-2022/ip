@@ -12,6 +12,7 @@ import duke.command.Add_Recur_Command;
 import duke.command.Command;
 
 import java.io.IOException;
+import java.lang.module.FindException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.File;
@@ -57,6 +58,8 @@ public class Duke {
                 System.out.println("Duke Exception: "+"Error in command");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("IndexOutOfBoundsException: "+"Index out of Bound Error");
+            }catch (FindException e) {
+                System.out.println("File Exception: "+" Too many word");
             }finally {
                 try{
                     f.writetoFile(tasklist);

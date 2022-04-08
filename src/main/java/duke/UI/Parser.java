@@ -8,6 +8,7 @@ import duke.Tasklist.*;
 import duke.command.*;
 
 import java.awt.desktop.SystemEventListener;
+import java.lang.module.FindException;
 import java.text.ParseException;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
@@ -68,7 +69,7 @@ public class Parser {
 
         return (str_1 + " | " + str_2 + " | " + str_3 + " | " + str_4);
     }
-    public static Command parsing(String passed) throws DukeException{
+    public static Command parsing(String passed) throws DukeException, FindException{
         String[] str = new String[20]; // to keep the passed sentence into string array
         try {       // parse to String array when received the passed task
             str = passed.split(" ");
@@ -211,9 +212,18 @@ public class Parser {
             SortCommand passed_command = new SortCommand(str[0]);
             return passed_command;
         }
+
+        if (str[0].equals("find")) {
+            if(str.length > 2)
+            {
+                throw new FindException();
+            }
+        FindCommand passed_command = new FindCommand(str[0], str[1]);
+        return passed_command;
+    }
         throw new DukeException();
 
-    }
+}
 }
 
 /***********************************************************************/

@@ -1,0 +1,9 @@
+T | 0 | read ai research paper | 
+T | 0 | read book | 
+D | 0 | submit report |  by 2022-05-17 2359
+E | 0 | attend seminar | NTU on 2022-07-31
+D | 0 | submit AI report |  by 2022-08-01 2359
+D | 0 | submit REPORT |  by 2022-08-03 2359
+E | 0 | attend Ai seminar | NUS on 2022-08-09
+E | 0 | attend seminar | NTU on 2022-08-10
+E | 0 | attend Ai seminar | NUS on 2022-08-19

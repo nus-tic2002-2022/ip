@@ -55,6 +55,20 @@ public class UI {
     public static void showUnmark() {
         System.out.println("OK, I've marked this task as not done yet:");
     }
+    public static void showFindResult(int count) {
+        assert (count >0);
+        if(count == 0) {
+            System.out.println("No match task is found");
+
+        }
+        else if(count == 1) {
+            System.out.println("OK, I found this task shown above");
+        }
+        else{
+            System.out.println("OK, I found these tasks shown above");
+        }
+    }
+
 
 }
 

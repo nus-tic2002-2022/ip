@@ -55,4 +55,10 @@ public class Task {
         return "|" + getStatusCode() + "|" + getDescription();
     }
 
+    public Date getDate() {
+        Date date = new Date();
+        System.out.println("This should never print");
+        return date;
+    }
+
 }

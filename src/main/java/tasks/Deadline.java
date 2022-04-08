@@ -34,4 +34,8 @@ public class Deadline extends Task {
     public String dateToString(Date date) {
         return new SimpleDateFormat("MMM dd").format(date);
     }
+
+    public Date getDate() {
+        return this.by;
+    }
 }

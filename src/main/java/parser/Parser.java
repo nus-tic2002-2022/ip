@@ -16,6 +16,7 @@ import commands.MarkDoneCommand;
 import commands.MassDeleteCommand;
 import commands.UnmarkDoneCommand;
 import commands.UpdateCommand;
+import commands.ViewCommand;
 import exceptions.TooManyDatesException;
 import tasks.Deadline;
 import tasks.Event;
@@ -98,11 +99,30 @@ public class Parser {
         case HelpCommand.COMMAND_WORD_2:
             return new HelpCommand(arguments);
 
+        case ViewCommand.COMMAND_WORD:
+            return prepareView(arguments);
+
         default:
             return new IncorrectCommand("Command does not exist");
         }
     }
 
+    /**
+     * Parses arguments in the context of the view date command.
+     *
+     * @param arguments full command args string
+     * @return the prepared command
+     */
+    private Command prepareView(String arguments) {
+        try {
+            final Date date = DateParser.parseDate(arguments);
+            return new ViewCommand(date);
+        } catch (IndexOutOfBoundsException e) {
+            return new IncorrectCommand("Invalid Date");
+        } catch (TooManyDatesException e) {
+            return new IncorrectCommand("Too many Dates Provided");
+        }
+    }
 
     /**
      * Parses arguments in the context of the find tasks command.

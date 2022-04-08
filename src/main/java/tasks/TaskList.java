@@ -1,6 +1,8 @@
 package tasks;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /** A TaskList Object that holds tasks */
 public class TaskList {
@@ -39,7 +41,20 @@ public class TaskList {
         return tempList;
     }
 
-    public Task get(int index) throws IndexOutOfBoundsException {
+    public TaskList getSearchDateResults(Date date) {
+        TaskList tempList = new TaskList();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            if (taskList.get(i).getClass().equals(Deadline.class) || taskList.get(i).getClass().equals(Event.class)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                if (sdf.format(date).equals(sdf.format(taskList.get(i).getDate()))) {
+                    tempList.addTask(taskList.get(i));
+                }
+            }
+        }
+        return tempList;
+    }
+
+    public Task getTask(int index) throws IndexOutOfBoundsException {
         try {
             return taskList.get(index);
         } catch (IndexOutOfBoundsException e) {

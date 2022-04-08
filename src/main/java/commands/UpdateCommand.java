@@ -57,15 +57,15 @@ public class UpdateCommand extends Command {
     public void execute(TaskList taskList, UI ui, Storage storage) {
         try {
             if (partToUpdate.equalsIgnoreCase("desc")) {
-                taskList.get(index - 1).updateDescription(newContent);
-                ui.printUpdatedTask(taskList.get(index - 1).toString());
-            } else if (taskList.get(index - 1).getClass().equals(Todo.class)) {
-                ui.printTaskNotUpdated(taskList.get(index - 1).toString());
-            } else if (taskList.get(index - 1).getClass().equals(FixedDuration.class)) {
-                ui.printTaskNotUpdated(taskList.get(index - 1).toString());
+                taskList.getTask(index - 1).updateDescription(newContent);
+                ui.printUpdatedTask(taskList.getTask(index - 1).toString());
+            } else if (taskList.getTask(index - 1).getClass().equals(Todo.class)) {
+                ui.printTaskNotUpdated(taskList.getTask(index - 1).toString());
+            } else if (taskList.getTask(index - 1).getClass().equals(FixedDuration.class)) {
+                ui.printTaskNotUpdated(taskList.getTask(index - 1).toString());
             } else {
-                taskList.get(index - 1).updateDate(date);
-                ui.printUpdatedTask(taskList.get(index - 1).toString());
+                taskList.getTask(index - 1).updateDate(date);
+                ui.printUpdatedTask(taskList.getTask(index - 1).toString());
             }
 
         } catch (IndexOutOfBoundsException e) {

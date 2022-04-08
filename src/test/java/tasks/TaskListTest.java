@@ -34,11 +34,11 @@ public class TaskListTest {
 
     @Test
     public void getTask_validIndex_throwsIndexOutOfBounds() {
-        assertEquals("[T][ ] test",taskList.get(0).toString());
+        assertEquals("[T][ ] test",taskList.getTask(0).toString());
     }
 
     @Test
     public void getTask_invalidIndex_throwsIndexOutOfBounds() {
-        assertThrows(IndexOutOfBoundsException.class,()-> taskList.get(69));
+        assertThrows(IndexOutOfBoundsException.class,()-> taskList.getTask(69));
     }
 }

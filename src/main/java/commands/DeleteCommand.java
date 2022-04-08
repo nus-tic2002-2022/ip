@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) {
         try {
-            Task taskToDelete = taskList.get(index - 1);
+            Task taskToDelete = taskList.getTask(index - 1);
             taskList.deleteTask(index - 1);
             ui.printTaskDeleted(taskToDelete.toString(), taskList.getNumberOfTask());
             storage.save(taskList);

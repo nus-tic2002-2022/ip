@@ -29,8 +29,6 @@ public class Storage {
     /**
      * Checks if directory exists and creates it if it does not
      *
-     * @exception IOException if directory cannot be created
-     * @see IOException
      */
     @SuppressWarnings("empty")
     public void init() {
@@ -50,10 +48,8 @@ public class Storage {
      * Checks if file exists and creates it if it does not
      *
      * @param file the file to be checked
-     * @exception IOException if file cannot be created
-     * @see IOException
      */
-    public void checkIfFileExists(File file) {
+    private void checkIfFileExists(File file) {
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -69,7 +65,6 @@ public class Storage {
      * This method is used to save the task list into a txt file for storage
      *
      * @param taskList the list of tasks to be saved
-     * @exception IOException if file cannot be saved
      */
     public void save(TaskList taskList) {
         File yourFile = new File(FILE_PATH, FILE_NAME);
@@ -92,7 +87,6 @@ public class Storage {
      * This method is used to load the saved task list from a txt file to a new TaskList object
      *
      * @return A TaskList Object containing all saved Task Objects
-     * @exception IOException if file cannot be saved
      */
     public TaskList loadTasks() {
         TaskList tempTaskList = new TaskList();
@@ -119,12 +113,13 @@ public class Storage {
      *
      * @param str String of the saved text
      * @return A Task Object
-     * @exception IndexOutOfBoundsException if saved file is in the wrong format
      */
-    public static Task convertStrToTask(String str) {
+    protected static Task convertStrToTask(String str) {
         Task task = null;
         try {
             String[] splittedString = str.split("\\|");
+
+            assert splittedString.length == 4 : "There should be 4 parts to the splitted string";
 
             String taskType = splittedString[0];
             String status = splittedString[1];

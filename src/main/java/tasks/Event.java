@@ -36,4 +36,8 @@ public class Event extends Task {
     public String dateToString(Date date) {
         return new SimpleDateFormat("MMM dd Ka").format(date);
     }
+
+    public Date getDate() {
+        return this.at;
+    }
 }

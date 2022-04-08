@@ -24,6 +24,7 @@ public class HelpCommand extends Command {
             + "Deletes a task /all /marked   | delete <task id> /all/marked\n"
             + "Finds all tasks with keyword  | find <keyword>\n"
             + "Updates a task                | update <task id> <desc/date> <new content>\n"
+            + "View tasks on certain day     | view <date> \n"
             + "Exit                          | Bye \n\n"
             + "Type help <command> for more information.";
 
@@ -85,6 +86,10 @@ public class HelpCommand extends Command {
 
         case ExitCommand.COMMAND_WORD:
             ui.printHelp(ExitCommand.MESSAGE_USAGE);
+            break;
+
+        case ViewCommand.COMMAND_WORD:
+            ui.printHelp(ViewCommand.MESSAGE_USAGE);
             break;
 
         default:

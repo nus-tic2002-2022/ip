@@ -24,8 +24,8 @@ public class UnmarkDoneCommand extends Command {
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) {
         try {
-            if (taskList.get(index - 1).getDoneStatus()) {
-                taskList.get(index - 1).unmarkDone();
+            if (taskList.getTask(index - 1).getDoneStatus()) {
+                taskList.getTask(index - 1).unmarkDone();
                 ui.printUnmarkedTask();
                 storage.save(taskList);
             } else {

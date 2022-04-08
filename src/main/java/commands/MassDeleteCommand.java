@@ -30,7 +30,7 @@ public class MassDeleteCommand extends Command {
             ArrayList<Integer> indexesToDelete = new ArrayList<>();
 
             for (int i = 0; i < taskList.getNumberOfTask(); i++) {
-                if (taskList.get(i).getDoneStatus()) {
+                if (taskList.getTask(i).getDoneStatus()) {
                     indexesToDelete.add(i);
                 }
             }

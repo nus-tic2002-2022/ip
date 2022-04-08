@@ -25,10 +25,10 @@ public class MarkDoneCommand extends Command {
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) {
         try {
-            if (taskList.get(index - 1).getDoneStatus()) {
+            if (taskList.getTask(index - 1).getDoneStatus()) {
                 ui.printErrorTaskAlreadyMarked();
             } else {
-                taskList.get(index - 1).markDone();
+                taskList.getTask(index - 1).markDone();
                 ui.printMarkedTask();
                 storage.save(taskList);
             }

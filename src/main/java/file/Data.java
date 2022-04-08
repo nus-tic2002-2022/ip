@@ -12,8 +12,8 @@ public class Data {
     private static String filePath = "data.txt";
 
     /**
-     * Read the file based on the file path
-     * Creating the task based on the task category
+     * Read the file based on the file path.
+     * Creating the task based on the task category.
      *
      * @param taskList Existing task array to be added
      * @return Updated task array
@@ -37,7 +37,7 @@ public class Data {
     }
 
     /**
-     * Write the file based on the file path
+     * Write the file based on the file path.
      *
      * @param taskList Existing task array to be written to the file
      */
@@ -54,6 +54,11 @@ public class Data {
         }
     }
 
+    /**
+     * Categorising task based alphabet.
+     *
+     * @param lineList String array that read from the file
+     */
     private static Task categoriseTask(String[] lineList){
         Task task;
         switch(lineList[0]){

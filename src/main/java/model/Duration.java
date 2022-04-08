@@ -12,7 +12,7 @@ public class Duration extends Task {
     }
 
     /**
-     * Format task to String
+     * Format task to String.
      *
      */
     @Override
@@ -25,7 +25,7 @@ public class Duration extends Task {
     }
 
     /**
-     * Print the task in certain format
+     * Print the task in certain format.
      *
      */
     @Override
@@ -34,7 +34,7 @@ public class Duration extends Task {
     }
 
     /**
-     * Format the task to store into file
+     * Format the task to store into file.
      *
      * @return Formatted string
      */

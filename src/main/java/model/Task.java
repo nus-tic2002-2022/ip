@@ -11,7 +11,7 @@ public class Task {
     }
 
     /**
-     * Check the status of the task
+     * Check the status of the task.
      *
      * @return Status of the task
      */
@@ -20,7 +20,7 @@ public class Task {
     }
 
     /**
-     * Set the status of task
+     * Set the status of task.
      *
      * @param done Status of the task
      */
@@ -29,7 +29,7 @@ public class Task {
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return description
      */
@@ -38,7 +38,7 @@ public class Task {
     }
 
     /**
-     * Print the task
+     * Print the task.
      *
      */
     public void printTask(){
@@ -51,7 +51,7 @@ public class Task {
 
 
     /**
-     * Format the task to store into file
+     * Format the task to store into file.
      *
      */
     public String toFileString(){

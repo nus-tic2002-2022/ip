@@ -15,7 +15,7 @@ public class User {
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
-     * Adding task to the array list based on the type
+     * Adding task to the array list based on the type.
      *
      * @param desc Description of the task
      * @param type Type of the task
@@ -73,7 +73,7 @@ public class User {
     }
 
     /**
-     * Print the task within the array list
+     * Print the task within the array list.
      *
      */
     public static void printTask(){
@@ -84,7 +84,7 @@ public class User {
     }
 
     /**
-     * Marking the task as completed/incomplete
+     * Marking the task as completed/incomplete.
      *
      * @param userInput determine which task to be mark
      * @param completed to mark the task as complete/incomplete
@@ -96,7 +96,7 @@ public class User {
     }
 
     /**
-     * Delete the task
+     * Delete the task.
      *
      * @param no determine which task to be delete
      * @return Deleted task
@@ -108,7 +108,7 @@ public class User {
     }
 
     /**
-     * Retrieve the list of task based on the date
+     * Retrieve the list of task based on the date.
      *
      * @param userInput user input field
      * @return List of task
@@ -144,7 +144,7 @@ public class User {
     }
 
     /**
-     * Retrieve the list of task based on the keyword
+     * Retrieve the list of task based on the keyword.
      *
      * @param userInput user input field
      * @return List of task
@@ -164,7 +164,7 @@ public class User {
     }
 
     /**
-     * Retrieving the task from text file and store it
+     * Retrieving the task from text file and store it.
      *
      */
     public static void retrieveInitData(){
@@ -172,7 +172,7 @@ public class User {
     }
 
     /**
-     * Save the task to the text file
+     * Save the task to the text file.
      *
      */
     public static void saveData(){
@@ -180,7 +180,7 @@ public class User {
     }
 
     /**
-     * Get the count of the task
+     * Get the count of the task.
      *
      * @return Count of the task
      */

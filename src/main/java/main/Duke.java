@@ -38,7 +38,7 @@ public class Duke {
     }
 
     /**
-     * Process the input provided by user
+     * Process the input provided by user.
      *
      * @param input user input
      */

@@ -18,7 +18,7 @@ public class Deadline extends Task  {
     }
 
     /**
-     * Return the value of by
+     * Return the value of by.
      *
      */
     public LocalDate getBy() {
@@ -26,7 +26,7 @@ public class Deadline extends Task  {
     }
 
     /**
-     * Format task to String
+     * Format task to String.
      *
      */
     @Override
@@ -40,7 +40,7 @@ public class Deadline extends Task  {
     }
 
     /**
-     * Print the task in certain format
+     * Print the task in certain format.
      *
      */
     @Override
@@ -49,7 +49,7 @@ public class Deadline extends Task  {
     }
 
     /**
-     * Format the task to store into file
+     * Format the task to store into file.
      *
      * @return Formatted string
      */

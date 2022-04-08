@@ -318,12 +318,14 @@ public class Parser {
             return new IncorrectCommand("Duration or Description is missing!");
         }
         assert !arguments.isEmpty() : "Arguments cannot be empty";
-
-        final int duration = Integer.parseInt(matcher.group("duration"));
-        final String description = matcher.group("description");
-
-        Task taskToAdd = new FixedDuration(description, duration);
-        return new AddCommand(taskToAdd);
+        try {
+            final int duration = Integer.parseInt(matcher.group("duration"));
+            final String description = matcher.group("description");
+            Task taskToAdd = new FixedDuration(description, duration);
+            return new AddCommand(taskToAdd);
+        } catch (NumberFormatException e ){
+            return new IncorrectCommand("Invalid duration: " + arguments);
+        }
 
     }
 

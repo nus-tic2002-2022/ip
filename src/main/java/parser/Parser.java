@@ -323,7 +323,7 @@ public class Parser {
             final String description = matcher.group("description");
             Task taskToAdd = new FixedDuration(description, duration);
             return new AddCommand(taskToAdd);
-        } catch (NumberFormatException e ){
+        } catch (NumberFormatException e) {
             return new IncorrectCommand("Invalid duration: " + arguments);
         }
 

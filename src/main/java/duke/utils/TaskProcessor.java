@@ -53,6 +53,17 @@ public class TaskProcessor {
             String[] taskDetails = task.split(" /at ");
             tasks.add(new Events(taskDetails[0],taskDetails[1]));
             //tasks[taskListCount] = new duke.task.Events(taskDetails[0],taskDetails[1]);
+        } else if (taskType.equals("schedule")) {
+            String task = response.substring(response.indexOf(' ') + 1); //can be improved
+            String[] taskDetails = task.split(" /from ");
+            String taskName = taskDetails[0];
+
+            String[] taskDates = taskDetails[1].split(" /to ");
+            String startDate = taskDates[0];
+            String endDate = taskDates[1];
+
+            tasks.add(new Schedule(taskName,startDate,endDate));
+
         }
 
         System.out.println("Added the following task to your list:");

@@ -36,7 +36,7 @@ public class UserInputParser extends Parser {
                 System.out.println("I don't think you have that many tasks on your list...");
             };
 
-        } else if (userInput.startsWith("todo " ) || userInput.startsWith("event ") || userInput.startsWith("deadline ")) {
+        } else if (userInput.startsWith("todo " ) || userInput.startsWith("event ") || userInput.startsWith("deadline ") || userInput.startsWith("schedule ")) {
             String taskType = userInput.split(" ")[0];
             try {
                 tasklist.processTaskToList(taskType,userInput);

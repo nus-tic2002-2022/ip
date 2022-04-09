@@ -1,12 +1,8 @@
 package duke.memoryaccess;
 
-import duke.task.Deadlines;
-import duke.task.Events;
-import duke.task.Task;
-import duke.task.ToDos;
+import duke.task.*;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -86,7 +82,7 @@ public class Storage {
                 newDeadline.setDone(true);
             }
             return newDeadline;
-        } else {
+        } else if (taskType.equals('E')){
             String eventDate = taskParsed[3];
 
             Events newEvent = new Events(taskName, eventDate);
@@ -94,6 +90,15 @@ public class Storage {
                 newEvent.setDone(true);
             }
             return newEvent;
+        } else {
+            String eventStartDate = taskParsed[3];
+            String eventEndDate = taskParsed[4];
+
+            Schedule newSchedule = new Schedule(taskName, eventStartDate, eventEndDate);
+            if (isDone.equals("1")) {
+                newSchedule.setDone(true);
+            }
+            return newSchedule;
         }
     }
 }

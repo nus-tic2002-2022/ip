@@ -51,6 +51,7 @@ public class Ui
                 + "\ttodo: \n"
                 + "\tevent: \n"
                 + "\tdeadline: \n"
+                + "\tschedule: \n";
                 + "\tmark/unmark: \n"
                 + "\tlist: \n"
                 + "\tdelete: \n"

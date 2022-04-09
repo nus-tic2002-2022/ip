@@ -42,7 +42,7 @@ public abstract class Task {
      *
      * @param description New description
      * **/
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -55,4 +55,10 @@ public abstract class Task {
     public TaskDateStructure getDateStructure() {
         return TaskDateStructure.NO_DATE;
     }
+
+    /**
+     * Sets the date for the task
+     * - Default do nothing as this will be handled by the subclasses
+     * **/
+    public void setDate(String newDate) {}
 }

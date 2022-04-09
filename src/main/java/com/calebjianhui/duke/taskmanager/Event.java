@@ -10,20 +10,19 @@ public class Event extends Task {
     public static final String COMMAND_SEPARATOR = " /at ";
     public static final String TYPE_INDICATOR = "E";
 
-    private final String rawDate;
-    private final Pair<TaskDateStructure, LocalDateTime> dateStructure;
+    private String rawDate;
+    private Pair<TaskDateStructure, LocalDateTime> dateStructure;
 
     public Event (boolean isDone, String description, String startTime) {
         super(isDone, description);
-        this.rawDate = startTime;
-        this.dateStructure = DateParser.parseDateTimeString(startTime);
+        this.setDate(startTime);
     }
 
     /**
      * Getter for description
      * **/
     public String getDescription() {
-        return description + " (at: " + rawDate + ")";
+        return description + " (on: " + rawDate + ")";
     }
 
     /**
@@ -48,4 +47,12 @@ public class Event extends Task {
         return dateStructure.getFirst();
     }
 
+    /**
+     * Set the date of the task
+     * **/
+    @Override
+    public void setDate(String newDate) {
+        this.rawDate = newDate;
+        this.dateStructure = DateParser.parseDateTimeString(newDate);
+    }
 }

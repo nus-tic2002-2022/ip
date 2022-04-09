@@ -1,8 +1,11 @@
 package com.calebjianhui.duke.parser;
 
 import com.calebjianhui.duke.commands.*;
+import com.calebjianhui.duke.enums.UpdateCommandType;
 import com.calebjianhui.duke.ui.DukeUI;
 
+import java.lang.reflect.MalformedParametersException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -33,10 +36,8 @@ public class InputParser {
         } else {
             try {
                 return determineAction(input);
-            } catch (UnsupportedOperationException e) {
-                return new InvalidCommand("unknown");
-            } catch (IndexOutOfBoundsException e) {
-                return new InvalidCommand("invalid_index");
+            } catch (UnsupportedOperationException | IndexOutOfBoundsException | MalformedParametersException e) {
+                return new InvalidCommand(e.getMessage());
             }
         }
     }
@@ -46,7 +47,7 @@ public class InputParser {
      *
      * @param command Input command from user
      * **/
-    private Command determineAction(String command) throws UnsupportedOperationException, IndexOutOfBoundsException {
+    private Command determineAction(String command) throws UnsupportedOperationException, IndexOutOfBoundsException, MalformedParametersException {
         // Check for single word command
         if (ListCommand.COMMAND.equals(command)) {
             return new ListCommand();
@@ -56,22 +57,39 @@ public class InputParser {
         String[] commandList = command.split(" ");
         // - Throw out of bounds should it be a single word command
         if (commandList.length < 2) {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
         }
 
         // Check what type of command
         switch (commandList[0]) {
             case UpdateCommand.MARK_COMMAND:
             case UpdateCommand.UNMARK_COMMAND:
-                if (commandList.length > 2) {
-                    throw new UnsupportedOperationException();
-                }
-
+            case UpdateCommand.EDIT_COMMAND:
                 try {
                     int index = Integer.parseInt(commandList[1]) - 1;
-                    return new UpdateCommand(UpdateCommand.MARK_COMMAND.equals(commandList[0]), index);
+                    if (commandList[0].equals(UpdateCommand.EDIT_COMMAND)) {
+                        UpdateCommandType editField = UpdateCommand.checkCommandType(commandList[2]);
+                        if (editField.equals(UpdateCommandType.INVALID_COMMAND)) {
+                            throw new MalformedParametersException(InvalidCommand.UNKNOWN_PARAMETERS_MESSAGE);
+                        }
+                        return new UpdateCommand(editField, index,
+                                String.join(" ",
+                                        Arrays.copyOfRange(commandList, 3, commandList.length)
+                                )
+                        );
+                    } else {
+                        // Mark / Unmark command have length of 2
+                        if (commandList.length > 2) {
+                            throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                        }
+                        return new UpdateCommand(
+                                commandList[0].equalsIgnoreCase(UpdateCommand.MARK_COMMAND) ?
+                                        UpdateCommandType.MARK :
+                                        UpdateCommandType.UNMARK,
+                                index, "");
+                    }
                 } catch (NumberFormatException e) {
-                    throw new IndexOutOfBoundsException();
+                    throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
                 }
             case AddCommand.TODO_COMMAND:
             case AddCommand.EVENT_COMMAND:
@@ -79,17 +97,17 @@ public class InputParser {
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
             case DeleteCommand.COMMAND:
                 if (commandList.length > 2) {
-                    throw new UnsupportedOperationException();
+                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
                 }
 
                 try {
                     int index = Integer.parseInt(commandList[1]) - 1;
                     return new DeleteCommand(index);
                 } catch (NumberFormatException e) {
-                    throw new IndexOutOfBoundsException();
+                    throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
                 }
             default:
-                throw new UnsupportedOperationException();
+                throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
         }
     }
 

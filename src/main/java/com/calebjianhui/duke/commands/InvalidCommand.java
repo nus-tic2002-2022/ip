@@ -3,39 +3,21 @@ package com.calebjianhui.duke.commands;
 import com.calebjianhui.duke.ui.DukeUI;
 
 public class InvalidCommand extends Command {
-    private final static String DUKE_INVALID_INDEX_REPLY = "Invalid task selected. Please select a valid task.";
-    private final static String DUKE_UNKNOWN_COMMAND_REPLY = "Hmm, I don't understand what that means. Can you explain again?";
+    public final static String INVALID_INDEX_MESSAGE = "Invalid task selected. Please select a valid task.";
+    public final static String UNKNOWN_COMMAND_MESSAGE = "Hmm, I don't understand what that means. Can you explain again?";
+    public final static String UNKNOWN_PARAMETERS_MESSAGE = "Hmm, I don't understand that parameter you specified. Can you check again?";
 
-    private final String commandType;
+    private final String message;
 
-    public InvalidCommand(String commandType) {
-        this.commandType = commandType;
+    public InvalidCommand(String message) {
+        this.message = message;
     }
-
-    private String decipherType() {
-        switch (commandType) {
-            case "invalid_index":
-                return DUKE_INVALID_INDEX_REPLY;
-            default:
-                return DUKE_UNKNOWN_COMMAND_REPLY;
-        }
-    }
-
-    /**
-     * Check if the input command is of the same type
-     *
-     * @param instance Main command to be compared with
-     */
-    public static boolean isSelectedCommand(Command instance) {
-        return (instance instanceof InvalidCommand);
-    }
-
 
     /**
      * Execute the specified command
      */
     public boolean execute() {
-        new DukeUI().formatDukeReply(decipherType());
+        new DukeUI().formatDukeReply(message);
         return false;
     }
 }

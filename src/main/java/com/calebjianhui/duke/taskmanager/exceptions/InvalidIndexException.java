@@ -5,34 +5,19 @@ package com.calebjianhui.duke.taskmanager.exceptions;
  * E.g < 0 or out of bounds
  * **/
 public class InvalidIndexException extends Exception {
-    private static final String REPLY_GENERIC = "Task is not found. Please provide a valid index.";
-    private static final String REPLY_NO_ONGOING_TASK = "You do not have any ongoing task. Add one now?";
+    public static final String REPLY_INVALID_INDEX = "Task is not found. Please provide a valid index.";
+    public static final String REPLY_NO_ONGOING_TASK = "You do not have any ongoing task. Add one now?";
 
-    public static final String OPTION_GENERIC = "generic";
-    public static final String OPTION_EMPTY_TASK_LIST = "empty";
+    private final String message;
 
-    String type;
-
-    public InvalidIndexException() {
+    public InvalidIndexException(String message) {
         super();
-        this.type = REPLY_GENERIC;
-    }
-
-    public InvalidIndexException(String type) {
-        super();
-        this.type = type;
+        this.message = message;
     }
 
     @Override
     public String getMessage() {
-        if (OPTION_EMPTY_TASK_LIST.equals(type)) {
-            return REPLY_NO_ONGOING_TASK;
-        } else {
-            return REPLY_GENERIC;
-        }
+        return message;
     }
 
-    public String getType() {
-        return type;
-    }
 }

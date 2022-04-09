@@ -1,6 +1,8 @@
 package com.calebjianhui.duke.taskmanager;
 
+import com.calebjianhui.duke.enums.TaskDateStructure;
 import com.calebjianhui.duke.enums.TaskType;
+import com.calebjianhui.duke.enums.UpdateCommandType;
 import com.calebjianhui.duke.parser.TaskEncoder;
 import com.calebjianhui.duke.taskmanager.exceptions.InvalidIndexException;
 import com.calebjianhui.duke.taskmanager.exceptions.InvalidTaskInputException;
@@ -66,7 +68,7 @@ public class TaskManager {
         try {
             // Check if task list is empty
             if (taskList.isEmpty()) {
-                throw new InvalidIndexException("empty");
+                throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
             }
 
             String allTask = "These are your current task:\n";
@@ -170,45 +172,67 @@ public class TaskManager {
     }
 
     /**
-     * Update a task status
+     * Update the task
      *
-     * @param isMark Determine to mark/unmark task
+     * @param updateFieldType Field to update
      * @param index Index of selected task
      *
      * @return Should the action be successful
      * **/
-    public boolean updateTaskStatus(boolean isMark, int index) {
+    public boolean updateTask(UpdateCommandType updateFieldType, int index, String details) {
         try {
             // Check if task list is empty
             if (taskList.isEmpty()) {
-                throw new InvalidIndexException("empty");
+                throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
             }
 
             // Check if selected index is valid
             if (index < 0 || index >= taskList.size()) {
-                throw new InvalidIndexException();
+                throw new InvalidIndexException(InvalidIndexException.REPLY_INVALID_INDEX);
             }
 
             // Get & verify current status
             Task selected = taskList.get(index);
-            if (selected.getDoneStatus() == isMark) {
-                throw new NoChangesException();
+            // Determine which fields to update
+            if (updateFieldType.equals(UpdateCommandType.MARK) || updateFieldType.equals(UpdateCommandType.UNMARK)) {
+                // Edit Mark / Unmark Status
+                boolean isMark = updateFieldType.equals(UpdateCommandType.MARK);
+                if (selected.getDoneStatus() == isMark) {
+                    throw new NoChangesException();
+                }
+                // Set Status
+                selected.setDoneStatus(isMark);
+                // Show updated status
+                String reply = isMark ? Messages.REPLY_UPDATE_MARK_TASK : Messages.REPLY_UPDATE_UNMARK_TASK;
+                reply = reply.concat("\n\t").concat(getTaskDetails(selected));
+                ui.formatDukeReply(reply);
+            } else if (updateFieldType.equals(UpdateCommandType.EDIT_DATE)) {
+                // Edit date
+                if (selected.getDateStructure().equals(TaskDateStructure.NO_DATE)) {
+                    throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_TASK_NO_DATE);
+                }
+                selected.setDate(details);
+                // Show updated status
+                ui.formatDukeReply(Messages.REPLY_UPDATE_DATE);
+            } else if (updateFieldType.equals(UpdateCommandType.EDIT_DESCRIPTION)) {
+                // Edit description
+                selected.setDescription(details);
+                // Show updated status
+                ui.formatDukeReply(Messages.REPLY_UPDATE_MESSAGE);
             }
-            // Set Status
-            selected.setDoneStatus(isMark);
-            String reply = isMark ? Messages.REPLY_CONFIRM_MARK_TASK : Messages.REPLY_CONFIRM_UNMARK_TASK;
-            reply = reply.concat("\n\t").concat(getTaskDetails(selected));
-            ui.formatDukeReply(reply);
             return true;
         } catch (InvalidIndexException e) {
             ui.formatDukeReply(e.getMessage());
-            if (e.getType().equals(InvalidIndexException.OPTION_GENERIC)) {
+            if (e.getMessage().equals(InvalidIndexException.REPLY_INVALID_INDEX)) {
                 listTask();
             }
             return false;
         } catch (NoChangesException e) {
             ui.formatDukeReply(e.getMessage());
             listTask();
+            return false;
+        } catch (InvalidTaskInputException e) {
+            ui.formatDukeReply(e.getMessage());
             return false;
         }
     }
@@ -224,12 +248,12 @@ public class TaskManager {
         try {
             // Check if task list is empty
             if (taskList.isEmpty()) {
-                throw new InvalidIndexException("empty");
+                throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
             }
 
             // Check if selected index is valid
             if (index < 0 || index >= taskList.size()) {
-                throw new InvalidIndexException();
+                throw new InvalidIndexException(InvalidIndexException.REPLY_INVALID_INDEX);
             }
 
             // Delete task and send reply
@@ -240,7 +264,7 @@ public class TaskManager {
             return true;
         } catch (InvalidIndexException e) {
             ui.formatDukeReply(e.getMessage());
-            if (e.getType().equals(InvalidIndexException.OPTION_GENERIC)) {
+            if (e.getMessage().equals(InvalidIndexException.REPLY_INVALID_INDEX)) {
                 listTask();
             }
             return false;

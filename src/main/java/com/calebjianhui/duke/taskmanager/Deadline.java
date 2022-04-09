@@ -10,13 +10,12 @@ public class Deadline extends Task {
     public static final String COMMAND_SEPARATOR = " /by ";
     public static final String TYPE_INDICATOR = "D";
 
-    private final String rawDate;
-    private final Pair<TaskDateStructure, LocalDateTime> dateStructure;
+    private String rawDate;
+    private Pair<TaskDateStructure, LocalDateTime> dateStructure;
 
     public Deadline (boolean isDone, String description, String dueDate) {
         super(isDone, description);
-        this.rawDate = dueDate;
-        this.dateStructure = DateParser.parseDateTimeString(dueDate);
+        this.setDate(dueDate);
     }
 
     /**
@@ -46,5 +45,14 @@ public class Deadline extends Task {
     @Override
     public TaskDateStructure getDateStructure() {
         return dateStructure.getFirst();
+    }
+
+    /**
+     * Set the date of the task
+     * **/
+    @Override
+    public void setDate(String newDate) {
+        this.rawDate = newDate;
+        this.dateStructure = DateParser.parseDateTimeString(newDate);
     }
 }

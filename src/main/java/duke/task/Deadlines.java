@@ -1,8 +1,7 @@
 package duke.task;
 
-import duke.task.Task;
+import duke.parser.TimeParser;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 
 public class Deadlines extends TasksWithDate {
@@ -24,7 +23,8 @@ public class Deadlines extends TasksWithDate {
      */
     @Override
     public String toString(){
-        return String.format("[D][%s] %s (by: %s)", (done?"x":" "), this.task,this.taskDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        String formattedDateString = TimeParser.convertDateToString(this.taskDate);
+        return String.format("[D][%s] %s (by: %s)", (done?"x":" "), this.task,formattedDateString);
     }
 
     @Override

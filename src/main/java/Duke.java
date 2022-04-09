@@ -1,15 +1,15 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+import duke.utils.TaskProcessor;
+import duke.utils.Ui;
+import duke.parser.UserInputParser;
 
-////potential changes
-//make tasks abstract class
-//updates - file path string should be initialized rather than hardcoded?
-//catch error when directory is not present when trying to initialize text file
-//throw error when input wrong date format. currently, only accepts yyyy-mm-dd
-//javadocs for all methods
-//packages!
-// one more junit - maybe for time parsing
+import java.util.Scanner;
+
+//// potential changes
+// javadocs for all methods
+// one more junit - the save string for the save format!
 // more assertions
+// work on help message
+// find might wanna be case sensitive?
 
 public class Duke {
 
@@ -31,7 +31,7 @@ public class Duke {
         String response;
 
         while(true) {
-            System.out.println("\tWhat's up doc?");
+            System.out.println("\tWhat's up doc? Type 'help' for a list of useful commands!\n");
             response = input.nextLine();
 
             if (response.equals("bye")) {

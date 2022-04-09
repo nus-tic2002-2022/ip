@@ -1,3 +1,11 @@
+package duke.parser;
+
+import duke.utils.TaskProcessor;
+import duke.utils.Ui;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class UserInputParser extends Parser {
 
     public static void processUserInput(TaskProcessor tasklist, String userInput) { //
@@ -33,8 +41,9 @@ public class UserInputParser extends Parser {
             try {
                 tasklist.processTaskToList(taskType,userInput);
             } catch (ArrayIndexOutOfBoundsException e) {
-                //ui.printErrorMessage()
                 System.out.println("=^-.-^= You didn't provide your task description...");
+            } catch (DateTimeParseException e) {
+                Ui.printParseStringToDateErrorMEssage();
             }
 
         } else if (userInput.startsWith("delete")) {
@@ -50,7 +59,14 @@ public class UserInputParser extends Parser {
         } else if (userInput.startsWith("reschedule")) {
             Integer taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
             String postponeTaskDate =  userInput.split(" ")[2];
-            tasklist.rescheduleTask(taskNumber,postponeTaskDate);
+            try {
+                tasklist.rescheduleTask(taskNumber,postponeTaskDate);
+            } catch (DateTimeParseException e) {
+                Ui.printParseStringToDateErrorMEssage();
+            }
+
+        } else if (userInput.equals("help")) {
+            Ui.printHelpMessage();
         }
         else {
             System.out.println("=^-.-^= Not sure what that means...");

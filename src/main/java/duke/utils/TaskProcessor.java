@@ -1,19 +1,23 @@
+package duke.utils;
+
+import duke.memoryaccess.Storage;
 import duke.task.*;
 import duke.task.TasksWithDate;
-import duke.utils.TaskFinder;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskProcessor {
 
     protected ArrayList<Task> tasks = new ArrayList<Task>();
     protected int taskListCount = 0;
-    private String filePath = "data/duke.txt";
-    private Storage fileStoreman = new Storage(filePath);
+    private String filePath = "data/";
+    private String fileName = "duke.txt";
+    private Storage fileStoreman = new Storage(filePath,fileName);
     private TaskFinder taskFinder = new TaskFinder();
 
     public void TaskProcessor() {
-        fileStoreman = new Storage(filePath);
+        fileStoreman = new Storage(filePath,fileName);
     };
 
     public void changeTaskStatus(int taskIndex, boolean statusToChange)  {
@@ -33,7 +37,7 @@ public class TaskProcessor {
     }
 
 
-    public void processTaskToList( String taskType, String response) throws ArrayIndexOutOfBoundsException,NumberFormatException {
+    public void processTaskToList( String taskType, String response) throws ArrayIndexOutOfBoundsException,NumberFormatException, DateTimeParseException {
         if (taskType.equals("todo")) {
             String task = response.split(" ")[1];
             tasks.add(new ToDos(task));
@@ -66,12 +70,9 @@ public class TaskProcessor {
     };
 
     public void loadTasks () {
-        ArrayList<String> stringsFromDataFile = fileStoreman.readFile();
+        tasks = fileStoreman.readFile();
 
-        for (int counter = 0 ; counter < stringsFromDataFile.size() ; counter++) {
-            loadStringsToTasklist(stringsFromDataFile.get(counter));
-            taskListCount++;
-        }
+        taskListCount = tasks.size();
         assert (taskListCount >= 0);
     };
 
@@ -83,42 +84,15 @@ public class TaskProcessor {
 
     public void rescheduleTask (int taskNum, String rescheduleTaskDate) {
         Task currTask = tasks.get(taskNum);
-        TasksWithDate currTaskToReschedule = (TasksWithDate)currTask;
-        currTaskToReschedule.rescheduleTask(rescheduleTaskDate);
-        Ui.printRescheduleInfo(taskNum,currTaskToReschedule);
-    }
-
-    public void loadStringsToTasklist (String task) {
-        Character taskType = task.charAt(0);
-        if (taskType.equals('T')) {
-            String todoName = task.split("\\|")[2];
-            ToDos newTodos = new ToDos(todoName);
-            if (task.split("\\|")[1].equals('1')) {
-                newTodos.setDone(true);
-            }
-            tasks.add(newTodos);
-
-        } else if (taskType.equals('D')) {
-            String deadlineName = task.split("\\|")[2];
-            String deadlineDate = task.split("\\|")[3];
-
-            Deadlines newDeadline = new Deadlines(deadlineName,deadlineDate);
-            if (task.split("\\|")[1].equals('1')) {
-                newDeadline.setDone(true);
-            }
-            tasks.add(newDeadline);
-
-        } else if (taskType.equals('E')) {
-            String eventName = task.split("\\|")[2];
-            String eventDate = task.split("\\|")[3];
-
-            Events newEvent = new Events(eventName,eventDate);
-            if (task.split("\\|")[1].equals('1')) {
-                newEvent.setDone(true);
-            }
-            tasks.add(newEvent);
+        try {
+            TasksWithDate currTaskToReschedule = (TasksWithDate)currTask;
+            currTaskToReschedule.rescheduleTask(rescheduleTaskDate);
+            Ui.printRescheduleInfo(taskNum,currTaskToReschedule);
+        } catch (ClassCastException e) {
+            Ui.printRescheduleErrorMessage(taskNum,currTask);
         }
-
+        return;
     }
+
 
 }

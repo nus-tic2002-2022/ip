@@ -62,6 +62,18 @@ public class InputParser {
 
         // Check what type of command
         switch (commandList[0]) {
+            case FindCommand.COMMAND:
+                if (commandList[1].equals(FindCommand.PARAMS_CHAR_SEARCH)) {
+                    return new FindCommand(true,
+                            String.join(" ",
+                                    Arrays.copyOfRange(commandList, 2, commandList.length)
+                            ));
+                } else {
+                    return new FindCommand(false,
+                            String.join(" ",
+                                    Arrays.copyOfRange(commandList, 1, commandList.length)
+                            ));
+                }
             case UpdateCommand.MARK_COMMAND:
             case UpdateCommand.UNMARK_COMMAND:
             case UpdateCommand.EDIT_COMMAND:

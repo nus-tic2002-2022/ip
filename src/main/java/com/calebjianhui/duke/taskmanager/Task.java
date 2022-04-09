@@ -1,5 +1,9 @@
 package com.calebjianhui.duke.taskmanager;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 public abstract class Task {
     protected boolean isDone;
     protected String description;
@@ -42,6 +46,22 @@ public abstract class Task {
      * **/
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Check if the description contains the keyword
+     *
+     * @param isCharacterSearch Whether to search by characters or word blocks
+     * @param keyword Keyword to search for
+     * @return If the description contains the keyword
+     * **/
+    public boolean containsKeyword(boolean isCharacterSearch, String keyword) {
+        if (isCharacterSearch) {
+            return this.getDescription().toLowerCase().contains(keyword.toLowerCase());
+        } else {
+            List<String> descriptionWordList = Arrays.asList(getDescription().toLowerCase().split(" "));
+            return descriptionWordList.contains(keyword.toLowerCase());
+        }
     }
 
 }

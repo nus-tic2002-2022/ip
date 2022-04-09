@@ -62,6 +62,24 @@ public class TaskManager {
     }
 
     /**
+     * Get a string containing all the task in the given task list
+     *
+     * @param inputTaskList Task list to print from
+     * @return Formatted String of tasks in task list
+     * **/
+    private String getTaskListString(ArrayList<Task> inputTaskList) {
+        String output = "";
+        for (int i = 0; i < inputTaskList.size(); i++) {
+            if (i != 0) {
+                output = output.concat("\n");
+            }
+            output = output.concat(String.valueOf(i+1)).concat(".");
+            output = output.concat(getTaskDetails(inputTaskList.get(i)));
+        }
+        return output;
+    }
+
+    /**
      * List all the task in the task queue
      * **/
     public void listTask() {
@@ -70,16 +88,40 @@ public class TaskManager {
             if (taskList.isEmpty()) {
                 throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
             }
+            String taskDetails = "These are your current task:\n".concat(getTaskListString(taskList));
+            ui.formatDukeReply(taskDetails);
+        } catch (InvalidIndexException e) {
+            ui.formatDukeReply(e.getMessage());
+        }
+    }
 
-            String allTask = "These are your current task:\n";
-            for (int i = 0; i < taskList.size(); i++) {
-                if (i != 0) {
-                    allTask = allTask.concat("\n");
-                }
-                allTask = allTask.concat(String.valueOf(i+1)).concat(".");
-                allTask = allTask.concat(getTaskDetails(taskList.get(i)));
+    /**
+     * Find all task with relations to a keyword
+     *
+     * @param keyword Keyword to search for
+     * **/
+    public void findTask(boolean isCharacterSearch, String keyword) {
+        try {
+            // Check if task list is empty
+            if (taskList.isEmpty()) {
+                throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
             }
-            ui.formatDukeReply(allTask);
+
+            // Filter task list
+            ArrayList<Task> filteredTaskList = new ArrayList<>();
+            for (Task task: taskList) {
+                if (task.containsKeyword(isCharacterSearch, keyword)) {
+                    filteredTaskList.add(task);
+                }
+            }
+
+            // Check if task list is empty
+            if (filteredTaskList.isEmpty()) {
+                throw new InvalidIndexException(InvalidIndexException.REPLY_FILTERED_EMPTY_TASK);
+            } else {
+                String taskDetails = "We have managed to find these matching tasks:\n".concat(getTaskListString(filteredTaskList));
+                ui.formatDukeReply(taskDetails);
+            }
         } catch (InvalidIndexException e) {
             ui.formatDukeReply(e.getMessage());
         }

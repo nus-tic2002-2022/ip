@@ -18,4 +18,5 @@ public class CloneCommand extends Command {
     public boolean execute() {
         return TaskManager.getInstance().cloneTask(index);
     }
+
 }

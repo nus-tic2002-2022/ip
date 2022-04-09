@@ -7,6 +7,7 @@ package com.calebjianhui.duke.taskmanager.exceptions;
 public class InvalidIndexException extends Exception {
     public static final String REPLY_INVALID_INDEX = "Task is not found. Please provide a valid index.";
     public static final String REPLY_NO_ONGOING_TASK = "You do not have any ongoing task. Add one now?";
+    public static final String REPLY_FILTERED_EMPTY_TASK = "Hmmm.. There are no task that matches what you mentioned.";
 
     private final String message;
 

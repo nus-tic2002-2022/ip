@@ -9,6 +9,8 @@ public class ToDos extends Task {
 
     /**
      * Getter for description
+     *
+     * @return Description of task
      * **/
     public String getDescription() {
         return description;
@@ -16,8 +18,11 @@ public class ToDos extends Task {
 
     /**
      * Getter for type of task
+     *
+     * @return Type of task
      * **/
     public String getType() {
         return TYPE_INDICATOR;
     }
+
 }

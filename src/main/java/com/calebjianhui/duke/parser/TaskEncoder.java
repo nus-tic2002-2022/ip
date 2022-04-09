@@ -1,8 +1,8 @@
 package com.calebjianhui.duke.parser;
 
-import com.calebjianhui.duke.taskmanager.Deadline;
-import com.calebjianhui.duke.taskmanager.Event;
+import com.calebjianhui.duke.taskmanager.DateModule;
 import com.calebjianhui.duke.taskmanager.Task;
+import com.calebjianhui.duke.taskmanager.ToDos;
 
 import java.util.ArrayList;
 
@@ -30,14 +30,10 @@ public class TaskEncoder {
     private static String encodeTask(Task task) {
         String type = task.getType();
         String description;
-        if ("T".equals(type)) {
+        if (ToDos.TYPE_INDICATOR.equals(type)) {
             description = task.getDescription();
         } else {
-            if ("E".equals(type)) {
-                description = ((Event) task).getRawDescription();
-            } else {
-                description = ((Deadline) task).getRawDescription();
-            }
+            description = ((DateModule) task).getRawDescription();
         }
         return type.concat(ENCODING_SEPARATOR).concat(task.getDoneStatus() ? "M": "U")
                 .concat(ENCODING_SEPARATOR).concat(description);

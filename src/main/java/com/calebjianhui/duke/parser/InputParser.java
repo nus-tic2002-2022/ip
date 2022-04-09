@@ -95,6 +95,17 @@ public class InputParser {
             case AddCommand.EVENT_COMMAND:
             case AddCommand.DEADLINE_COMMAND:
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
+            case CloneCommand.COMMAND:
+                if (commandList.length > 2) {
+                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                }
+
+                try {
+                    int index = Integer.parseInt(commandList[1]) - 1;
+                    return new CloneCommand(index);
+                } catch (NumberFormatException e) {
+                    throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
+                }
             case DeleteCommand.COMMAND:
                 if (commandList.length > 2) {
                     throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);

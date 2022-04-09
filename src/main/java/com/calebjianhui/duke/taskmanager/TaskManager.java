@@ -1,6 +1,5 @@
 package com.calebjianhui.duke.taskmanager;
 
-import com.calebjianhui.duke.enums.TaskDateStructure;
 import com.calebjianhui.duke.enums.TaskType;
 import com.calebjianhui.duke.enums.UpdateCommandType;
 import com.calebjianhui.duke.parser.TaskEncoder;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
 
 /**
  * Singleton creation of task manager
@@ -208,10 +208,10 @@ public class TaskManager {
                 ui.formatDukeReply(reply);
             } else if (updateFieldType.equals(UpdateCommandType.EDIT_DATE)) {
                 // Edit date
-                if (selected.getDateStructure().equals(TaskDateStructure.NO_DATE)) {
+                if (!(selected instanceof DateModule)) {
                     throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_TASK_NO_DATE);
                 }
-                selected.setDate(details);
+                ((DateModule) selected).setDate(details);
                 // Show updated status
                 ui.formatDukeReply(Messages.REPLY_UPDATE_DATE);
             } else if (updateFieldType.equals(UpdateCommandType.EDIT_DESCRIPTION)) {
@@ -233,6 +233,46 @@ public class TaskManager {
             return false;
         } catch (InvalidTaskInputException e) {
             ui.formatDukeReply(e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Clone a task based on the index
+     *
+     * @param index Index of the task in the arraylist
+     *
+     * @return Should the action be successful
+     * **/
+    public boolean cloneTask(int index) {
+        try {
+            // Check if task list is empty
+            if (taskList.isEmpty()) {
+                throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
+            }
+
+            // Check if selected index is valid
+            if (index < 0 || index >= taskList.size()) {
+                throw new InvalidIndexException(InvalidIndexException.REPLY_INVALID_INDEX);
+            }
+
+            // Clone a task
+            Task selected = taskList.get(index);
+            if (selected instanceof ToDos) {
+                taskList.add(new ToDos(selected.getDoneStatus(), selected.getDescription()));
+            } else if (selected instanceof Deadline) {
+                taskList.add(new Deadline(selected.getDoneStatus(), ((Deadline) selected).getDescription(false), ((Deadline) selected).getDate()));
+            } else if (selected instanceof Event) {
+                taskList.add(new Event(selected.getDoneStatus(), ((Event) selected).getDescription(false), ((Event) selected).getDate()));
+            }
+
+            ui.formatDukeReply(Messages.REPLY_CLONE_SUCCESS + getTaskDetails(taskList.get(taskList.size()-1)) + "\n" + getTaskAmount());
+            return true;
+        } catch (InvalidIndexException e) {
+            ui.formatDukeReply(e.getMessage());
+            if (e.getMessage().equals(InvalidIndexException.REPLY_INVALID_INDEX)) {
+                listTask();
+            }
             return false;
         }
     }

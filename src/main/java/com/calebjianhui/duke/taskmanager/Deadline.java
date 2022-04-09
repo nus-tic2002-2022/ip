@@ -6,7 +6,7 @@ import com.calebjianhui.duke.parser.DateParser;
 
 import java.time.LocalDateTime;
 
-public class Deadline extends Task {
+public class Deadline extends Task implements DateModule{
     public static final String COMMAND_SEPARATOR = " /by ";
     public static final String TYPE_INDICATOR = "D";
 
@@ -20,16 +20,34 @@ public class Deadline extends Task {
 
     /**
      * Getter for description
+     *
+     * @return Description of task
      * **/
     public String getDescription() {
         return description + " (by: " + rawDate + ")";
     }
 
     /**
-     * Getter for description (raw)
+     * Gets the description
+     *
+     * @param isFormatted Should the result be formatted nicely
+     * @return Description of task
+     **/
+    @Override
+    public String getDescription(boolean isFormatted) {
+        if (isFormatted) {
+            return getDescription();
+        } else {
+            return description;
+        }
+    }
+
+    /**
+     * Gets the raw description (as given by user)
      * **/
+    @Override
     public String getRawDescription() {
-        return description + COMMAND_SEPARATOR + rawDate + ")";
+        return description + COMMAND_SEPARATOR + rawDate;
     }
 
     /**
@@ -54,5 +72,13 @@ public class Deadline extends Task {
     public void setDate(String newDate) {
         this.rawDate = newDate;
         this.dateStructure = DateParser.parseDateTimeString(newDate);
+    }
+
+    /**
+     * Get the date of the task
+     * **/
+    @Override
+    public String getDate() {
+        return rawDate;
     }
 }

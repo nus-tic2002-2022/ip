@@ -9,6 +9,7 @@ public class Messages {
                     + "\t\t\t| |_| | |_| |   <  __/\n"
                     + "\t\t\t|____/ \\__,_|_|\\_\\___|\tA variant";
     public static final String REPLY_ADD_TASK = "Roger. I will add this to your list:\n\t";
+    public static final String REPLY_CLONE_SUCCESS = "Nice, I have made a copy of the task you specified.\n\t";
     public static final String REPLY_UPDATE_MARK_TASK = "Nice! I've marked this task as done:";
     public static final String REPLY_UPDATE_UNMARK_TASK = "Ok, I've marked this task as not done yet:";
     public static final String REPLY_UPDATE_DATE = "Alright! I have updated the date for your task.";

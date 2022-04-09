@@ -16,11 +16,11 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks = new TaskList(storage.load());
-        if(isAll()) {
+        if (isAll()) {
             for (int i = 0; i < tasks.getTasks().size(); i++) {
                 if (tasks.getTasks().get(i).isDone()) {
                     tasks.getTasks().get(i).markAsNotDone();
-                    ui.showToUserWithTAB(tasks.getTasks().get(i).toString()+MESSAGE_TASK_UNMARK);
+                    ui.showToUserWithTAB(tasks.getTasks().get(i).toString() + MESSAGE_TASK_UNMARK);
                 }
             }
         } else {

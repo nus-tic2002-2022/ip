@@ -152,7 +152,7 @@ public class JCode {
                 if (JCode.isEVENT(command)) buffer = fullCommand.indexOf("/on");
                 if (JCode.isDEADLINE(command)) buffer = fullCommand.indexOf("/by");
                 if (buffer == -1) {
-                    assert command!=null: "command cannot be empty";
+                    assert command != null : "command cannot be empty";
                     throw checkNoBufferError(command);
                 }
                 String name = fullCommand.substring(command.length() + 1, buffer - 1);
@@ -173,7 +173,7 @@ public class JCode {
                 }
             }
         } catch (StringIndexOutOfBoundsException e) {
-            assert command!=null: "command cannot be empty";
+            assert command != null : "command cannot be empty";
             throw checkIndexOutOfBoundError(command);
         } catch (DateTimeException e) {
             throw new DukeException(MESSAGE_DATE_FORMAT_ERROR);
@@ -267,6 +267,7 @@ public class JCode {
         }
         return true;
     }
+
     /**
      * check num is date or not
      *
@@ -367,6 +368,7 @@ public class JCode {
 
     /**
      * Check task is duplicated in the tasks or not
+     *
      * @return boolean
      */
     public static boolean notDuplicate(TaskList tasks, Task task) {
@@ -384,9 +386,10 @@ public class JCode {
 
     /**
      * Set necessary property to com
-     * @param com - command to set property
+     *
+     * @param com         - command to set property
      * @param fullCommand - full line of user command
-     * @param first - first word of user command
+     * @param first       - first word of user command
      * @return command after setting properties
      */
     private static Command setIndexOrAll(Command com, String fullCommand, String first) {
@@ -404,28 +407,33 @@ public class JCode {
 
     /**
      * initialise MarkCommand and call setIndexOrAll function to set property
+     *
      * @param fullCommand - full line of user command
-     * @param first - first word of user command
+     * @param first       - first word of user command
      * @return MarkCommand
      */
     public static Command getMarkCommand(String fullCommand, String first) {
         Command com = new MarkCommand();
         return setIndexOrAll(com, fullCommand, first);
     }
+
     /**
      * initialise UnmarkCommand and call setIndexOrAll function to set property
+     *
      * @param fullCommand - full line of user command
-     * @param first - first word of user command
+     * @param first       - first word of user command
      * @return UnmarkCommand
      */
     public static Command getUnmarkCommand(String fullCommand, String first) {
         Command com = new UnmarkCommand();
         return setIndexOrAll(com, fullCommand, first);
     }
+
     /**
      * initialise DeleteCommand and call setIndexOrAll function to set property
+     *
      * @param fullCommand - full line of user command
-     * @param first - first word of user command
+     * @param first       - first word of user command
      * @return DeleteCommand
      */
     public static Command getDeleteCommand(String fullCommand, String first) {
@@ -435,8 +443,9 @@ public class JCode {
 
     /**
      * initialise FindCommand
+     *
      * @param fullCommand - full line of user command
-     * @param first - first word of user command
+     * @param first       - first word of user command
      * @return FindCommand
      */
     public static Command getFindCommand(String fullCommand, String first) throws DukeException {
@@ -447,10 +456,12 @@ public class JCode {
         }
         return com;
     }
+
     /**
      * initialise AddCommand
+     *
      * @param fullCommand - full line of user command
-     * @param first - first word of user command
+     * @param first       - first word of user command
      * @return AddCommand
      */
     public static Command getAddCommand(String fullCommand, String first) throws DukeException {

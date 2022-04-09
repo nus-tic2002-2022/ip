@@ -19,8 +19,8 @@ public class ListCommand extends Command {
         tasks = new TaskList(storage.load());
         if (tasks.getSize() == 0) {
             ui.showTaskSize(tasks.getSize());
-            ui.showToUser(MESSAGE_ZERO_TASK);}
-        else {
+            ui.showToUser(MESSAGE_ZERO_TASK);
+        } else {
             ui.showToUserWithTAB(MESSAGE_TASK_SHOW);
             tasks = new TaskList(storage.load());
             ui.showTask(tasks);

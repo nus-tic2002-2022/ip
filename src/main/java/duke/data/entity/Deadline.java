@@ -2,6 +2,7 @@ package duke.data.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Extension of Task class to modify deadline.
  */
@@ -9,6 +10,7 @@ public class Deadline extends Task {
 
     private final LocalDateTime by;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
@@ -16,6 +18,7 @@ public class Deadline extends Task {
 
     /**
      * getter of by
+     *
      * @return LocalDateTime by
      */
     public LocalDateTime getBy() {
@@ -33,7 +36,7 @@ public class Deadline extends Task {
 
 
     /**
-     * @return task in string form with comman format
+     * @return task in string form with command format
      * e.g. D , 0 , submit assignment , 11/04/2022 23:59
      */
     @Override

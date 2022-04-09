@@ -29,9 +29,7 @@ public class AddCommand extends Command {
                 ui.showAdded(super.getTask());
                 ui.showTaskSize(tasks.getSize());
                 storage.save(tasks.getTasks());
-            } else {
-                ui.showToUserWithTAB(MESSAGE_TASK_DUPLICATE);
-            }
+            } else ui.showToUserWithTAB(MESSAGE_TASK_DUPLICATE);
         }
 
     }

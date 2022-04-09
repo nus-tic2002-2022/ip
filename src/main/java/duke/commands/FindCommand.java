@@ -6,6 +6,7 @@ import duke.data.entity.TaskList;
 import duke.data.exception.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
+
 import java.util.List;
 
 import static duke.common.Messages.MESSAGE_RESULT_NOT_FOUND;
@@ -23,11 +24,11 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks = new TaskList(storage.load());
-        assert super.getTask()!=null: "task to find cannot be empty";
-        List<Task> resultArray = JCode.findTask(tasks,super.getTask());
+        assert super.getTask() != null : "task to find cannot be empty";
+        List<Task> resultArray = JCode.findTask(tasks, super.getTask());
         if (resultArray.size() == 0)
             ui.showToUser(MESSAGE_RESULT_NOT_FOUND);
-       else {
+        else {
             TaskList resultTList = new TaskList(resultArray);
             ui.showToUserWithTAB(MESSAGE_RESULT_TASK_SHOW);
             ui.showTask(resultTList);

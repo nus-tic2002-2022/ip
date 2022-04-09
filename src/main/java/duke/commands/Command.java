@@ -22,6 +22,7 @@ public class Command {
 
     /**
      * setter for isAll
+     *
      * @param all to delete all
      */
     public void setAll(boolean all) {

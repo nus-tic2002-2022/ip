@@ -12,8 +12,8 @@ public class Messages {
     public static final String MESSAGE_TASK_DUPLICATE = "☹ OOPS!!! This is duplicate task. I won't add to the list. ";
     public static final String MESSAGE_TASK_SHOW = "Here are the tasks in your list:";
     public static final String MESSAGE_ZERO_TASK = "Sorry, there are currently no tasks in your list. Please add some.";
-    public static final String MESSAGE_RESULT_TASK_SHOW =  "Here are the matching tasks in your list:";
-    public static final String MESSAGE_RESULT_NOT_FOUND =  "There are no matching tasks in your list";
+    public static final String MESSAGE_RESULT_TASK_SHOW = "Here are the matching tasks in your list:";
+    public static final String MESSAGE_RESULT_NOT_FOUND = "There are no matching tasks in your list";
     public static final String MESSAGE_TASK_DELETE = "Noted. I've removed this task.";
     public static final String MESSAGE_TASK_MARK = "I've marked this task as done.";
     public static final String MESSAGE_TASK_UNMARK = "OK, I've marked this task as not done yet.";

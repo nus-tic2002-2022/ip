@@ -18,14 +18,16 @@ import java.util.List;
  */
 public class Storage {
 
-    /** Default file path used if the user doesn't provide the file name. */
+    /**
+     * Default file path used if the user doesn't provide the file name.
+     */
     public static final String DEFAULT_STORAGE_FILEPATH = "task.txt";
 
     public final Path path;
 
     public Storage(String filePath) throws DukeException {
-        if(filePath==null||filePath.equals(""))
-            filePath=DEFAULT_STORAGE_FILEPATH;
+        if (filePath == null || filePath.equals(""))
+            filePath = DEFAULT_STORAGE_FILEPATH;
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
             throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
@@ -45,10 +47,10 @@ public class Storage {
      *
      * @throws StorageOperationException if there were errors converting and/or storing data to file.
      */
-    public void save(List<Task> tasks) throws  DukeException {
+    public void save(List<Task> tasks) throws DukeException {
         try {
 
-            assert tasks!=null: "task to find cannot be empty";
+            assert tasks != null : "task to find cannot be empty";
             List<String> taskToStore = TaskWriter.writeTaskList(tasks);
             Files.write(path, taskToStore);
 
@@ -74,8 +76,8 @@ public class Storage {
             // other errors
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
-        } catch (DateTimeParseException pe ) {
-            throw new DukeException("Error reading from file: "+path);
+        } catch (DateTimeParseException pe) {
+            throw new DukeException("Error reading from file: " + path);
         }
     }
 

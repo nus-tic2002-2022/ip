@@ -1,6 +1,8 @@
 package duke.parser;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.Commands;
+import duke.commands.ListCommand;
 import duke.common.JCode;
 import duke.data.exception.DukeException;
 

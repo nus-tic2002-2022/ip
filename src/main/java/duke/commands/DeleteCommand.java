@@ -19,7 +19,6 @@ import static duke.common.Messages.MESSAGE_TASK_DELETE;
  *
  * Show updated list size
  * save list to the file
- *
  */
 public class DeleteCommand extends Command {
 

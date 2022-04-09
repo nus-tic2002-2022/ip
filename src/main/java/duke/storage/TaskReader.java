@@ -21,8 +21,9 @@ public class TaskReader {
         for (String strTask : taskToRead) {
             try {
                 tasks.add(taskFromString(strTask));
-            }catch  (ArrayIndexOutOfBoundsException e){
-                throw new DukeException("Something wrong with the file. Please delete the file and run again. Don't edit the file.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException(
+                        "Something wrong with the file. Please delete the file and run again. Don't edit the file.");
             }
         }
         return tasks;
@@ -40,7 +41,7 @@ public class TaskReader {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             if (type.equals("E") || type.equals("D")) {
                 String time = str[3];
-                dateObj = LocalDateTime.parse(time,formatter);
+                dateObj = LocalDateTime.parse(time, formatter);
             }
             switch (str[0].trim()) {
                 case "E":

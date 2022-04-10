@@ -54,14 +54,29 @@ public class InputParser {
         // Check what type of command
         switch (commandList[0]) {
             case ListCommand.COMMAND:
+                // Ensure that command is in the proper format
+                if (commandList.length > 1) {
+                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                }
+
                 return new ListCommand();
             case FindCommand.COMMAND:
+                // Ensure that command is in the proper format
+                if (commandList.length <= 1) {
+                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                }
+
                 if (commandList[1].equals(FindCommand.PARAMS_CHAR_SEARCH)) {
+                    // Character Search
+                    if (commandList.length <= 2) {
+                        throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                    }
                     return new FindCommand(true,
                             String.join(" ",
                                     Arrays.copyOfRange(commandList, 2, commandList.length)
                             ));
                 } else {
+                    // Word Search
                     return new FindCommand(false,
                             String.join(" ",
                                     Arrays.copyOfRange(commandList, 1, commandList.length)
@@ -70,9 +85,17 @@ public class InputParser {
             case UpdateCommand.MARK_COMMAND:
             case UpdateCommand.UNMARK_COMMAND:
             case UpdateCommand.EDIT_COMMAND:
+                // Ensure that command is in the proper format
+                if (commandList.length <= 1) {
+                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                }
                 try {
                     int index = Integer.parseInt(commandList[1]) - 1;
                     if (commandList[0].equals(UpdateCommand.EDIT_COMMAND)) {
+                        // Update command
+                        if (commandList.length <= 2) {
+                            throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                        }
                         UpdateCommandType editField = UpdateCommand.checkCommandType(commandList[2]);
                         if (editField.equals(UpdateCommandType.INVALID_COMMAND)) {
                             throw new MalformedParametersException(InvalidCommand.UNKNOWN_PARAMETERS_MESSAGE);
@@ -100,6 +123,9 @@ public class InputParser {
             case AddCommand.EVENT_COMMAND:
             case AddCommand.DEADLINE_COMMAND:
             case AddCommand.FIXED_DURATION_COMMAND:
+                if (commandList.length <= 1) {
+                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                }
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
             case CloneCommand.COMMAND:
                 if (commandList.length > 2) {

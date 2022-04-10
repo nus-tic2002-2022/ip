@@ -26,6 +26,8 @@ public class AddCommand extends Command {
         this.command = command;
         this.isSilent = isSilent;
         this.isDone = isDone;
+
+        assert type != null;
     }
 
     private static TaskType getTaskTypeFromCommand(String command) {

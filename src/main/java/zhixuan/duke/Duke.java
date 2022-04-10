@@ -107,42 +107,7 @@ public class Duke {
         }
     }
 
-    private static void processInput(String input) throws UnknownCommandException {
 
-        if (input.startsWith("bye")) {
-            bye();
-        }
-        else if (input.startsWith("list")) {
-            list();
-        }
-        else if (input.startsWith("todo")) {
-            addItem("todo", input.replaceFirst("todo", "").trim());
-            saveFile();
-        }
-        else if (input.startsWith("event")) {
-            addItem("event", input.replaceFirst("event", "").trim());
-            saveFile();
-        }
-        else if (input.startsWith("deadline")) {
-            addItem("deadline", input.replaceFirst("deadline", "").trim());
-            saveFile();
-        }
-        else if (input.startsWith("mark") || input.startsWith("unmark")) {
-            String index = input.replaceAll("\\D+","");
-            if (index.isEmpty()) throw new UnknownCommandException("Invalid task input. Use an integer.");
-            mark(input, Integer.parseInt(index));
-            saveFile();
-        }
-        else if (input.startsWith("delete")) {
-            String index = input.replaceAll("\\D+","");
-            if (index.isEmpty()) throw new UnknownCommandException("Invalid task input. Use an integer.");
-            deleteItem(Integer.parseInt(index));
-            saveFile();
-        }
-        else {
-            throw new UnknownCommandException();
-        }
-    }
 
     private static String createDirectory() {
 
@@ -217,7 +182,6 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
@@ -230,14 +194,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("I'm Duke\n" + "What can I do for you?");
 
         loadFile();
         String input;

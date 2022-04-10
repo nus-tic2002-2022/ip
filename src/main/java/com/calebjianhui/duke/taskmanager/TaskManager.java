@@ -58,8 +58,12 @@ public class TaskManager {
             return TaskType.DEADLINE;
         } else if (FixedDurationTask.TYPE_INDICATOR.equals(alias)) {
             return TaskType.FIXED_DURATION;
+        } else {
+            // TaskType should only consist of the above, therefore throw AssertionError
+            String errorMessage = "Invalid TaskType received.";
+            assert false : errorMessage;
+            throw new AssertionError(errorMessage);
         }
-        return TaskType.FIXED_DURATION;
     }
 
     /**
@@ -131,9 +135,7 @@ public class TaskManager {
     /**
      * Retrieve the tasklist in string format for encoding purposes
      *
-     * @return Arraylist containing all the task in Pair<S, T> format
-     * S: Type
-     * T: description
+     * @return Arraylist containing all the task in a formatted String format.
      * **/
     public ArrayList<String> getAllTask() {
         return TaskEncoder.encodeTaskList(taskList);
@@ -182,44 +184,60 @@ public class TaskManager {
                     break;
                 case DEADLINE:
                     // Terminate should there be no date input
-                    if (!command.contains(Deadline.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_NO_DATE);
+                    if (!command.contains(Deadline.COMMAND_SEPARATOR)) {
+                        throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_NO_DATE);
+                    }
                     // Else, proceed to add deadline task
                     commandList = command.split(Deadline.COMMAND_SEPARATOR);
                     // - Terminate should there not be description and date input
-                    if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_INVALID_LENGTH);
+                    if (commandList.length != 2) {
+                        throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_INVALID_LENGTH);
+                    }
                     // Add deadline task
                     taskList.add(new Deadline(isDone, commandList[0], commandList[1]));
                     break;
                 case EVENT:
                     // Terminate should there be no date input
-                    if (!command.contains(Event.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_NO_DATE);
+                    if (!command.contains(Event.COMMAND_SEPARATOR)) {
+                        throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_NO_DATE);
+                    }
                     // Else, proceed to add event task
                     commandList = command.split(Event.COMMAND_SEPARATOR);
                     // - Terminate should there not be description and date input
-                    if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_INVALID_LENGTH);
+                    if (commandList.length != 2) {
+                        throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_INVALID_LENGTH);
+                    }
                     // Add event task
                     taskList.add(new Event(isDone, commandList[0], commandList[1]));
                     break;
                 case FIXED_DURATION:
                     // Terminate should there be no duration input
-                    if (!command.contains(FixedDurationTask.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_FIXED_DURATION_NO_DURATION);
+                    if (!command.contains(FixedDurationTask.COMMAND_SEPARATOR)) {
+                        throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_FIXED_DURATION_NO_DURATION);
+                    }
                     // Else, proceed to add fixed duration task
                     commandList = command.split(FixedDurationTask.COMMAND_SEPARATOR);
                     // - Terminate should there not be description and duration input
-                    if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_FIXED_DURATION_INVALID_LENGTH);
+                    if (commandList.length != 2) {
+                        throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_FIXED_DURATION_INVALID_LENGTH);
+                    }
                     // Add fixed duration task
                     taskList.add(new FixedDurationTask(isDone, commandList[0], commandList[1]));
                     break;
                 default:
-                    throw new IllegalArgumentException();
+                    // TaskType should only consist of the above, therefore throw AssertionError
+                    String errorMessage = "Invalid TaskType received";
+                    assert false : errorMessage;
+                    throw new AssertionError(errorMessage);
             }
-            if (!isSilent) ui.formatDukeReply(Messages.REPLY_ADD_TASK + getTaskDetails(taskList.get(taskList.size()-1)) + "\n" + getTaskAmount());
+            if (!isSilent) {
+                ui.formatDukeReply(Messages.REPLY_ADD_TASK + getTaskDetails(taskList.get(taskList.size()-1)) + "\n" + getTaskAmount());
+            }
             return true;
         } catch (InvalidTaskInputException e) {
-            if (!isSilent) ui.formatDukeReply(e.getMessage());
-            return false;
-        } catch (IllegalArgumentException e) {
-            if (!isSilent) ui.formatDukeReply(Messages.UNKNOWN_ERROR);
+            if (!isSilent) {
+                ui.formatDukeReply(e.getMessage());
+            }
             return false;
         }
     }
@@ -247,31 +265,41 @@ public class TaskManager {
             // Get & verify current status
             Task selected = taskList.get(index);
             // Determine which fields to update
-            if (updateFieldType.equals(UpdateCommandType.MARK) || updateFieldType.equals(UpdateCommandType.UNMARK)) {
-                // Edit Mark / Unmark Status
-                boolean isMark = updateFieldType.equals(UpdateCommandType.MARK);
-                if (selected.getDoneStatus() == isMark) {
-                    throw new NoChangesException();
-                }
-                // Set Status
-                selected.setDoneStatus(isMark);
-                // Show updated status
-                String reply = isMark ? Messages.REPLY_UPDATE_MARK_TASK : Messages.REPLY_UPDATE_UNMARK_TASK;
-                reply = reply.concat("\n\t").concat(getTaskDetails(selected));
-                ui.formatDukeReply(reply);
-            } else if (updateFieldType.equals(UpdateCommandType.EDIT_DATE)) {
-                // Edit date
-                if (!(selected instanceof DateModule)) {
-                    throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_TASK_NO_DATE);
-                }
-                ((DateModule) selected).setDate(details);
-                // Show updated status
-                ui.formatDukeReply(Messages.REPLY_UPDATE_DATE);
-            } else if (updateFieldType.equals(UpdateCommandType.EDIT_DESCRIPTION)) {
-                // Edit description
-                selected.setDescription(details);
-                // Show updated status
-                ui.formatDukeReply(Messages.REPLY_UPDATE_MESSAGE);
+            switch (updateFieldType) {
+                case MARK:
+                case UNMARK:
+                    // Edit Mark / Unmark status
+                    boolean isMark = updateFieldType.equals(UpdateCommandType.MARK);
+                    if (selected.getDoneStatus() == isMark) {
+                        throw new NoChangesException();
+                    }
+                    // Set status
+                    selected.setDoneStatus(isMark);
+                    // Show updated status
+                    String reply = isMark ? Messages.REPLY_UPDATE_MARK_TASK : Messages.REPLY_UPDATE_UNMARK_TASK;
+                    reply = reply.concat("\n\t").concat(getTaskDetails(selected));
+                    ui.formatDukeReply(reply);
+                    break;
+                case EDIT_DATE:
+                    // Edit date
+                    if (!(selected instanceof DateModule)) {
+                        throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_TASK_NO_DATE);
+                    }
+                    ((DateModule) selected).setDate(details);
+                    // Show updated status
+                    ui.formatDukeReply(Messages.REPLY_UPDATE_DATE);
+                    break;
+                case EDIT_DESCRIPTION:
+                    // Edit description
+                    selected.setDescription(details);
+                    // Show updated status
+                    ui.formatDukeReply(Messages.REPLY_UPDATE_MESSAGE);
+                    break;
+                default:
+                    // UpdateCommandType should only consist of the above, therefore throw AssertionError
+                    String errorMessage = "Invalid UpdateCommandType received";
+                    assert false : errorMessage;
+                    throw new AssertionError(errorMessage);
             }
             return true;
         } catch (InvalidIndexException e) {
@@ -317,6 +345,13 @@ public class TaskManager {
                 taskList.add(new Deadline(selected.getDoneStatus(), ((Deadline) selected).getDescription(false), ((Deadline) selected).getDate()));
             } else if (selected instanceof Event) {
                 taskList.add(new Event(selected.getDoneStatus(), ((Event) selected).getDescription(false), ((Event) selected).getDate()));
+            } else if (selected instanceof FixedDurationTask) {
+                taskList.add(new FixedDurationTask(selected.getDoneStatus(), ((FixedDurationTask) selected).getDescription(false), ((FixedDurationTask) selected).getDuration()));
+            } else {
+                // Type of tasks should only consist of the above, therefore throw AssertionError
+                String errorMessage = "Unable to clone task due to invalid task type received.";
+                assert false : errorMessage;
+                throw new AssertionError(errorMessage);
             }
 
             ui.formatDukeReply(Messages.REPLY_CLONE_SUCCESS + getTaskDetails(taskList.get(taskList.size()-1)) + "\n" + getTaskAmount());

@@ -38,8 +38,10 @@ public class AddCommand extends Command {
         } else if (FIXED_DURATION_COMMAND.equals(command)) {
             return TaskType.FIXED_DURATION;
         }
-        // TODO
-        return TaskType.FIXED_DURATION;
+        // TaskType should only consist of the above, therefore throw AssertionError
+        String errorMessage = "Invalid TaskType received";
+        assert false : errorMessage;
+        throw new AssertionError(errorMessage);
     }
 
     /**

@@ -35,8 +35,13 @@ public class TaskEncoder {
             description = task.getDescription();
         } else if (task instanceof DateModule) {
             description = ((DateModule) task).getRawDescription();
-        } else {
+        } else if (task instanceof FixedDurationModule){
             description = ((FixedDurationModule) task).getRawDescription();
+        } else {
+            // Type of task should only consist of the above, therefore throw AssertionError
+            String errorMessage = "Invalid type of task received.";
+            assert false : errorMessage;
+            throw new AssertionError(errorMessage);
         }
         return type.concat(ENCODING_SEPARATOR).concat(task.getDoneStatus() ? "M": "U")
                 .concat(ENCODING_SEPARATOR).concat(description);

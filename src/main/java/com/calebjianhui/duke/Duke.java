@@ -35,7 +35,7 @@ public class Duke {
         Command command = null;
 
         // Constantly loop till break command is received
-        while (!ExitCommand.isSelectedCommand(command)) {
+        while (!(command instanceof ExitCommand)) {
             command = pr.parseCommand();
             boolean isUpdated = command.execute();
             // Save to file should there be updates

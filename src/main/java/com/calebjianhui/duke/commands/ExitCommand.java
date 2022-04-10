@@ -16,15 +16,6 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Check if the input command is of the same type
-     *
-     * @param instance Main command to be compared with
-     */
-    public static boolean isSelectedCommand(Command instance) {
-        return (instance instanceof ExitCommand);
-    }
-
-    /**
      * Execute the specified command
      */
     public boolean execute() {

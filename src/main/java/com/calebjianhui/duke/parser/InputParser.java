@@ -48,20 +48,13 @@ public class InputParser {
      * @param command Input command from user
      * **/
     private Command determineAction(String command) throws UnsupportedOperationException, IndexOutOfBoundsException, MalformedParametersException {
-        // Check for single word command
-        if (ListCommand.COMMAND.equals(command)) {
-            return new ListCommand();
-        }
-
         // Check and evaluate for multi-word command
         String[] commandList = command.split(" ");
-        // - Throw out of bounds should it be a single word command
-        if (commandList.length < 2) {
-            throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
-        }
 
         // Check what type of command
         switch (commandList[0]) {
+            case ListCommand.COMMAND:
+                return new ListCommand();
             case FindCommand.COMMAND:
                 if (commandList[1].equals(FindCommand.PARAMS_CHAR_SEARCH)) {
                     return new FindCommand(true,

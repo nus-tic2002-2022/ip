@@ -15,7 +15,6 @@ public class Messages {
     public static final String REPLY_UPDATE_DATE = "Alright! I have updated the date for your task.";
     public static final String REPLY_UPDATE_MESSAGE = "Alright! I have updated the details for your task.";
     public static final String REPLY_DELETE_TASK = "Alrighty. I will delete this task.:\n\t";
-    public static final String UNKNOWN_ERROR = "An error occurred.";
 
     // Private Variables
     private static final String[] MESSAGE_WELCOME_LIST = {"Test"};

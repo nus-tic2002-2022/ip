@@ -21,6 +21,7 @@ import java.util.Set;
  * Handle all file related matters, mainly reading/writing of file
  */
 public class FileHandler {
+    private static final String CORRUPTED_FILE = "There is an issue reading your saved file, your task list might be corrupted.";
     private static final String IO_ERROR = "An error occurred while accessing file.";
     private static final String FILE_PATH = "data/";
     private static final String FILE_NAME = "task_file.txt";
@@ -72,6 +73,7 @@ public class FileHandler {
 
     /**
      * Retrieve & Update the task from the task file
+     * - Only done at start-up
      *
      * @return If there are updates made
      */
@@ -88,19 +90,27 @@ public class FileHandler {
                 String[] decodeTask = TaskDecoder.decodeTask(task);
                 // Validate task by performing the following checks:
                 // - Array Length
-                if (decodeTask.length != 3) throw new MalformedParametersException();
+                if (decodeTask.length != 3) {
+                    throw new MalformedParametersException();
+                }
                 // - Type
                 Set<String> possibleTypes = TaskManager.getInstance().getAllPossibleTypes();
-                if (!possibleTypes.contains(decodeTask[0])) throw new MalformedParametersException();
+                if (!possibleTypes.contains(decodeTask[0])) {
+                    throw new MalformedParametersException();
+                }
                 // - Mark Status
                 Set<String> possibleStatus = new HashSet<>(Arrays.asList("M", "U"));
-                if (!possibleStatus.contains(decodeTask[1])) throw new MalformedParametersException();
+                if (!possibleStatus.contains(decodeTask[1])) {
+                    throw new MalformedParametersException();
+                }
                 boolean result = new AddCommand(true, TaskManager.getInstance().decodeTypeAlias(decodeTask[0]),
                         "M".equals(decodeTask[1]), decodeTask[2]).execute();
-                if (!result) return false;
+                if (!result) {
+                    return false;
+                }
             }
         } catch (MalformedParametersException e) {
-            e.printStackTrace();
+            new DukeUI().formatDukeReply(CORRUPTED_FILE);
             return false;
         }
         return true;

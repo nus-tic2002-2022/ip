@@ -43,22 +43,23 @@ public class TaskManager {
      * Get a set of all possible type alias
      * **/
     public Set<String> getAllPossibleTypes() {
-        return new HashSet<>(Arrays.asList(ToDos.TYPE_INDICATOR, Event.TYPE_INDICATOR, Deadline.TYPE_INDICATOR));
+        return new HashSet<>(Arrays.asList(ToDos.TYPE_INDICATOR, Event.TYPE_INDICATOR, Deadline.TYPE_INDICATOR, FixedDurationTask.TYPE_INDICATOR));
     }
 
     /**
-     * Decode the given alias
+     * Decode the task type based on the given alias
      * **/
-    public String decodeTypeAlias(String alias) {
+    public TaskType decodeTypeAlias(String alias) {
         if (ToDos.TYPE_INDICATOR.equals(alias)) {
-            return TaskType.TODO.toString();
+            return TaskType.TODO;
         } else if (Event.TYPE_INDICATOR.equals(alias)) {
-            return TaskType.EVENT.toString();
+            return TaskType.EVENT;
         } else if (Deadline.TYPE_INDICATOR.equals(alias)) {
-            return TaskType.DEADLINE.toString();
-        } else {
-            return "";
+            return TaskType.DEADLINE;
+        } else if (FixedDurationTask.TYPE_INDICATOR.equals(alias)) {
+            return TaskType.FIXED_DURATION;
         }
+        return TaskType.FIXED_DURATION;
     }
 
     /**
@@ -184,7 +185,7 @@ public class TaskManager {
                     if (!command.contains(Deadline.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_NO_DATE);
                     // Else, proceed to add deadline task
                     commandList = command.split(Deadline.COMMAND_SEPARATOR);
-                    // - Terminate should there be description and date input
+                    // - Terminate should there not be description and date input
                     if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_DEADLINE_INVALID_LENGTH);
                     // Add deadline task
                     taskList.add(new Deadline(isDone, commandList[0], commandList[1]));
@@ -194,10 +195,20 @@ public class TaskManager {
                     if (!command.contains(Event.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_NO_DATE);
                     // Else, proceed to add event task
                     commandList = command.split(Event.COMMAND_SEPARATOR);
-                    // - Terminate should there be description and date input
+                    // - Terminate should there not be description and date input
                     if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_EVENT_INVALID_LENGTH);
                     // Add event task
                     taskList.add(new Event(isDone, commandList[0], commandList[1]));
+                    break;
+                case FIXED_DURATION:
+                    // Terminate should there be no duration input
+                    if (!command.contains(FixedDurationTask.COMMAND_SEPARATOR)) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_FIXED_DURATION_NO_DURATION);
+                    // Else, proceed to add fixed duration task
+                    commandList = command.split(FixedDurationTask.COMMAND_SEPARATOR);
+                    // - Terminate should there not be description and duration input
+                    if (commandList.length != 2) throw new InvalidTaskInputException(InvalidTaskInputException.REPLY_FIXED_DURATION_INVALID_LENGTH);
+                    // Add fixed duration task
+                    taskList.add(new FixedDurationTask(isDone, commandList[0], commandList[1]));
                     break;
                 default:
                     throw new IllegalArgumentException();

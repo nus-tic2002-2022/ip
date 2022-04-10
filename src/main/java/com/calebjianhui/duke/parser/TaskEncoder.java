@@ -1,6 +1,7 @@
 package com.calebjianhui.duke.parser;
 
 import com.calebjianhui.duke.taskmanager.DateModule;
+import com.calebjianhui.duke.taskmanager.FixedDurationModule;
 import com.calebjianhui.duke.taskmanager.Task;
 import com.calebjianhui.duke.taskmanager.ToDos;
 
@@ -32,8 +33,10 @@ public class TaskEncoder {
         String description;
         if (ToDos.TYPE_INDICATOR.equals(type)) {
             description = task.getDescription();
-        } else {
+        } else if (task instanceof DateModule) {
             description = ((DateModule) task).getRawDescription();
+        } else {
+            description = ((FixedDurationModule) task).getRawDescription();
         }
         return type.concat(ENCODING_SEPARATOR).concat(task.getDoneStatus() ? "M": "U")
                 .concat(ENCODING_SEPARATOR).concat(description);

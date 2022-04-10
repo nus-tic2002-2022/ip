@@ -3,5 +3,6 @@ package com.calebjianhui.duke.enums;
 public enum TaskType {
     TODO,
     EVENT,
-    DEADLINE
+    DEADLINE,
+    FIXED_DURATION
 }

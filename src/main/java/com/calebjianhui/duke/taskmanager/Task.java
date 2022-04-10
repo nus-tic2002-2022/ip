@@ -2,7 +2,6 @@ package com.calebjianhui.duke.taskmanager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public abstract class Task {
     protected boolean isDone;

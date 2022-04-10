@@ -7,24 +7,39 @@ public class AddCommand extends Command {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
+    public static final String FIXED_DURATION_COMMAND = "fixed";
 
-    private final String type;
+    private final TaskType type;
     private final String command;
     private final boolean isSilent;
     private final boolean isDone;
 
     public AddCommand(String type, String command) {
-        this.type = type.toUpperCase();
+        this.type = getTaskTypeFromCommand(type);
         this.command = command;
         this.isSilent = false;
         this.isDone = false;
     }
 
-    public AddCommand(boolean isSilent, String type, boolean isDone, String command) {
-        this.type = type.toUpperCase();
+    public AddCommand(boolean isSilent, TaskType type, boolean isDone, String command) {
+        this.type = type;
         this.command = command;
         this.isSilent = isSilent;
         this.isDone = isDone;
+    }
+
+    private static TaskType getTaskTypeFromCommand(String command) {
+        if (TODO_COMMAND.equals(command)) {
+            return TaskType.TODO;
+        } else if (DEADLINE_COMMAND.equals(command)) {
+            return TaskType.DEADLINE;
+        } else if (EVENT_COMMAND.equals(command)) {
+            return TaskType.EVENT;
+        } else if (FIXED_DURATION_COMMAND.equals(command)) {
+            return TaskType.FIXED_DURATION;
+        }
+        // TODO
+        return TaskType.FIXED_DURATION;
     }
 
     /**
@@ -32,6 +47,6 @@ public class AddCommand extends Command {
      */
     @Override
     public boolean execute() {
-        return TaskManager.getInstance().addToTaskList(isSilent, TaskType.valueOf(type), isDone, command);
+        return TaskManager.getInstance().addToTaskList(isSilent, type, isDone, command);
     }
 }

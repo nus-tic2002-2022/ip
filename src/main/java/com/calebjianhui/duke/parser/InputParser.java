@@ -106,6 +106,7 @@ public class InputParser {
             case AddCommand.TODO_COMMAND:
             case AddCommand.EVENT_COMMAND:
             case AddCommand.DEADLINE_COMMAND:
+            case AddCommand.FIXED_DURATION_COMMAND:
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
             case CloneCommand.COMMAND:
                 if (commandList.length > 2) {

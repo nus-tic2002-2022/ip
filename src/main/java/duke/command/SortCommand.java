@@ -10,15 +10,6 @@ import duke.UI.UI;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-/**
- * T0D0 will be the first few in list, followed by the most urgent task and so on.
- * if first_task c1 = deadlines and first_task c2 = event ; compare_type = 3
- * if first_task c1 = event and first_task c2 = deadline ; compare_type = 2
- * if both task are event or deadline; compare_type = 1
- * jf c1 = event/deadline and c2 = todotask
- * other than above, compare _type = -1;
- */
 public class SortCommand extends Command {
 
     public SortCommand(String passed) {
@@ -113,6 +104,11 @@ public class SortCommand extends Command {
             }
         }
         System.out.println("Noted, The list has been sorted");
+        int j = 1;
+        for (Task s : tasklist) {
+            System.out.println(j + "." + s.getStatus());
+            j++;
+        }
     }
 
 }

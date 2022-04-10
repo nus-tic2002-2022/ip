@@ -42,7 +42,11 @@ public class FindCommand extends Command{
                 }
             }
         }
-        UI.showFindResult(count);
+        try {
+            UI.showFindResult(count);
+        }catch (AssertionError e) {
+            System.out.println("Assertion Error: Not supposed to have negative count");
+        }
 
     }
 }

@@ -180,13 +180,13 @@ public class Parser {
                     str2 = passed.split("/");
                     String descrip = str2[0].replaceAll("event", "");
                     String detail = str2[1];
-                    System.out.println("To set as Recurring Events?");
+                    System.out.println("To set as Recurring Events? (Y/N)");
                     //Task t_flag = null;
                     UI recurr_UI = new UI();
                     String recurr_command = recurr_UI.readCommand();
                     assert (recurr_command.equals("Y") || recurr_command.equals("N") || recurr_command.equals("y") || recurr_command.equals("n"));
                     if (recurr_command.equals("Y") || recurr_command.equals("y")) {
-                        System.out.println("What is the interval for this Recurring Event: ");
+                        System.out.println("What is the interval (day) for this Recurring Event: ");
                         String recurr_period = recurr_UI.readCommand();
                         Integer between = checkRecurring_gap(recurr_period);
 
@@ -200,7 +200,9 @@ public class Parser {
                             passed_command.add_task(t_flag);
                         }
                         return passed_command;
-                    } else {
+                    }
+                    //else
+                    if(recurr_command.equals("N") || recurr_command.equals("n")){
                         Events t_flag = new Events(descrip, detail);
                         AddCommand passed_command = new AddCommand(str[0], t_flag);
                         return passed_command;
@@ -227,6 +229,11 @@ public class Parser {
         }
 /***********************************************************************/
         if (str.length == 2 && str[0].equals("delete")) {
+            if(str[1].trim().equals("*"))
+            {
+                DeleteAllCommand d = new DeleteAllCommand(str[0]);
+                return d;
+            }
             int number;
             try { // if first word is "delete", check its second words must be an integer
                 number = Integer.parseInt(str[1]);

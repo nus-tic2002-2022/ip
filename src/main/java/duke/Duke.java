@@ -59,8 +59,11 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("IndexOutOfBoundsException: "+"Index out of Bound Error");
             }catch (FindException e) {
-                System.out.println("File Exception: "+" Too many word");
-            }finally {
+                System.out.println("FindException: "+" Too many word");
+            }catch (AssertionError e) {
+                System.out.println("Assertion Error: " + "Please type only 'y','Y' for YES or 'n','N' for NO");
+            }
+            finally {
                 try{
                     f.writetoFile(tasklist);
                     user_interface.showLine();

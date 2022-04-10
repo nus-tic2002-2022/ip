@@ -46,7 +46,6 @@ public class Events extends Task {
                     }
                 }
             }
-            //this.details = splited_details[on_index - 1];
             this.details = _temp;
             this.first_occur = LocalDate.parse(splited_details[on_index + 1]); //YYYY-MM-DD
         } catch (DateTimeParseException e) {

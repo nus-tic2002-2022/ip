@@ -361,9 +361,23 @@ public class Duke {
                 }
             }
             //error handling of input that does not exist within specified function
+            else if (dimensions[0].equals("find")) {
+                printline();
+                int index = 1;
+                String word = line.substring(5);
+                System.out.println("Yes Sir, this is the current list of Tasks you have on hand:\n with "+word);
+                //for loop to run all tasks in a tasklist
+                for(Task t : tasklist){
+                    if(t.description.toLowerCase().contains(word)) {
+                        System.out.println(index + ". " + t.toString());
+                        index++;
+                    }
+                }
+
+            }
             else{
                 printline();
-                System.out.println("Sir, May I remind you to use functions: Todo, delete, deadline, event, list, mark, unmark and bye");
+                System.out.println("Sir, May I remind you to use functions: Todo, delete, find, deadline, event, list, mark, unmark and bye");
             }
             printline();
         }

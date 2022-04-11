@@ -61,8 +61,8 @@ public class Event extends Task implements DateModule {
      * Get the current date structure
      * **/
     @Override
-    public TaskDateStructure getDateStructure() {
-        return dateStructure.getFirst();
+    public Pair<TaskDateStructure, LocalDateTime> getDateStructure() {
+        return dateStructure;
     }
 
     /**
@@ -78,7 +78,15 @@ public class Event extends Task implements DateModule {
      * Get the date of the task
      * **/
     @Override
-    public String getDate() {
-        return rawDate;
+    public String getDate(boolean isFormatted) {
+        if (isFormatted) {
+            if (getDateStructure().getFirst().equals(TaskDateStructure.UNSTRUCTURED_DATE_STRING)) {
+                return "NA";
+            } else {
+                return DateParser.convertToDateString(dateStructure.getSecond());
+            }
+        } else {
+            return rawDate;
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.calebjianhui.duke.parser;
 
 import com.calebjianhui.duke.commands.*;
+import com.calebjianhui.duke.common.Pair;
+import com.calebjianhui.duke.enums.ListCommandType;
 import com.calebjianhui.duke.enums.UpdateCommandType;
 import com.calebjianhui.duke.ui.DukeUI;
 
@@ -54,12 +56,19 @@ public class InputParser {
         // Check what type of command
         switch (commandList[0]) {
             case ListCommand.COMMAND:
-                // Ensure that command is in the proper format
-                if (commandList.length > 1) {
-                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+                if (commandList.length == 1) {
+                    // Normal listing of tasks
+                    return new ListCommand();
+                } else {
+                    // Determine the type of list that user wishes to view
+                    ListCommandType listField = ListCommand.checkCommandType(commandList[1]);
+                    if (listField.equals(ListCommandType.INVALID_COMMAND)) {
+                        throw new MalformedParametersException(InvalidCommand.UNKNOWN_PARAMETERS_MESSAGE);
+                    }
+                    return new ListCommand(new Pair<>(listField, String.join(" ",
+                            Arrays.copyOfRange(commandList, 2, commandList.length)
+                    )));
                 }
-
-                return new ListCommand();
             case FindCommand.COMMAND:
                 // Ensure that command is in the proper format
                 if (commandList.length <= 1) {
@@ -116,7 +125,7 @@ public class InputParser {
                                         UpdateCommandType.UNMARK,
                                 index, "");
                     }
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
                 }
             case AddCommand.TODO_COMMAND:
@@ -135,7 +144,7 @@ public class InputParser {
                 try {
                     int index = Integer.parseInt(commandList[1]) - 1;
                     return new CloneCommand(index);
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
                 }
             case DeleteCommand.COMMAND:
@@ -146,7 +155,7 @@ public class InputParser {
                 try {
                     int index = Integer.parseInt(commandList[1]) - 1;
                     return new DeleteCommand(index);
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
                 }
             default:

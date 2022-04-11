@@ -1,7 +1,11 @@
 package com.calebjianhui.duke.taskmanager;
 
+import com.calebjianhui.duke.common.Pair;
+import com.calebjianhui.duke.enums.ListCommandType;
+import com.calebjianhui.duke.enums.TaskDateStructure;
 import com.calebjianhui.duke.enums.TaskType;
 import com.calebjianhui.duke.enums.UpdateCommandType;
+import com.calebjianhui.duke.parser.DateParser;
 import com.calebjianhui.duke.parser.TaskEncoder;
 import com.calebjianhui.duke.taskmanager.exceptions.InvalidIndexException;
 import com.calebjianhui.duke.taskmanager.exceptions.InvalidTaskInputException;
@@ -9,10 +13,8 @@ import com.calebjianhui.duke.taskmanager.exceptions.NoChangesException;
 import com.calebjianhui.duke.ui.DukeUI;
 import com.calebjianhui.duke.ui.Messages;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 
 /**
@@ -84,19 +86,195 @@ public class TaskManager {
         return output;
     }
 
+    private String formatDateModuleTasks(ArrayList<Task> dateTasks) {
+        StringBuilder scheduleTaskDetails = new StringBuilder();
+        // Pair<T, U>, T = sorted, U = unsorted
+        Pair<ArrayList<Task>, ArrayList<Task>> sortedTask = new Pair<>(new ArrayList<>(), new ArrayList<>());
+        for (Task currentDateTask: dateTasks) {
+            if (((DateModule) currentDateTask).getDateStructure().getFirst().equals(TaskDateStructure.UNSTRUCTURED_DATE_STRING)) {
+                sortedTask.getSecond().add(currentDateTask);
+            } else if (((DateModule) currentDateTask).getDateStructure().getFirst().equals(TaskDateStructure.VALID_DATE)) {
+                sortedTask.getFirst().add(currentDateTask);
+            } else {
+                // TaskDateStructure should only consist of the above, therefore throw AssertionError
+                String errorMessage = "Invalid TaskDateStructure received";
+                assert false : errorMessage;
+                throw new AssertionError(errorMessage);
+            }
+        }
+        // Sort
+        sortedTask.getFirst().sort(Comparator.comparing(o -> ((DateModule) o).getDateStructure().getSecond()));
+        // Display tasks
+        int i = 1;
+        for (Task currentTask : sortedTask.getFirst()) {
+            scheduleTaskDetails.append("\n\t").append(i).append(". [")
+                    .append(((DateModule) currentTask).getDate(true)).append("] ")
+                    .append(((DateModule) currentTask).getDescription(false));
+            i++;
+        }
+        for (Task currentTask : sortedTask.getSecond()) {
+            scheduleTaskDetails.append("\n\t").append(i).append(". [NA] ")
+                    .append(currentTask.getDescription());
+            i++;
+        }
+        return scheduleTaskDetails.toString();
+    }
+
     /**
      * List all the task in the task queue
      * **/
     public void listTask() {
-        try {
-            // Check if task list is empty
-            if (taskList.isEmpty()) {
-                throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
-            }
-            String taskDetails = "These are your current task:\n".concat(getTaskListString(taskList));
-            ui.formatDukeReply(taskDetails);
-        } catch (InvalidIndexException e) {
-            ui.formatDukeReply(e.getMessage());
+        listTask(new Pair<>(ListCommandType.NORMAL, ""));
+    }
+
+    /**
+     * List all the task in the task queue
+     * - Overloaded variant to have detailed listing of tasks
+     * **/
+    public void listTask(Pair<ListCommandType, String> listType) {
+        // Check if task list is empty
+        if (taskList.isEmpty()) {
+            ui.formatDukeReply(InvalidIndexException.REPLY_NO_ONGOING_TASK);
+            return;
+        }
+
+        // Display tasks list based on user selected viewing preference
+        switch (listType.getFirst()) {
+            case NORMAL:
+                ui.formatDukeReply("These are your current task:\n" + getTaskListString(taskList));
+                break;
+            case SCHEDULE:
+                StringBuilder scheduleTaskDetails = new StringBuilder();
+                ArrayList<Task> dateTasks = new ArrayList<>();
+                if (listType.getSecond().isEmpty()) {
+                    // All Events / Deadlines
+                    for (Task current: taskList) {
+                        if (current instanceof DateModule) {
+                            dateTasks.add(current);
+                        }
+                    }
+                    if (dateTasks.isEmpty()) {
+                        scheduleTaskDetails.append("You have no upcoming tasks.");
+                    } else {
+                        scheduleTaskDetails.append("You have the following upcoming tasks:");
+                    }
+                } else {
+                    Pair<TaskDateStructure, LocalDateTime> givenDate = DateParser.parseDateTimeString(listType.getSecond());
+                    if (givenDate.getFirst().equals(TaskDateStructure.UNSTRUCTURED_DATE_STRING)) {
+                        ui.formatDukeReply(InvalidTaskInputException.REPLY_LIST_INVALID_DATE);
+                    }
+                    // Events / Deadlines on specific date
+                    for (Task current: taskList) {
+                        if (current instanceof DateModule &&
+                                ((DateModule) current).getDateStructure().getFirst().equals(TaskDateStructure.VALID_DATE)) {
+                            if (((DateModule) current).getDateStructure().getSecond().toLocalDate().equals(givenDate.getSecond().toLocalDate())) {
+                                dateTasks.add(current);
+                            }
+                        }
+                    }
+                    if (dateTasks.isEmpty()) {
+                        scheduleTaskDetails.append("You have no upcoming task on ")
+                                .append(listType.getSecond()).append(".");
+                    } else {
+                        scheduleTaskDetails.append("You have the following upcoming tasks on ")
+                                .append(listType.getSecond()).append(":");
+                    }
+                }
+                if (!(dateTasks.isEmpty())) {
+                    scheduleTaskDetails.append(formatDateModuleTasks(dateTasks));
+                }
+                ui.formatDukeReply(scheduleTaskDetails.toString());
+                break;
+            case BREAKDOWN:
+//                StringBuilder scheduleTaskDetails = new StringBuilder();
+//                ArrayList<Task> dateTasks = new ArrayList<>();
+//                ArrayList<Task> fixedTasks = new ArrayList<>();
+//                ArrayList<Task> todosTasks = new ArrayList<>();
+//                if (listType.getSecond().isEmpty()) {
+//                    // For loop to sort out the tasks
+//                    for (Task current: taskList) {
+//                        if (current instanceof DateModule) {
+//                            dateTasks.add(current);
+//                        } else if (current instanceof ToDos) {
+//                            todosTasks.add(current);
+//                        } else if (current instanceof FixedDurationModule) {
+//                            fixedTasks.add(current);
+//                        } else {
+//                            // Tasks can only belong to the above types, therefore throw AssertionError
+//                            String errorMessage = "Invalid type of task received";
+//                            assert false : errorMessage;
+//                            throw new AssertionError(errorMessage);
+//                        }
+//                    }
+//                    // Display all tasks in schedule form
+//                    if (dateTasks.isEmpty()) {
+//                        scheduleTaskDetails.append("You have no upcoming tasks.\n\n");
+//                    } else {
+//                        scheduleTaskDetails.append("You have the following upcoming tasks:\n");
+//                        // Pair<T, U>, T = sorted, U = unsorted
+//                        Pair<ArrayList<Task>, ArrayList<Task>> sortedTask = new Pair<>(new ArrayList<>(), new ArrayList<>());
+//                        for (Task currentDateTask: dateTasks) {
+//                            if (((DateModule) currentDateTask).getDateStructure().getFirst().equals(TaskDateStructure.UNSTRUCTURED_DATE_STRING)) {
+//                                sortedTask.getSecond().add(currentDateTask);
+//                            } else if (((DateModule) currentDateTask).getDateStructure().getFirst().equals(TaskDateStructure.VALID_DATE)) {
+//                                sortedTask.getFirst().add(currentDateTask);
+//                            } else {
+//                                // TaskDateStructure should only consist of the above, therefore throw AssertionError
+//                                String errorMessage = "Invalid TaskDateStructure received";
+//                                assert false : errorMessage;
+//                                throw new AssertionError(errorMessage);
+//                            }
+//                        }
+//                        // Sort
+//                        sortedTask.getFirst().sort(Comparator.comparing(o -> ((DateModule) o).getDateStructure().getSecond()));
+//                        // Display tasks
+//                        int i = 1;
+//                        for (Task currentTask : sortedTask.getFirst()) {
+//                            scheduleTaskDetails.append("\t").append(i).append(". [")
+//                                    .append(((DateModule) currentTask).getDate(true)).append("] ")
+//                                    .append(((DateModule) currentTask).getDescription(false));
+//                            i++;
+//                        }
+//                        for (Task currentTask : sortedTask.getSecond()) {
+//                            scheduleTaskDetails.append("\t").append(i).append(". [NA] ")
+//                                    .append(currentTask.getDescription());
+//                            i++;
+//                        }
+//                        scheduleTaskDetails.append("\n\n");
+//                    }
+//                    // Fixed Tasks
+//                    scheduleTaskDetails.append("")
+//
+//
+//
+//                }
+//
+//
+//                // Filter task list
+//                ArrayList<Task> filteredTaskList = new ArrayList<>();
+//
+//
+//
+//
+//                for (Task task: taskList) {
+//                    if (task.containsKeyword(isCharacterSearch, keyword)) {
+//                        filteredTaskList.add(task);
+//                    }
+//                }
+//
+//                // Check if task list is empty
+//                if (filteredTaskList.isEmpty()) {
+//                    throw new InvalidIndexException(InvalidIndexException.REPLY_FILTERED_EMPTY_TASK);
+//                } else {
+//                    String taskDetails = "We have managed to find these matching tasks:\n".concat(getTaskListString(filteredTaskList));
+//                    ui.formatDukeReply(taskDetails);
+//                }
+                break;
+            default:
+                // ListCommandType should only consist of the above, therefore throw AssertionError
+                String errorMessage = "Invalid ListCommandType received";
+                assert false : errorMessage;
+                throw new AssertionError(errorMessage);
         }
     }
 
@@ -342,9 +520,9 @@ public class TaskManager {
             if (selected instanceof ToDos) {
                 taskList.add(new ToDos(selected.getDoneStatus(), selected.getDescription()));
             } else if (selected instanceof Deadline) {
-                taskList.add(new Deadline(selected.getDoneStatus(), ((Deadline) selected).getDescription(false), ((Deadline) selected).getDate()));
+                taskList.add(new Deadline(selected.getDoneStatus(), ((Deadline) selected).getDescription(false), ((Deadline) selected).getDate(false)));
             } else if (selected instanceof Event) {
-                taskList.add(new Event(selected.getDoneStatus(), ((Event) selected).getDescription(false), ((Event) selected).getDate()));
+                taskList.add(new Event(selected.getDoneStatus(), ((Event) selected).getDescription(false), ((Event) selected).getDate(false)));
             } else if (selected instanceof FixedDurationTask) {
                 taskList.add(new FixedDurationTask(selected.getDoneStatus(), ((FixedDurationTask) selected).getDescription(false), ((FixedDurationTask) selected).getDuration()));
             } else {

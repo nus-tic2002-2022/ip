@@ -25,6 +25,9 @@ public class UpdateCommand extends Command {
         this.updateFieldType = updateFieldType;
         this.index = index;
         this.details = details;
+
+        assert updateFieldType != null : "UpdateCommand constructor cannot have null UpdateCommandType!";
+        assert (!(updateFieldType.equals(UpdateCommandType.INVALID_COMMAND))): "UpdateCommand constructor cannot be invalid.";
     }
 
     /**
@@ -36,7 +39,7 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Based on an input, determine if it is a selected command type
+     * Based on the given input, determine the selected command type
      *
      * @param input input string parameter
      * @return The corresponding UpdateCommandType, else return as INVALID_COMMAND

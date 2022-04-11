@@ -27,7 +27,7 @@ public class AddCommand extends Command {
         this.isSilent = isSilent;
         this.isDone = isDone;
 
-        assert type != null;
+        assert type != null : "AddCommand constructor cannot have null TaskType!";
     }
 
     private static TaskType getTaskTypeFromCommand(String command) {

@@ -72,6 +72,14 @@ public class Task {
             status = "[ ]\t\t";
         }
 
-        return "[" + type + "]\t" + status + "" + this.description;
+        String output = "[" + type + "]\t" + status + "" + this.description;
+
+        Integer duration = FixedDurationTask.findFixedDuration(this.description);
+        if (duration != null) {
+            output = output + " (needs " + duration + " hours)";
+        }
+
+        return output;
+
     }
 }

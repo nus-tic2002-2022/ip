@@ -64,7 +64,7 @@ public class Command {
 
     /**
      * Execute operation based on command and variables provided in userInput and return information on executed actions as ResultCommand.
-     * Command includes : todo, deadline, event, echo, bye, exit, hello, list, delete, mark, unmark, save.
+     * Command includes : todo, deadline, event, echo, bye, exit, hello, list, delete, mark, unmark, save, free, find.
      *
      * @return Information on executed actions (successful or unsuccessful) will be returned as ResultCommand.
      */

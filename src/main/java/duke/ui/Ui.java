@@ -132,7 +132,7 @@ public class Ui {
     }
 
     /**
-     * Output taskList on UI based on TaskList provided.
+     * Output searched taskList on UI based on TaskList provided.
      *
      * @param taskList TaskList to be outputted onto UI.
      */

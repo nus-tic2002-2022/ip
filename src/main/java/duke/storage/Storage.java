@@ -146,6 +146,21 @@ public class Storage {
         for (int index = 0; index < taskList.size(); index++) {
             textToAdd = textToAdd + "\n";
             String task = taskList.get(index).toString();
+
+            int fixedDurationStartIndex = -1;
+            int fixedDurationEndIndex = -1;
+            for (int i = 0; i < task.length(); i++) {
+                if (task.charAt(i) == '(') {
+                    fixedDurationStartIndex = i;
+                }
+                if (task.charAt(i) == ')') {
+                    fixedDurationEndIndex = i;
+                }
+            }
+            if (fixedDurationEndIndex != -1 && fixedDurationStartIndex != -1) {
+                task = task.substring(0, fixedDurationStartIndex) + task.substring(fixedDurationEndIndex + 1);
+            }
+
             char type = task.charAt(1);
             String cur_task = "";
 

@@ -116,11 +116,11 @@ public class FindCommand extends Command{
     }
 
     /**
-     * Returns Free time period on specified date after comparing with the task in tasklist.
+     * Returns Tasks containing specified word or phrasing after comparing with the task in tasklist.
      *
      * @param userInput Input specify by user on UI.
      * @param taskList TaskList which specified Task should be added to.
-     * @return Free time period on specified date in String format.
+     * @return tasks containing specified word or phrasing in TaskList format.
      */
     public static TaskList findTask (Parser userInput, TaskList taskList) throws DukeException {
         TaskList output = new TaskList();

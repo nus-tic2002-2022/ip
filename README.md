@@ -1,9 +1,9 @@
-# Duke project template
+# Duke
 
 ## About
 Duke is a command line task tracker, that helps users keep track of their schedule and work.
 
 ## Demo
-![output](https://raw.githubusercontent.com/keyule/duke/master/docs/images/demo.gif)
+![gif](docs/images/demo.gif)
 
 ## Documentation

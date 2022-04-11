@@ -20,7 +20,6 @@ public class Parser {
     public static Integer checkRecurring_gap(String between) throws NumberFormatException {
         return Integer.parseInt(between);
     }
-
     /**
      *
      * @param number Pass in number of time of recurring event as String.
@@ -30,7 +29,6 @@ public class Parser {
     public static Integer checkRecurring_count(String number) throws NumberFormatException {
         return Integer.parseInt(number);
     }
-
     /**
      *
      * @param str Pass in an array of String to be combined
@@ -45,7 +43,6 @@ public class Parser {
         }
         return ans;
     }
-
     /**
      *
      * @param passed String array to be checked

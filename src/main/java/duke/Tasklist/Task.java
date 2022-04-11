@@ -23,7 +23,4 @@ public class Task {
         this.isDone = false;
     }
 
-    public void set_category() {
-        this.isDone = false;
-    }
 }

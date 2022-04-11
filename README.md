@@ -9,4 +9,4 @@ Duke is a command line task tracker, that helps users keep track of their schedu
 ## Documentation
 
 * [User Guide](docs/UserGuide.md)
-* [Developer Guide] (docs/DevelopersGuide.md)
+* [Developer Guide](docs/DeveloperGuide.md)

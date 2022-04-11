@@ -109,11 +109,13 @@ public class TaskManager {
         for (Task currentTask : sortedTask.getFirst()) {
             scheduleTaskDetails.append("\n\t").append(i).append(". [")
                     .append(((DateModule) currentTask).getDate(true)).append("] ")
+                    .append("[").append(currentTask.getType()).append("] ")
                     .append(((DateModule) currentTask).getDescription(false));
             i++;
         }
         for (Task currentTask : sortedTask.getSecond()) {
             scheduleTaskDetails.append("\n\t").append(i).append(". [NA] ")
+                    .append("[").append(currentTask.getType()).append("] ")
                     .append(currentTask.getDescription());
             i++;
         }

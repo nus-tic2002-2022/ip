@@ -206,6 +206,15 @@ public class Ui {
                 }
                 break;
 
+            case "updateTask":
+                if (randomNumber == 0) {
+                    output = "\t\t\t\t\t\t\t\t Haro ! \"" + placeholder + "\" has been updated in the list ! Haro !";
+                }
+                else {
+                    output = "\t\t\t\t\t\t\t\t Haro ! Haro has updated \"" + placeholder + "\" in the list ! Haro !";
+                }
+                break;
+
             case "missing task & missing by":
                 output = "\t\t\t\t\t\t\t\t Haro ! Missing task & deadline information ! Haro ";
                 break;
@@ -328,6 +337,10 @@ public class Ui {
 
             case "missingKeyword":
                 output = "\t\t\t\t\t\t\t\t Haro ! Please key in a keyword to be searched ! Haro !";
+                break;
+
+            case "missingInformation":
+                output = "\t\t\t\t\t\t\t\t Haro ! Please input new description to be updated ! Haro !";
                 break;
 
             case "freeTime":

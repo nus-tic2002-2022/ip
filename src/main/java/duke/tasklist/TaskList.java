@@ -54,6 +54,18 @@ public class TaskList {
     }
 
     /**
+     * Return updated Task in taskList after updating task with index with new description provided.
+     *
+     * @param index index of task to be accessed.
+     * @param newDescription new description to replace the existing description.
+     * @return updated Task in taskList.
+     */
+    public Task update(int index, String newDescription){
+        this.taskList.get(index).updateTask(newDescription);
+        return this.taskList.get(index);
+    }
+
+    /**
      * Remove specific Task in taskList with index provided.
      *
      * @param index index of task to be removed.

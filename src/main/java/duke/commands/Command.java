@@ -131,6 +131,10 @@ public class Command {
             TaskList found = FindCommand.findTask(this.userInput, taskList);
             return new ResultCommand("find", found);
         }
+        else if (this.userInput.getUserInput(0).equalsIgnoreCase("update")) {
+            Task updatedTask = UpdateCommand.updateDescription(this.userInput, taskList);
+            return new ResultCommand("updateTask", updatedTask);
+        }
         else {
             return new ResultCommand("?", "");
         }

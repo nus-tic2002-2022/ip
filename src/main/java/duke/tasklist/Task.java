@@ -61,6 +61,15 @@ public class Task {
         return this.isDone;
     }
 
+    /**
+     * Updates existing task description with provided new description
+     *
+     * @param newDescription new description to replace existing description
+     */
+    public void updateTask(String newDescription) {
+        this.description = newDescription;
+    }
+
     @Override
     public String toString() {
         String type = "T";

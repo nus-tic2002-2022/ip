@@ -1,6 +1,6 @@
 |type|status|task|Deadline/Duration
-|E|0|here|2022/12/12 12:00 AM
+|E|0|there|2022/12/12 12:00 AM
 |D|0|here|2022/12/12 12:00 PM
-|E|0|here|2022/12/12 10:00 PM
+|E|0|here there|2022/12/12 10:00 PM
 |T|0|read book 
 |T|0|attend lesson 

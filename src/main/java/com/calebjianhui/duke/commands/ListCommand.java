@@ -12,7 +12,7 @@ public class ListCommand extends Command {
     public static final List<Pair<String, ListCommandType>> LIST_COMMAND_PREFIX =
             Arrays.asList(
                     new Pair<>("-s", ListCommandType.SCHEDULE),
-                    new Pair<>("-b", ListCommandType.BREAKDOWN)
+                    new Pair<>("-n", ListCommandType.NORMAL)
             );
 
     private final Pair<ListCommandType, String> listType;

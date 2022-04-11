@@ -1,4 +1,5 @@
 package duke.constants;
+
 import java.util.regex.Pattern;
 
 public class DukeConstants {
@@ -10,8 +11,11 @@ public class DukeConstants {
     public static final Pattern DEADLINE = Pattern.compile("^deadline.*$");
     public static final Pattern EVENT = Pattern.compile("^event.*$");
     public static final Pattern FIND = Pattern.compile("^find.*$");
+    public static final Pattern VIEW_SCHEDULE = Pattern.compile("^schedule.*$");
     public static final Pattern STORAGE_EVENT = Pattern.compile("^\\[E\\].*$");
     public static final Pattern STORAGE_DEADLINE = Pattern.compile("^\\[D\\].*$");
     public static final Pattern STORAGE_TODO = Pattern.compile("^\\[T\\].*$");
     public static final Pattern STORAGE_ISMARKED = Pattern.compile("^\\[X\\]\\s.*$");
+    public static final String PROJECT_FILEPATH = System.getProperty("user.dir");
+    public static final Pattern TIME = Pattern.compile("([0-1]?[0-9]|2[0-3]):[0-5][0-9]");
 }

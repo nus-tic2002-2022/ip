@@ -1,11 +1,9 @@
 package duke.tasks;
-import duke.constants.DukeConstants;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.regex.Pattern;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate by;
     private LocalTime time;
     private String dateString;
@@ -13,7 +11,7 @@ public class Deadline extends Task{
     //This class takes in 2 parameters; String description and String input. String input is the Date/Time provided by the user.
     //It will perform a try to see if the input can be parsed into date/time format.
     public Deadline(String description, String input, boolean isDone) {
-        super(description.replaceAll("\\s$",""), isDone);
+        super(description.replaceAll("\\s$", ""), isDone);
         String[] splited = input.split("[\\s]", 2);
         try {
             this.by = LocalDate.parse(splited[0]);
@@ -30,8 +28,8 @@ public class Deadline extends Task{
     @Override
     public String getDescription() {
         String message = dateString;
-        if(dateString == null) {
-            message = ((by!=null)?by:"") + " " + ((time!=null)?time:"");
+        if (dateString == null) {
+            message = ((by != null) ? by : "") + " " + ((time != null) ? time : "");
         }
 
         return "[D]" + super.getDescription() + " (by:" + message + ")";

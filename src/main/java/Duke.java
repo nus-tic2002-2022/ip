@@ -11,9 +11,9 @@ public class Duke {
     private final Storage storage;
 
     //The following method takes an input file and reads it. It attempts to store the values from the file into a tasks Tasklist.
-    public Duke(final String filePath) {
+    public Duke() {
         ui = new UI();
-        storage = new Storage(filePath);
+        storage = new Storage();
 
         //A-Assertion feature, asserts file type is .txt
         assert storage.returnFile().getName().contains(".txt") : "Invalid file type!";

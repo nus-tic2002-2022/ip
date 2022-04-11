@@ -5,15 +5,34 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class UI {
+    //Checks if Date is a valid format
+    public static boolean isValid(String text) {
+        if (text == null || !text.matches("\\d{4}-[01]\\d-[0-3]\\d"))
+            return false;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setLenient(false);
+        try {
+            df.parse(text);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
+    }
+
     //The following method takes in the user input and attempts to identify what to do with the input (i.e. store as a Deadline, Event or Task, etc).
     //It will then add the new task to the existing Tasklist.
     public TaskList Query(TaskList tasks, String input) {
         final String inputIsEmptyResponse = "Please enter something!";
+        final String matchesList = "list";
+        final String matchesHelp = "help";
 
-        if (input.equalsIgnoreCase("list")) {
+        if (input.equalsIgnoreCase(matchesList)) {
             tasks.list();
-        } else if (input.equalsIgnoreCase("help")) {
+        } else if (input.equalsIgnoreCase(matchesHelp)) {
             help();
         } else if (DukeConstants.MARK.matcher(input).matches()) {
             input = input.replaceAll("\\D+", "");
@@ -34,6 +53,8 @@ public class UI {
             addDeadline(tasks, input);
         } else if (DukeConstants.EVENT.matcher(input).matches()) {
             addEvent(tasks, input);
+        } else if (DukeConstants.VIEW_SCHEDULE.matcher(input).matches()) {
+            viewSchedule(tasks, input);
         } else if (DukeConstants.FIND.matcher(input).matches()) {
             findTask(tasks, input);
         } else if (input.length() > 0) {
@@ -107,6 +128,19 @@ public class UI {
         }
     }
 
+    //Views task list in the form of a schedule for a specified date.
+    public void viewSchedule(final TaskList tasks, final String st) {
+        final String todoTip = "\nTip: An example command would be, 'schedule 2022-02-20'.";
+        String input = st;
+        input = input.replaceAll("^schedule\\s", "");
+        if (isValid(input)) {
+            System.out.println("Here are the matching tasks in your requested date: " + input);
+            tasks.viewSchedule(input);
+        } else {
+            System.out.println("Invalid input" + todoTip);
+        }
+    }
+
     //Exit method. Prints an exit message to the user.
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -114,15 +148,8 @@ public class UI {
 
     //Help method. Prints out a list of possible commands.
     public void help() {
-        System.out.println("Hi, this is Duke. I am here to help you keep track of your schedule.");
-        System.out.println("Here are a list of possible commands I will understand:");
-        System.out.println("1. list");
-        System.out.println("2. todo");
-        System.out.println("3. event");
-        System.out.println("4. deadline");
-        System.out.println("5. archive");
-        System.out.println("6. find");
-        System.out.println("7. bye");
+        final String helpStr = "Hi, this is Duke. I am here to help you keep track of your schedule.\nHere are a list of possible commands I will understand:\n1. list\n2. todo\n3. event\n4. deadline\n5. archive\n6. find\n7. schedule\n8. bye";
+        System.out.println(helpStr);
     }
 
     //The following method prints an error to inform the user that the specified file location is invalid or the file is unavailable.

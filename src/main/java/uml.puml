@@ -9,7 +9,6 @@ Tasklist <|-- Storage
 Tasklist <|-- UI
 
 class Application {
-    private final static String DIR = "user.dir"
     public static void main(String[] args)
 }
 
@@ -27,6 +26,7 @@ class Tasklist {
     protected ArrayList<Task> taskArr
     public Tasklist()
     public Tasklist(ArrayList<Task> taskArr)
+    public void viewSchedule(String dateStr)
     public void list()
     public void list(String find)
     public void mark(int i)
@@ -58,6 +58,7 @@ class UI {
     public TaskList Query(TaskList tasks, String input)
     private void addTask(final TaskList tasks, final String input)
     private void findTask(final TaskList tasks, final String st)
+    private void viewSchedule(final TaskList tasks, final String st)
     private void addEvent(final TaskList tasks, final String st)
     private void addDeadline(final TaskList tasks, final String st)
     private void addTodo(final TaskList tasks, final String st)

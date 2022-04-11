@@ -1,4 +1,5 @@
 package duke.tasks;
+
 public class Task {
     protected boolean isDone;
     protected String description;
@@ -11,16 +12,16 @@ public class Task {
 
     //The following method returns the description.
     public String getDescription() {
-        return "[" + (isDone() ? ("X"):(" ")) + "] " + description;
-    }
-
-    //The following method sets the protected boolean isDone to the value specified.
-    public void setDone(boolean isDone){
-        this.isDone = isDone;
+        return "[" + (isDone() ? ("X") : (" ")) + "] " + description;
     }
 
     //The following method returns the value of the boolean isDone.
-    public boolean isDone(){
+    public boolean isDone() {
         return this.isDone;
+    }
+
+    //The following method sets the protected boolean isDone to the value specified.
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }

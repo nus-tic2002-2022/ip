@@ -1,8 +1,12 @@
 package duke.tasklist;
 
+import duke.constants.DukeConstants;
 import duke.tasks.Task;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.regex.Matcher;
 
 public class TaskList {
     protected ArrayList<Task> taskArr;
@@ -22,7 +26,9 @@ public class TaskList {
             System.out.println(listIsEmpty);
     }
 
+    //This method lists out all values from the taskArr that matches the user supplied input.
     public void list(String find) {
+        final String noMatchingTask = "There are no matching tasks.";
         int number = 1;
         for (int i = 0; i < taskArr.size(); i++) {
             if (taskArr.get(i).getDescription().contains(find)) {
@@ -30,6 +36,48 @@ public class TaskList {
                 number++;
             }
         }
+        if (number == 1)
+            System.out.println(noMatchingTask);
+    }
+
+    //This method is called to print out the schedules matching the date specified by the user.
+    public void viewSchedule(String dateStr) {
+        final String noTasksFound = "There are no tasks found on this date: " + dateStr;
+        ArrayList<LocalTime> timeScheduleArr = new ArrayList<>();
+        ArrayList<Task> noTimeTaskArr = new ArrayList<>();
+        int number = 0, taskArrScheduleCount = 0;
+        for (int i = 0; i < taskArr.size(); i++) {
+            if (taskArr.get(i).getDescription().contains(dateStr)) {
+                Matcher m = DukeConstants.TIME.matcher(taskArr.get(i).getDescription());
+                while (m.find()) {
+                    timeScheduleArr.add(LocalTime.parse(m.group()));
+                }
+
+                if (!DukeConstants.TIME.matcher(taskArr.get(i).getDescription()).find())
+                    noTimeTaskArr.add(taskArr.get(i));
+            }
+        }
+        Collections.sort(timeScheduleArr);
+
+        while (!timeScheduleArr.isEmpty()) {
+            if (taskArr.get(taskArrScheduleCount).getDescription().contains(timeScheduleArr.get(0).toString())) {
+                number++;
+                System.out.println(number + ". " + taskArr.get(taskArrScheduleCount).getDescription());
+                timeScheduleArr.remove(0);
+                taskArrScheduleCount = -1;
+            }
+            taskArrScheduleCount++;
+        }
+
+        for (int i = 0; i < noTimeTaskArr.size(); i++) {
+            if (i == 0)
+                System.out.println("\nHere are the lists of tasks with no specified timing:");
+
+            System.out.println((i + 1) + ". " + noTimeTaskArr.get(i).getDescription());
+        }
+
+        if (number == 0)
+            System.out.println(noTasksFound);
     }
 
     //This method is used to mark an item on the taskArr. There is an input validation to check if the number supplied is within bounds of the Array List.

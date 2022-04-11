@@ -310,6 +310,10 @@ public class Ui {
                 }
                 break;
 
+            case "freeTime":
+                output = "\t\t\t\t\t\t\t\t Haro ! " + placeholder + " ! Haro !";
+                break;
+
             case "delete":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Indicated task has been deleted from the list ! Haro !";

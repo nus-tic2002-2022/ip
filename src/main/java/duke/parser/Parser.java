@@ -2,6 +2,9 @@ package duke.parser;
 
 import duke.exception.DukeException;
 
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -106,6 +109,29 @@ public class Parser {
             throw new DukeException("missingTime");
         }
 
+        return output;
+    }
+
+    /**
+     * Returns LocalDate based on userInput variable in Parser class.
+     *
+     * @param index the starting index of userInput which contain information of date.
+     * @return date information in LocalDate format.
+     */
+    public static LocalDate dateParser(int index) throws DukeException {
+        LocalDate output = null;
+        try {
+            String d1 = userInput.get(index);
+            DateTimeFormatter formatter = null;
+            if (d1.matches("(.*)-(.*)")) {
+                formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            } else {
+                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            }
+            output = LocalDate.parse(d1, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("invalidDate");
+        }
         return output;
     }
 

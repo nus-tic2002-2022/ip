@@ -26,10 +26,8 @@ public class Event extends Task {
      *
      * @return duration of Event in String format.
      */
-    public String getAt(){
-        String output = "";
-        output = this.at.toString();
-        return output;
+    public LocalDateTime getAt() {
+        return this.at;
     }
 
     /**

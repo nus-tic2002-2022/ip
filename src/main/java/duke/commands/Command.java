@@ -123,6 +123,10 @@ public class Command {
         else if (this.userInput.getUserInput(0).equalsIgnoreCase("save")) {
             return new ResultCommand("save", "");
         }
+        else if (this.userInput.getUserInput(0).equalsIgnoreCase("free")) {
+            String message = FindCommand.findFreeTime(this.userInput, taskList);
+            return new ResultCommand("freeTime", message);
+        }
         else {
             return new ResultCommand("?", "");
         }

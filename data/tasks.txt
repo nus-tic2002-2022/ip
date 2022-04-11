@@ -1,1 +1,5 @@
-|type|status|task|deadline/duration
+|type|status|task|Deadline/Duration
+|T|0|here
+|E|0|here|2022/12/12 00:00 AM
+|D|0|here|2022/12/12 12:00 PM
+|E|0|here|2022/12/12 10:00 PM

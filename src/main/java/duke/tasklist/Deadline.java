@@ -26,10 +26,8 @@ public class Deadline extends Task {
      *
      * @return deadline of Task in String format.
      */
-    public String getBy(){
-        String output = "";
-        output = this.by.toString();
-        return output;
+    public LocalDateTime getBy() {
+        return this.by;
     }
 
     /**

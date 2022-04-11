@@ -1,17 +1,25 @@
 package duke.task;
+import duke.exceptions.InvalidScheduleFormatException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 
 public class Schedule extends Task {
     protected LocalDate startDate;
     protected LocalDate endDate;
 
-    public Schedule(String task, String startDate, String endDate) throws DateTimeParseException {
+    public Schedule(String task, String startDate, String endDate) {
         super(task);
         this.startDate = LocalDate.parse(startDate);
         this.endDate = LocalDate.parse(endDate);
+
+        try {
+            this.checkScheduleDateFormat();
+        } catch (InvalidScheduleFormatException e) {
+            System.out.println("Exception occurred:" + e);
+        }
+
     }
 
     @Override
@@ -26,4 +34,10 @@ public class Schedule extends Task {
     public String taskToSaveFile() {
         return String.format("S|%d|%s|%s|%s", (done?1:0) ,this.task ,this.startDate,this.endDate);
     };
+
+    private void checkScheduleDateFormat() throws InvalidScheduleFormatException{
+        if(this.startDate.isAfter(endDate)) {
+            throw new InvalidScheduleFormatException("Invalid format! Start Date is after End Date!");
+        };
+    }
 }

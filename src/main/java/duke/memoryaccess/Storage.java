@@ -19,8 +19,12 @@ public class Storage {
         filePath = _filepath;
         fileName = _fileName;
         fullFilePath = filePath + fileName;
+        assert fullFilePath  != null;
     }
 
+    /**
+     * Saves list data from Duke to memory
+     */
     public void writeFile(ArrayList<Task> tasks) {
 
         try {
@@ -35,6 +39,10 @@ public class Storage {
 
     };
 
+    /**
+     * Reads data file from memory and converts it into an Array of Strings, then processes it into an array of Tasks
+     * @return an Array of tasks that is loaded when Duke is initialized
+     */
     public ArrayList<Task> readFile()   {
         ArrayList<String> tasksInString  = new ArrayList<String>();
         try {
@@ -44,15 +52,17 @@ public class Storage {
                 tasksInString.add(s.nextLine());
             };
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
             File f = new File(filePath);
             f.mkdir();
-            System.out.println("Folder created!");
         }
         ArrayList<Task> tasksInTask = processTaskFromStringToTaskClass(tasksInString);
         return tasksInTask;
     };
 
+    /**
+     * Takes in an input of an Array of Strings, and converts it into an Array of Tasks
+     * @return an Array of Tasks
+     */
     public ArrayList<Task> processTaskFromStringToTaskClass(ArrayList<String> tasksInStringClass) {
         ArrayList<Task> tasksInTaskClass = new ArrayList<Task>();
         for (int counter = 0 ; counter < tasksInStringClass.size(); counter++) {
@@ -61,8 +71,14 @@ public class Storage {
         return tasksInTaskClass;
     }
 
+    /**
+     * Processes String from saved data file to a task
+     * @return A task, processed for input string
+     */
     public Task processStringTask(String task) {
         Character taskType = task.charAt(0);
+
+
         String[] taskParsed = task.split("\\|");
         String taskName = taskParsed[2];
         String isDone = taskParsed[1];

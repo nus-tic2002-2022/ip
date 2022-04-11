@@ -14,12 +14,7 @@ public class Deadlines extends TasksWithDate {
     }
 
     /**
-     * Returns a string formatted version of the duke.task.Deadlines Class
-     *
-     * @param url an absolute URL giving the base location of the image
-     * @param name the location of the image, relative to the url argument
-     * @return the image at the specified URL
-     * @see Image
+     * Represents a deadline events. requires a name and a date in format yyyy-mm-dd
      */
     @Override
     public String toString(){

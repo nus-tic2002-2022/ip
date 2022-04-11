@@ -2,25 +2,30 @@ package duke.parser;
 
 import duke.utils.TaskProcessor;
 import duke.utils.Ui;
-
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class UserInputParser extends Parser {
 
-    public static void processUserInput(TaskProcessor tasklist, String userInput) { //
+    /**
+     * Processes User input. Takes in a string, does the necessary parsing, and calls necessary class for execution
+     */
+    private Ui ui;
+
+    public UserInputParser ()  {
+        super();
+        ui = new Ui();
+    }
+
+    public void processUserInput(TaskProcessor tasklist, String userInput) { //
         if (userInput.equals("list")) {
             tasklist.printList();
         } else if ( userInput.startsWith("mark") ) {
-
             try {
                 int indexToChange = Integer.parseInt(userInput.split(" ")[1]) - 1 ;
                 tasklist.changeTaskStatus(indexToChange,true);
             } catch (NumberFormatException e) {
-                //ui.printErrorMessage()
-                System.out.println("tojava.util.duke.task.Task number not specified properly..");
+                System.out.println("Task number not specified properly..");
             } catch (IndexOutOfBoundsException e) {
-                //ui.printErrorMessage()
                 System.out.println("I don't think you have that many tasks on your list...");
             };
 
@@ -29,10 +34,8 @@ public class UserInputParser extends Parser {
                 int indexToChange = Integer.parseInt(userInput.split(" ")[1]) - 1 ;
                 tasklist.changeTaskStatus(indexToChange,false);
             } catch (NumberFormatException e) {
-                //ui.printErrorMessage()
-                System.out.println("tojava.util.duke.task.Task number not specified properly..");
+                System.out.println("Task number not specified properly..");
             } catch (IndexOutOfBoundsException e) {
-                //ui.printErrorMessage()
                 System.out.println("I don't think you have that many tasks on your list...");
             };
 
@@ -43,14 +46,13 @@ public class UserInputParser extends Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("=^-.-^= You didn't provide your task description...");
             } catch (DateTimeParseException e) {
-                Ui.printParseStringToDateErrorMEssage();
+                ui.printParseStringToDateErrorMEssage();
             }
 
         } else if (userInput.startsWith("delete")) {
             try {
                 tasklist.deleteTasks(userInput);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                //ui.printErrorMessage()
                 System.out.println("The delete input is not correct... please specify an integer within the bounds ^=.=^");
             }
         } else if (userInput.startsWith("find")) {
@@ -62,11 +64,11 @@ public class UserInputParser extends Parser {
             try {
                 tasklist.rescheduleTask(taskNumber,postponeTaskDate);
             } catch (DateTimeParseException e) {
-                Ui.printParseStringToDateErrorMEssage();
+                ui.printParseStringToDateErrorMEssage();
             }
 
         } else if (userInput.equals("help")) {
-            Ui.printHelpMessage();
+            ui.printHelpMessage();
         }
         else {
             System.out.println("=^-.-^= Not sure what that means...");

@@ -1,13 +1,22 @@
 package duke.utils;
 
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TasksWithDate;
 import java.util.ArrayList;
 
 public class Ui
 {
+
+    /**
+     * <h1>User Interface</h1>
+     * This class is in charge of displaying most messages related to Duke on the UI
+     */
     public Ui() { };
 
-    public static void printIntroduction() {
+    /**
+     * Displays introduction text to user upon executing Duke
+     */
+    public void printIntroduction() {
         System.out.println("  (\\_/)");
         System.out.println("  (^_^)");
         System.out.println("  (____)0");
@@ -15,7 +24,10 @@ public class Ui
         System.out.println("\tHow may I help? (I take carrots as payment). \n");
     }
 
-    public static void printBye() {
+    /**
+     * Displays goodbye message, indicating exit of Duke program
+     */
+    public void printBye() {
         System.out.println("Already? Cya...");
         System.out.println("  //");
         System.out.println(" ('')");
@@ -23,17 +35,10 @@ public class Ui
         System.out.println(" <><>*");
     }
 
-    public static void printLogo() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n\n"
-                +"Type 'help' for a list of commands!";
-
-    }
-
-    public static void printListUI(ArrayList<Task> tasks, int taskListCount) { //
+    /**
+     * Prints the current list of tasks
+     */
+    public void printListUI(ArrayList<Task> tasks, int taskListCount) { //
         if (taskListCount==0) {
             System.out.println("No tasks available...");
             return;
@@ -45,30 +50,42 @@ public class Ui
         }
     }
 
-    public static void printHelpMessage() {
+    /**
+     * Prints a help message that is available to users
+     */
+    public void printHelpMessage() {
         String helpMessage =
                 "Here are the list of commands!\n"
-                + "\ttodo: \n"
-                + "\tevent: \n"
-                + "\tdeadline: \n"
-                + "\tschedule: \n";
-                + "\tmark/unmark: \n"
-                + "\tlist: \n"
-                + "\tdelete: \n"
-                + "\tfind: \n"
-                + "\treschedule: \n";
+                + "\ttodo: Creates a Todo task. Input format: 'todo [task name]'\n"
+                + "\tevent: Creates a Event task. Input format: 'event [task name] /at [date in yyyy-MM-dd format]'\n"
+                + "\tdeadline: Creates a Deadline task. Input format: 'deadline [task name] /by [date in yyyy-MM-dd format]'\n"
+                + "\tschedule: Creates a Schedule task. Input format: 'schedule [task name] /from [date in yyyy-MM-dd format] /to [date in yyyy-MM-dd format]'\n"
+                + "\tmark/unmark: Marks a task done or undone. Input format: 'mark [task number]' or 'unmark [task number]\n"
+                + "\tlist: List all task descriptions and number. Input format 'list'\n"
+                + "\tdelete: Deletes a task. Input format: 'delete [task number]\n"
+                + "\tfind: Finds all tasks related to find keyword. Input format: 'find [keyword]\n"
+                + "\treschedule: Reschedules deadline and event tasks (doesn't work on schedule tasks). Input format: 'reschedule [date in yyyy-MM-dd format]\n";
         System.out.println(helpMessage);
     }
 
-    public static void printRescheduleInfo(int taskNum, TasksWithDate currTaskToReschedule) { //
+    /**
+     * Print the related information when user wants to reschedule a task
+     */
+    public void printRescheduleInfo(int taskNum, TasksWithDate currTaskToReschedule) { //
         System.out.printf("Rescheduled task number %d to \n\t%s\n\n",taskNum + 1 , currTaskToReschedule);
     }
 
-    public static void printRescheduleErrorMessage(int taskNum, Task erroredTask) {
+    /**
+     * Prints error message if user input a wrong reschedule message.
+     */
+    public void printRescheduleErrorMessage(int taskNum, Task erroredTask) {
         System.out.printf("Task number %d, '%s' can't be rescheduled\n",taskNum+1,erroredTask.getTask());
     }
 
-    public static void printParseStringToDateErrorMEssage() {
+    /**
+     * Prints error message when user inputs wrong date format
+     */
+    public void printParseStringToDateErrorMEssage() {
         System.out.printf("Error, input date not in format yyyy-mm-dd\n");
     }
 

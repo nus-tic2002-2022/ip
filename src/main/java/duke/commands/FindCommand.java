@@ -11,9 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -22,11 +20,11 @@ import java.util.Collections;
 public class FindCommand extends Command{
 
     /**
-     * Returns Task after adding Task created based on userInput into the TaskList.
+     * Returns Free time period on specified date after comparing with the task in tasklist.
      *
      * @param userInput Input specify by user on UI.
      * @param taskList TaskList which specified Task should be added to.
-     * @return Task as Task that has been added into TaskList.
+     * @return Free time period on specified date in String format.
      */
     public static String findFreeTime (Parser userInput, TaskList taskList) throws DukeException{
         String output = " ";
@@ -115,5 +113,43 @@ public class FindCommand extends Command{
             finalOutput = "Free time for specified date :" + output;
         }
         return finalOutput;
+    }
+
+    /**
+     * Returns Free time period on specified date after comparing with the task in tasklist.
+     *
+     * @param userInput Input specify by user on UI.
+     * @param taskList TaskList which specified Task should be added to.
+     * @return Free time period on specified date in String format.
+     */
+    public static TaskList findTask (Parser userInput, TaskList taskList) throws DukeException {
+        TaskList output = new TaskList();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            String curTask = taskList.get(i).getTask();
+            String condition = "(.*)";
+            String targetWord = "";
+
+            if (userInput.getUserInputSize() < 2) {
+                throw new DukeException("missingKeyword");
+            }
+            else {
+                for (int j = 1; j < userInput.getUserInputSize(); j++) {
+                    if (j != 1) {
+                        targetWord = targetWord + " ";
+                    }
+                    targetWord = targetWord + userInput.getUserInput(j);
+                }
+            }
+
+            if (targetWord.equalsIgnoreCase("")) {
+                throw new DukeException("missingKeyword");
+            }
+
+            if (curTask.matches(condition + targetWord) || curTask.matches(condition + targetWord + condition) || curTask.matches(targetWord + condition) || curTask.matches(targetWord)){
+                output.add(taskList.get(i));
+            }
+        }
+        return output;
     }
 }

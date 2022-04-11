@@ -132,6 +132,22 @@ public class Ui {
     }
 
     /**
+     * Output taskList on UI based on TaskList provided.
+     *
+     * @param taskList TaskList to be outputted onto UI.
+     */
+    public static void showSearchTaskList(TaskList taskList) {
+        System.out.println("\t\t\t\t\t\t\t\t Haro : ");
+        if (taskList.size() != 0 ) {
+            System.out.print(taskList);
+            System.out.println("\t\t\t\t\t\t\t\t Haro ! " + taskList.size() + " tasks has been found ! Haro !");
+        }
+        else {
+            System.out.println("\t\t\t\t\t\t\t\t Haro ! No tasks with the specified keyword has been found ! Haro !");
+        }
+    }
+
+    /**
      * Return user input as String after obtaining it from UI.
      *
      * @return user input as String.
@@ -308,6 +324,10 @@ public class Ui {
                 else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Check date time information Haro ! dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
                 }
+                break;
+
+            case "missingKeyword":
+                output = "\t\t\t\t\t\t\t\t Haro ! Please key in a keyword to be searched ! Haro !";
                 break;
 
             case "freeTime":

@@ -86,8 +86,11 @@ public class Duke {
             if (output.getFeedback().equalsIgnoreCase("save")) {
                 storage.save(taskList);
             }
-            if (!output.getFeedback().equalsIgnoreCase("noReply") && !output.getFeedback().equalsIgnoreCase("goodbye")) {
+            if (!output.getFeedback().equalsIgnoreCase("noReply") && !output.getFeedback().equalsIgnoreCase("goodbye") && !output.getFeedback().equalsIgnoreCase("find")) {
                 Ui.replyMessage(output);
+            }
+            if (output.getFeedback().equalsIgnoreCase("find")) {
+                Ui.showSearchTaskList(output.getTargetTaskList());
             }
             if (output.getFeedback().equalsIgnoreCase("goodbye")) {
                 exit();

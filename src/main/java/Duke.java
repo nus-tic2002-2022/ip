@@ -2,106 +2,120 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-    private static int taskCount = 0;
-    private static Task[] tasks = new Task[100];
+    public static int counter = 0;
+    public static int sub = 1;
+    public static Task[] task = new Task[100];
 
-    public static void hello() {
-        System.out.println("Hello! I'm Duke.\nWhat can I do for you?");
-    }
-
-
-    public static void echo(String commands) {
-        System.out.println("\tadded: " + commands);
-    }
-
-    public static void exit() {
-        System.out.println("\tBye. Hope to see you again soon!");
-    }
-
-    public static void oneMore(Task t) {
-        tasks[taskCount] = t;
-        taskCount++;
-    }
-
-    public static void addTask(String type, String desc) {
-        if (type.equals("todo")) {
-            tasks[taskCount] = new Todo(desc);
-            System.out.println("\t" + tasks[taskCount].toString());
+    public static void handle(String t) throws DukeException {
+        if (t.contains("todo")) {
+            if (t.trim().length() < 5) {
+                throw new DukeException("OOPS!!! The description of task cannot be empty.\n");
+            }
+            String description = t.substring(5);
+            Task[] print = Arrays.copyOf(task,counter);
+            for (Task p : print) {
+                if (p.description.equals(description)) {
+                    throw new DukeException("OOPS!!! The task has already been added previously\n");
+                }
+            }
+            task[counter] = new Todo(description);
         }
-        if (type.equals("deadline")) {
-            String[] arrOfDesc = desc.split("/by");
-            tasks[taskCount] = new Deadline(arrOfDesc[0], arrOfDesc[1]);
-            System.out.println("\t" + tasks[taskCount].toString());
+        else if (t.contains("deadline")) {
+            if (t.trim().length() < 9) {
+                throw new DukeException("OOPS!!! The description of task cannot be empty.\n");
+            }
+            if (!t.contains("/")) {
+                throw new DukeException("OOPS!!! Please specify time.\n");
+            }
+            int n = t.indexOf('/');
+            String description = t.substring(9, n-1);
+            String by = t.substring(n+4);
+            Task[] print = Arrays.copyOf(task,counter);
+            for (Task p : print) {
+                if (p.description.equals(description)) {
+                    throw new DukeException("OOPS!!! The task has already been added previously\n");
+                }
+            }
+            task[counter] = new Deadline(description, by);
         }
-        if (type.equals("event")) {
-            String[] arrOfDesc = desc.split("/at");
-            tasks[taskCount] = new Event(arrOfDesc[0], arrOfDesc[1]);
-            System.out.println("\t" + tasks[taskCount].toString());
+        else if (t.contains("event")) {
+            if (t.trim().length() < 6) {
+                throw new DukeException("OOPS!!! The description of task cannot be empty.\n");
+            }
+            if (!t.contains("/")) {
+                throw new DukeException("OOPS!!! Please specify time.\n");
+            }
+            int n = t.indexOf('/');
+            String description = t.substring(6, n-1);
+            String at = t.substring(n+4);
+            Task[] print = Arrays.copyOf(task,counter);
+            for (Task p : print) {
+                if (p.description.equals(description)) {
+                    throw new DukeException("OOPS!!! The task has already been added previously\n");
+                }
+            }
+            task[counter] = new Event(description, at);
         }
-        System.out.println("\tNow you have " + (taskCount + 1) + " tasks in the list");
-        taskCount++;
-    }
-
-    public static void showTask(Task[] tasks) {
-        String taskInfo;
-
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < tasks.length; i++) {
-            taskInfo = tasks[i].toString();
-            System.out.println("\t" + (i+1) + "." + taskInfo);
+        else {
+            throw new DukeException("OOPS!!! Please enter a valid task such as todo / deadline / event\n");
         }
     }
 
-    public static int getNum(String commands) {
-        return Integer.parseInt(commands.substring(commands.indexOf(" ")+1, commands.length()));
-    }
-
-    public static void asDone(Task[] tasks, int taskNumber) {
-        tasks[taskNumber-1].markAsDone();
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t [X] " + tasks[taskNumber-1].description);
-    }
-
-    public static void notDone(Task[] tasks, int taskNumber) {
-        tasks[taskNumber-1].unmark();
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t [ ] " + tasks[taskNumber-1].description);
-    }
-
-    public static void main(String[] args) {
-        Duke.hello();
+    public static void echo() throws DukeException{
         String line;
         Scanner inPut = new Scanner(System.in);
+        line = inPut.nextLine();
 
+        if (line.equals("bye")) {
+            System.out.println("Bye. See you soon!");
+            System.exit(0);
+        }
+        else if (line.equals("list")) {
+            System.out.println("Here is the task list:\n");
+            Task[] print = Arrays.copyOf(task,counter);
+            for (Task p : print) {
+                System.out.println(sub + ". " + p);
+                sub++;
+            }
+            System.out.println("\n");
+            sub = 1;
+        }
+        else if (line.contains("done")) {
+            String[] words = line.split(" ");
+            if (words.length < 2 || words[1].trim().equals("")) {
+                throw new DukeException("OOPS!!! Please enter which task is done\n");
+            }
+            int num = Integer.parseInt(words[1]);
+            if (num > counter) {
+                throw new DukeException("OOPS!!! Please enter a valid task number\n");
+            }
+            if (task[num-1].getStatusIcon().equals("\u2713")) {
+                throw new DukeException("OOPS!!! The task has already been completed\n");
+            }
+            else {
+                System.out.println("Good job! I've marked this task as done:");
+//                list[n-1].setStatus(true);
+                System.out.println(task[num-1] + "\n");
+            }
+        }
+        else {
+            handle(line);
+            System.out.println("Task added:");
+            System.out.println(task[counter]);
+            counter++;
+            System.out.println("Total " + counter + " tasks in the list.\n");
+        }
+    }
 
-        do {
-            line = inPut.nextLine();
-
-            if (line.toLowerCase().contains("bye")) {
-                Duke.exit();
-                break;
+    public static void main(String[] args) throws DukeException {
+        String greet = "Hi! This is Duke\n" + "What can I do for you?\n";
+        System.out.println(greet);
+        while(true) {
+            try {
+                echo();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
-            if (line.toLowerCase().startsWith("list")) {
-                Duke.showTask(Arrays.copyOf(tasks,taskCount));
-                continue;
-            }
-            if (line.toLowerCase().startsWith("mark")) {
-                Duke.asDone(Arrays.copyOf(tasks,taskCount),Duke.getNum(line));
-                continue;
-            }
-            if (line.toLowerCase().startsWith("unmark")) {
-                Duke.notDone(Arrays.copyOf(tasks,taskCount),Duke.getNum(line));
-                continue;
-            }
-            if (line.toLowerCase().startsWith("todo") || line.toLowerCase().startsWith("deadline") || line.toLowerCase().startsWith("event")) {
-                String[] arrOfLine =  line.split(" ", 2);
-                System.out.println("\tGot it. I've added this task:");
-                Duke.addTask(arrOfLine[0], arrOfLine[1]);
-                continue;
-            }
-            Duke.oneMore(new Task(line));
-            Duke.echo(line);
-        } while (true);
-
+        }
     }
 }

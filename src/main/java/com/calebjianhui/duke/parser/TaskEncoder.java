@@ -7,14 +7,18 @@ import com.calebjianhui.duke.taskmanager.ToDos;
 
 import java.util.ArrayList;
 
+/**
+ * Encode a given task for storage purposes
+ **/
 public class TaskEncoder {
     private static final String ENCODING_SEPARATOR = " /| ";
 
     /**
      * Encode a given task list
      *
-     * @return Arraylist containing the encoded task
-     * **/
+     * @param taskList Arraylist containing the tasks to be encoded
+     * @return Arraylist containing the encoded task in string format
+     **/
     public static ArrayList<String> encodeTaskList(ArrayList<Task> taskList) {
         ArrayList<String> taskStringList = new ArrayList<>();
         for (Task task: taskList) {
@@ -26,8 +30,10 @@ public class TaskEncoder {
     /**
      * Encode a given task
      *
+     * @param task Task to be encoded
      * @return Encoded task in string format
-     * **/
+     * @throws AssertionError Should there be an invalid task type received
+     **/
     private static String encodeTask(Task task) {
         String type = task.getType();
         String description;

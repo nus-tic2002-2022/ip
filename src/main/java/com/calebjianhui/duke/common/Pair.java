@@ -1,5 +1,8 @@
 package com.calebjianhui.duke.common;
 
+/**
+ * A Custom data structure that contains 2 template variables
+ */
 public class Pair<T, U> {
     private final T first;
     private final U second;

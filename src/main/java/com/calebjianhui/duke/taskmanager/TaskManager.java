@@ -14,8 +14,11 @@ import com.calebjianhui.duke.ui.DukeUI;
 import com.calebjianhui.duke.ui.Messages;
 
 import java.time.LocalDateTime;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Singleton creation of task manager
@@ -27,6 +30,11 @@ public class TaskManager {
     private final DukeUI ui;
     private final ArrayList<Task> taskList;
 
+    /**
+     * TaskManager constructor
+     * - Private constructor to hold a singleton design.
+     * - Create a new instance of DukeUI and ArrayList
+     */
     private TaskManager () {
         ui = new DukeUI();
         taskList = new ArrayList<>();
@@ -34,7 +42,7 @@ public class TaskManager {
 
     /**
      * Singleton method to get the current instance, else instantiate a new instance
-     * **/
+     **/
     public static synchronized TaskManager getInstance( ) {
         if (taskManager == null)
             taskManager = new TaskManager();
@@ -42,15 +50,21 @@ public class TaskManager {
     }
 
     /**
-     * Get a set of all possible type alias
-     * **/
+     * Get a set of all possible task type alias
+     *
+     * @return A set containing the alias of all task type
+     **/
     public Set<String> getAllPossibleTypes() {
         return new HashSet<>(Arrays.asList(ToDos.TYPE_INDICATOR, Event.TYPE_INDICATOR, Deadline.TYPE_INDICATOR, FixedDurationTask.TYPE_INDICATOR));
     }
 
     /**
-     * Decode the task type based on the given alias
-     * **/
+     * Decode the task type based on the given task type alias
+     *
+     * @param alias TaskType alias
+     * @return TaskType based on the given alias
+     * @throws AssertionError If an invalid task type alias is given
+     **/
     public TaskType decodeTypeAlias(String alias) {
         if (ToDos.TYPE_INDICATOR.equals(alias)) {
             return TaskType.TODO;
@@ -73,7 +87,7 @@ public class TaskManager {
      *
      * @param inputTaskList Task list to print from
      * @return Formatted String of tasks in task list
-     * **/
+     **/
     private String getTaskListString(ArrayList<Task> inputTaskList) {
         String output = "";
         for (int i = 0; i < inputTaskList.size(); i++) {
@@ -86,6 +100,13 @@ public class TaskManager {
         return output;
     }
 
+    /**
+     * Formatted string to display all DateModule task in the provided task list
+     *
+     * @param dateTasks Task list (containing DateModule type task only)
+     * @return Formatted String of tasks in the given task list
+     * @throws AssertionError Should a non-DateModule task be provided
+     **/
     private String formatDateModuleTasks(ArrayList<Task> dateTasks) {
         StringBuilder scheduleTaskDetails = new StringBuilder();
         // Pair<T, U>, T = sorted, U = unsorted
@@ -124,7 +145,8 @@ public class TaskManager {
 
     /**
      * List all the task in the task queue
-     * **/
+     * - Calls another method indicating a normal listing of task
+     **/
     public void listTask() {
         listTask(new Pair<>(ListCommandType.NORMAL, ""));
     }
@@ -132,7 +154,11 @@ public class TaskManager {
     /**
      * List all the task in the task queue
      * - Overloaded variant to have detailed listing of tasks
-     * **/
+     *
+     * @param listType Based on the given list command, display the relevant listing
+     * @throws AssertionError Should an invalid ListCommandType be received
+     * @see ListCommandType For detailing explanation of type of listing view
+     **/
     public void listTask(Pair<ListCommandType, String> listType) {
         // Check if task list is empty
         if (taskList.isEmpty()) {
@@ -198,8 +224,9 @@ public class TaskManager {
     /**
      * Find all task with relations to a keyword
      *
+     * @param isCharacterSearch Whether to perform a character search or word search
      * @param keyword Keyword to search for
-     * **/
+     **/
     public void findTask(boolean isCharacterSearch, String keyword) {
         try {
             // Check if task list is empty
@@ -231,7 +258,7 @@ public class TaskManager {
      * Retrieve the tasklist in string format for encoding purposes
      *
      * @return Arraylist containing all the task in a formatted String format.
-     * **/
+     **/
     public ArrayList<String> getAllTask() {
         return TaskEncoder.encodeTaskList(taskList);
     }
@@ -239,8 +266,8 @@ public class TaskManager {
     /**
      * Return the current amount of task
      *
-     * @return String containing the amount of task
-     * **/
+     * @return Formatted string containing the amount of task
+     **/
     private String getTaskAmount() {
         return "You currently have " + taskList.size() + " task in your list.";
     }
@@ -250,7 +277,7 @@ public class TaskManager {
      *
      * @param selected The selected task
      * @return String containing the task details
-     * **/
+     **/
     private static String getTaskDetails(Task selected) {
         // Type
         String details = "[".concat(selected.getType()).concat("]");
@@ -264,11 +291,12 @@ public class TaskManager {
     /**
      * Add a task to the task list
      *
+     * @param isSilent Should there be any results displayed to the user
      * @param type Type of task to be added
+     * @param isDone Whether the task is marked as done
      * @param command Task to be added
-     *
-     * @return Should the action be successful
-     * **/
+     * @return Should there be any changes made to the task list
+     **/
     public boolean addToTaskList(boolean isSilent, TaskType type, boolean isDone, String command) {
         try {
             String[] commandList;
@@ -342,9 +370,9 @@ public class TaskManager {
      *
      * @param updateFieldType Field to update
      * @param index Index of selected task
-     *
-     * @return Should the action be successful
-     * **/
+     * @param details Details to update to the new field
+     * @return Should there be any changes made to the task list
+     **/
     public boolean updateTask(UpdateCommandType updateFieldType, int index, String details) {
         try {
             // Check if task list is empty
@@ -417,9 +445,8 @@ public class TaskManager {
      * Clone a task based on the index
      *
      * @param index Index of the task in the arraylist
-     *
-     * @return Should the action be successful
-     * **/
+     * @return Should there be any changes made to the task list
+     **/
     public boolean cloneTask(int index) {
         try {
             // Check if task list is empty
@@ -464,9 +491,8 @@ public class TaskManager {
       * Delete a task based on the index
       *
       * @param index Index of the task in the arraylist
-     *
-     * @return Should the action be successful
-      * **/
+      * @return Should there be any changes made to the task list
+      **/
     public boolean deleteTask(int index) {
         try {
             // Check if task list is empty

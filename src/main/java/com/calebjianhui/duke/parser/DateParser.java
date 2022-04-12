@@ -12,6 +12,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * A parser that handles date input
+ */
 public class DateParser {
     private final static String OUTPUT_STRING_FORMAT = "dd/MM/yyyy hh.mm a";
     private final static List<String> datetimeFormats = Arrays.asList(

@@ -8,6 +8,13 @@ import com.calebjianhui.duke.ui.DukeUI;
 
 import java.util.Scanner;
 
+/**
+ * The Duke program implements a task manager that keep tracks
+ * of various tasks based on input given by user
+ *
+ * @author calebjianhui
+ * @version 1.0
+ */
 public class Duke {
     DukeUI ui;
 
@@ -16,29 +23,28 @@ public class Duke {
     }
 
     /**
-     * Main logic to run the program
-     * **/
+     * Main method to start off the entire program
+     * - Display a welcome message to user & read and act upon input given by user
+     **/
     public void run() {
-        // Instantiate required packages
-        ui = new DukeUI();
-
         // Start up tasks
+        ui = new DukeUI();
         ui.printWelcomeMessage(FileHandler.readAndUpdateTask());
         readCommandTillExitLoop();
     }
 
     /**
-     * Perform a loop to constantly read the user's input till termination
-     * **/
+     * Constantly read and decipher user's input till an exit command is received from the user
+     **/
     private void readCommandTillExitLoop() {
         InputParser pr = new InputParser(new Scanner(System.in));
         Command command = null;
 
-        // Constantly loop till break command is received
+        // Constantly loop till exit command is received
         while (!(command instanceof ExitCommand)) {
             command = pr.parseCommand();
             boolean isUpdated = command.execute();
-            // Save to file should there be updates
+            // Save to file should there be updates to the task list
             if (isUpdated) {
                 FileHandler.saveTask();
             }

@@ -1,5 +1,8 @@
 package com.calebjianhui.duke.ui;
 
+/**
+ * This class simply holds most template messages to display to the user
+ **/
 public class Messages {
     // Public Variables
     protected static final String MESSAGE_LOGO =

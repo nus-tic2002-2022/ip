@@ -6,13 +6,26 @@ import com.calebjianhui.duke.parser.DateParser;
 
 import java.time.LocalDateTime;
 
+/**
+ * A task that has a deadline
+ **/
 public class Deadline extends Task implements DateModule{
+    // Command separator given by user (to separate description from date)
     public static final String COMMAND_SEPARATOR = " /by ";
+    // For UI purposes to differentiate type of task
     public static final String TYPE_INDICATOR = "D";
 
+    // Variables needed:
     private String rawDate;
     private Pair<TaskDateStructure, LocalDateTime> dateStructure;
 
+    /**
+     * Deadline constructor
+     *
+     * @param isDone Whether the task is done
+     * @param description Description of task
+     * @param dueDate Due date of task
+     **/
     public Deadline (boolean isDone, String description, String dueDate) {
         super(isDone, description);
         this.setDate(dueDate);
@@ -21,8 +34,8 @@ public class Deadline extends Task implements DateModule{
     /**
      * Getter for description
      *
-     * @return Description of task
-     * **/
+     * @return Formatted Description of task
+     **/
     public String getDescription() {
         return description + " (by: " + rawDate + ")";
     }
@@ -44,7 +57,9 @@ public class Deadline extends Task implements DateModule{
 
     /**
      * Gets the raw description (as given by user)
-     * **/
+     *
+     * @return Full description including date (as given by user)
+     **/
     @Override
     public String getRawDescription() {
         return description + COMMAND_SEPARATOR + rawDate;
@@ -52,22 +67,28 @@ public class Deadline extends Task implements DateModule{
 
     /**
      * Getter for type of task
-     * **/
+     *
+     * @return Type of task
+     **/
     public String getType() {
         return TYPE_INDICATOR;
     }
 
     /**
-     * Get the current date structure
-     * **/
+     * Get the current date structure of the task
+     *
+     * @return Pair<TaskDateStructure, LocalDateTime> of Task
+     **/
     @Override
     public Pair<TaskDateStructure, LocalDateTime> getDateStructure() {
         return dateStructure;
     }
 
     /**
-     * Set the date of the task
-     * **/
+     * Sets the date for the task
+     *
+     * @param newDate New date of the task
+     **/
     @Override
     public void setDate(String newDate) {
         this.rawDate = newDate;
@@ -75,8 +96,11 @@ public class Deadline extends Task implements DateModule{
     }
 
     /**
-     * Get the date of the task
-     * **/
+     * Gets the date for the task
+     *
+     * @param isFormatted Whether to return the formatted date
+     * @return Date of the task
+     **/
     @Override
     public String getDate(boolean isFormatted) {
         if (isFormatted) {

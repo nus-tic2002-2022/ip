@@ -12,25 +12,35 @@ import java.util.Scanner;
 
 /**
  * Parser to interpret given inputs from user
- * - Convert to different types of commands which will then perform their own actions
- * - Perform minor checks, does not check with task list. This is done is the task manager.
+ * - Convert to different types of commands which will then perform their own actions.
+ * - Perform minor checks, does not check with task list. This is done in the task manager.
  */
 public class InputParser {
     private Scanner in ;
     DukeUI ui;
 
+    /**
+     * InputParser constructor
+     */
     private InputParser() {
         ui = new DukeUI();
     }
 
+    /**
+     * InputParser constructor
+     *
+     * @param in Input stream
+     */
     public InputParser(Scanner in) {
         this();
         this.in = in;
     }
 
     /**
-     * Read input from user and decipher the given command
-     * **/
+     * Read the next input from user and determine the command that the user is specifying
+     *
+     * @return Command given by user. Any unrecognised command will default to InvalidCommand
+     **/
     public Command parseCommand() {
         String input = in.nextLine();
         if (ExitCommand.isCommandWord(input)) {
@@ -45,10 +55,14 @@ public class InputParser {
     }
 
     /**
-     * Determine the action to perform based on user's command
+     * Based on the given input, craft out the related commands that it is referring to
      *
      * @param command Input command from user
-     * **/
+     * @return Command that correspond to the input given by user
+     * @throws UnsupportedOperationException For malformed commands given by user
+     * @throws MalformedParametersException For malformed parameters given by user
+     * @throws IndexOutOfBoundsException Invalid index of task given by user
+     **/
     private Command determineAction(String command) throws UnsupportedOperationException, IndexOutOfBoundsException, MalformedParametersException {
         // Check and evaluate for multi-word command
         String[] commandList = command.split(" ");

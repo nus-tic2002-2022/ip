@@ -110,12 +110,12 @@ Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Noted. I've sorted the list by date: 
 1.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
 2.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
-3.[T] [X] read a book
-4.[T] [ ] read textbook
-5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
+3.[D] [ ] submit duke project (by: 2022-04-11T23:59)
+4.[T] [X] read a book
+5.[T] [ ] read textbook
 Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Here are the matching task(s) in your list: 
-0.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
-1.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+1.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
+2.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
 There are 2 matching task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Bye. Hope to see you again soon!

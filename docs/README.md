@@ -52,7 +52,7 @@ Prerequisites:
 Ensure that you have Java 17 on your machine. 
 
 1. Download duke-JAR_v4.zip.
-2. Unzip the file. You should see "data" and "docs" folder and "duke.Duke.jar".
+2. Unzip the file. You should see "data" and "docs" folder and "duke.Duke.jar". [If there is no "data" folder, kindly create the "data" folder.]
 3. Open command prompt/ terminal from the folder.
 4. Type `java -jar duke.Duke.jar` in the command prompt/ terminal.
 5. Duke will start.

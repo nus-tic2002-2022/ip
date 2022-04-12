@@ -28,17 +28,17 @@ Here are the commands you can type:
 Find more in docs/README.md!
 
 What can I do for you? (type 'help' if you need help to remember the commands) Nice! I've added this task: 
-[D] [ ] submit duke project (by: 2022-04-11T23:59)
+[D] [ ] submit duke project (by: 2022-04-17T23:59)
 Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Nice! I've added this task: 
-[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) 1.[T] [X] read a book
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
 4.[T] [ ] read textbook
-5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-6.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+5.[D] [ ] submit duke project (by: 2022-04-17T23:59)
+6.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Sorry, I don't understand. 
 Here are the commands you can type: 
@@ -77,8 +77,8 @@ What can I do for you? (type 'help' if you need help to remember the commands) 1
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
 4.[T] [ ] read textbook
-5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-6.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+5.[D] [ ] submit duke project (by: 2022-04-17T23:59)
+6.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
 7.[T] [ ] a
 Now you have 7 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Noted. I've removed this task: 
@@ -93,8 +93,8 @@ What can I do for you? (type 'help' if you need help to remember the commands) 1
 2.[D] [ ] submit duke (by: 2022-03-16T18:00)
 3.[E] [X] tic2002 class (at: 2022-03-23T19:00)
 4.[T] [ ] read textbook
-5.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-6.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+5.[D] [ ] submit duke project (by: 2022-04-17T23:59)
+6.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
 Now you have 6 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) OK, I've marked this task as not done yet: 
 [E] [ ] tic2002 class (at: 2022-03-23T19:00)
@@ -104,18 +104,18 @@ Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) 1.[T] [X] read a book
 2.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
 3.[T] [ ] read textbook
-4.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-5.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+4.[D] [ ] submit duke project (by: 2022-04-17T23:59)
+5.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
 Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Noted. I've sorted the list by date: 
 1.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
-2.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
-3.[D] [ ] submit duke project (by: 2022-04-11T23:59)
-4.[T] [X] read a book
-5.[T] [ ] read textbook
+2.[T] [X] read a book
+3.[T] [ ] read textbook
+4.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
+5.[D] [ ] submit duke project (by: 2022-04-17T23:59)
 Now you have 5 task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Here are the matching task(s) in your list: 
 1.[E] [ ] tic2002 class (at: 2022-03-23T19:00)
-2.[E] [ ] TIC2002 class (at: 2022-04-06T19:00)
+4.[E] [ ] TIC2002 class (at: 2022-04-13T19:00)
 There are 2 matching task(s) in the list.
 What can I do for you? (type 'help' if you need help to remember the commands) Bye. Hope to see you again soon!

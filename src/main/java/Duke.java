@@ -1,10 +1,11 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
     public static int counter = 0;
     public static int sub = 1;
-    public static Task[] task = new Task[100];
+    public static ArrayList<Task> task = new ArrayList<>();
 
     public static void handle(String t) throws DukeException {
         if (t.contains("todo")) {
@@ -12,13 +13,12 @@ public class Duke {
                 throw new DukeException("OOPS!!! The description of task cannot be empty.\n");
             }
             String description = t.substring(5);
-            Task[] print = Arrays.copyOf(task,counter);
-            for (Task p : print) {
-                if (p.description.equals(description)) {
+            for (Task l : task) {
+                if (l.description.equals(description)) {
                     throw new DukeException("OOPS!!! The task has already been added previously\n");
                 }
             }
-            task[counter] = new Todo(description);
+            task.add(new Todo(description));
         }
         else if (t.contains("deadline")) {
             if (t.trim().length() < 9) {
@@ -27,16 +27,15 @@ public class Duke {
             if (!t.contains("/")) {
                 throw new DukeException("OOPS!!! Please specify time.\n");
             }
-            int n = t.indexOf('/');
-            String description = t.substring(9, n-1);
-            String by = t.substring(n+4);
-            Task[] print = Arrays.copyOf(task,counter);
-            for (Task p : print) {
-                if (p.description.equals(description)) {
+            int num = t.indexOf('/');
+            String description = t.substring(9, num-1);
+            String by = t.substring(num+4);
+            for (Task l : task) {
+                if (l.description.equals(description)) {
                     throw new DukeException("OOPS!!! The task has already been added previously\n");
                 }
             }
-            task[counter] = new Deadline(description, by);
+            task.add(new Deadline(description, by));
         }
         else if (t.contains("event")) {
             if (t.trim().length() < 6) {
@@ -45,16 +44,15 @@ public class Duke {
             if (!t.contains("/")) {
                 throw new DukeException("OOPS!!! Please specify time.\n");
             }
-            int n = t.indexOf('/');
-            String description = t.substring(6, n-1);
-            String at = t.substring(n+4);
-            Task[] print = Arrays.copyOf(task,counter);
-            for (Task p : print) {
-                if (p.description.equals(description)) {
+            int num = t.indexOf('/');
+            String description = t.substring(6, num-1);
+            String what = t.substring(num+4);
+            for (Task l : task) {
+                if (l.description.equals(description)) {
                     throw new DukeException("OOPS!!! The task has already been added previously\n");
                 }
             }
-            task[counter] = new Event(description, at);
+            task.add(new Event(description, what));
         }
         else {
             throw new DukeException("OOPS!!! Please enter a valid task such as todo / deadline / event\n");
@@ -72,9 +70,8 @@ public class Duke {
         }
         else if (line.equals("list")) {
             System.out.println("Here is the task list:\n");
-            Task[] print = Arrays.copyOf(task,counter);
-            for (Task p : print) {
-                System.out.println(sub + ". " + p);
+            for (Task l : task) {
+                System.out.println(sub + ". " + l);
                 sub++;
             }
             System.out.println("\n");
@@ -89,19 +86,36 @@ public class Duke {
             if (num > counter) {
                 throw new DukeException("OOPS!!! Please enter a valid task number\n");
             }
-            if (task[num-1].getStatusIcon().equals("\u2713")) {
+            if (task.get(num-1).getStatusIcon().equals("\u2713")) {
                 throw new DukeException("OOPS!!! The task has already been completed\n");
             }
             else {
                 System.out.println("Good job! I've marked this task as done:");
 //                list[n-1].setStatus(true);
-                System.out.println(task[num-1] + "\n");
+                System.out.println(task.get(num-1) + "\n");
+            }
+        }
+        else if (line.contains("delete")) {
+            String[] words = line.split(" ");
+            if (words.length < 2 || words[1].trim().equals("")) {
+                throw new DukeException("Error: Please enter which task to be deleted\n");
+            }
+            int n = Integer.parseInt(words[1]);
+            if (n > counter) {
+                throw new DukeException("Error: Please enter a valid task number\n");
+            }
+            else {
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(task.get(n-1));
+                task.remove(n-1);
+                counter--;
+                System.out.println("Now you have " + counter + " tasks in the list.\n");
             }
         }
         else {
             handle(line);
             System.out.println("Task added:");
-            System.out.println(task[counter]);
+            System.out.println(task.get(counter));
             counter++;
             System.out.println("Total " + counter + " tasks in the list.\n");
         }

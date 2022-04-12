@@ -8,7 +8,7 @@ public class ToDos extends Task {
     public static final String TYPE_INDICATOR = "T";
 
     /**
-     * Deadline constructor
+     * ToDo constructor
      *
      * @param isDone Whether the task is done
      * @param description Description of task

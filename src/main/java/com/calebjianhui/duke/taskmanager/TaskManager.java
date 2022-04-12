@@ -488,28 +488,34 @@ public class TaskManager {
     }
 
     /**
-      * Delete a task based on the index
+      * Delete all tasks or a single task based on the index
       *
+      * @param isDeleteAll Whether to delete all tasks
       * @param index Index of the task in the arraylist
       * @return Should there be any changes made to the task list
       **/
-    public boolean deleteTask(int index) {
+    public boolean deleteTask(boolean isDeleteAll, int index) {
         try {
             // Check if task list is empty
             if (taskList.isEmpty()) {
                 throw new InvalidIndexException(InvalidIndexException.REPLY_NO_ONGOING_TASK);
             }
 
-            // Check if selected index is valid
-            if (index < 0 || index >= taskList.size()) {
-                throw new InvalidIndexException(InvalidIndexException.REPLY_INVALID_INDEX);
+            StringBuilder output = new StringBuilder();
+            if (isDeleteAll) {
+                taskList.clear();
+                output.append(Messages.REPLY_DELETE_ALL_TASK);
+            } else {
+                // Check if selected index is valid
+                if (index < 0 || index >= taskList.size()) {
+                    throw new InvalidIndexException(InvalidIndexException.REPLY_INVALID_INDEX);
+                }
+                // Delete task and send reply
+                output.append(Messages.REPLY_DELETE_TASK).append(getTaskDetails(taskList.get(index))).append("\n");
+                taskList.remove(index);
+                output.append(getTaskAmount());
             }
-
-            // Delete task and send reply
-            String output = Messages.REPLY_DELETE_TASK + getTaskDetails(taskList.get(index)) + "\n";
-            taskList.remove(index);
-            output += getTaskAmount();
-            ui.formatDukeReply(output);
+            ui.formatDukeReply(output.toString());
             return true;
         } catch (InvalidIndexException e) {
             ui.formatDukeReply(e.getMessage());

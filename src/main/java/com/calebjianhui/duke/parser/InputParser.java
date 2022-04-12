@@ -151,7 +151,7 @@ public class InputParser {
                 }
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
             case CloneCommand.COMMAND:
-                if (commandList.length > 2) {
+                if (commandList.length != 2) {
                     throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
                 }
 
@@ -162,15 +162,19 @@ public class InputParser {
                     throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
                 }
             case DeleteCommand.COMMAND:
-                if (commandList.length > 2) {
+                if (commandList.length != 2) {
                     throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
                 }
 
-                try {
-                    int index = Integer.parseInt(commandList[1]) - 1;
-                    return new DeleteCommand(index);
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
+                if (DeleteCommand.PARAMS_DELETE_ALL.equals(commandList[1])) {
+                    return new DeleteCommand(true, 1);
+                } else {
+                    try {
+                        int index = Integer.parseInt(commandList[1]) - 1;
+                        return new DeleteCommand(false, index);
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        throw new IndexOutOfBoundsException(InvalidCommand.INVALID_INDEX_MESSAGE);
+                    }
                 }
             default:
                 throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);

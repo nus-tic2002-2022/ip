@@ -201,7 +201,7 @@ public class Duke {
         System.out.println("What would you like to do ?");
         while(true) {
             try {
-                echo(); 
+                echo();
                 if (test) {
                     writeFile(FileLocation);
                 }

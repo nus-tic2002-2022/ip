@@ -128,12 +128,15 @@ public class TaskList {
      */
     protected void mark(UserInput input) {
         int index = 0;
-        if (input.item != null && !input.item.toString().equals("")) {
-            index = Integer.parseInt(input.item.toString());
-        }
-        Task task = getTask(index);
-        if (task != null) {
-            task.markAsDone();
+        String ids = input.item.toString();
+        for (String id : ids.split(",")) {
+            if (id != null) {
+                index = Integer.parseInt(id);
+            }
+            Task task = getTask(index);
+            if (task != null) {
+                task.markAsDone();
+            }
         }
         storage.save(tasks);
         printList();
@@ -146,12 +149,15 @@ public class TaskList {
      */
     protected void unmark(UserInput input) {
         int index = 0;
-        if (input.item != null) {
-            index = Integer.parseInt(input.item.toString());
-        }
-        Task task = getTask(index);
-        if (task != null) {
-            task.markAsUnDone();
+        String ids = input.item.toString();
+        for (String id : ids.split(",")) {
+            if (id != null) {
+                index = Integer.parseInt(id);
+            }
+            Task task = getTask(index);
+            if (task != null) {
+                task.markAsUnDone();
+            }
         }
         storage.save(tasks);
         printList();
@@ -161,7 +167,7 @@ public class TaskList {
      * Update all the tasks id after changes has been made to the arraylist
      * Used after deletion of arraylist
      */
-    protected void update() {
+    protected void updateIds() {
         for (int i = 0; i < tasks.size(); i++) {
             tasks.get(i).setId(i + 1);
         }
@@ -186,7 +192,7 @@ public class TaskList {
                 deleteTask(task);
             }
         }
-        update();
+        updateIds();
         storage.save(tasks);
         printList();
     }

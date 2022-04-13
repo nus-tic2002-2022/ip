@@ -41,32 +41,33 @@ public class Duke {
                 System.out.println("Date input format should be: yyyy-mm-dd");
                 continue;
             }
+
             if (input.command == UserInput.Command.NO) {
                 break;
             }
 
-            if (input.command != null) {
-                switch (input.command) {
-                    case LIST:
-                        tasks.printList();
-                        break;
-                    case MARK:
-                        tasks.mark(input);
-                        break;
-                    case UNMARK:
-                        tasks.unmark(input);
-                        break;
-                    case DELETE:
-                        tasks.delete(input);
-                        break;
-                    case FIND:
-                        tasks.findTasks(input.item.toString());
-                        break;
-                }
-            } else {
+            if (input.command == null) {
                 Integer id = tasks.getNextId();
                 Task newTask = new Task(id, input.item.toString());
                 tasks.insertTask(newTask, input);
+            }
+
+            switch (input.command) {
+                case LIST:
+                    tasks.printList();
+                    break;
+                case MARK:
+                    tasks.mark(input);
+                    break;
+                case UNMARK:
+                    tasks.unmark(input);
+                    break;
+                case DELETE:
+                    tasks.delete(input);
+                    break;
+                case FIND:
+                    tasks.findTasks(input.item.toString());
+                    break;
             }
         }
         UserInterface.close();

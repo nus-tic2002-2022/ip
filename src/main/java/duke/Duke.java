@@ -56,6 +56,14 @@ public class Duke {
         UserInterface.close();
     }
 
+
+    /**
+     * Decide action to perform on task based on user input
+     *
+     * @param tasks list
+     * @param input of users
+     *
+     */
     private static void taskAction(TaskList tasks, UserInput input) {
         switch (input.command) {
         case LIST:

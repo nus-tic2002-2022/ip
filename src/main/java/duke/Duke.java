@@ -20,7 +20,7 @@ public class Duke {
             System.out.print("\nCan I help you?\n");
             String command;
             command = in.nextLine();
-            assert command != null : "No input inserted";
+            assert command != null : "Ngo input inserted";
             input = new UserInput();
             tokens = command.split(" ");
 
@@ -51,25 +51,29 @@ public class Duke {
                 Task newTask = new Task(id, input.item.toString());
                 tasks.insertTask(newTask, input);
             }
-
-            switch (input.command) {
-            case LIST:
-                tasks.printList();
-                break;
-            case MARK:
-                tasks.mark(input);
-                break;
-            case UNMARK:
-                tasks.unmark(input);
-                break;
-            case DELETE:
-                tasks.delete(input);
-                break;
-            case FIND:
-                tasks.findTasks(input.item.toString());
-                break;
-            }
+            taskAction(tasks, input);
         }
         UserInterface.close();
     }
+
+    private static void taskAction(TaskList tasks, UserInput input) {
+        switch (input.command) {
+        case LIST:
+            tasks.printList();
+            break;
+        case MARK:
+            tasks.mark(input);
+            break;
+        case UNMARK:
+            tasks.unmark(input);
+            break;
+        case DELETE:
+            tasks.delete(input);
+            break;
+        case FIND:
+            tasks.findTasks(input.item.toString());
+            break;
+        }
+    }
 }
+

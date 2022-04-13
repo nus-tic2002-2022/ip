@@ -20,9 +20,6 @@ public class Messages {
     public static final String REPLY_DELETE_TASK = "Alright. I will delete this task.:\n\t";
     public static final String REPLY_DELETE_ALL_TASK = "Order received! I have cleared all your tasks and you can start anew from now.";
 
-    // Private Variables
-    private static final String[] MESSAGE_WELCOME_LIST = {"Test"};
-
     public static String getWelcomeMessage(boolean successMessage) {
         if (successMessage) {
             return "Hello! I'm Duke\nWe managed to load your saved tasks!\nWhat else can I do for you today?";

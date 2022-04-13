@@ -7,9 +7,11 @@ import com.calebjianhui.duke.ui.DukeUI;
  **/
 public class InvalidCommand extends Command {
     // Message to be displayed to user
-    public final static String INVALID_INDEX_MESSAGE = "Invalid task selected. Please select a valid task.";
-    public final static String UNKNOWN_COMMAND_MESSAGE = "Hmm, I don't understand what that means. Can you explain again?";
-    public final static String UNKNOWN_PARAMETERS_MESSAGE = "Hmm, I don't understand that parameter you specified. Can you check again?";
+    public static final String INVALID_INDEX_MESSAGE = "Invalid task selected. Please select a valid task.";
+    public static final String UNKNOWN_COMMAND_MESSAGE =
+            "Hmm, I don't understand what that means. Can you explain again?";
+    public static final String UNKNOWN_PARAMETERS_MESSAGE =
+            "Hmm, I don't understand that parameter you specified. Can you check again?";
 
     // Variables needed:
     private final String message;

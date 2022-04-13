@@ -1,9 +1,9 @@
 package com.calebjianhui.duke.commands;
 
-import com.calebjianhui.duke.ui.DukeUI;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.calebjianhui.duke.ui.DukeUI;
 
 /**
  * This command exits the program gracefully

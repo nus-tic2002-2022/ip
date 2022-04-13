@@ -1,11 +1,11 @@
 package com.calebjianhui.duke.parser;
 
+import java.util.ArrayList;
+
 import com.calebjianhui.duke.taskmanager.DateModule;
 import com.calebjianhui.duke.taskmanager.FixedDurationModule;
 import com.calebjianhui.duke.taskmanager.Task;
 import com.calebjianhui.duke.taskmanager.ToDos;
-
-import java.util.ArrayList;
 
 /**
  * Encode a given task for storage purposes
@@ -41,7 +41,7 @@ public class TaskEncoder {
             description = task.getDescription();
         } else if (task instanceof DateModule) {
             description = ((DateModule) task).getRawDescription();
-        } else if (task instanceof FixedDurationModule){
+        } else if (task instanceof FixedDurationModule) {
             description = ((FixedDurationModule) task).getRawDescription();
         } else {
             // Type of task should only consist of the above, therefore throw AssertionError
@@ -49,7 +49,7 @@ public class TaskEncoder {
             assert false : errorMessage;
             throw new AssertionError(errorMessage);
         }
-        return type.concat(ENCODING_SEPARATOR).concat(task.getDoneStatus() ? "M": "U")
+        return type.concat(ENCODING_SEPARATOR).concat(task.getDoneStatus() ? "M" : "U")
                 .concat(ENCODING_SEPARATOR).concat(description);
     }
 

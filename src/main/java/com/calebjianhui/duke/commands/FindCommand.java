@@ -37,5 +37,4 @@ public class FindCommand extends Command {
         TaskManager.getInstance().findTask(isCharacterSearch, keyword);
         return false;
     }
-    
 }

@@ -1,9 +1,9 @@
 package com.calebjianhui.duke.ui;
 
-import java.io.PrintStream;
-
 import static com.calebjianhui.duke.ui.Messages.MESSAGE_LOGO;
 import static com.calebjianhui.duke.ui.Messages.getWelcomeMessage;
+
+import java.io.PrintStream;
 
 /**
  * Handle all UI related matters in duke

@@ -11,6 +11,11 @@ public class InvalidIndexException extends Exception {
 
     private final String message;
 
+    /**
+     * InvalidIndexException constructor
+     *
+     * @param message Error message to be displayed to user
+     **/
     public InvalidIndexException(String message) {
         super();
         this.message = message;

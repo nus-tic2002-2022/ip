@@ -1,15 +1,15 @@
 package com.calebjianhui.duke.taskmanager;
 
+import java.time.LocalDateTime;
+
 import com.calebjianhui.duke.common.Pair;
 import com.calebjianhui.duke.enums.TaskDateStructure;
 import com.calebjianhui.duke.parser.DateParser;
 
-import java.time.LocalDateTime;
-
 /**
  * A task that has a deadline
  **/
-public class Deadline extends Task implements DateModule{
+public class Deadline extends Task implements DateModule {
     // Command separator given by user (to separate description from date)
     public static final String COMMAND_SEPARATOR = " /by ";
     // For UI purposes to differentiate type of task
@@ -77,7 +77,7 @@ public class Deadline extends Task implements DateModule{
     /**
      * Get the current date structure of the task
      *
-     * @return Pair<TaskDateStructure, LocalDateTime> of Task
+     * @return Pair&lt;TaskDateStructure, LocalDateTime&gt; of Task
      **/
     @Override
     public Pair<TaskDateStructure, LocalDateTime> getDateStructure() {

@@ -1,12 +1,12 @@
 package com.calebjianhui.duke;
 
+import java.util.Scanner;
+
 import com.calebjianhui.duke.commands.Command;
 import com.calebjianhui.duke.commands.ExitCommand;
 import com.calebjianhui.duke.parser.InputParser;
 import com.calebjianhui.duke.storage.FileHandler;
 import com.calebjianhui.duke.ui.DukeUI;
-
-import java.util.Scanner;
 
 /**
  * The Duke program implements a task manager that keep tracks
@@ -16,7 +16,6 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class Duke {
-    DukeUI ui;
 
     public static void main(String[] args) {
         new Duke().run();
@@ -28,7 +27,7 @@ public class Duke {
      **/
     public void run() {
         // Start up tasks
-        ui = new DukeUI();
+        DukeUI ui = new DukeUI();
         ui.printWelcomeMessage(FileHandler.readAndUpdateTask());
         readCommandTillExitLoop();
     }

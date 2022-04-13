@@ -1,11 +1,11 @@
 package com.calebjianhui.duke.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.calebjianhui.duke.common.Pair;
 import com.calebjianhui.duke.enums.UpdateCommandType;
 import com.calebjianhui.duke.taskmanager.TaskManager;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This command allows the updating the fields for a specific task in the task list.
@@ -42,7 +42,8 @@ public class UpdateCommand extends Command {
         this.details = details;
 
         assert updateFieldType != null : "UpdateCommand constructor cannot have null UpdateCommandType!";
-        assert (!(updateFieldType.equals(UpdateCommandType.INVALID_COMMAND))): "UpdateCommand constructor cannot be invalid.";
+        assert (!(updateFieldType.equals(UpdateCommandType.INVALID_COMMAND)))
+                : "UpdateCommand constructor cannot be invalid.";
     }
 
     /**

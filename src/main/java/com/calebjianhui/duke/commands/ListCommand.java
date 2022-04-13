@@ -1,11 +1,11 @@
 package com.calebjianhui.duke.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.calebjianhui.duke.common.Pair;
 import com.calebjianhui.duke.enums.ListCommandType;
 import com.calebjianhui.duke.taskmanager.TaskManager;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This command allows the listing of task in the task manager
@@ -42,7 +42,8 @@ public class ListCommand extends Command {
     public ListCommand(Pair<ListCommandType, String> listType) {
         this.listType = listType;
         assert listType != null : "ListCommand constructor cannot be null!";
-        assert (!(listType.getFirst().equals(ListCommandType.INVALID_COMMAND))): "ListCommand constructor cannot be invalid.";
+        assert (!(listType.getFirst().equals(ListCommandType.INVALID_COMMAND)))
+                : "ListCommand constructor cannot be invalid.";
     }
 
     /**

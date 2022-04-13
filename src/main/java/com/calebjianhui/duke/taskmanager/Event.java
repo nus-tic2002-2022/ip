@@ -1,10 +1,10 @@
 package com.calebjianhui.duke.taskmanager;
 
+import java.time.LocalDateTime;
+
 import com.calebjianhui.duke.common.Pair;
 import com.calebjianhui.duke.enums.TaskDateStructure;
 import com.calebjianhui.duke.parser.DateParser;
-
-import java.time.LocalDateTime;
 
 /**
  * A task that represents an event that is happening on a given date
@@ -77,7 +77,7 @@ public class Event extends Task implements DateModule {
     /**
      * Get the current date structure of the task
      *
-     * @return Pair<TaskDateStructure, LocalDateTime> of Task
+     * @return Pair&lt;TaskDateStructure, LocalDateTime&gt; of Task
      **/
     @Override
     public Pair<TaskDateStructure, LocalDateTime> getDateStructure() {

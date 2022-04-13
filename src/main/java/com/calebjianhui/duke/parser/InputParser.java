@@ -1,14 +1,21 @@
 package com.calebjianhui.duke.parser;
 
-import com.calebjianhui.duke.commands.*;
-import com.calebjianhui.duke.common.Pair;
-import com.calebjianhui.duke.enums.ListCommandType;
-import com.calebjianhui.duke.enums.UpdateCommandType;
-import com.calebjianhui.duke.ui.DukeUI;
-
 import java.lang.reflect.MalformedParametersException;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import com.calebjianhui.duke.commands.AddCommand;
+import com.calebjianhui.duke.commands.CloneCommand;
+import com.calebjianhui.duke.commands.Command;
+import com.calebjianhui.duke.commands.DeleteCommand;
+import com.calebjianhui.duke.commands.ExitCommand;
+import com.calebjianhui.duke.commands.FindCommand;
+import com.calebjianhui.duke.commands.InvalidCommand;
+import com.calebjianhui.duke.commands.ListCommand;
+import com.calebjianhui.duke.commands.UpdateCommand;
+import com.calebjianhui.duke.common.Pair;
+import com.calebjianhui.duke.enums.ListCommandType;
+import com.calebjianhui.duke.enums.UpdateCommandType;
 
 /**
  * Parser to interpret given inputs from user
@@ -16,14 +23,12 @@ import java.util.Scanner;
  * - Perform minor checks, does not check with task list. This is done in the task manager.
  */
 public class InputParser {
-    private Scanner in ;
-    DukeUI ui;
+    private Scanner in;
 
     /**
      * InputParser constructor
      */
     private InputParser() {
-        ui = new DukeUI();
     }
 
     /**
@@ -53,25 +58,25 @@ public class InputParser {
             String[] commandList = userInput.split(" ");
 
             switch (commandList[0]) {
-                case ListCommand.COMMAND:
-                    return craftListCommand(commandList);
-                case FindCommand.COMMAND:
-                    return craftFindCommand(commandList);
-                case UpdateCommand.MARK_COMMAND:
-                case UpdateCommand.UNMARK_COMMAND:
-                case UpdateCommand.EDIT_COMMAND:
-                    return craftUpdateCommand(commandList);
-                case AddCommand.TODO_COMMAND:
-                case AddCommand.EVENT_COMMAND:
-                case AddCommand.DEADLINE_COMMAND:
-                case AddCommand.FIXED_DURATION_COMMAND:
-                    return craftAddCommand(commandList);
-                case CloneCommand.COMMAND:
-                    return craftCloneCommand(commandList);
-                case DeleteCommand.COMMAND:
-                    return craftDeleteCommand(commandList);
-                default:
-                    throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+            case ListCommand.COMMAND:
+                return craftListCommand(commandList);
+            case FindCommand.COMMAND:
+                return craftFindCommand(commandList);
+            case UpdateCommand.MARK_COMMAND:
+            case UpdateCommand.UNMARK_COMMAND:
+            case UpdateCommand.EDIT_COMMAND:
+                return craftUpdateCommand(commandList);
+            case AddCommand.TODO_COMMAND:
+            case AddCommand.EVENT_COMMAND:
+            case AddCommand.DEADLINE_COMMAND:
+            case AddCommand.FIXED_DURATION_COMMAND:
+                return craftAddCommand(commandList);
+            case CloneCommand.COMMAND:
+                return craftCloneCommand(commandList);
+            case DeleteCommand.COMMAND:
+                return craftDeleteCommand(commandList);
+            default:
+                throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
             }
         } catch (UnsupportedOperationException | IndexOutOfBoundsException | MalformedParametersException e) {
             return new InvalidCommand(e.getMessage());
@@ -86,8 +91,10 @@ public class InputParser {
      * @throws UnsupportedOperationException For malformed commands given by user
      * @throws MalformedParametersException For malformed parameters given by user
      **/
-    private Command craftListCommand(String[] commandList) throws UnsupportedOperationException, MalformedParametersException {
-        assert ListCommand.COMMAND.equals(commandList[0]) : "Crafting of ListCommand requires a valid input command list.";
+    private Command craftListCommand(String[] commandList)
+            throws UnsupportedOperationException, MalformedParametersException {
+        assert ListCommand.COMMAND.equals(commandList[0])
+                : "Crafting of ListCommand requires a valid input command list.";
 
         // ListCommand have max word length of 2
         if (commandList.length > 2) {
@@ -117,7 +124,8 @@ public class InputParser {
      * @throws UnsupportedOperationException For malformed commands given by user
      **/
     private Command craftFindCommand(String[] commandList) throws UnsupportedOperationException {
-        assert FindCommand.COMMAND.equals(commandList[0]) : "Crafting of FindCommand requires a valid input command list.";
+        assert FindCommand.COMMAND.equals(commandList[0])
+                : "Crafting of FindCommand requires a valid input command list.";
 
         // FindCommand have a minimum word length of 2
         if (commandList.length <= 1) {
@@ -151,7 +159,8 @@ public class InputParser {
      * @throws MalformedParametersException For malformed parameters given by user
      * @throws IndexOutOfBoundsException Invalid index of task given by user
      **/
-    private Command craftUpdateCommand(String[] commandList) throws UnsupportedOperationException, IndexOutOfBoundsException, MalformedParametersException {
+    private Command craftUpdateCommand(String[] commandList)
+            throws UnsupportedOperationException, IndexOutOfBoundsException, MalformedParametersException {
         assert Arrays.asList(UpdateCommand.MARK_COMMAND, UpdateCommand.UNMARK_COMMAND, UpdateCommand.EDIT_COMMAND)
                 .contains(commandList[0]) : "Crafting of UpdateCommand requires a valid input command list.";
 
@@ -180,9 +189,9 @@ public class InputParser {
                     throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
                 }
                 return new UpdateCommand(
-                        commandList[0].equalsIgnoreCase(UpdateCommand.MARK_COMMAND) ?
-                                UpdateCommandType.MARK :
-                                UpdateCommandType.UNMARK,
+                        commandList[0].equalsIgnoreCase(UpdateCommand.MARK_COMMAND)
+                                ? UpdateCommandType.MARK
+                                : UpdateCommandType.UNMARK,
                         index, "");
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -198,8 +207,9 @@ public class InputParser {
      * @throws UnsupportedOperationException For malformed commands given by user
      **/
     private Command craftAddCommand(String[] commandList) throws UnsupportedOperationException {
-        assert Arrays.asList(AddCommand.TODO_COMMAND, AddCommand.EVENT_COMMAND, AddCommand.DEADLINE_COMMAND, AddCommand.FIXED_DURATION_COMMAND)
-                .contains(commandList[0]) : "Crafting of AddCommand requires a valid input command list.";
+        assert Arrays.asList(AddCommand.TODO_COMMAND, AddCommand.EVENT_COMMAND, AddCommand.DEADLINE_COMMAND,
+                        AddCommand.FIXED_DURATION_COMMAND).contains(commandList[0])
+                : "Crafting of AddCommand requires a valid input command list.";
 
         // AddCommand have a minimum word length of 2
         if (commandList.length <= 1) {
@@ -219,8 +229,10 @@ public class InputParser {
      * @throws UnsupportedOperationException For malformed commands given by user
      * @throws IndexOutOfBoundsException Invalid index of task given by user
      **/
-    private Command craftCloneCommand(String[] commandList) throws UnsupportedOperationException, IndexOutOfBoundsException {
-        assert CloneCommand.COMMAND.equals(commandList[0]) : "Crafting of CloneCommand requires a valid input command list.";
+    private Command craftCloneCommand(String[] commandList)
+            throws UnsupportedOperationException, IndexOutOfBoundsException {
+        assert CloneCommand.COMMAND.equals(commandList[0])
+                : "Crafting of CloneCommand requires a valid input command list.";
 
         // CloneCommand have a fixed word length of 2
         if (commandList.length != 2) {
@@ -243,8 +255,10 @@ public class InputParser {
      * @throws UnsupportedOperationException For malformed commands given by user
      * @throws IndexOutOfBoundsException Invalid index of task given by user
      **/
-    private Command craftDeleteCommand(String[] commandList) throws UnsupportedOperationException, IndexOutOfBoundsException {
-        assert DeleteCommand.COMMAND.equals(commandList[0]) : "Crafting of DeleteCommand requires a valid input command list.";
+    private Command craftDeleteCommand(String[] commandList)
+            throws UnsupportedOperationException, IndexOutOfBoundsException {
+        assert DeleteCommand.COMMAND.equals(commandList[0])
+                : "Crafting of DeleteCommand requires a valid input command list.";
 
         // DeleteCommand have a fixed word length of 2
         if (commandList.length != 2) {

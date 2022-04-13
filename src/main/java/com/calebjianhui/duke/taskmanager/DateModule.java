@@ -1,9 +1,9 @@
 package com.calebjianhui.duke.taskmanager;
 
+import java.time.LocalDateTime;
+
 import com.calebjianhui.duke.common.Pair;
 import com.calebjianhui.duke.enums.TaskDateStructure;
-
-import java.time.LocalDateTime;
 
 /**
  * Interface for all task that require a date
@@ -12,7 +12,7 @@ public interface DateModule {
     /**
      * Get the current date structure of the task
      *
-     * @return Pair<TaskDateStructure, LocalDateTime> of Task
+     * @return Pair&lt;TaskDateStructure, LocalDateTime&gt; of Task
      **/
     Pair<TaskDateStructure, LocalDateTime> getDateStructure();
 

@@ -1,7 +1,7 @@
 package com.calebjianhui.duke.commands;
 
-import com.calebjianhui.duke.taskmanager.TaskManager;
 import com.calebjianhui.duke.enums.TaskType;
+import com.calebjianhui.duke.taskmanager.TaskManager;
 
 /**
  * This command allows adding of various types of tasks to the task manager.

@@ -1,10 +1,5 @@
 package com.calebjianhui.duke.storage;
 
-import com.calebjianhui.duke.commands.AddCommand;
-import com.calebjianhui.duke.parser.TaskDecoder;
-import com.calebjianhui.duke.taskmanager.TaskManager;
-import com.calebjianhui.duke.ui.DukeUI;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.MalformedParametersException;
@@ -17,12 +12,19 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.calebjianhui.duke.commands.AddCommand;
+import com.calebjianhui.duke.parser.TaskDecoder;
+import com.calebjianhui.duke.taskmanager.TaskManager;
+import com.calebjianhui.duke.ui.DukeUI;
+
 /**
  * Handle all file related matters, mainly reading/writing of file
  */
 public class FileHandler {
-    private static final String CORRUPTED_FILE = "There is an issue reading your saved file, your task list might be corrupted.";
-    private static final String IO_ERROR = "An error occurred while accessing file.";
+    private static final String MESSAGE_CORRUPTED_FILE =
+            "There is an issue reading your saved file, your task list might be corrupted.";
+    private static final String MESSAGE_IO_ERROR = "An error occurred while accessing file.";
+
     private static final String FILE_PATH = "data/";
     private static final String FILE_NAME = "task_file.txt";
 
@@ -45,7 +47,7 @@ public class FileHandler {
         try {
             BufferedReader fileReader = Files.newBufferedReader(getFilePath(), StandardCharsets.UTF_8);
             String currentLine;
-            while((currentLine = fileReader.readLine()) != null) {
+            while ((currentLine = fileReader.readLine()) != null) {
                 fileContents.add(currentLine);
             }
             return fileContents;
@@ -110,7 +112,7 @@ public class FileHandler {
                 }
             }
         } catch (MalformedParametersException e) {
-            new DukeUI().formatDukeReply(CORRUPTED_FILE);
+            new DukeUI().formatDukeReply(MESSAGE_CORRUPTED_FILE);
             return false;
         }
         return true;
@@ -129,7 +131,7 @@ public class FileHandler {
             }
             writeFileContents(content.toString());
         } catch (IOException e) {
-            new DukeUI().formatDukeReply(IO_ERROR);
+            new DukeUI().formatDukeReply(MESSAGE_IO_ERROR);
         }
     }
 }

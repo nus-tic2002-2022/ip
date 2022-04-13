@@ -23,6 +23,10 @@ public class Task {
         return (isDone? "X" : " "); //mark done task with X
     }
 
+    public void setStatus(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }

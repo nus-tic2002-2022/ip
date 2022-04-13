@@ -1,18 +1,75 @@
-import java.util.Scanner;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     public static int counter = 0;
-    public static int sub = 1;
+    public static boolean test = true;
     public static ArrayList<Task> task = new ArrayList<>();
+
+    private static void writeFile(String filePath) throws IOException {
+        FileWriter wf = new FileWriter(filePath);
+        for (Task l : task) {
+            wf.write(l + System.lineSeparator());
+        }
+        wf.close();
+    }
+
+    private static void printFile(String filePath) throws DukeException , IOException {
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
+        if (!scanner.hasNext()) {
+            System.out.println("No existing data is found");
+        }
+        while (scanner.hasNext()) {
+            String current = scanner.nextLine();
+            System.out.println(current);
+            if (current.contains("[T]")) {
+                String description = current.substring(7);
+                task.add(new Todo(description));
+                if (current.contains("\u2713")) {
+                    task.get(counter).setStatus(true);
+                }
+            }
+            else if (current.contains("[D]")) {
+                int m = current.indexOf("(");
+                int n = current.indexOf(")");
+                String description = current.substring(7,m-1);
+                String by = current.substring(m+5,n);
+                task.add(new Deadline(description,by));
+                if (current.contains("\u2713")) {
+                    task.get(counter).setStatus(true);
+                }
+            }
+            else if (current.contains("[E]")) {
+                int m = current.indexOf("(");
+                int n = current.indexOf(")");
+                String description = current.substring(7,m-1);
+                String at = current.substring(m+5,n);
+                task.add(new Event(description,at));
+                if (current.contains("\u2713")) {
+                    task.get(counter).setStatus(true);
+                }
+            }
+            else {
+                throw new DukeException("OOPS!!! Task in existing data is incompatible\n");
+            }
+            counter++;
+        }
+    }
 
     public static void handle(String t) throws DukeException {
         if (t.contains("todo")) {
             if (t.trim().length() < 5) {
                 throw new DukeException("OOPS!!! The description of task cannot be empty.\n");
             }
-            String description = t.substring(5);
+            int i = t.toLowerCase().indexOf("todo");
+            String description = t.substring(i+4).trim();
             for (Task l : task) {
                 if (l.description.equals(description)) {
                     throw new DukeException("OOPS!!! The task has already been added previously\n");
@@ -27,6 +84,7 @@ public class Duke {
             if (!t.contains("/")) {
                 throw new DukeException("OOPS!!! Please specify time.\n");
             }
+            int num2 = t.toLowerCase().indexOf("deadline");
             int num = t.indexOf('/');
             String description = t.substring(9, num-1);
             String by = t.substring(num+4);
@@ -44,9 +102,10 @@ public class Duke {
             if (!t.contains("/")) {
                 throw new DukeException("OOPS!!! Please specify time.\n");
             }
+            int num2 = t.toLowerCase().indexOf("event");
             int num = t.indexOf('/');
-            String description = t.substring(6, num-1);
-            String what = t.substring(num+4);
+            String description = t.substring(num2+5, num).trim();
+            String what = t.substring(num+3).trim();
             for (Task l : task) {
                 if (l.description.equals(description)) {
                     throw new DukeException("OOPS!!! The task has already been added previously\n");
@@ -60,47 +119,51 @@ public class Duke {
     }
 
     public static void echo() throws DukeException{
-        String line;
         Scanner inPut = new Scanner(System.in);
-        line = inPut.nextLine();
+        String line = inPut.nextLine();
 
-        if (line.equals("bye")) {
+        if (line.trim().equalsIgnoreCase("bye")) {
             System.out.println("Bye. See you soon!");
             System.exit(0);
         }
-        else if (line.equals("list")) {
+        else if (line.trim().equalsIgnoreCase("list")) {
+            if(counter == 0){
+                throw new DukeException("Currently no items in the list\n");
+            }
             System.out.println("Here is the task list:\n");
+            int sub = 1;
             for (Task l : task) {
                 System.out.println(sub + ". " + l);
                 sub++;
             }
-            System.out.println("\n");
-            sub = 1;
+            test = false;
         }
-        else if (line.contains("done")) {
-            String[] words = line.split(" ");
-            if (words.length < 2 || words[1].trim().equals("")) {
-                throw new DukeException("OOPS!!! Please enter which task is done\n");
+        else if (line.toLowerCase().contains("done")) {
+            int m = line.toLowerCase().indexOf("done");
+            String text = line.substring(m+4).trim();
+            if(text.length() < 1){
+                throw new DukeException("OOPS!!! Please enter a done task \n");
             }
-            int num = Integer.parseInt(words[1]);
-            if (num > counter) {
-                throw new DukeException("OOPS!!! Please enter a valid task number\n");
+            int n = Integer.parseInt(text);
+            if (n > counter) {
+                throw new DukeException("Error: Please enter a valid task number\n");
             }
-            if (task.get(num-1).getStatusIcon().equals("\u2713")) {
-                throw new DukeException("OOPS!!! The task has already been completed\n");
+            if (task.get(n-1).getStatusIcon().equals("\u2713")) {
+                throw new DukeException("Error: Task has already been completed\n");
             }
             else {
-                System.out.println("Good job! I've marked this task as done:");
-//                list[n-1].setStatus(true);
-                System.out.println(task.get(num-1) + "\n");
+                System.out.println("Nice! I've marked this task as done:");
+                task.get(n-1).setStatus(true);
+                System.out.println(task.get(n-1) + "\n");
             }
         }
-        else if (line.contains("delete")) {
-            String[] words = line.split(" ");
-            if (words.length < 2 || words[1].trim().equals("")) {
+        else if (line.toLowerCase().contains("delete")) {
+            int m = line.toLowerCase().indexOf("delete");
+            String num = line.substring(m+6).trim();
+            if (num.length() < 1) {
                 throw new DukeException("Error: Please enter which task to be deleted\n");
             }
-            int n = Integer.parseInt(words[1]);
+            int n = Integer.parseInt(num);
             if (n > counter) {
                 throw new DukeException("Error: Please enter a valid task number\n");
             }
@@ -121,14 +184,33 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws DukeException {
-        String greet = "Hi! This is Duke\n" + "What can I do for you?\n";
-        System.out.println(greet);
+    public static void main(String[] args) {
+        System.out.println("Hello! I'm Duke\n" + "Let me load the existing data for you (if any)\n");
+        String FileLocation = "data/duke.txt";
+        String Directory = "./data/";
+        try {
+            Path path = Paths.get(Directory);
+            Files.createDirectories(path);
+            printFile(FileLocation);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            test = true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("What would you like to do ?");
         while(true) {
             try {
-                echo();
+                echo(); 
+                if (test) {
+                    writeFile(FileLocation);
+                }
+                test = true;
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                test = true;
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
         }
     }

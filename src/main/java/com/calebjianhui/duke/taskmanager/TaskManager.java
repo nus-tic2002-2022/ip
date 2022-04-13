@@ -193,19 +193,21 @@ public class TaskManager {
                     }
                     // Events / Deadlines on specific date
                     for (Task current: taskList) {
-                        if (current instanceof DateModule &&
-                                ((DateModule) current).getDateStructure().getFirst().equals(TaskDateStructure.VALID_DATE)) {
-                            if (((DateModule) current).getDateStructure().getSecond().toLocalDate().equals(givenDate.getSecond().toLocalDate())) {
+                        // Only look for DateModule tasks
+                        if (!(current instanceof DateModule)) {
+                            continue;
+                        }
+                        DateModule currentDateTask = (DateModule) current;
+                        if (currentDateTask.getDateStructure().getFirst().equals(TaskDateStructure.VALID_DATE)) {
+                            if (currentDateTask.getDateStructure().getSecond().toLocalDate().equals(givenDate.getSecond().toLocalDate())) {
                                 dateTasks.add(current);
                             }
                         }
                     }
                     if (dateTasks.isEmpty()) {
-                        scheduleTaskDetails.append("You have no upcoming task on ")
-                                .append(listType.getSecond()).append(".");
+                        scheduleTaskDetails.append("You have no upcoming task on ").append(listType.getSecond()).append(".");
                     } else {
-                        scheduleTaskDetails.append("You have the following upcoming tasks on ")
-                                .append(listType.getSecond()).append(":");
+                        scheduleTaskDetails.append("You have the following upcoming tasks on ").append(listType.getSecond()).append(":");
                     }
                 }
                 if (!(dateTasks.isEmpty())) {

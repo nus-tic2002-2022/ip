@@ -43,7 +43,7 @@ public class AddCommand extends Command {
      * @param isSilent Whether to display the results to the user
      * @param type Type of task
      * @param isDone If the task is to be marked as done
-     * @param command The remaining input given by the user after specifying the type of task     *
+     * @param command The remaining input given by the user after specifying the type of task
      */
     public AddCommand(boolean isSilent, TaskType type, boolean isDone, String command) {
         this.type = type;

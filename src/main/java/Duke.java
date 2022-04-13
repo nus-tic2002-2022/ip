@@ -68,6 +68,7 @@ public class Duke {
                     System.out.println("Great, job completed, Boss!\n" +
                             "I've marked this task as not done yet for you:");
                     System.out.println("[" + ud.getStatusIcon() + "] " + ud.description);
+                    saveFile("outputFiles/duke.txt");
                     separatingLine();
                 }
 
@@ -81,6 +82,11 @@ public class Duke {
                             "Please only enter an existing task number again, Boss!");
                     separatingLine();
                 }
+
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
 
             // mark task (with error handling):
@@ -93,6 +99,7 @@ public class Duke {
                     System.out.println("Great, job completed, Boss!\n" +
                             "I've marked this task as done for you:");
                     System.out.println("[" + d.getStatusIcon() + "] " + d.description);
+                    saveFile("outputFiles/duke.txt");
                     separatingLine();
                 }
 
@@ -105,6 +112,11 @@ public class Duke {
                             "Please only enter an existing task number again, Boss!");
                     separatingLine();
                 }
+
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
 
             //Add Deadline execution (with error handling):
@@ -140,6 +152,7 @@ public class Duke {
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
                     // counter++;
                     System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
+                    saveFile("outputFiles/duke.txt");
                     separatingLine();
 
                 }
@@ -171,6 +184,10 @@ public class Duke {
 
                 }
 
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
 
             //Add Tod0 execution (with error handling):
@@ -196,6 +213,7 @@ public class Duke {
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
                     // counter++;
                     System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
+                    saveFile("outputFiles/duke.txt");
                     separatingLine();
                 }
                 catch (DukeException e) {
@@ -215,6 +233,11 @@ public class Duke {
 
                     }
                 }
+
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
 
             //Add Event Execution (with error handling):
@@ -250,6 +273,7 @@ public class Duke {
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
                     // counter++;
                     System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
+                    saveFile("outputFiles/duke.txt");
                     separatingLine();
                 }
 
@@ -280,6 +304,10 @@ public class Duke {
 
                 }
 
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
 
             // add delete function (with error handling):
@@ -294,6 +322,8 @@ public class Duke {
                     System.out.println("Hey Boss! Got it. I've deleted this task for you:");
                     System.out.println(del.toString());
                     System.out.println("Now you have " + taskIcon.size() + " tasks in the list.");
+                    saveFile("outputFiles/duke.txt");
+                    separatingLine();
 
                 }
 
@@ -304,6 +334,10 @@ public class Duke {
                             "You only have a total of " + (taskIcon.size()) + " Task(s) in your List!\n" +
                             "Please only enter an existing task number again, Boss!");
                     separatingLine();
+                }
+
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
 
             }
@@ -413,7 +447,9 @@ public class Duke {
             Files.createDirectories(path);
             readFile(FileLocation);
         } catch (IOException e) {
-            System.out.println("OOPS!!! I'm sorry, Boss! I can't find the file!");
+            System.out.println("OOPS!!! I'm sorry, Boss! I can't find the file!\n" +
+                    "Please create the file first before proceed!");
+            separatingLine();
         }
 
 

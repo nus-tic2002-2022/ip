@@ -25,35 +25,35 @@ public class UserInput {
         try {
             for (int i = 0; i < tokens.length; i++) {
                 switch (tokens[i]) {
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        this.category = Category.valueOf(tokens[i].toUpperCase());
-                        break;
-                    case "/at":
-                        if (tokens.length > 2) {
-                            this.time = tokens[i + 2];
-                        }
-                    case "/by":
-                        if (tokens.length > 1) {
-                            this.day = LocalDate.parse(tokens[i + 1]);
-                        }
-                        return this;
-                    case "no":
-                    case "list":
-                        this.command = Command.valueOf(tokens[i].toUpperCase());
-                        return this;
-                    case "mark":
-                    case "unmark":
-                    case "delete":
-                    case "find":
-                        this.command = Command.valueOf(tokens[i].toUpperCase());
-                        if (tokens.length > 1) {
-                            this.item.append(tokens[i + 1]);
-                        }
-                        return this;
-                    default:
-                        this.item.append(tokens[i]).append(" ");
+                case "todo":
+                case "deadline":
+                case "event":
+                    this.category = Category.valueOf(tokens[i].toUpperCase());
+                    break;
+                case "/at":
+                    if (tokens.length > 2) {
+                        this.time = tokens[i + 2];
+                    }
+                case "/by":
+                    if (tokens.length > 1) {
+                        this.day = LocalDate.parse(tokens[i + 1]);
+                    }
+                    return this;
+                case "no":
+                case "list":
+                    this.command = Command.valueOf(tokens[i].toUpperCase());
+                    return this;
+                case "mark":
+                case "unmark":
+                case "delete":
+                case "find":
+                    this.command = Command.valueOf(tokens[i].toUpperCase());
+                    if (tokens.length > 1) {
+                        this.item.append(tokens[i + 1]);
+                    }
+                    return this;
+                default:
+                    this.item.append(tokens[i]).append(" ");
                 }
             }
         } catch (DateTimeParseException e) {

@@ -16,6 +16,7 @@ public class TaskList {
 
     /**
      * Find task with keyword exist in task description
+     *
      */
     protected void findTasks(String key) {
         assert !key.equals("") : "Cant find tasks with empty key";
@@ -34,6 +35,7 @@ public class TaskList {
 
     /**
      * Print all filtered tasks
+     *
      */
     protected void printFilteredList(ArrayList<Task> filteredTasks) {
         for (Task task : filteredTasks) {
@@ -44,6 +46,7 @@ public class TaskList {
 
     /**
      * Print all tasks
+     * 
      */
     protected void printList() {
         for (Task task : this.getAllTasks()) {

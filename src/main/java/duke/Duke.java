@@ -53,21 +53,21 @@ public class Duke {
             }
 
             switch (input.command) {
-                case LIST:
-                    tasks.printList();
-                    break;
-                case MARK:
-                    tasks.mark(input);
-                    break;
-                case UNMARK:
-                    tasks.unmark(input);
-                    break;
-                case DELETE:
-                    tasks.delete(input);
-                    break;
-                case FIND:
-                    tasks.findTasks(input.item.toString());
-                    break;
+            case LIST:
+                tasks.printList();
+                break;
+            case MARK:
+                tasks.mark(input);
+                break;
+            case UNMARK:
+                tasks.unmark(input);
+                break;
+            case DELETE:
+                tasks.delete(input);
+                break;
+            case FIND:
+                tasks.findTasks(input.item.toString());
+                break;
             }
         }
         UserInterface.close();

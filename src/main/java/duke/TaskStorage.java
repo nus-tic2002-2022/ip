@@ -59,20 +59,20 @@ public class TaskStorage implements Storage {
                 }
 
                 switch (tokens[1].charAt(0)) {
-                    case 'd':
-                        task = new Deadline(task, LocalDate.parse(tokens[4]));
-                        tasks.insertTask(task);
-                        break;
-                    case 'e':
-                        task = new Events(task, LocalDate.parse(tokens[4]), tokens[5]);
-                        tasks.insertTask(task);
-                        break;
-                    case 't':
-                        task = new Todo(task);
-                        tasks.insertTask(task);
-                        break;
-                    default:
-                        System.out.println("Line error");
+                case 'd':
+                    task = new Deadline(task, LocalDate.parse(tokens[4]));
+                    tasks.insertTask(task);
+                    break;
+                case 'e':
+                    task = new Events(task, LocalDate.parse(tokens[4]), tokens[5]);
+                    tasks.insertTask(task);
+                    break;
+                case 't':
+                    task = new Todo(task);
+                    tasks.insertTask(task);
+                    break;
+                default:
+                    System.out.println("Line error");
                 }
             }
             fr.close();

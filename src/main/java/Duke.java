@@ -7,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
 
@@ -146,8 +149,15 @@ public class Duke {
                     //Find the index number of '/'
                     int index3 = line.indexOf("/");
 
+                    //Create Date and Time Variables
+                    DateTimeFormatter Std = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    String UI = line.substring(index3+4);
+                    LocalDateTime UI_datetime = LocalDateTime.parse(UI, Std);
+
+                    String Format = UI_datetime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mma"));
+
                     //Initiate Deadline Class
-                    taskIcon.add(new Deadline(line.substring(9, index3-1),line.substring(index3+4)));
+                    taskIcon.add(new Deadline(line.substring(9, index3-1), Format));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
                     // counter++;
@@ -169,7 +179,7 @@ public class Duke {
                     if (e.getError().equals("Missing Deadline")) {
                         System.out.println("SORRY Boss! You have entered an invalid input (Missing Deadline)!\n" +
                                 "Please enter the task deadline with space before and after '/by' for this entry!\n" +
-                                "Example: 'deadline clean house /by 22 March 2022'\n" +
+                                "Example: 'deadline clean house /by 22/03/2022 2359'\n" +
                                 "Kindly try again, Boss!");
                         separatingLine();
                     }
@@ -177,7 +187,7 @@ public class Duke {
                     if (e.getError().equals("Invalid Format (Deadline)")) {
                         System.out.println("SORRY Boss! You have entered an invalid input (Wrong Format)!\n" +
                                 "Please enter the deadline description & deadline date with space after 'deadline' & '/by' for this entry!\n" +
-                                "Example: 'deadline clean house /by 22 March 2022'\n" +
+                                "Example: 'deadline clean house /by 22/03/2022 2359'\n" +
                                 "Kindly try again, Boss!");
                         separatingLine();
                     }
@@ -186,6 +196,14 @@ public class Duke {
 
                 catch (IOException e) {
                     System.out.println(e.getMessage());
+                }
+
+                catch (DateTimeParseException e) {
+                    System.out.println("OOPS! Sorry, Boss!!\n" +
+                            "You have entered the wrong format for the 'Date and Time'\n" +
+                            "Please enter the date and time in the format as: DD/MM/YYYY HHmm \n" +
+                            "Example: 22/03/2022 2359");
+                    separatingLine();
                 }
 
             }
@@ -267,8 +285,14 @@ public class Duke {
                     //Find Position of '/'
                     int index4 = line.indexOf("/");
 
+                    DateTimeFormatter Std = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    String UI = line.substring(index4+4);
+                    LocalDateTime UI_datetime = LocalDateTime.parse(UI, Std);
+
+                    String Format = UI_datetime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mma"));
+
                     //Initiate Event Class
-                    taskIcon.add(new Event(line.substring(6, index4-1),line.substring(index4+4)));
+                    taskIcon.add(new Event(line.substring(6, index4-1), Format));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
                     // counter++;
@@ -289,7 +313,7 @@ public class Duke {
                     if (e.getError().equals("Missing Event Date/Period")) {
                         System.out.println("SORRY Boss! You have entered an invalid input (Missing Date/Period)!\n" +
                                 "Please enter the event date/period with space before and after '/at' for this entry!\n" +
-                                "Example: 'event clean house /at 22 March 2022, 2-6pm'\n" +
+                                "Example: 'event clean house /at 22/03/2022 2359'\n" +
                                 "Kindly try again, Boss!");
                         separatingLine();
                     }
@@ -297,7 +321,7 @@ public class Duke {
                     if (e.getError().equals("Invalid Format (Event)")) {
                         System.out.println("SORRY Boss! You have entered an invalid input (Wrong Format)!\n" +
                                 "Please enter the event description & event date/period with space after 'event' & '/at' for this entry!\n" +
-                                "Example: 'event clean house /at 22 March 2022, 2-6pm'\n" +
+                                "Example: 'event clean house /at 22/03/2022 2359'\n" +
                                 "Kindly try again, Boss!");
                         separatingLine();
                     }
@@ -306,6 +330,14 @@ public class Duke {
 
                 catch (IOException e) {
                     System.out.println(e.getMessage());
+                }
+
+                catch (DateTimeParseException e) {
+                    System.out.println("OOPS! Sorry, Boss!!\n" +
+                            "You have entered the wrong format for the 'Date and Time'\n" +
+                            "Please enter the date and time in the format as: DD/MM/YYYY HHmm \n" +
+                            "Example: 22/03/2022 2359");
+                    separatingLine();
                 }
 
             }
@@ -392,7 +424,7 @@ public class Duke {
 
                 //Find '('
                 int by_pos = text.indexOf("(");
-                String Deadline = text.substring(23, by_pos-1);
+                String Deadline = text.substring(7, by_pos-1);
                 String by = text.substring(by_pos + 5, by_pos + 24);
 
                 taskIcon.add(new Deadline(Deadline, by));
@@ -409,7 +441,7 @@ public class Duke {
                 //Find '('
                 int at_pos = text.indexOf("(");
 
-                String Event = text.substring(23, at_pos-1);
+                String Event = text.substring(7, at_pos-1);
                 String at = text.substring(at_pos + 5, at_pos + 24);
 
                 taskIcon.add(new Event(Event, at));

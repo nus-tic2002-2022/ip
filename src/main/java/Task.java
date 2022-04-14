@@ -1,16 +1,6 @@
-public abstract class Task {
+public class Task {
     protected String description;
     protected boolean isDone;
-    protected String m_type;
-
-    protected void setType(String type) {
-        m_type = type;
-    }
-
-    public String getType() {
-        return m_type;
-    }
-
 
     public Task(String description) {
         this.description = description;
@@ -29,10 +19,9 @@ public abstract class Task {
         return description;
     }
 
-    public void markAsNotDone(){
-        this.isDone = false;
+    @Override
+    public String toString() {
+        return " [T]"+"["+getStatusIcon()+"] " + getDescription();
     }
-
-    public abstract void print(int index);
 
 }

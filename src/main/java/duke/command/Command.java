@@ -5,18 +5,21 @@ import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
 
+/**
+ * Abstract class to derive customised commands
+ */
 public abstract class Command {
 
-    protected String[] args;
+    protected Command() {}
 
-    public Command() {}
-
-    public Command(String[] args) {
-        this.args = args;
-    }
-
+    /**
+     * Abstract method to be implemented by derived command class
+     * @param taskList the task list that contains the tasks
+     * @param ui the CLI to show message to users
+     * @param storage the file that keeps the tasks in hard disk
+     * @throws DukeException for showing customised exception message
+     */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
 }

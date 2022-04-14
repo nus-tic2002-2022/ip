@@ -1,27 +1,42 @@
 package duke.parser;
 
 import duke.command.*;
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.TaskList;
-import duke.task.Todo;
+import duke.exception.*;
+import duke.task.*;
 
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+/**
+ * Parse user inputs to get command and related info
+ */
 public class Parser {
 
+    /**
+     * Convert task number to integer from user input
+     * @param args task number in string
+     * @return task number in integer
+     */
     public static int getTaskNumber(String args) {
         return Integer.parseInt(args) - 1;
     }
 
+    /**
+     * Parse command and related info from user input
+     * @param userInput source of command and related info
+     * @return {@link Command} to be executed
+     * @throws DukeException for showing customised exception message
+     */
     public Command parseCommand(String userInput) throws DukeException{
-        Command command = null;
+        Command command;
         String[] args = userInput.split(" ", 2);
         String commandWord = args[0].trim().toLowerCase();
         String[] desc;
+        String taskNumber;
+        String description;
+        String taskDate;
 
         switch (commandWord) {
             case "bye":
@@ -30,73 +45,112 @@ public class Parser {
             case "list":
                 command = new ListCommand();
                 break;
+            case "clear":
+                command = new ClearCommand();
+                break;
             case "mark":
-                command = new MarkCommand(args[1]);
+                try {
+                    taskNumber = args[1].trim();
+                } catch (Exception e) {
+                    throw new DukeException(DukeException.MISSING_TASK_NUMBER);
+                }
+                command = new MarkCommand(taskNumber, true);
                 break;
             case "unmark":
-                command = new UnmarkCommand(args[1]);
+                try {
+                    taskNumber = args[1].trim();
+                } catch (Exception e) {
+                    throw new DukeException(DukeException.MISSING_TASK_NUMBER);
+                }
+                command = new MarkCommand(taskNumber, false);
                 break;
             case "todo":
-                command = new AddCommand(new Todo(args[1]));
+                try {
+                    description = args[1].trim();
+                } catch (Exception e) {
+                    throw new DukeException(DukeException.INVALID_TODO_FORMAT);
+                }
+                command = new AddCommand(new Todo(description));
                 break;
             case "deadline":
-                desc = args[1].split("/by");
-                command = new AddCommand(new Deadline(desc[0], desc[1]));
+                try {
+                    desc = args[1].split("/by");
+                    description = desc[0].trim();
+                    taskDate = desc[1].trim();
+                } catch (Exception e) {
+                    throw new DukeException(DukeException.INVALID_DEADLINE_FORMAT);
+                }
+                command = new AddCommand(new Deadline(description, parseDate(taskDate)));
                 break;
             case "event":
-                desc = args[1].split("/at");
-                command = new AddCommand(new Event(desc[0], desc[1]));
+                try {
+                    desc = args[1].split("/at");
+                    description = desc[0].trim();
+                    taskDate = desc[1].trim();
+                } catch (Exception e) {
+                    throw new DukeException(DukeException.INVALID_EVENT_FORMAT);
+                }
+                command = new AddCommand(new Event(description, parseDateTime(taskDate)));
                 break;
             case "delete":
-                command = new DeleteCommand(args[1]);
+                try {
+                    taskNumber = args[1].trim();
+                } catch (Exception e) {
+                    throw new DukeException(DukeException.MISSING_TASK_NUMBER);
+                }
+                command = new DeleteCommand(taskNumber);
+                break;
+            case "find":
+                try {
+                    description = args[1].trim();
+                } catch (Exception e) {
+                    throw new DukeException(DukeException.INVALID_FIND_FORMAT);
+                }
+                command = new FindCommand(description);
                 break;
             default:
-                throw new DukeException("This command [" + commandWord + "] is not a valid command");
+                throw new DukeException(DukeException.INVALID_COMMAND + "[" + commandWord + "] /!\\");
         }
 
         return command;
 
     }
 
-    public Command parseCommandFromFile(String data) {
-        Command command = null;
-        String[] args = data.split("\\|", 2);
-        String commandWord = args[0].trim();
-        String[] desc;
+    /**
+     * Parse task date from user input
+     * @param s user input in String
+     * @return task date in YYYY-MM-DD format
+     * @throws DukeException for showing customised exception message
+     */
+    public LocalDate parseDate(String s) throws DukeException {
+        LocalDate localDate;
+        s = s.trim();
 
-        switch (commandWord) {
-            case "T":
-                desc = data.split("\\|",3);
-                command = new AddCommand(new Todo(desc[2].stripLeading()));
-                break;
-            case "D":
-                desc = data.split("\\|",4);
-                command = new AddCommand(new Deadline(desc[2].stripLeading(), desc[3]));
-                break;
-            case "E":
-                desc = data.split("\\|",4);
-                command = new AddCommand(new Event(desc[2].stripLeading(), desc[3]));
-                break;
+        try {
+            localDate = LocalDate.parse(s);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(DukeException.INVALID_DATE_FORMAT);
         }
-
-        return command;
+        return localDate;
     }
 
-    public Command parseDoneStatusFromFile(String data, int count) {
+    /**
+     * Parse task datetime from user input
+     * @param s user input in String
+     * @return task datetime in YYYY-MM-DD HH:mm format
+     * @throws DukeException for showing customised exception message
+     */
+    public LocalDateTime parseDateTime(String s) throws DukeException {
+        LocalDateTime localDateTime;
+        s = s.trim();
 
-        Command command = null;
-        String[] args = data.split("\\|", 3);
-        String status = args[1].trim();
-
-        switch (status) {
-            case "0":
-                command = new UnmarkCommand(Integer.toString(count));
-                break;
-            case "1":
-                command = new MarkCommand(Integer.toString(count));
-                break;
+        try {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            localDateTime = LocalDateTime.parse(s, format);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(DukeException.INVALID_DATETIME_FORMAT);
         }
-
-        return command;
+        return localDateTime;
     }
+
 }

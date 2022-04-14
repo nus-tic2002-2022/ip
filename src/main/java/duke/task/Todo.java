@@ -1,16 +1,27 @@
 package duke.task;
 
-import duke.task.Task;
-
+/**
+ * A type of task without deadline
+ */
 public class Todo extends Task {
-//    protected boolean isDone;
 
-    public Todo(String description) {
-        super (description);
+    public Todo() {
+        this("");
     }
 
+    public Todo(String description) {
+        super(description);
+        this.taskType = TaskType.TODO;
+    }
+
+    /**
+     * Return customised string to print for Todo task
+     * @return customised string
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
+
+
 }

@@ -1,3 +1,5 @@
+package duke;
+
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.exception.DukeException;
@@ -6,6 +8,7 @@ import duke.ui.Ui;
 import duke.parser.Parser;
 import duke.task.TaskList;
 import java.io.IOException;
+
 
 public class Duke {
 
@@ -18,7 +21,8 @@ public class Duke {
         storage = new Storage(filePath);
         try {
              taskList = new TaskList(storage.load());
-        } catch (IOException e) {
+        } catch (DukeException | IOException e) {
+            ui.show(e.getMessage());
             taskList = new TaskList();
         }
     }
@@ -51,4 +55,5 @@ public class Duke {
         new Duke("data/tasks.txt").run();
 
     }
+
 }

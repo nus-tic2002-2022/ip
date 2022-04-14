@@ -3,9 +3,12 @@ package duke.ui;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+/**
+ * Command line user interface
+ */
 public class Ui {
 
-    private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
     private final Scanner in;
     private final PrintStream out;
 
@@ -18,10 +21,10 @@ public class Ui {
         this.out = out;
     }
 
-    public void showByeMessage() {
-        showUser(MESSAGE_BYE);
-    }
-
+    /**
+     * Get user input from input stream
+     * @return user input
+     */
     public String getUserCommand() {
         out.print("Please enter your command: ");
         String fullLine = in.nextLine();
@@ -30,34 +33,39 @@ public class Ui {
             fullLine = in.nextLine();
         }
 
-        //showUser("Command received:" + fullLine);
-        return fullLine;
+        return fullLine.trim();
     }
 
+    /**
+     * Check if user input is empty
+     * @param userInput string to compare
+     * @return true if empty
+     */
     private boolean shouldIgnore(String userInput) {
         return userInput.trim().isEmpty();
     }
 
-    public void showUser(String... message) {
-        for (String m : message) {
-            out.println("\t" + m);
-        }
-    }
-
-    public void showWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-    }
-
+    /**
+     * Print message
+     * @param message information to show
+     */
     public void show(String message) {
         out.println(message);
     }
 
-    public void showLine() {
-        out.println("\t----------------------------------------");
+    /**
+     * Print Welcome message
+     */
+    public void showWelcomeMessage() {
+        //out.println();
+        String logo = "             " + " ____        _\n"
+                + "             " + "|  _ \\ _   _| | _____\n"
+                + " Hello! I am " + "| | | | | | | |/ / _ \\\n"
+                + "             " + "| |_| | |_| |   <  __/\n"
+                + "             " + "|____/ \\__,_|_|\\_\\___|\n";
+        out.println(logo);
+        out.print("What's your name? ");
+        out.println("Hello " + in.nextLine() + "!");
     }
+
 }

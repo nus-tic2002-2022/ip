@@ -7,22 +7,27 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 
 /**
- * Command to show all the tasks in the list
+ * Command to {@link TaskList} to find if specified tasks exists in the list
  */
-public class ListCommand extends Command {
+public class FindCommand extends Command {
 
     private static final String REPLY_MESSAGE = "\tHere are the tasks in your list:";
+    private final String args;
+
+    public FindCommand(String args) {
+        this.args = args;
+    }
 
     /**
-     * Execute ListCommand to list down all the tasks in the list
-     * @param taskList the task list that contains all the tasks
-     * @param ui the CLI to show all the tasks
+     * Execute FindCommand to find tasks by keyword
+     * @param taskList the task list to search from
+     * @param ui the CLI to show the tasks found
      * @param storage is not used in this method
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.show(REPLY_MESSAGE);
-        ArrayList<Task> tasks = taskList.getListOfSavedTask();
+        ArrayList<Task> tasks = taskList.findTaskByKeyword(args);
 
         if (!tasks.isEmpty()) {
             for (int i = 0; i < tasks.size(); i++) {
@@ -31,6 +36,5 @@ public class ListCommand extends Command {
         } else {
             ui.show("\t\t0 record found.");
         }
-
     }
 }

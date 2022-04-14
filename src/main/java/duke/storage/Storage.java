@@ -1,72 +1,91 @@
 package duke.storage;
 
-import duke.command.Command;
 import duke.exception.DukeException;
-import duke.parser.Parser;
 import duke.task.*;
-import duke.ui.Ui;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Access file for loading and saving tasks
+ */
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
+    private final ArrayList<String> data = new ArrayList<>();
 
     public Storage(String filePath){
         this.filePath = filePath;
     }
-    public ArrayList<String> data = new ArrayList<>();
-    private Ui ui;
-    public TaskList taskList;
-    private Storage storage;
 
-    public TaskList load() throws IOException {
+    /**
+     * Load tasks from file in specified path
+     * and call {@link TaskList} to add and update tasks
+     * @return TaskList contains tasks from file
+     * @throws DukeException for showing customised exception message
+     * @throws IOException will be thrown when encounter error writing to a file
+     */
+    public TaskList load() throws DukeException, IOException {
+
         File f = new File(filePath);
-        taskList = new TaskList();
-        ui = new Ui();
+        TaskList taskList = new TaskList();
 
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             String row = s.nextLine();
             data.add(row);
         }
-        classifyTask(data);
+        taskList.parseDataFromFile(data);
         return taskList;
     }
 
-    private void classifyTask(ArrayList<String> data) {
-        Command command;
-        ui.showLine();
-        ui.show("\tProcessing data from file");
-        ui.showLine();
+    /**
+     * Save tasks to file
+     * @param taskList list of tasks to save
+     * @throws IOException will be thrown when encounter error writing to a file
+     */
+    public void save(TaskList taskList) throws IOException {
 
-        int count = 1;
+        String taskTypeCode;
+        String status;
+        String description = "";
+        String dateTime = "";
+        StringBuilder dataToSave = new StringBuilder();
+        TaskType taskType;
 
-        for (String d : data) {
-            try {
-                command = new Parser().parseCommandFromFile(d);
-                command.execute(taskList, ui, storage);
-                command = new Parser().parseDoneStatusFromFile(d, count);
-                command.execute(taskList, ui, storage);
-            } catch (DukeException e) {
-                ui.show(e.getMessage());
+        for (int i = 0; i < taskList.getSize(); i++) {
+            taskType = taskList.getTaskByIndex(i).getTaskType();
+            taskTypeCode = taskType.getTaskTypeCode();
+            status = taskList.getTaskByIndex(i).getDoneStatus()? "1" : "0" ;
+
+            switch (taskType) {
+                case DEADLINE:
+                    description = taskList.getTaskByIndex(i).getDescription();
+                    Deadline d = (Deadline) taskList.getTaskByIndex(i);
+                    dateTime = " | " + d.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    break;
+                case EVENT:
+                    description = taskList.getTaskByIndex(i).getDescription();
+                    Event e = (Event) taskList.getTaskByIndex(i);
+                    dateTime = " | " + e.getAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    break;
+                case TODO:
+                    description = taskList.getTaskByIndex(i).getDescription();
+                    dateTime = "";
+                    break;
             }
-            count++;
-        }
-        ui.showLine();
-    }
 
-    public void save() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks = taskList.getListOfSavedTask();
-        FileWriter fw = new FileWriter(filePath);
-        for (Task l : tasks) {
-            fw.write(l + System.lineSeparator());
+            dataToSave.append(taskTypeCode).append(" | ").append(status).append(" | ").append(description).append(dateTime);
+            dataToSave.append(System.lineSeparator());
         }
+
+        assert filePath.endsWith("txt") : "file path should be ended with .txt";
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(dataToSave.toString());
+        fw.close();
     }
 
 }

@@ -16,10 +16,10 @@ public class DeleteCommand extends Command {
             Messages.DIVIDER_UNDERSCORE_EXTENDED + " Delete all or a specific task in the task list.\n"
                     + " The index specified should correspond to the index in the normal listing of tasks.\n"
                     + " Type 'list' to view the normal listing of tasks.\n\n"
-                    + " Usage:\n\tdelete (all|<index of task>)\n"
+                    + " Usage:\n    delete (all|<index of task>)\n"
                     + " Example:\n"
-                    + " \tdelete all\n"
-                    + " \tdelete 1\n"
+                    + "    delete all\n"
+                    + "    delete 1\n"
                     + Messages.DIVIDER_UNDERSCORE_EXTENDED;
 
     // Variables needed:

@@ -15,12 +15,12 @@ public class FindCommand extends Command {
     // Help page
     public static final String HELP_PAGE =
             Messages.DIVIDER_UNDERSCORE + " Find a task that have its description matching the keyword provided.\n"
-                    + " Default is word search\n\n"
-                    + " Usage:\n\tfind [-c] <keyword>\n\n"
-                    + " Options:\n\t-c\t Character Search. Default is word search.\n\n"
+                    + " Default is word search.\n\n"
+                    + " Usage:\n    find [-c] <keyword>\n\n"
+                    + " Options:\n    -c     Character Search. Default is word search.\n\n"
                     + " Example:\n"
-                    + " \tfind book\n"
-                    + " \tfind -c book\n"
+                    + "    find book\n"
+                    + "    find -c book\n"
                     + Messages.DIVIDER_UNDERSCORE;
 
     // Variables needed:

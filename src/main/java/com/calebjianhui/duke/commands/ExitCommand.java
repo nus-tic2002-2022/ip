@@ -13,7 +13,7 @@ public class ExitCommand extends Command {
     // Help page
     public static final String HELP_PAGE =
             Messages.DIVIDER_UNDERSCORE + " Exits the program.\n\n"
-                    + " Usage:\n\t(bye|quit|exit)\n"
+                    + " Usage:\n    (bye|quit|exit)\n"
                     + Messages.DIVIDER_UNDERSCORE;
 
     /**

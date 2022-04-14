@@ -29,14 +29,14 @@ public class ListCommand extends Command {
                     + " 1) Normal - View tasks in the order that they are added to the program.\n"
                     + " 2) Schedule - View event/deadlines sorted by date. Either view all or on a specific date.\n"
                     + " The default view is Normal.\n\n"
-                    + " Usage:\n\tlist [(-s/-n)] [<date>]\n"
+                    + " Usage:\n    list [(-s/-n)] [<date>]\n"
                     + " The accepted date format are: '28/03/2022' or '28-03-2022'.\n"
                     + " Do note that non-recognizable task date will be displayed as NA.\n\n"
                     + " Example:\n"
-                    + " \tlist\n"
-                    + " \tlist -s\n"
-                    + " \tlist -s 28/03/2022\n"
-                    + " \tlist -n\n"
+                    + "    list\n"
+                    + "    list -s\n"
+                    + "    list -s 28/03/2022\n"
+                    + "    list -n\n"
                     + Messages.DIVIDER_UNDERSCORE_EXTENDED;
 
     // Variables needed:

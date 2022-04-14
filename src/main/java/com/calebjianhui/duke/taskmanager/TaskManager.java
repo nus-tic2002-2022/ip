@@ -141,14 +141,14 @@ public class TaskManager {
         // Display tasks
         int i = 1;
         for (Task currentTask : sortedTask.getFirst()) {
-            scheduleTaskDetails.append("\n\t").append(i).append(". [")
+            scheduleTaskDetails.append("\n    ").append(i).append(". [")
                     .append(((DateModule) currentTask).getDate(true)).append("] ")
                     .append("[").append(currentTask.getType()).append("] ")
                     .append(((DateModule) currentTask).getDescription(false));
             i++;
         }
         for (Task currentTask : sortedTask.getSecond()) {
-            scheduleTaskDetails.append("\n\t").append(i).append(". [NA] ")
+            scheduleTaskDetails.append("\n    ").append(i).append(". [NA] ")
                     .append("[").append(currentTask.getType()).append("] ")
                     .append(currentTask.getDescription());
             i++;
@@ -420,7 +420,7 @@ public class TaskManager {
                 selected.setDoneStatus(isMark);
                 // Show updated status
                 String reply = isMark ? Messages.REPLY_UPDATE_MARK_TASK : Messages.REPLY_UPDATE_UNMARK_TASK;
-                reply = reply.concat("\n\t").concat(getTaskDetails(selected));
+                reply = reply.concat("\n    ").concat(getTaskDetails(selected));
                 ui.formatDukeReply(reply);
                 break;
             case EDIT_DATE:

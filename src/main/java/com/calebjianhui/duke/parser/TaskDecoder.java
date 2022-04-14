@@ -7,7 +7,7 @@ public class TaskDecoder {
     private static final String ENCODING_SEPARATOR = " /[|] ";
 
     /**
-     * Decode a given task
+     * Returns a string array containing the decoded tasks
      *
      * @param task String containing an encoded task string
      * @return String[] containing the decoded task

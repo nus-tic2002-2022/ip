@@ -1,6 +1,7 @@
 package com.calebjianhui.duke.commands;
 
 import com.calebjianhui.duke.taskmanager.TaskManager;
+import com.calebjianhui.duke.ui.Messages;
 
 /**
  * This command allows the search of tasks that have their description matching the word provided.
@@ -11,6 +12,16 @@ public class FindCommand extends Command {
     public static final String COMMAND = "find";
     // Parameter indicating a character search instead
     public static final String PARAMS_CHAR_SEARCH = "-c";
+    // Help page
+    public static final String HELP_PAGE =
+            Messages.DIVIDER_UNDERSCORE + " Find a task that have its description matching the keyword provided.\n"
+                    + " Default is word search\n\n"
+                    + " Usage:\n\tfind [-c] <keyword>\n\n"
+                    + " Options:\n\t-c\t Character Search. Default is word search.\n\n"
+                    + " Example:\n"
+                    + " \tfind book\n"
+                    + " \tfind -c book\n"
+                    + Messages.DIVIDER_UNDERSCORE;
 
     // Variables needed:
     private final boolean isCharacterSearch;

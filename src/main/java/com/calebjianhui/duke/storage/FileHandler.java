@@ -29,7 +29,7 @@ public class FileHandler {
     private static final String FILE_NAME = "task_file.txt";
 
     /**
-     * Return the file name
+     * Returns the file name
      *
      * @return Path to file name
      */
@@ -38,7 +38,7 @@ public class FileHandler {
     }
 
     /**
-     * Read the contents of the task file
+     * Returns an ArrayList that contains the contents of the saved file
      *
      * @return Arraylist containing the various task, empty should there be no task
      */
@@ -74,7 +74,7 @@ public class FileHandler {
     }
 
     /**
-     * Retrieve & Update the task from the task file
+     * Retrieve & Update the task list from the task file
      * - Only done at start-up
      *
      * @return If there are updates made

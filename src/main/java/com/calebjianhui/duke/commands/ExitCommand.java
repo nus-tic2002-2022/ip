@@ -4,14 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.calebjianhui.duke.ui.DukeUI;
+import com.calebjianhui.duke.ui.Messages;
 
 /**
  * This command exits the program gracefully
  **/
 public class ExitCommand extends Command {
+    // Help page
+    public static final String HELP_PAGE =
+            Messages.DIVIDER_UNDERSCORE + " Exits the program.\n\n"
+                    + " Usage:\n\t(bye|quit|exit)\n"
+                    + Messages.DIVIDER_UNDERSCORE;
 
     /**
-     * Check if the given command input given by user matches any accepted terminating words
+     * Returns true if the user's given input matches any of the terminating words
      *
      * @param input Command input given by user
      * @return If the given input matches any accepted terminating words.

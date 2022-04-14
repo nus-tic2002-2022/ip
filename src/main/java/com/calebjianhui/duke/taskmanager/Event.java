@@ -32,7 +32,7 @@ public class Event extends Task implements DateModule {
     }
 
     /**
-     * Getter for description
+     * Returns the description of the task
      *
      * @return Formatted Description of task
      **/
@@ -41,7 +41,7 @@ public class Event extends Task implements DateModule {
     }
 
     /**
-     * Gets the description
+     * Returns the description of the task
      *
      * @param isFormatted Should the result be formatted nicely
      * @return Description of task
@@ -56,7 +56,7 @@ public class Event extends Task implements DateModule {
     }
 
     /**
-     * Gets the raw description (as given by user)
+     * Returns the raw description (as given by user)
      *
      * @return Full description including date (as given by user)
      **/
@@ -66,7 +66,7 @@ public class Event extends Task implements DateModule {
     }
 
     /**
-     * Getter for type of task
+     * Returns the type of task
      *
      * @return Type of task
      **/
@@ -75,7 +75,7 @@ public class Event extends Task implements DateModule {
     }
 
     /**
-     * Get the current date structure of the task
+     * Returns the current date structure of the task
      *
      * @return Pair&lt;TaskDateStructure, LocalDateTime&gt; of Task
      **/
@@ -85,7 +85,7 @@ public class Event extends Task implements DateModule {
     }
 
     /**
-     * Sets the date for the task
+     * Returns the date for the task
      *
      * @param newDate New date of the task
      **/
@@ -96,7 +96,7 @@ public class Event extends Task implements DateModule {
     }
 
     /**
-     * Gets the date for the task
+     * Returns the date for the task
      *
      * @param isFormatted Whether to return the formatted date
      * @return Date of the task

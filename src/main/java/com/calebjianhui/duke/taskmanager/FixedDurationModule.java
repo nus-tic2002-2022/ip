@@ -13,21 +13,21 @@ public interface FixedDurationModule {
     void setDuration(String durationBlock);
 
     /**
-     * Gets the duration needed for the task
+     * Returns the duration needed for the task
      *
      * @return Duration needed for the task
      **/
     String getDuration();
 
     /**
-     * Gets the raw description (as given by user)
+     * Returns the raw description (as given by user)
      *
      * @return Full description including date (as given by user)
      **/
     String getRawDescription();
 
     /**
-     * Gets the description
+     * Returns the description
      *
      * @param isFormatted Should the result be formatted nicely
      * @return Description of task

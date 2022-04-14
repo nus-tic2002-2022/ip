@@ -52,7 +52,7 @@ public class TaskManager {
     }
 
     /**
-     * Get a set of all possible task type alias
+     * Returns a set of all possible task type alias
      *
      * @return A set containing the alias of all task type
      **/
@@ -64,7 +64,7 @@ public class TaskManager {
     }
 
     /**
-     * Decode the task type based on the given task type alias
+     * Returns the task type based on the given task type alias
      *
      * @param alias TaskType alias
      * @return TaskType based on the given alias
@@ -88,7 +88,7 @@ public class TaskManager {
     }
 
     /**
-     * Get a string containing all the task in the given task list
+     * Returns a string containing all the task in the given task list
      *
      * @param inputTaskList Task list to print from
      * @return Formatted String of tasks in task list
@@ -106,7 +106,7 @@ public class TaskManager {
     }
 
     /**
-     * Formatted string to display all DateModule task in the provided task list
+     * Returns a formatted string that display all DateModule task in the provided task list
      *
      * @param dateTasks Task list (containing DateModule type task only)
      * @return Formatted String of tasks in the given task list
@@ -240,7 +240,7 @@ public class TaskManager {
     }
 
     /**
-     * Find all task with relations to a keyword
+     * Find and display all task with relations to a keyword
      *
      * @param isCharacterSearch Whether to perform a character search or word search
      * @param keyword Keyword to search for
@@ -274,7 +274,7 @@ public class TaskManager {
     }
 
     /**
-     * Retrieve the tasklist in string format for encoding purposes
+     * Returns the tasklist in string format for encoding purposes
      *
      * @return Arraylist containing all the task in a formatted String format.
      **/
@@ -283,7 +283,7 @@ public class TaskManager {
     }
 
     /**
-     * Return the current amount of task
+     * Returns the current amount of task
      *
      * @return Formatted string containing the amount of task
      **/
@@ -292,7 +292,7 @@ public class TaskManager {
     }
 
     /**
-     * Return the full details of a specific task
+     * Returns the full details of a specific task
      *
      * @param selected The selected task
      * @return String containing the task details

@@ -6,6 +6,7 @@ import java.util.List;
 import com.calebjianhui.duke.common.Pair;
 import com.calebjianhui.duke.enums.ListCommandType;
 import com.calebjianhui.duke.taskmanager.TaskManager;
+import com.calebjianhui.duke.ui.Messages;
 
 /**
  * This command allows the listing of task in the task manager
@@ -21,6 +22,22 @@ public class ListCommand extends Command {
                     new Pair<>("-s", ListCommandType.SCHEDULE),
                     new Pair<>("-n", ListCommandType.NORMAL)
             );
+    // Help page
+    public static final String HELP_PAGE =
+            Messages.DIVIDER_UNDERSCORE_EXTENDED + " Display all tasks in the task list or task on a specific date.\n"
+                    + " We provide 2 different type of task list display:\n"
+                    + " 1) Normal - View tasks in the order that they are added to the program.\n"
+                    + " 2) Schedule - View event/deadlines sorted by date. Either view all or on a specific date.\n"
+                    + " The default view is Normal.\n\n"
+                    + " Usage:\n\tlist [(-s/-n)] [<date>]\n"
+                    + " The accepted date format are: '28/03/2022' or '28-03-2022'.\n"
+                    + " Do note that non-recognizable task date will be displayed as NA.\n\n"
+                    + " Example:\n"
+                    + " \tlist\n"
+                    + " \tlist -s\n"
+                    + " \tlist -s 28/03/2022\n"
+                    + " \tlist -n\n"
+                    + Messages.DIVIDER_UNDERSCORE_EXTENDED;
 
     // Variables needed:
     // - List type and date input given

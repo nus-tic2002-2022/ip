@@ -25,7 +25,7 @@ public class FixedDurationTask extends Task implements FixedDurationModule {
     }
 
     /**
-     * Getter for description
+     * Returns the description of the task
      *
      * @return Formatted Description of task
      **/
@@ -34,7 +34,7 @@ public class FixedDurationTask extends Task implements FixedDurationModule {
     }
 
     /**
-     * Gets the description
+     * Returns the description of the task
      *
      * @param isFormatted Should the result be formatted nicely
      * @return Description of task
@@ -49,7 +49,7 @@ public class FixedDurationTask extends Task implements FixedDurationModule {
     }
 
     /**
-     * Gets the raw description (as given by user)
+     * Returns the raw description (as given by user)
      *
      * @return Full description including date (as given by user)
      **/
@@ -59,7 +59,7 @@ public class FixedDurationTask extends Task implements FixedDurationModule {
     }
 
     /**
-     * Getter for type of task
+     * Returns the type of task
      *
      * @return Type of task
      **/
@@ -78,7 +78,7 @@ public class FixedDurationTask extends Task implements FixedDurationModule {
     }
 
     /**
-     * Gets the duration needed for the task
+     * Returns the duration needed for the task
      *
      * @return Duration needed for the task
      **/

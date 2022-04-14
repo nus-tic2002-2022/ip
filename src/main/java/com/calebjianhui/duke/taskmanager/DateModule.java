@@ -10,7 +10,7 @@ import com.calebjianhui.duke.enums.TaskDateStructure;
  **/
 public interface DateModule {
     /**
-     * Get the current date structure of the task
+     * Returns the current date structure of the task
      *
      * @return Pair&lt;TaskDateStructure, LocalDateTime&gt; of Task
      **/
@@ -24,7 +24,7 @@ public interface DateModule {
     void setDate(String newDate);
 
     /**
-     * Gets the date for the task
+     * Returns the date for the task
      *
      * @param isFormatted Whether to return the formatted date
      * @return Date of the task
@@ -32,14 +32,14 @@ public interface DateModule {
     String getDate(boolean isFormatted);
 
     /**
-     * Gets the raw description (as given by user)
+     * Returns the raw description (as given by user)
      *
      * @return Full description including date (as given by user)
      **/
     String getRawDescription();
 
     /**
-     * Gets the description
+     * Returns the description
      *
      * @param isFormatted Should the result be formatted nicely
      * @return Description of task

@@ -10,6 +10,7 @@ import com.calebjianhui.duke.commands.Command;
 import com.calebjianhui.duke.commands.DeleteCommand;
 import com.calebjianhui.duke.commands.ExitCommand;
 import com.calebjianhui.duke.commands.FindCommand;
+import com.calebjianhui.duke.commands.HelpCommand;
 import com.calebjianhui.duke.commands.InvalidCommand;
 import com.calebjianhui.duke.commands.ListCommand;
 import com.calebjianhui.duke.commands.UpdateCommand;
@@ -58,6 +59,8 @@ public class InputParser {
             String[] commandList = userInput.split(" ");
 
             switch (commandList[0]) {
+            case HelpCommand.COMMAND:
+                return craftHelpCommand(commandList);
             case ListCommand.COMMAND:
                 return craftListCommand(commandList);
             case FindCommand.COMMAND:
@@ -80,6 +83,57 @@ public class InputParser {
             }
         } catch (UnsupportedOperationException | IndexOutOfBoundsException | MalformedParametersException e) {
             return new InvalidCommand(e.getMessage());
+        }
+    }
+
+    /**
+     * Based on the given user input, craft out a corresponding HelpCommand
+     *
+     * @param commandList Input command from user
+     * @return Command that correspond to the input given by user
+     * @throws UnsupportedOperationException For malformed commands given by user
+     * @throws MalformedParametersException For malformed parameters given by user
+     **/
+    private Command craftHelpCommand(String[] commandList)
+            throws UnsupportedOperationException, MalformedParametersException {
+        assert HelpCommand.COMMAND.equals(commandList[0])
+                : "Crafting of HelpCommand requires a valid input command list.";
+
+        // ListCommand have max word length of 2
+        if (commandList.length > 2) {
+            throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
+        }
+
+        // Normal listing of tasks
+        if (commandList.length == 1) {
+            return new HelpCommand(HelpCommand.HELP_PAGE);
+        }
+
+        // Determine the type of list that user wishes to view
+        if (ExitCommand.isCommandWord(commandList[1])) {
+            return new HelpCommand(ExitCommand.HELP_PAGE);
+        }
+        switch (commandList[1]) {
+        case ListCommand.COMMAND:
+            return new HelpCommand(ListCommand.HELP_PAGE);
+        case FindCommand.COMMAND:
+            return new HelpCommand(FindCommand.HELP_PAGE);
+        case UpdateCommand.MARK_COMMAND:
+        case UpdateCommand.UNMARK_COMMAND:
+            return new HelpCommand(UpdateCommand.MARK_HELP_PAGE);
+        case UpdateCommand.EDIT_COMMAND:
+            return new HelpCommand(UpdateCommand.EDIT_HELP_PAGE);
+        case AddCommand.TODO_COMMAND:
+        case AddCommand.EVENT_COMMAND:
+        case AddCommand.DEADLINE_COMMAND:
+        case AddCommand.FIXED_DURATION_COMMAND:
+            return new HelpCommand(AddCommand.HELP_PAGE);
+        case CloneCommand.COMMAND:
+            return new HelpCommand(CloneCommand.HELP_PAGE);
+        case DeleteCommand.COMMAND:
+            return new HelpCommand(DeleteCommand.HELP_PAGE);
+        default:
+            throw new MalformedParametersException(InvalidCommand.getInvalidParametersMessage(HelpCommand.COMMAND));
         }
     }
 
@@ -109,7 +163,7 @@ public class InputParser {
         // Determine the type of list that user wishes to view
         ListCommandType listField = ListCommand.checkCommandType(commandList[1]);
         if (listField.equals(ListCommandType.INVALID_COMMAND)) {
-            throw new MalformedParametersException(InvalidCommand.UNKNOWN_PARAMETERS_MESSAGE);
+            throw new MalformedParametersException(InvalidCommand.getInvalidParametersMessage(ListCommand.COMMAND));
         }
         return new ListCommand(new Pair<>(listField, String.join(" ",
                 Arrays.copyOfRange(commandList, 2, commandList.length)
@@ -178,7 +232,9 @@ public class InputParser {
                 }
                 UpdateCommandType editField = UpdateCommand.checkCommandType(commandList[2]);
                 if (editField.equals(UpdateCommandType.INVALID_COMMAND)) {
-                    throw new MalformedParametersException(InvalidCommand.UNKNOWN_PARAMETERS_MESSAGE);
+                    throw new MalformedParametersException(
+                            InvalidCommand.getInvalidParametersMessage(UpdateCommand.EDIT_COMMAND)
+                    );
                 }
                 return new UpdateCommand(editField, index, String.join(" ",
                         Arrays.copyOfRange(commandList, 3, commandList.length)

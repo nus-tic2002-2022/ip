@@ -6,6 +6,7 @@ import java.util.List;
 import com.calebjianhui.duke.common.Pair;
 import com.calebjianhui.duke.enums.UpdateCommandType;
 import com.calebjianhui.duke.taskmanager.TaskManager;
+import com.calebjianhui.duke.ui.Messages;
 
 /**
  * This command allows the updating the fields for a specific task in the task list.
@@ -23,6 +24,28 @@ public class UpdateCommand extends Command {
                     new Pair<>("-d", UpdateCommandType.EDIT_DATE),
                     new Pair<>("-m", UpdateCommandType.EDIT_DESCRIPTION)
             );
+    // Help page
+    public static final String MARK_HELP_PAGE =
+            Messages.DIVIDER_UNDERSCORE_EXTENDED + " Mark a task as completed / done.\n"
+                    + " The index specified should correspond to the index in the normal listing of tasks.\n"
+                    + " Type 'list' to view the normal listing of tasks.\n\n"
+                    + " Usage:\n\t(mark|unmark) <index>\n\n"
+                    + " Example:\n"
+                    + " \tmark 1\n"
+                    + " \tunmark 1\n"
+                    + Messages.DIVIDER_UNDERSCORE_EXTENDED;
+    public static final String EDIT_HELP_PAGE =
+            Messages.DIVIDER_UNDERSCORE_EXTENDED + " Edit the date / description of a specific task.\n"
+                    + " The index specified should correspond to the index in the normal listing of tasks.\n"
+                    + " Type 'list' to view the normal listing of tasks.\n\n"
+                    + " Usage:\n\tedit <index> [(-d|-m)] <New date / description>\n\n"
+                    + " Options:\n"
+                    + "\t-d\t Edit the date of deadline / event.\n"
+                    + "\t-m\t Edit the description.\n\n"
+                    + " Example:\n"
+                    + " \tedit 1 -d 12/05/2022\n"
+                    + " \tedit 1 -m Meetup with friends\n"
+                    + Messages.DIVIDER_UNDERSCORE_EXTENDED;
 
     // Variables needed:
     private final UpdateCommandType updateFieldType;

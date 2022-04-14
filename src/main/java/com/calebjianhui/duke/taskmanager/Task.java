@@ -64,7 +64,7 @@ public abstract class Task {
     }
 
     /**
-     * Check if the description contains the keyword
+     * Returns true if the task description contains the input keyword
      *
      * @param isCharacterSearch Whether to search by characters or word blocks
      * @param keyword Keyword to search for

@@ -47,7 +47,7 @@ public class DateParser {
     }
 
     /**
-     * Return a formatted string from a given LocalDateTime input
+     * Returns a formatted string from a given LocalDateTime input
      *
      * @param input LocalDateTime input
      * @return Return a formatted String based on the given input

@@ -10,22 +10,6 @@ import java.io.PrintStream;
  */
 public class DukeUI {
 
-    /**
-     * Indentation used at the start of every line of reply
-     * - To allow Duke to reply with a ~ and tab at the front
-     */
-    private static final String DUKE_MESSAGE_INDENTATION = "~\t";
-
-    /**
-     * Divider in underscore style
-     */
-    private static final String DIVIDER_UNDERSCORE = "____________________________________________________________\n";
-
-    /**
-     * Divider in dash style
-     */
-    private static final String DIVIDER_DASH = "------------------------------------------------------------\n";
-
     private final PrintStream out;
 
     public DukeUI() {
@@ -40,7 +24,7 @@ public class DukeUI {
      * Print the given message to the user
      * @param message Message to be print to User
      **/
-    private void printToUser(String message) {
+    public void printToUser(String message) {
         out.print(message);
     }
 
@@ -49,9 +33,10 @@ public class DukeUI {
      * @param message Message to be formatted and print to User
      **/
     public void formatDukeReply(String message) {
-        String output = DIVIDER_UNDERSCORE;
-        output += DUKE_MESSAGE_INDENTATION + message.replaceAll("\n", "\n" + DUKE_MESSAGE_INDENTATION);
-        output += "\n" + DIVIDER_DASH;
+        String output = Messages.DIVIDER_UNDERSCORE;
+        output += Messages.DUKE_MESSAGE_INDENTATION
+                + message.replaceAll("\n", "\n" + Messages.DUKE_MESSAGE_INDENTATION);
+        output += "\n" + Messages.DIVIDER_DASH;
         printToUser(output);
     }
 
@@ -62,7 +47,7 @@ public class DukeUI {
      * @param savedSuccess Whether to show loading of file success
      **/
     public void printWelcomeMessage(boolean savedSuccess) {
-        String output = DIVIDER_UNDERSCORE;
+        String output = Messages.DIVIDER_UNDERSCORE;
         output += MESSAGE_LOGO + "\n";
         output += "............................................................\n";
         printToUser(output);

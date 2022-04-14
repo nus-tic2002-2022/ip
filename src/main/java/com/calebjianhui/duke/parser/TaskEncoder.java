@@ -28,7 +28,7 @@ public class TaskEncoder {
     }
 
     /**
-     * Encode a given task
+     * Returns a string containing the encoded task
      *
      * @param task Task to be encoded
      * @return Encoded task in string format

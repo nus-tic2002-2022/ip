@@ -76,8 +76,7 @@ public class Task {
         String status = "";
         if (this.getTaskStatus()) {
             status = "[Done]\t";
-        }
-        else {
+        } else {
             status = "[ ]\t\t";
         }
 

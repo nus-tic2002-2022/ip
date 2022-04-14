@@ -42,8 +42,7 @@ public class UpdateCommand extends Command{
         String newDescription = "";
         if (userInput.getUserInputSize() < 3) {
             throw new DukeException("missingInformation");
-        }
-        else {
+        } else {
             for (int j = 2; j < userInput.getUserInputSize(); j++) {
                 if (j != 2) {
                     newDescription = newDescription + " ";

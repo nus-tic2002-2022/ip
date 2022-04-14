@@ -88,8 +88,7 @@ public class TaskList {
         String output = "";
         if (taskList.isEmpty()) {
             output = "Empty";
-        }
-        else {
+        } else {
             for (int index = 0; index < taskList.size(); index++) {
                 int cur_index = index + 1;
                 output = output + "\t\t\t\t\t\t\t\t\t "+ cur_index + ". " + taskList.get(index) + "\n";

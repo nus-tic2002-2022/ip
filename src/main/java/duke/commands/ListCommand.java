@@ -17,8 +17,7 @@ public class ListCommand extends Command{
     public static void showList (TaskList taskList) throws DukeException {
         if (taskList.size() == 0) {
             throw new DukeException("emptyList");
-        }
-        else {
+        } else {
             Ui.showTaskList(taskList);
         }
     }

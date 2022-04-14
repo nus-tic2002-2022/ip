@@ -23,8 +23,7 @@ public class Tokenizer extends Parser {
             do {
                 curWord = curWord + Character.toString(input.charAt(i));
                 i++;
-            }
-            while (i < input.length() && input.charAt(i) != ' ');
+            } while (i < input.length() && input.charAt(i) != ' ');
             curWord = curWord.stripLeading();
             curWord = curWord.stripTrailing();
             output.add(curWord);

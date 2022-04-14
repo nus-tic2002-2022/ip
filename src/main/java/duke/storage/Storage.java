@@ -108,8 +108,7 @@ public class Storage {
                     }
                     taskList.add(curTask);
                     index = index + 3;
-                }
-                else if (fileContentList.get(index).equalsIgnoreCase("D")){
+                } else if (fileContentList.get(index).equalsIgnoreCase("D")){
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a");
                     LocalDateTime dateTime = LocalDateTime.parse(fileContentList.get(index + 3), formatter);
                     Task curTask = new Deadline(fileContentList.get(index + 2), dateTime);
@@ -118,8 +117,7 @@ public class Storage {
                     }
                     taskList.add(curTask);
                     index = index + 4;
-                }
-                else if (fileContentList.get(index).equalsIgnoreCase("E")){
+                } else if (fileContentList.get(index).equalsIgnoreCase("E")){
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a");
                     LocalDateTime dateTime = LocalDateTime.parse(fileContentList.get(index + 3), formatter);
                     Task curTask = new Event(fileContentList.get(index + 2), dateTime);
@@ -128,13 +126,11 @@ public class Storage {
                     }
                     taskList.add(curTask);
                     index = index + 4;
-                }
-                else {
+                } else {
                     throw new DukeException("readError");
                 }
             }
-        }
-        else {
+        } else {
             TaskList blank = new TaskList();
             create(blank);
         }

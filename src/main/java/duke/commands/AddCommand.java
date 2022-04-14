@@ -30,8 +30,7 @@ public class AddCommand extends Command{
         content = content.stripTrailing();
         if (content.equalsIgnoreCase("")){
             throw new DukeException("missing task");
-        }
-        else {
+        } else {
             Task curTask = new Task(content);
             taskList.add(curTask);
             return curTask;
@@ -51,8 +50,7 @@ public class AddCommand extends Command{
         for (int i = 1; i < userInput.getUserInputSize()-1; i++) {
             if (!userInput.getUserInput(i).equalsIgnoreCase("/by")) {
                 content = content + " " + userInput.getUserInput(i);
-            }
-            else {
+            } else {
                 by = Parser.dateTimeParser(i+1);
                 break;
             }
@@ -62,8 +60,7 @@ public class AddCommand extends Command{
         if (content.equalsIgnoreCase("")) {
             if (by == null){
                 throw new DukeException("missing task & missing by");
-            }
-            else {
+            } else {
                 throw new DukeException("missing task");
             }
         }
@@ -91,8 +88,7 @@ public class AddCommand extends Command{
         for (int i = 1; i < userInput.getUserInputSize(); i++) {
             if (!userInput.getUserInput(i).equalsIgnoreCase("/at")) {
                 content = content + " " + userInput.getUserInput(i);
-            }
-            else {
+            } else {
                 at = Parser.dateTimeParser(i+1);
                 break;
             }
@@ -102,16 +98,13 @@ public class AddCommand extends Command{
         if (content.equalsIgnoreCase("")) {
             if (at == null){
                 throw new DukeException("missing task & missing at");
-            }
-            else {
+            } else {
                 throw new DukeException("missing task");
             }
-        }
-        else {
+        } else {
             if (at == null){
                 throw new DukeException("missing at");
-            }
-            else {
+            } else {
                 Event curTask = new Event(content, at);
                 taskList.add(curTask);
                 return curTask;

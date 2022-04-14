@@ -48,14 +48,12 @@ public class FindCommand extends Command{
                 curDateTime = curDeadline.getBy();
                 curDate = curDateTime.toLocalDate();
                 isDeadline = true;
-            }
-            else if (curTask.toString().charAt(1) == 'E') {
+            } else if (curTask.toString().charAt(1) == 'E') {
                 Event curDeadline = (Event)curTask;
                 curDateTime = curDeadline.getAt();
                 curDate = curDateTime.toLocalDate();
                 isEvent = true;
-            }
-            else {
+            } else {
                 continue;
             }
 
@@ -65,18 +63,15 @@ public class FindCommand extends Command{
                     LocalDateTime temp = curDateTime.plusHours(2);
                     if (temp.toLocalDate() == curDateTime.toLocalDate()) {
                         freeTime.add(curDateTime.toLocalTime().plusHours(2));
-                    }
-                    else {
+                    } else {
                         freeTime.add(freeTimeEnd);
                     }
-                }
-                else if (isDeadline){
+                } else if (isDeadline){
                     freeTime.add(curDateTime.toLocalTime());
                     LocalDateTime temp = curDateTime.minusHours(2);
                     if (temp.toLocalDate() == curDateTime.toLocalDate()) {
                         freeTime.add(curDateTime.toLocalTime().minusHours(2));
-                    }
-                    else {
+                    } else {
                         freeTime.add(freeTimeStart);
                     }
                 }
@@ -95,8 +90,7 @@ public class FindCommand extends Command{
             if (!start.equalsIgnoreCase(end)) {
                 if (isFirstElement) {
                     isFirstElement = false;
-                }
-                else {
+                } else {
                     output = output + " , ";
                 }
                 output = output + start + " - " + end;
@@ -107,8 +101,7 @@ public class FindCommand extends Command{
         String finalOutput = null;
         if (output.equalsIgnoreCase(" ")) {
             finalOutput = "The specified date is fully scheduled from 12AM to 12PM";
-        }
-        else {
+        } else {
             finalOutput = "Free time for specified date :" + output;
         }
         return finalOutput;
@@ -131,8 +124,7 @@ public class FindCommand extends Command{
 
             if (userInput.getUserInputSize() < 2) {
                 throw new DukeException("missingKeyword");
-            }
-            else {
+            } else {
                 for (int j = 1; j < userInput.getUserInputSize(); j++) {
                     if (j != 1) {
                         targetWord = targetWord + " ";

@@ -22,14 +22,14 @@ public class UnmarkCommand extends Command{
             throw new DukeException("emptyList");
         }
 
-        boolean check = false;
+        boolean isDigit = false;
         for (int i = 0; i < index.length(); i++){
             if (!Character.isDigit(index.charAt(i))) {
-                check = true;
+                isDigit = true;
                 break;
             }
         }
-        if (check) {
+        if (isDigit) {
             throw new DukeException("invalidIndex");
         }
 

@@ -104,12 +104,10 @@ public class Ui {
         if (result.getTargetString() == null) {
             if (result.getTargetItem().getTask() != null) {
                 placeholder = result.getTargetItem().getTask();
-            }
-            else {
+            } else {
                 placeholder = result.getTargetString();
             }
-        }
-        else {
+        } else {
             placeholder = result.getTargetString();
         }
 
@@ -141,8 +139,7 @@ public class Ui {
         if (taskList.size() != 0 ) {
             System.out.print(taskList);
             System.out.println("\t\t\t\t\t\t\t\t Haro ! " + taskList.size() + " tasks has been found ! Haro !");
-        }
-        else {
+        } else {
             System.out.println("\t\t\t\t\t\t\t\t Haro ! No tasks with the specified keyword has been found ! Haro !");
         }
     }
@@ -173,11 +170,9 @@ public class Ui {
             case "getList":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Here's the list ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Roger that ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Understood ! Haro !";
                 }
                 break;
@@ -185,11 +180,9 @@ public class Ui {
             case "emptyList":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! The list is empty ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! You might want to add some item(s) into the empty list ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! There is no item in the list ! Haro !";
                 }
                 break;
@@ -197,11 +190,9 @@ public class Ui {
             case "addTask":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! \"" + placeholder + "\" has been added to the list ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Haro has added \"" + placeholder + "\" into the list ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! new Task : \"" + placeholder + "\" will be added to the list ! Haro !";
                 }
                 break;
@@ -209,8 +200,7 @@ public class Ui {
             case "updateTask":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! \"" + placeholder + "\" has been updated in the list ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Haro has updated \"" + placeholder + "\" in the list ! Haro !";
                 }
                 break;
@@ -242,11 +232,9 @@ public class Ui {
             case "echo":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! You mean \"" + placeholder + "\" ? Haro ? ";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! \"" + placeholder + "\" ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! echoing \"" + placeholder + "\" ! Haro !";
                 }
                 break;
@@ -254,11 +242,9 @@ public class Ui {
             case "updateList":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Haro has updated the list as per your command! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Here is the updated list ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Update ! Haro ! Update list ! Haro !";
                 }
                 break;
@@ -266,11 +252,9 @@ public class Ui {
             case "markNoChange":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! The task is already marked ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Unable to mark as per command ! Task indicated is marked ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Cannot mark tasks that has been marked ! Haro !";
                 }
                 break;
@@ -278,11 +262,9 @@ public class Ui {
             case "unmarkNoChange":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! The task is already unmarked ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Unable to unmark as per command ! Task indicated is unmarked ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Cannot unmark tasks that has been unmarked ! Haro !";
                 }
                 break;
@@ -290,11 +272,9 @@ public class Ui {
             case "outOfRangeIndex":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! The index is out of range ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Please enter a valid index ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Unable to find the input index ! Haro !";
                 }
                 break;
@@ -302,11 +282,9 @@ public class Ui {
             case "invalidIndex":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! The index must only contain numerical numbers ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Alphabetic characters are not allowed in index ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Unable to proceed with command due to non-numerical index input ! Haro !";
                 }
                 break;
@@ -314,11 +292,9 @@ public class Ui {
             case "invalidDate":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! The date time format has to be dd/MM/yyyy HHmm or dd-MM-yyyy HHmm! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Please make sure the date time format is in dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Check date time format Haro ! dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
                 }
                 break;
@@ -326,11 +302,9 @@ public class Ui {
             case "missingTime":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Missing date time information ! Please follow dd/MM/yyyy HHmm or dd-MM-yyyy HHmm! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Please enter date time information in dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Check date time information Haro ! dd/MM/yyyy HHmm or dd-MM-yyyy HHmm ! Haro !";
                 }
                 break;
@@ -350,11 +324,9 @@ public class Ui {
             case "delete":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Indicated task has been deleted from the list ! Haro !";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Understood ! Haro has removed specified task from the list ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Roger that ! That task has been removed from the list ! Haro !";
                 }
                 break;
@@ -362,8 +334,7 @@ public class Ui {
             case "hello":
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Feel free to let me know how can I help you ! Haro !";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Haro ! Haro !";
                 }
                 break;
@@ -399,11 +370,9 @@ public class Ui {
             default :
                 if (randomNumber == 0) {
                     output = "\t\t\t\t\t\t\t\t Haro ! What do you mean ? Haro ?";
-                }
-                else if (randomNumber == 1) {
+                } else if (randomNumber == 1) {
                     output = "\t\t\t\t\t\t\t\t Haro ! Unable to comprehend the meaning ! Haro ?";
-                }
-                else {
+                } else {
                     output = "\t\t\t\t\t\t\t\t Haro ! Haro does not understand ! Haro ?";
                 }
                 break;

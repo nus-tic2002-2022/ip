@@ -2,9 +2,7 @@ package duke.parser;
 
 import duke.exception.DukeException;
 
-import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -27,14 +25,14 @@ public class Parser {
      * @param input User input from UI.
      */
     public Parser(String input) {
-        this.userInput = tokenizer(input);
+        userInput = tokenizer(input);
     }
 
     /**
      * Constructor for Parser
      */
     public Parser() {
-        this.userInput = new ArrayList<String>();
+        userInput = new ArrayList<String>();
     }
 
     /**
@@ -51,13 +49,15 @@ public class Parser {
             String cur_word = "";
             // capture current word separated by space character
             while (i < input.length() && input.charAt(i) != '|') {
-                cur_word = cur_word + Character.toString(input.charAt(i));
+                cur_word = cur_word + input.charAt(i);
                 i++;
             }
             cur_word = cur_word.stripLeading();
             cur_word = cur_word.stripTrailing();
-            if (!cur_word.equalsIgnoreCase("") && !cur_word.equalsIgnoreCase("type")
-                    && !cur_word.equalsIgnoreCase("status") && !cur_word.equalsIgnoreCase("task")
+            if (!cur_word.equalsIgnoreCase("")
+                    && !cur_word.equalsIgnoreCase("type")
+                    && !cur_word.equalsIgnoreCase("status")
+                    && !cur_word.equalsIgnoreCase("task")
                     && !cur_word.equalsIgnoreCase("deadline/duration")) {
                 output.add(cur_word);
             }

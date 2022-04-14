@@ -10,7 +10,10 @@ import java.util.Scanner;
 import java.util.List;
 
 import duke.exception.DukeException;
-import duke.tasklist.*;
+import duke.tasklist.Deadline;
+import duke.tasklist.Event;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
 
 import static duke.parser.Parser.fileContentParser;
 
@@ -71,7 +74,10 @@ public class Storage {
                 status = "0";
                 cur_task = task.substring(9);
             }
-            textToAdd = textToAdd + "|" + Character.toString(type) + "|" + status + "|" + cur_task ;
+            textToAdd = textToAdd
+                    + "|" + Character.toString(type)
+                    + "|" + status
+                    + "|" + cur_task ;
         }
 
         FileWriter fw = new FileWriter(filePath);
@@ -158,25 +164,29 @@ public class Storage {
                 }
             }
             if (fixedDurationEndIndex != -1 && fixedDurationStartIndex != -1) {
-                task = task.substring(0, fixedDurationStartIndex) + task.substring(fixedDurationEndIndex + 1);
+                task = task.substring(0, fixedDurationStartIndex)
+                        + task.substring(fixedDurationEndIndex + 1);
             }
 
             char type = task.charAt(1);
-            String cur_task = "";
+            String curTask = "";
 
             String status = "";
             if (taskList.get(index).getTaskStatus()) {
                 status = "1";
-                cur_task = task.substring(11);
-                cur_task = cur_task.replace("\tby : " ,"|");
-                cur_task = cur_task.replace("\tat : " ,"|");
+                curTask = task.substring(11);
+                curTask = curTask.replace("\tby : " ,"|");
+                curTask = curTask.replace("\tat : " ,"|");
             } else {
                 status = "0";
-                cur_task = task.substring(9);
-                cur_task = cur_task.replace("\tby : " ,"|");
-                cur_task = cur_task.replace("\tat : " ,"|");
+                curTask = task.substring(9);
+                curTask = curTask.replace("\tby : " ,"|");
+                curTask = curTask.replace("\tat : " ,"|");
             }
-            textToAdd = textToAdd + "|" + Character.toString(type) + "|" + status + "|" + cur_task;
+            textToAdd = textToAdd
+                    + "|" + Character.toString(type)
+                    + "|" + status
+                    + "|" + curTask;
         }
 
         FileWriter fw = new FileWriter(filePath);

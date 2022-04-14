@@ -3,10 +3,10 @@ package duke;
 import duke.commands.Command;
 import duke.commands.ResultCommand;
 import duke.exception.DukeException;
-import duke.storage.*;
-import duke.tasklist.*;
-import duke.ui.*;
-import duke.parser.*;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
 
 import java.io.IOException;
 import java.lang.*;
@@ -86,7 +86,9 @@ public class Duke {
             if (output.getFeedback().equalsIgnoreCase("save")) {
                 storage.save(taskList);
             }
-            if (!output.getFeedback().equalsIgnoreCase("noReply") && !output.getFeedback().equalsIgnoreCase("goodbye") && !output.getFeedback().equalsIgnoreCase("find")) {
+            if (!output.getFeedback().equalsIgnoreCase("noReply")
+                    && !output.getFeedback().equalsIgnoreCase("goodbye")
+                    && !output.getFeedback().equalsIgnoreCase("find")) {
                 Ui.replyMessage(output);
             }
             if (output.getFeedback().equalsIgnoreCase("find")) {

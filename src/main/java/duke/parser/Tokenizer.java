@@ -1,7 +1,6 @@
 package duke.parser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Extended class of Parser with method that converts user input from String into an ArrayList.
@@ -19,16 +18,16 @@ public class Tokenizer extends Parser {
 
         // iterate through input string
         for (int i = 0; i < input.length();) {
-            String cur_word = "";
+            String curWord = "";
             // capture current word separated by space character
             do {
-                cur_word = cur_word + Character.toString(input.charAt(i));
+                curWord = curWord + Character.toString(input.charAt(i));
                 i++;
             }
             while (i < input.length() && input.charAt(i) != ' ');
-            cur_word = cur_word.stripLeading();
-            cur_word = cur_word.stripTrailing();
-            output.add(cur_word);
+            curWord = curWord.stripLeading();
+            curWord = curWord.stripTrailing();
+            output.add(curWord);
         }
         return output;
     }

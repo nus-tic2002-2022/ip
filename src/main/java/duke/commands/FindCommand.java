@@ -22,11 +22,10 @@ public class FindCommand extends Command{
     /**
      * Returns Free time period on specified date after comparing with the task in tasklist.
      *
-     * @param userInput Input specify by user on UI.
      * @param taskList TaskList which specified Task should be added to.
      * @return Free time period on specified date in String format.
      */
-    public static String findFreeTime (Parser userInput, TaskList taskList) throws DukeException{
+    public static String findFreeTime (TaskList taskList) throws DukeException{
         String output = " ";
 
         LocalDate targetDate = Parser.dateParser(1);
@@ -71,7 +70,7 @@ public class FindCommand extends Command{
                         freeTime.add(freeTimeEnd);
                     }
                 }
-                else {
+                else if (isDeadline){
                     freeTime.add(curDateTime.toLocalTime());
                     LocalDateTime temp = curDateTime.minusHours(2);
                     if (temp.toLocalDate() == curDateTime.toLocalDate()) {
@@ -146,7 +145,10 @@ public class FindCommand extends Command{
                 throw new DukeException("missingKeyword");
             }
 
-            if (curTask.matches(condition + targetWord) || curTask.matches(condition + targetWord + condition) || curTask.matches(targetWord + condition) || curTask.matches(targetWord)){
+            if (curTask.matches(condition + targetWord)
+                    || curTask.matches(condition + targetWord + condition)
+                    || curTask.matches(targetWord + condition)
+                    || curTask.matches(targetWord)){
                 output.add(taskList.get(i));
             }
         }

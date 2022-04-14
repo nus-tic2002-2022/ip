@@ -38,7 +38,7 @@ public class FindCommandTest {
 
         TaskList newTaskList = new TaskList(newArrayList);
 
-        Parser parser = new Parser("free 12-12-2022");
-        assertEquals(FindCommand.findFreeTime(parser, newTaskList), expectedResult);
+        // Parser parser = new Parser("free 12-12-2022");
+        assertEquals(FindCommand.findFreeTime(newTaskList), expectedResult);
     }
 }

@@ -124,7 +124,7 @@ public class Command {
             return new ResultCommand("save", "");
         }
         else if (this.userInput.getUserInput(0).equalsIgnoreCase("free")) {
-            String message = FindCommand.findFreeTime(this.userInput, taskList);
+            String message = FindCommand.findFreeTime(taskList);
             return new ResultCommand("freeTime", message);
         }
         else if (this.userInput.getUserInput(0).equalsIgnoreCase("find")) {

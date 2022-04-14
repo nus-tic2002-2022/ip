@@ -33,12 +33,12 @@ public class UnmarkCommand extends Command{
             throw new DukeException("invalidIndex");
         }
 
-        int cur_index = Integer.parseInt(index) - 1;
-        if (cur_index > taskList.size() - 1 || cur_index < 0) {
+        int curIndex = Integer.parseInt(index) - 1;
+        if (curIndex > taskList.size() - 1 || curIndex < 0) {
             throw new DukeException("outOfRangeIndex");
         }
 
-        return taskList.get(cur_index).setTaskStatus(false);
+        return taskList.get(curIndex).setTaskStatus(false);
     }
 
 }

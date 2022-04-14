@@ -24,7 +24,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
       What's your name?
       ```
 
-4. After enter your name, you will be asked to enter your command.  Enter "help" to know the supported commands.
+4. After enter your name, you will be asked to enter a command.  Enter "help" to know the supported commands.
       ```
       Please enter your command: help
       ```

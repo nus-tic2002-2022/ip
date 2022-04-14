@@ -7,16 +7,16 @@ import duke.ui.Ui;
 public class HelpCommand extends Command {
 
     private static final String REPLY_MESSAGE = "\nHere are the commands you can enter: \n"
-                                              + "1. enter \"bye\" to exit the application.\n"
-                                              + "2. enter \"clear\" to clear your task list.\n"
-                                              + "3. enter \"deadline <description> \\by <date in YYYY-MM-DD format>\" to add a task with date.\n"
-                                              + "4. enter \"delete <task number>\" to delete a task.\n"
-                                              + "5. enter \"event <description> \\at <datetime in YYYY-MM-DD hh:mmm format>\" to add a task with date and time. \n"
-                                              + "6. enter \"find <keyword>\" to search the tasks that match the keyword.\n"
-                                              + "7. enter \"list\" to see your task list.\n"
-                                              + "8. enter \"mark <task number>\" to update a task as done.\n"
-                                              + "9. enter \"todo <description>\" to add a task.\n"
-                                              + "10. enter \"unmark <task number>\" to update a task as not done.\n";
+                                              + "1. to exit the application:                      bye\n"
+                                              + "2. to clear your task list:                      clear\n"
+                                              + "3. to add a task with date:                      deadline <description> \\by <YYYY-MM-DD>\n"
+                                              + "4. to delete a task:                             delete <task number>\n"
+                                              + "5. to add a task with date and time:             event <description> \\at <YYYY-MM-DD hh:mm>\n"
+                                              + "6. to search the tasks that match the keyword:   find <keyword>\n"
+                                              + "7. to see your task list:                        list\n"
+                                              + "8. to update a task as done:                     mark <task number>\n"
+                                              + "9. to add a task:                                todo <description>\n"
+                                              + "10. to update a task as not done:                unmark <task number>\n";
     /**
      * Execute HelpCommand to show the supported commands
      * @param taskList is not used on this method

@@ -107,6 +107,27 @@ public class Duke {
         }
     }
 
+    public static void Delete(String enter) throws Exception{
+        String[] _enter = enter.split(" ",2);
+        int numTask = 0;
+        try {
+            numTask = Integer.parseInt(_enter[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid number");
+        }
+        if (numTask > count)
+            throw new DukeException("Invalid task number");
+        System.out.println(ln + System.lineSeparator()
+                +"Noted. I've removed this task: \n["
+                + task.get(numTask - 1).getStatusIcon() + "] "
+                + task.get(numTask - 1).getDescription());
+        task.remove(numTask - 1);
+        count--;
+        printList();
+        System.out.println("Now you have "+ count +" tasks in the list.");
+        System.out.println(ln);
+    }
+
     private static void execute() throws Exception{
         Scanner in = new Scanner(System.in);
         String enter= (in.nextLine()).trim();
@@ -119,21 +140,25 @@ public class Duke {
             case "bye":{
                 Exit();
             } break;
+            case "todo":{
+                toDo(enter);
+            } break;
+            case "event":{
+                Event(enter);
+            } break;
             case"done":{
                 Done(enter);
-            }break;
-            case"list":{
-                printList();
             }break;
             case"deadline": {
                 Deadline(enter);
             }break;
-            case "event":{
-                Event(enter);
-            } break;
-            case "todo":{
-                toDo(enter);
-            } break;
+            case "delete": {
+                Delete(enter);
+            }
+            break;
+            case"list":{
+                printList();
+            }break;
             default:{
                 throw new DukeException("");
             }

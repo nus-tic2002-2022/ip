@@ -15,12 +15,16 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    In the same dialog, set the **Project language level** field to the `SDK default` option.
    3.1 After that, locate the `src/main/java/duke/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
       ```
-                 ____        _        
-                |  _ \ _   _| | _____ 
-   Hello! I am  | | | | | | | |/ / _ \
-                | |_| | |_| |   <  __/
-                |____/ \__,_|_|\_\___|
+                    ____        _        
+                   |  _ \ _   _| | _____ 
+      Hello! I am  | | | | | | | |/ / _ \
+                   | |_| | |_| |   <  __/
+                   |____/ \__,_|_|\_\___|
+   
+      What's your name?
       ```
-   What's your name?
+
 4. After enter your name, you will be asked to enter your command.  Enter "help" to know the supported commands.
-   E.g. Please enter your command: help
+      ```
+      Please enter your command: help
+      ```

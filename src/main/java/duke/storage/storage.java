@@ -26,9 +26,7 @@ public class storage {
         this(DEFAULT_STORAGE_FILEPATH);
     }
 
-    /**
-     * @throws InvalidStorageFilePathException if the given file path is invalid
-     */
+
     public storage(String filePath) throws InvalidStorageFilePathException {
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
@@ -44,13 +42,13 @@ public class storage {
         return filePath.toString().endsWith(".txt");
     }
 
-    public void save(String fileName, ArrayList<Task> TL) throws IOException {
+    public void save(String fileName, tasklist TL) throws IOException {
         File filename = new File(DEFAULT_STORAGE_FILEPATH);
         boolean newFile = filename.createNewFile();
         FileOutputStream oFile = new FileOutputStream(fileName, false);
         PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
-        for (int i = 0; i < TL.size(); i++) {
-            pw.println(TL.get(i).getType() + " | " + TL.get(i).getStatusIconS() + " | " + TL.get(i).getDescription());
+        for (int i = 0; i < TL.getSize(); i++) {
+            pw.println(TL.getTask(i).getType() + " | " + TL.getTask(i).getStatusIconS() + " | " + TL.getTask(i).getDescription());
         }
         pw.close();
     }

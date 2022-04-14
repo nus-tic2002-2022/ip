@@ -3,12 +3,10 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 /**
  * Command to {@link TaskList} to delete a task from the task list

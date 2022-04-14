@@ -4,9 +4,16 @@
              | |_| | |_| |   <  __/
              |____/ \__,_|_|\_\___|
 
-Please enter your command: 	[T][ ] read book already exists!
-Please enter your command: 	[D][ ] return book (by: 4 Jun 2022) already exists!
-Please enter your command: 	[E][ ] project meeting (at: 6 Aug 2022 2:00 PM) already exists!
+What's your name? Hello Bob!
+Please enter your command: 	Got it. I've added this task:
+		[T][ ] read book
+	Now you have 1 tasks in the list
+Please enter your command: 	Got it. I've added this task:
+		[D][ ] return book (by: 4 Jun 2022)
+	Now you have 2 tasks in the list
+Please enter your command: 	Got it. I've added this task:
+		[E][ ] project meeting (at: 6 Aug 2022 2:00 PM)
+	Now you have 3 tasks in the list
 Please enter your command: 	Got it. I've added this task:
 		[T][ ] buy coffee
 	Now you have 4 tasks in the list
@@ -26,7 +33,7 @@ Please enter your command: 	Here are the tasks in your list:
 	4.[T][X] buy coffee
 Please enter your command: 	Nice! I've unmarked this task as done:
 		[D][ ] return book (by: 4 Jun 2022)
-Please enter your command: 	[T][ ] buy coffee already exists!
+Please enter your command: 	 This task has already exists!
 Please enter your command: 	Here are the tasks in your list:
 	1.[T][ ] read book
 	2.[D][ ] return book (by: 4 Jun 2022)
@@ -39,4 +46,5 @@ Please enter your command: 	Here are the tasks in your list:
 	1.[T][ ] read book
 	2.[D][ ] return book (by: 4 Jun 2022)
 	3.[E][ ] project meeting (at: 6 Aug 2022 2:00 PM)
+Please enter your command: 	Noted. I've cleared your list!
 Please enter your command: 	Bye. Hope to see you again soon!

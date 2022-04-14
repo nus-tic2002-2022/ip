@@ -48,6 +48,9 @@ public class Parser {
             case "clear":
                 command = new ClearCommand();
                 break;
+            case "help":
+                command = new HelpCommand();
+                break;
             case "mark":
                 try {
                     taskNumber = args[1].trim();

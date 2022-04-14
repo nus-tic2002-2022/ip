@@ -57,7 +57,7 @@ public class Ui {
      * Print Welcome message
      */
     public void showWelcomeMessage() {
-        //out.println();
+
         String logo = "             " + " ____        _\n"
                 + "             " + "|  _ \\ _   _| | _____\n"
                 + " Hello! I am " + "| | | | | | | |/ / _ \\\n"

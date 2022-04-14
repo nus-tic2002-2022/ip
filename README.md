@@ -1,9 +1,36 @@
-# duke.Duke project template
+# Introduction
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are
-instructions on how to use it.
+This is an unfriendly chatbot named: Knot YU. <br/>
+It helps to keep track of our busy life with daily tasks management by having a To-Do List.  
 
-## Setting up in Intellij
+# Features
+Knot YU have several basic features to manage your To-Do List, and it has the capabilities to auto-save and load.
+1. List Tasks - Shows you all you finished and unfinished tasks.
+2. Add Task - Add a single task into your list.
+3. Delete Task(s) - Delete a single or multiple task.
+4. Find Task(s) - Find tasks that contains to a keyword.
+5. Mark Task(s) - Mark a single or multiple tasks. 
+6. Unmark Task(s) - Unmark a single or multiple tasks.
+
+## Add a task
+### `todo`
+### `deadline`
+### `event`
+
+## Commands
+### `list` Shows you all you finished and unfinished tasks.
+### `find`
+### `mark`
+### `unmark`
+### `delete`
+### `no`
+
+
+
+
+
+
+# Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 

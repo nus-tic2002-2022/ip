@@ -46,7 +46,7 @@ public class TaskList {
 
     /**
      * Print all tasks
-     * 
+     *
      */
     protected void printList() {
         for (Task task : this.getAllTasks()) {
@@ -184,8 +184,9 @@ public class TaskList {
      */
     protected void delete(UserInput input) {
         int index = 0;
-        String ids = input.item.toString();
-        for (String id : ids.split(",")) {
+        String[] ids = input.item.toString().split(",");
+        for(int i = ids.length - 1; i >= 0; i--) {
+            String id = ids[i];
             if (id != null) {
                 index = Integer.parseInt(id);
             }

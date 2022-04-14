@@ -20,7 +20,7 @@ public class Duke {
             System.out.print("\nCan I help you?\n");
             String command;
             command = in.nextLine();
-            assert command != null : "Ngo input inserted";
+            assert command != null : "No input inserted";
             input = new UserInput();
             tokens = command.split(" ");
 
@@ -50,6 +50,7 @@ public class Duke {
                 Integer id = tasks.getNextId();
                 Task newTask = new Task(id, input.item.toString());
                 tasks.insertTask(newTask, input);
+                continue;
             }
             taskAction(tasks, input);
         }

@@ -118,13 +118,12 @@ public class Task implements Comparable<Task> {
     /**
      * compareTo method compares the date of 2 tasks that are having date/time associated with them.
      *
-     * @param otherTask
+     * @param otherTask the tasks with date that is to be compared to
      * @return -1 if given is smaller, 0 if both are equal and 1 if given is bigger
-     * @see {@link java.time.LocalDateTime#compareTo(ChronoLocalDateTime)}
+     * @see java.time.LocalDateTime#compareTo(ChronoLocalDateTime)
      */
     @Override
     public int compareTo(Task otherTask) {
         return getDT().compareTo(otherTask.getDT());
     }
-    //...
 }

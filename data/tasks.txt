@@ -7,5 +7,3 @@
 [D][X] test3 (by: 2003-03-03 0300)
 [E][ ] test24 (at: 2024-02-24 0000)
 [D][ ] test54 (by: 2054-05-04 0540)
-[T][ ] new tasks
-[T][ ] more tasks

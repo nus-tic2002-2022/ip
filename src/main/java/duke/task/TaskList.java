@@ -19,10 +19,11 @@ public class TaskList {
     }
 
     private static int indexer(String userInput){
+        assert numOfTasks >= 0 : "number of tasks cannot be less than 0";
         if(numOfTasks == 0){
-        System.out.println("☹ OOPS!!! There is no task in your list!");
-        return -1;
-    }
+            System.out.println("☹ OOPS!!! There is no task in your list!");
+            return -1;
+        }
         String listIndexer = userInput;
         listIndexer = listIndexer.replaceAll("[^\\d]","");
         int index = Integer.parseInt(listIndexer);
@@ -40,6 +41,7 @@ public class TaskList {
      * @return number of tasks in the task list
      */
     public static int getNumOfTasks(){
+        assert numOfTasks >= 0 : "number of tasks cannot be less than 0";
         return numOfTasks;
     }
 
@@ -47,6 +49,7 @@ public class TaskList {
      * list method lists all the task in the task list
      */
     public static void list(){
+        assert numOfTasks >= 0 : "number of tasks cannot be less than 0";
         try {
             taskList.clear();
             numOfTasks = 0;

@@ -22,6 +22,7 @@ public class Task implements Comparable<Task> {
      * @param description The description of the task
      */
     public Task(String description) {
+        assert !description.isBlank() : "description should not be blank";
         this.description = description;
         this.isDone = false;
         System.out.println("Got it. I've added this task:");
@@ -35,6 +36,7 @@ public class Task implements Comparable<Task> {
      * @param isDone The status of the task
      */
     public Task(String description, boolean isDone){
+        assert !description.isBlank() : "description should not be blank";
         this.description = description;
         this.isDone = isDone;
     }

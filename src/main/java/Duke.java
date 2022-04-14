@@ -21,6 +21,13 @@ public class Duke {
         System.out.println("__________________________________________________________");
     }
 
+    /**
+     * This is the main method which is critical and essential for the execution of Duke program.
+     * It contains key methods performing the individual functions such as: Tod0, Event, Deadline, Mark, Unmark, Delete, Find.
+     * The entire duke program will be dependent on this block of codes to interact with user inputs.
+     * Each of the sub-methods will be activated by the user inputs with pre-fix of Tod0, Event, Deadline, Mark, Unmark, Delete and Find.
+     */
+
     public static void system() {
 
         String line;
@@ -160,7 +167,6 @@ public class Duke {
                     taskIcon.add(new Deadline(line.substring(9, index3-1), Format));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
-                    // counter++;
                     System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
                     saveFile("outputFiles/duke.txt");
                     separatingLine();
@@ -229,7 +235,6 @@ public class Duke {
                     taskIcon.add(new Todo(line.substring(5)));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
-                    // counter++;
                     System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
                     saveFile("outputFiles/duke.txt");
                     separatingLine();
@@ -295,7 +300,6 @@ public class Duke {
                     taskIcon.add(new Event(line.substring(6, index4-1), Format));
                     System.out.println("Hey Boss! Got it. I've added this task for you:");
                     System.out.println(taskIcon.get(taskIcon.size()-1).toString());
-                    // counter++;
                     System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
                     saveFile("outputFiles/duke.txt");
                     separatingLine();
@@ -391,6 +395,11 @@ public class Duke {
 
     }
 
+    /**
+     * This method will be activated immediately when each of the key function (e.g Deadline, Event, Mark, Unmark) is called.
+     * This method serves the purpose of updating the file with dynamic content modification based on the User's input.
+     */
+
     //Save the File to Data Folder
     public static void saveFile(String myOutput) throws IOException {
         FileWriter fw = new FileWriter(myOutput);
@@ -400,6 +409,10 @@ public class Duke {
         fw.close();
     }
 
+    /**
+     * This method will be activated immediately when the Duke Program started to run.
+     * The method serves the purpose of reading the file and loading it into the program.
+     */
 
     //Read the File from Data Folder
     public static void readFile(String myOutput) throws FileNotFoundException {

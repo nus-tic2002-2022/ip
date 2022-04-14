@@ -360,11 +360,11 @@ public class Ui {
                 break;
 
             case "fileLoadFail":
-                output = "\n[Issue]\tDetecting error in loading task list file.\n";
+                output = "\n[Issue]\tDetecting error in loading task list file.\nPlease try manually create Directory and File \"data\\task.txt\"";
                 break;
 
             case "readError":
-                output = "\n[Issue]\tDetecting error in reading task list file.\n";
+                output = "\n[Issue]\tDetecting error in reading task list file.\nPlease ensure File \"data\\task.txt\" is formatted correctly";
                 break;
 
             default :

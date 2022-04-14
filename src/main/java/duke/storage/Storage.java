@@ -50,11 +50,31 @@ public class Storage {
     }
 
     /**
+     * Return true if directory exist and false if directory does not exist.
+     *
+     * @return boolean of existence of directory.
+     */
+    public boolean checkDirectory(){
+        File fileDirectory = new File("data");
+        return fileDirectory.exists();
+    }
+
+    /**
+     * Create data directory .
+     */
+    public void createDirectory(){
+        File fileDirectory = new File("data");
+        fileDirectory.mkdir();
+    }
+
+    /**
      * Create new text file with template at filepath.
      *
      * @param taskList TaskList which Task content to be saved in text file.
      */
     public void create(TaskList taskList) throws IOException {
+        createDirectory();
+
         File f = new File(filePath);
         f.createNewFile();
 
@@ -92,6 +112,11 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException, IOException {
         ArrayList<Task> taskList = new ArrayList<Task>();
+
+        boolean directoryExist = checkDirectory();
+        if (!directoryExist){
+            createDirectory();
+        }
 
         File f = new File(filePath);
         if(f.exists()){

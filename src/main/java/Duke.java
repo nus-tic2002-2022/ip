@@ -378,6 +378,27 @@ public class Duke {
 
             }
 
+            // perform 'find' task function:
+            else if (line.contains("find")) {
+
+                String searchKey = line.substring(5);
+                int counter = 0;
+
+                for (Task m : taskIcon) {
+                    if (m.description.toLowerCase().contains(searchKey)) {
+                        counter++;
+                        System.out.println(counter + ". " + m);
+                        separatingLine();
+                    }
+                }
+
+                if (counter == 0) {
+                    System.out.println("OOPS!!! Sorry, Boss! I could not locate this task.\n" +
+                            "Please re-enter a valid keyword to search within your existing tasks!\n" +
+                            "Kindly try it again, Boss!");
+                }
+            }
+
 
             //Add user input to task list:
             else {
@@ -480,7 +501,9 @@ public class Duke {
         System.out.println("Hello, Boss! This is Duke here!\n" +
                 "Your trusted personal task assistant!\n" +
                 "What can I do to assist you today, Boss?\n" +
-                "(Please input your task or type 'list' to retrieve your task list)");
+                "(Please input your task or type 'list' to retrieve your task list)\n" +
+                "[Your input should start with 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete', and 'find' " +
+                "if you would like to perform the function above]");
         separatingLine();
 
 
@@ -492,8 +515,9 @@ public class Duke {
             Files.createDirectories(path);
             readFile(FileLocation);
         } catch (IOException e) {
-            System.out.println("OOPS!!! I'm sorry, Boss! I can't find the file!\n" +
-                    "Please create the file first before proceed!");
+            System.out.println("OOPS!!! I'm sorry, Boss! I can't locate the text file for your tasks!\n" +
+                    "However, don't worry about it! The file will be automatically created for you once you exit the duke program!\n" +
+                    "Otherwise, you can also create the file first before you proceed (recommended), Boss!");
             separatingLine();
         }
 

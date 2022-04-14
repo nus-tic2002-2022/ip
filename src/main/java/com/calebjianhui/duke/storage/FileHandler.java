@@ -23,7 +23,8 @@ import com.calebjianhui.duke.ui.DukeUI;
 public class FileHandler {
     private static final String MESSAGE_CORRUPTED_FILE =
             "There is an issue reading your saved file, your task list might be corrupted.";
-    private static final String MESSAGE_IO_ERROR = "An error occurred while accessing file.";
+    private static final String MESSAGE_IO_ERROR =
+            "We are unable to create / access your file at 'data/task_file.txt'.\nYour progress might not be saved.";
 
     private static final String FILE_PATH = "data/";
     private static final String FILE_NAME = "task_file.txt";

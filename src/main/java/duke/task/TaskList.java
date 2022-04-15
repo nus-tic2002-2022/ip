@@ -1,9 +1,11 @@
 package duke.task;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TaskList {
     protected static int count;
-    protected static ArrayList<Task> list;
+    protected static ArrayList<Task> list = new ArrayList<Task>();
 
     public TaskList(ArrayList<Task> list, int count) {
         TaskList.count = count;
@@ -16,7 +18,7 @@ public class TaskList {
 
     public static void List() throws DukeException {
         if (count == 0) {
-            throw new DukeException("OOPS!!! There are no items currently in the list\n");
+            throw new DukeException("There are no items currently in the list\n");
         }
         System.out.println("Here are the tasks in your list:\n");
         int seq = 1;
@@ -44,7 +46,7 @@ public class TaskList {
         if (list.get(n - 1).getStatusIcon().equals("\u2713")) {
             throw new DukeException("OOPS!!! Task has already been completed\n");
         } else {
-            System.out.println("GOOD JOB! I've marked this task as done:");
+            System.out.println("Nice! I've marked this task as done:");
             list.get(n - 1).setStatus(true);
             System.out.println(list.get(n - 1));
         }
@@ -60,7 +62,7 @@ public class TaskList {
         if (n > count) {
             throw new DukeException("OOPS!!! Please enter a valid task number\n");
         } else {
-            System.out.println("OKAY! I've removed this task:");
+            System.out.println("Noted. I've removed this task:");
             System.out.println(list.get(n - 1));
             list.remove(n - 1);
             count--;
@@ -83,7 +85,7 @@ public class TaskList {
         UpdateStatus();
     }
 
-    public static void Deadline(String line) throws DukeException {
+    public static void Deadline(String line, LocalDateTime localDateTime) throws DukeException {
         if (line.trim().length() < 9) {
             throw new DukeException("OOPS!!! Description of task cannot be empty.\n");
         }
@@ -93,17 +95,16 @@ public class TaskList {
         int m = line.toLowerCase().indexOf("deadline");
         int n = line.indexOf('/');
         String description = line.substring(m + 8, n).trim();
-        String by = line.substring(n + 3).trim();
         for (Task l : list) {
             if (l.description.equals(description)) {
                 throw new DukeException("OOPS!!! Task has already been added previously\n");
             }
         }
-        list.add(new Deadline(description, by));
+        list.add(new Deadline(description, localDateTime));
         UpdateStatus();
     }
 
-    public static void Event(String line) throws DukeException {
+    public static void Event(String line, LocalDateTime localDateTime) throws DukeException {
         if (line.trim().length() < 6) {
             throw new DukeException("OOPS!!! Description of task cannot be empty.\n");
         }
@@ -113,14 +114,38 @@ public class TaskList {
         int m = line.toLowerCase().indexOf("event");
         int n = line.indexOf('/');
         String description = line.substring(m + 5, n).trim();
-        String at = line.substring(n + 3).trim();
         for (Task l : list) {
             if (l.description.equals(description)) {
                 throw new DukeException("OOPS!!! Task has already been added previously\n");
             }
         }
-        list.add(new Event(description, at));
+        list.add(new Event(description, localDateTime));
         UpdateStatus();
+    }
+
+    public static void Occurrence(LocalDate localDate) {
+        boolean match = false;
+        System.out.println("Here are the tasks that fall within this date\n");
+        for (Task l : list) {
+            if (l.toString().contains("[D]")) {
+                LocalDate target = (((Deadline) l).localDateTime).toLocalDate();
+                if (target.equals(localDate)) {
+                    System.out.println(l);
+                    match = true;
+                }
+            }
+            if (l.toString().contains("[E]")) {
+                assert l instanceof Event;
+                LocalDate target = (((Event) l).localDateTime).toLocalDate();
+                if (target.equals(localDate)) {
+                    System.out.println(l);
+                    match = true;
+                }
+            }
+        }
+        if (!match) {
+            System.out.print("OOPS!!! Sorry no tasks fall on this day\n");
+        }
     }
 
     public static void UpdateStatus() {

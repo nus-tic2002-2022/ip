@@ -71,4 +71,20 @@ public class Ui {
             System.out.println(divider);
         }
     }
+    public int printUndoMsg(tasklist TL, String command) {
+        int latest=0;
+        if (TL.getSize() == 0) {
+            System.out.println("There is no Task Currently, wanna add some? :P");
+        }else{
+            if (command.equalsIgnoreCase("undo")) {
+                latest=TL.getSize()-1;
+                System.out.println(divider + "\n Noted. I've undo this task:");
+               // System.out.println("[" + TL.getTask(latest).getType() + "] [" + TL.getTask(latest).getStatusIcon() + "]" + TL.getTask(latest).getDescription());
+                System.out.println("Now you have " + (TL.getSize() - 1) + " tasks in the list.");
+                System.out.println(divider);
+            }
+        }
+
+        return latest;
+    }
 }

@@ -51,7 +51,11 @@ public class Duke {
                 break;
             } else if (command.equalsIgnoreCase("list")) {
                ui.printCmdMsg(TL, command);
-            } else {
+            } else if (command.equalsIgnoreCase("undo")) {
+                //ui.printUndoMsg(TL, command);
+                TL.deleteTask(ui.printUndoMsg(TL, command));
+                storage.save(filePath, TL);
+            }else {
                 if (words.length < 2) {
                     System.out.println(DukeException.UnknownCommand);
                 } else if (command.toLowerCase().contains("mark") || command.toLowerCase().contains("unmark")) {

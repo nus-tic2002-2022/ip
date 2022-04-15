@@ -48,7 +48,7 @@ public class storage {
         FileOutputStream oFile = new FileOutputStream(fileName, false);
         PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
         for (int i = 0; i < TL.getSize(); i++) {
-            pw.println(TL.getTask(i).getType() + " | " + TL.getTask(i).getStatusIconS() + " | " + TL.getTask(i).getDescription());
+            pw.println(TL.getTask(i).getType() + " | " + TL.getTask(i).getStatusIconS() + " | " + TL.getTask(i).getDescription() + " | " );
         }
         pw.close();
     }

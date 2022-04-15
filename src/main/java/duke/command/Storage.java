@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 public class Storage {
 
     protected static int count = 0;
-    protected static String Directory = "./data/";
-    protected static String FileLocation = "data/duke.txt";
+    protected static String FileLocation = FilePath.FileLocation;
     protected static ArrayList<Task> list = new ArrayList<>();
 
     /**
@@ -36,26 +35,23 @@ public class Storage {
             if (current.contains("[T]")) {
                 String description = current.substring(7);
                 list.add(new Todo(description));
-                if (current.contains("\u2713")) {
-                    list.get(count).setStatus(true);
-                }
+                if (current.contains("\u2713")) list.get(count).setStatus(true);
             }
             else if (current.contains("[D]") || current.contains("[E]")) {
                 int m = current.indexOf("(");
                 int n = current.indexOf(")");
-                String description = current.substring(7,m-1);
 
+                String description = current.substring(7,m-1);
                 LocalDateTime localDateTime = Parser.parse(current.substring(0,n));
+
                 assert localDateTime != null;
                 if (current.contains("[D]")) {
-                    list.add(new Deadline(description,localDateTime));
+                    list.add(new Deadline(description, localDateTime));
                 }
                 else {
-                    list.add(new Event(description,localDateTime));
+                    list.add(new Event(description, localDateTime));
                 }
-                if (current.contains("\u2713")) {
-                    list.get(count).setStatus(true);
-                }
+                if (current.contains("\u2713")) list.get(count).setStatus(true);
             }
             else { throw new DukeException("Error: Task in existing data is incompatible\n"); }
             count++;
@@ -67,9 +63,10 @@ public class Storage {
      * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
 
-    public static void writeToFile() throws IOException {
-        FileWriter fw = new FileWriter(FileLocation);
+    public static void writeToFile(boolean status) throws IOException {
         list = TaskList.UpdatedList();
+        if (status) Undo.addQueue(); //Add to history if change made to TaskList
+        FileWriter fw = new FileWriter(FileLocation);
         for (Task l : list) {
             fw.write(l + System.lineSeparator());
         }
@@ -82,9 +79,9 @@ public class Storage {
 
     public static void main() {
         try {
-            Files.createDirectories(Paths.get(Directory));
             printFileContents(FileLocation);
             new TaskList(list, count); //Initialize data with existing file
+            Undo.addQueue(); //Initialize data for undo purpose
         } catch (DukeException | IOException e) {
             System.out.println(e.getMessage());
         }

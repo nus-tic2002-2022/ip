@@ -1,5 +1,6 @@
 package duke.command;
 import duke.task.*;
+import java.io.IOException;
 
 /**
  * <h2> Duke, your personalized task manager </h2>
@@ -19,17 +20,15 @@ public class Duke {
     /**
      * This is the main method which does 3 key things to get the program started.
      *<br>  1. It initializes many different formats of possible Date Time configurations which allows flexibility in user input.
-     *<br>  2. It loads any previously stored Tasks List into the current program so you can continue from that point forward.
-     *<br>  3. It loads the UI class that starts the interaction with the user.
+     *<br>  2. It loads the UI class that starts the interaction with the user.
      *
      * @param args Unused.
      * @throws DukeException Error thrown when user input is not complete or in an unreadable format.
      * @see DukeException
      */
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
         DateTimeList.main(); //Initialize DateTimeFormats
-        Storage.main(); //Initialize Stored Data into TaskList
         UI.main(); //Start interaction with User
     }
 }

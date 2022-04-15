@@ -2,6 +2,7 @@ package duke.task;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import duke.command.Undo;
 
 /**
  * This class is used for evaluating the actions of the multiple user commands such as add / delete tasks etc.
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 
 public class TaskList {
     protected static int count;
-    protected static ArrayList<Task> list = new ArrayList<Task>();
+    protected static ArrayList<Task> list = new ArrayList<>();
 
     /**
      * This method initializes the TaskList ArrayList.
@@ -36,9 +37,7 @@ public class TaskList {
      * @return Returns the latest updated TaskList.
      */
 
-    public static ArrayList<Task> UpdatedList() {
-        return list;
-    }
+    public static ArrayList<Task> UpdatedList() { return list;}
 
     /**
      * This method provides a list of all the tasks currently inside the TaskList.
@@ -46,9 +45,7 @@ public class TaskList {
      */
 
     public static void List() throws DukeException {
-        if (count == 0) {
-            throw new DukeException("There are no items currently in the list\n");
-        }
+        if (count == 0) throw new DukeException("There are no items currently in the list\n");
         System.out.println("Here are the tasks in your list:\n");
         int seq = 1;
         for (Task l : list) {
@@ -75,19 +72,16 @@ public class TaskList {
     public static void Done(String line) throws DukeException {
         int m = line.toLowerCase().indexOf("done");
         String num = line.substring(m + 4).trim();
-        if (num.length() < 1) {
-            throw new DukeException("Error: Please enter which task is done\n");
-        }
+        if (num.length() < 1) throw new DukeException("Error: Please enter which task is done\n");
         int n = Integer.parseInt(num);
-        if (n > count) {
-            throw new DukeException("Error: Please enter a valid task number\n");
-        }
-        if (list.get(n - 1).getStatusIcon().equals("\u2713")) {
+        if (n > count) throw new DukeException("Error: Please enter a valid task number\n");
+        if (list.get(n - 1).getStatusIcon().equals("\u2713"))
             throw new DukeException("Error: Task has already been completed\n");
-        } else {
+        else {
             System.out.println("Nice! I've marked this task as done:");
             list.get(n - 1).setStatus(true);
             System.out.println(list.get(n - 1));
+            list = new ArrayList<>(list);
         }
     }
 
@@ -100,13 +94,10 @@ public class TaskList {
     public static void Delete(String line) throws DukeException {
         int m = line.toLowerCase().indexOf("delete");
         String num = line.substring(m + 6).trim();
-        if (num.length() < 1) {
-            throw new DukeException("Error: Please enter which task to be deleted\n");
-        }
+        if (num.length() < 1) throw new DukeException("Error: Please enter which task to be deleted\n");
         int n = Integer.parseInt(num);
-        if (n > count) {
-            throw new DukeException("Error: Please enter a valid task number\n");
-        } else {
+        if (n > count) throw new DukeException("Error: Please enter a valid task number\n");
+        else {
             System.out.println("Noted. I've removed this task:");
             System.out.println(list.get(n - 1));
             list.remove(n - 1);
@@ -122,15 +113,12 @@ public class TaskList {
      */
 
     public static void Todo(String line) throws DukeException {
-        if (line.trim().length() < 5) {
-            throw new DukeException("Error: Description of task cannot be empty.\n");
-        }
+        if (line.trim().length() < 5) throw new DukeException("Error: Description of task cannot be empty.\n");
         int m = line.toLowerCase().indexOf("todo");
         String description = line.substring(m + 4).trim();
         for (Task l : list) {
-            if (l.description.equals(description)) {
+            if (l.description.equals(description))
                 throw new DukeException("Error: Task has already been added previously\n");
-            }
         }
         list.add(new Todo(description));
         UpdateStatus();
@@ -144,19 +132,14 @@ public class TaskList {
      */
 
     public static void Deadline(String line, LocalDateTime localDateTime) throws DukeException {
-        if (line.trim().length() < 9) {
-            throw new DukeException("Error: Description of task cannot be empty.\n");
-        }
-        if (!line.contains("/")) {
-            throw new DukeException("Error: Please specify time.\n");
-        }
+        if (line.trim().length() < 9) throw new DukeException("Error: Description of task cannot be empty.\n");
+        if (!line.contains("/")) throw new DukeException("Error: Please specify time.\n");
         int m = line.toLowerCase().indexOf("deadline");
         int n = line.indexOf('/');
         String description = line.substring(m + 8, n).trim();
         for (Task l : list) {
-            if (l.description.equals(description)) {
+            if (l.description.equals(description))
                 throw new DukeException("Error: Task has already been added previously\n");
-            }
         }
         list.add(new Deadline(description, localDateTime));
         UpdateStatus();
@@ -170,19 +153,14 @@ public class TaskList {
      */
 
     public static void Event(String line, LocalDateTime localDateTime) throws DukeException {
-        if (line.trim().length() < 6) {
-            throw new DukeException("Error: Description of task cannot be empty.\n");
-        }
-        if (!line.contains("/")) {
-            throw new DukeException("Error: Please specify time.\n");
-        }
+        if (line.trim().length() < 6) throw new DukeException("Error: Description of task cannot be empty.\n");
+        if (!line.contains("/")) throw new DukeException("Error: Please specify time.\n");
         int m = line.toLowerCase().indexOf("event");
         int n = line.indexOf('/');
         String description = line.substring(m + 5, n).trim();
         for (Task l : list) {
-            if (l.description.equals(description)) {
+            if (l.description.equals(description))
                 throw new DukeException("Error: Task has already been added previously\n");
-            }
         }
         list.add(new Event(description, localDateTime));
         UpdateStatus();
@@ -193,7 +171,8 @@ public class TaskList {
      * @param localDate Provides the input for the tasks that are supposed to be completed on that particular date.
      */
 
-    public static void Occurrence(LocalDate localDate) {
+    public static void Occurrence(String line, LocalDate localDate) throws DukeException {
+        if (!line.contains("/")) { throw new DukeException("Error: Please specify time.\n"); }
         boolean match = false;
         System.out.println("Here are the tasks that fall within this date\n");
         for (Task l : list) {
@@ -227,5 +206,40 @@ public class TaskList {
         System.out.println(list.get(count));
         count++;
         System.out.println("Now you have " + count + " tasks in the list.");
+    }
+
+    /**
+     * This method helps undo the most recent command and print the Tasks in the TaskList before the last command was given.
+     * <br> It also erases the previous change which was added to the History function.
+     * @throws DukeException Throws an error if the user tries to undo before entering any input or when reached at the initial loaded list.
+     */
+
+    public static void Undo() throws DukeException {
+        list = Undo.undo();
+        count--;
+        System.out.println("Undo completed.");
+        if (list.size() == 0) {
+            System.out.println("The list is now empty");
+        }
+        int seq = 1;
+        for (Task l : list) {
+            System.out.println(seq + ". " + l);
+            seq++;
+        }
+    }
+
+    /**
+     * This method helps to take a find keyword and displays any tasks in the TaskList that contain that task description.
+     * @param line Contains the user-input for the tasks description that he wants to find.
+     */
+
+    public static void Find(String line) {
+        int seq = 1;
+        for (Task l : list) {
+            if(l.description.toLowerCase().contains(line.toLowerCase())) {
+                System.out.println(seq + "." + l);
+                seq++;
+            }
+        }
     }
 }

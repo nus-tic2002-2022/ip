@@ -178,9 +178,6 @@ public class Parser {
                     String detail = str2[1];
                     System.out.println("To set as Recurring Events? (Y/N)");
                     String recurr_command = user_interface.readCommand(readInput);
-                    //Task t_flag = null;
-                    //UI recurr_UI = new UI();
-                    //String recurr_command = recurr_UI.readCommand();
                     assert (recurr_command.equals("Y") || recurr_command.equals("N") || recurr_command.equals("y") || recurr_command.equals("n"));
                     if (recurr_command.equals("Y") || recurr_command.equals("y")) {
                         System.out.println("What is the interval (day) for this Recurring Event:");
@@ -189,7 +186,6 @@ public class Parser {
 
                         System.out.println("How many times to be recurred:");
                         String recurr_count= user_interface.readCommand(readInput);
-                        //String recurr_count = recurr_UI.readCommand(recurInput);
                         Integer number = checkRecurring_count(recurr_count);
                         Add_Recur_Command passed_command = new Add_Recur_Command(str[0]);
                         for (Integer j = 0; j < number; j++) { // recurring task list is created in Add_Recur_Command, hence adding the task into this command
@@ -199,7 +195,6 @@ public class Parser {
                         }
                         return passed_command;
                     }
-                    //else
                     if(recurr_command.equals("N") || recurr_command.equals("n")){
                         Events t_flag = new Events(descrip, detail);
                         AddCommand passed_command = new AddCommand(str[0], t_flag);
@@ -269,4 +264,3 @@ public class Parser {
 }
 }
 
-/***********************************************************************/

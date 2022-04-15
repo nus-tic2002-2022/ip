@@ -1,7 +1,8 @@
-T | 0 | submit report
-E | 0 | attend tuition | at Raffles on 2022-09-01
-E | 0 | attend tuition | at Raffles on 2022-09-11
-E | 0 | attend tuition | at Raffles on 2022-09-21
-E | 0 | attend tuition | at Raffles on 2022-10-01
-E | 0 | attend tuition | at Raffles on 2022-10-11
-E | 0 | attend meeting | at NUS on 2022-11-11
+T | 1 | borrow book
+E | 0 |  attend meeting |  at NUS on 2022-06-06
+E | 0 |  attend AI seminar  |  at NUS on 2022-07-20
+D | 0 |  submit assignment  |  by 2022-08-01 1800
+E | 1 |  dental appointment  |  at raffles on 2022-09-01
+E | 0 |  dental appointment  |  at raffles on 2022-09-08
+E | 0 |  dental appointment  |  at raffles on 2022-09-15
+E | 0 |  dental appointment  |  at raffles on 2022-09-29

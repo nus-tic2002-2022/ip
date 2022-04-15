@@ -2,6 +2,15 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    public static void showTaskList(ArrayList<String> taskList){
+        int counter = 1;
+
+        for (int i = 0; i < taskList.size(); i++) {
+
+            System.out.println("    " + counter + ". " + taskList.get(i));
+            counter++;
+        }
+    }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -21,9 +30,18 @@ public class Duke {
         do {
             userInput = in.nextLine();
             System.out.println("    ____________________________________________________________");
-            System.out.println("    " + userInput); //do stuff here after input
+
+            switch (userInput) {
+                case "list": showTaskList(taskList);
+                    break;
+
+                default: taskList.add(userInput);
+                    System.out.println("    added: " + userInput); //do stuff here after input
+                    break;
+            }
             System.out.println("    ____________________________________________________________");
         } while (!userInput.equals("bye"));
+
 
         System.out.println("    Ciao!");
         System.out.println("    ____________________________________________________________");

@@ -133,8 +133,8 @@ public class MySiri extends Duke{
         System.out.println(ln);
     }
 
-    public static void Find (String enter) throws Exception {
-        String[] _enter = enter.split(" ", 2);
+    public static void Find (String input) throws Exception {
+        String[] _enter = input.split(" ", 2);
         if(_enter[1].equals("")) {
             System.out.println(ln + "Key "+_enter[1]+" not found.");
         } else {

@@ -9,6 +9,8 @@ public class  Event extends Task {
     public Event(String description, String events) {
         super(description);
         this.events = events;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this.toString());
     }
 
     @Override

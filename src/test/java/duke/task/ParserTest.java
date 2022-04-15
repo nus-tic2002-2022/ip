@@ -17,19 +17,19 @@ class ParserTest {
     @BeforeEach
     void  elementary() {
         parser = new Parser();
-        parser.capture("wang", fullCommand -> List.of(fullCommand[0]));
-        parser.capture("wenwei", fullCommand -> List.of(fullCommand[1]));
+        parser.capture("yu", fullCommand -> List.of(fullCommand[0]));
+        parser.capture("wei", fullCommand -> List.of(fullCommand[1]));
     }
 
     @Test
-    void parserValidCommandWang() throws DukeException, IOException {
-        Command command = parser.parse(new String[]{"wang"});
-        assertEquals("wang", command.run(new String[]{"wang", "input"}).get(0));
+    void parserValidCommandYu() throws DukeException, IOException {
+        Command command = parser.parse(new String[]{"yu"});
+        assertEquals("yu", command.run(new String[]{"yu", "input"}).get(0));
     }
 
     @Test
-    void parserValidCommandWenwei() throws DukeException, IOException, DukeException {
-        Command command = parser.parse(new String[]{"wenwei"});
-        assertEquals("input", command.run(new String[]{"wenwei", "input"}).get(0));
+    void parserValidCommandWei() throws DukeException, IOException, DukeException {
+        Command command = parser.parse(new String[]{"wei"});
+        assertEquals("input", command.run(new String[]{"wei", "input"}).get(0));
     }
 }

@@ -1,4 +1,2 @@
-[T][✓] buy book
+[T][✘] sell book
 [T][✘] read book
-[T][✘] write book
-[D][✘] sell book (by: y Monday)

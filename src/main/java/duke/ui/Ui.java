@@ -1,6 +1,4 @@
 package duke.ui;
-import duke.tasklist.Deadline;
-import duke.tasklist.Task;
 import duke.tasklist.tasklist;
 
 import java.util.ArrayList;
@@ -86,5 +84,14 @@ public class Ui {
         }
 
         return latest;
+    }
+
+    public void printFindMsg(tasklist TL, String word){
+        tasklist list=TL.findTask(word);
+        System.out.println(divider + "\n Here are the matching tasks in your list:");
+        for (int i = 0; i < list.getSize() ;i++) {
+            System.out.println((i + 1) + ". [" + list.getTask(i).getType() + "] [" + list.getTask(i).getStatusIcon() + "]" + list.getTask(i).getDescription());
+        }
+        System.out.println(divider);
     }
 }

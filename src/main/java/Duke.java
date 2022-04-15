@@ -90,7 +90,11 @@ public class Duke {
                     ui.printCmdMsg( TL, command);
                   storage.save(filePath, TL);
 
-               } else if (command.equalsIgnoreCase("todo")) {
+               } else if (command.equalsIgnoreCase("find")) {
+                   // TL.addTask(new Event(description,date,time));
+                    ui.printFindMsg(TL, description);
+
+                }else if (command.equalsIgnoreCase("todo")) {
                     TL.addTask(new Todo(description));
                     ui.printCmdMsg(TL, command);
                     storage.save(filePath, TL);

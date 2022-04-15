@@ -33,4 +33,14 @@ public class tasklist {
     public Task getTask(int index){
         return TL.get(index);
     }
+
+    public tasklist findTask(String word){
+        tasklist newTL= new tasklist();
+        for(int i=0; i<TL.size();i++){
+            if(TL.get(i).getDescription().contains(word)){
+                newTL.addTask(TL.get(i));
+            }
+        }
+        return newTL;
+    }
 }

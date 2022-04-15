@@ -5,8 +5,8 @@ public class Event extends Task{
 
     protected LocalDate date;
 
-    public Event(String description, LocalDate at, String enter) {
-        super(description, enter);
+    public Event(String description, LocalDate at) {
+        super (description);
         this.date = at;
     }
 

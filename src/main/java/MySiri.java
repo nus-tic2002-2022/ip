@@ -42,7 +42,7 @@ public class MySiri extends Duke{
         String[] _enter = input.split(" ", 2);
         String type = (_enter[0]).trim();
         try {
-            task.add(count, new Task(_enter[1], "test"));
+            task.add(count, new Task(_enter[1]));
             if (print) {
                 printAdded(task.get(count).printTask());
             }
@@ -74,13 +74,13 @@ public class MySiri extends Duke{
 
     public static void Event(String enter, boolean print) throws Exception {
         String[] _enter = enter.split(" ", 2);
-        String type = (_enter[0]).trim();
+        String type = (_enter[0]).trim().toLowerCase();;
         try {
             String[] dl = _enter[1].split("/");
-            String[] at = (dl[1].split(" ", 2));
-            task.add(count, new Event((dl[0]).trim(), processDate(at[1]), enter));
-            if (print) {
-                printAdded(task.get(count).printTask());
+            String at[] = (dl[1].split(" ", 2));
+            task.add(count, new Event((dl[0]).trim(), processDate(at[1])));
+            if(print) {
+                printAdded(task.get(count).toString());
             }
             count++;
         } catch (RuntimeException e) {
@@ -93,10 +93,10 @@ public class MySiri extends Duke{
         String type = (_enter[0]).trim();
         try {
             String[] dl = _enter[1].split("/");
-            String[] by = (dl[1].split(" ", 2));
-            task.add(count, new Deadline((dl[0]).trim(), processDate(by[1]), enter));
-            if (print) {
-                printAdded(task.get(count).printTask());
+            String by[] = (dl[1].split(" ", 2));
+            task.add(count, new Deadline((dl[0]).trim(), processDate(by[1])));
+            if(print) {
+                printAdded(task.get(count).toString());
             }
             count++;
         } catch (RuntimeException e) {
@@ -125,11 +125,80 @@ public class MySiri extends Duke{
         System.out.println("Now you have " + count + " tasks in the list.");
         System.out.println(ln);
     }
+    public static void Find (String enter) throws Exception {
+        String[] _enter = enter.split(" ", 2);
+        if(_enter[1]=="") {
+            System.out.println(ln + "Key "+_enter[1]+" not found.");
+        } else {
+            try {
+                PrintWithKey(_enter[1]);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid number");
+            }
+        }
+        System.out.println(ln);
+
+    }
 
     private static void run() throws Exception {
         Scanner in = new Scanner(System.in);
         String enter = (in.nextLine()).trim();
         fileScanner(enter, true);
+    }
+
+    public static void printList(String enter) throws Exception{
+        String[] _enter = enter.split(" ", 2);
+
+        if(_enter[1]=="") {
+            System.out.println(ln + "Here are the tasks in your list:");
+            listTask();
+        } else {
+            try {
+                LocalDate d = processDate( _enter[1]);
+                System.out.println(ln + "Here are the tasks in your list on "+ _enter[1] +":");
+                PrintWithDate(d);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid number");
+            }
+        }
+        System.out.println(ln);
+    }
+
+    public static void listTask() {
+        int n = 1;
+        for (int i = 0; i < count; i++) {
+            System.out.println(n+". "+task.get(i).printTask());
+            n++;
+        }
+    }
+
+    public static void PrintWithDate(LocalDate d) {
+        int n = 1;
+        for (int a = 0; a < count; a++) {
+            LocalDate date=task.get(a).getDate();
+            if(date!=null && date.equals(d)) {
+                System.out.println(n+". "+task.get(a).printTask());
+                n++;
+            }
+        }
+        if(n==1)
+            System.out.println("You don't have any task list");
+    }
+
+    public static void PrintWithKey(String keyword) {
+        int n = 1;
+        for (int a = 0; a < count; a++) {
+            String title=task.get(a).getDescription();
+            if(title.toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println(n+". "+task.get(a).printTask());
+                n++;
+            }
+        }
+        if(n==1) System.out.println("You don't have any task list");
+    }
+
+    public static LocalDate processDate(String msg) {
+        return LocalDate.parse(msg.trim());
     }
 
     public static void fileScanner(String enter, boolean print) throws Exception {
@@ -168,58 +237,13 @@ public class MySiri extends Duke{
                 printList(enter);
             }
             break;
+            case "find": {
+                Find(enter);
+            }
+            break;
             default: {
                 throw new DukeException("");
             }
         }
-    }
-
-    public static void printList(String enter) throws Exception {
-        String[] _enter = enter.split(" ", 2);
-        if(count == 0){
-            System.out.println("You don't have any task in the list");
-        } else{
-            System.out.println(ln + "Here are the tasks in your list:"
-                    + System.lineSeparator());
-            listTask();
-            }
-
-        System.out.println(ln);
-    }
-    public static void PrintWithDate(LocalDate d) {
-        int n = 1;
-        for (int i = 0; i < count; i++) {
-            LocalDate date=task.get(i).getDate();
-            if(date!=null && date.equals(d)) {
-                System.out.println(n+". "+task.get(i).printTask());
-                n++;
-            }
-        }
-        if(n==1)
-            System.out.println("No task found");
-    }
-
-    public static void PrintWithKey(String keyword) {
-        int n = 1;
-        for (int a = 0; a < count; a++) {
-            String title=task.get(a).getDescription();
-            if(title.toLowerCase().contains(keyword.toLowerCase())) {
-                System.out.println(n+". "+task.get(a).printTask());
-                n++;
-            }
-        }
-        if(n==1)
-            System.out.println("No task found");
-    }
-
-    public static void listTask() {
-        int n = 1;
-        for (int i = 0; i < count; i++) {
-            System.out.println(n+". "+task.get(i).printTask());
-            n++;
-        }
-    }
-    public static LocalDate processDate(String msg) {
-        return LocalDate.parse(msg.trim());
     }
 }

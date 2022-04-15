@@ -263,6 +263,56 @@ public class Duke {
 
             }
 
+            // add individual feature for shortcut of tod0:
+            else if (line.contains("T")){
+
+                String[] TestInput = line.split(" ");
+
+                //Catch Error for T0do Class
+                try {
+                    // after 'tod0' no input of task description:
+                    if (TestInput.length < 2) {
+                        throw new DukeException("Invalid Input (T)");
+                    }
+
+                    // after 'tod0' no spacing:
+                    if (TestInput[0].length() > 1) {
+                        throw new DukeException("Invalid Format (T)");
+                    }
+
+                    //Initiate Tod0 Class
+                    taskIcon.add(new Todo(line.substring(2)));
+                    System.out.println("Hey Boss! Got it. I've added this task for you:");
+                    System.out.println(taskIcon.get(taskIcon.size()-1).toString());
+                    System.out.println("Now you have " + (taskIcon.size()) + " tasks in total within the list.");
+                    saveFile("outputFiles/duke.txt");
+                    separatingLine();
+                }
+                catch (DukeException e) {
+
+                    if (e.getError().equals("Invalid Input (T)")) {
+                        System.out.println("SORRY Boss! You have entered an invalid input (Missing Descriptions)!\n" +
+                                "Please enter the task description after 'T' for this entry!\n" +
+                                "Kindly try again, Boss!");
+                        separatingLine();
+                    }
+                    if (e.getError().equals("Invalid Format (T)")) {
+                        System.out.println("SORRY Boss! You have entered an invalid input (Wrong Format)!\n" +
+                                "Please enter the task description with space after 'todo' for this entry!\n" +
+                                "Example: 'T clean house'\n" +
+                                "Kindly try again, Boss!");
+                        separatingLine();
+
+                    }
+                }
+
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
+            }
+
+
             //Add Event Execution (with error handling):
             else if (line.contains("event")){
 
@@ -405,7 +455,7 @@ public class Duke {
               separatingLine();
               System.out.println("Opps! Sorry, BOSS! But I do not know what it means!\n" +
                       "Please enter the valid task description with pre-fix as below:\n" +
-                      "'todo' or 'deadline' or 'event' or 'delete'\n" +
+                      "'todo' or 'deadline' or 'event' or 'delete' or 'find' etc. as instructed at the beginning\n" +
                       "Please kindly try again with the above pre-fix, Boss!");
               separatingLine();
 
@@ -444,7 +494,7 @@ public class Duke {
             String text = s.nextLine();
             //Read [T] from File and Update to ArrayList
             if (text.contains("[T]")) {
-                String Todo = text.substring(23);
+                String Todo = text.substring(7);
                 taskIcon.add(new Todo(Todo));
 
                 if (text.contains("[X]")) {
@@ -500,10 +550,18 @@ public class Duke {
         separatingLine();
         System.out.println("Hello, Boss! This is Duke here!\n" +
                 "Your trusted personal task assistant!\n" +
-                "What can I do to assist you today, Boss?\n" +
-                "(Please input your task or type 'list' to retrieve your task list)\n" +
-                "[Your input should start with 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete', and 'find' " +
-                "if you would like to perform the function above]");
+                "What can I do to assist you today, Boss?\n\n" +
+                "Please input your task or type 'list' to retrieve your task list\n" +
+                "(Your input should start with the following:\n" +
+                "'todo'/'T' + [Task Description]\n" +
+                "'deadline' + [Task Description] + '/by' + [dd/mm/yyyy hhmm]\n" +
+                "'event' + [Task Description] + '/at' + [dd/mm/yyyy hhmm]\n" +
+                "'mark' + [Task Number]\n" +
+                "'unmark' + [Task Number]\n" +
+                "'delete' + [Task Number]\n" +
+                "'find' + [Keyword of Task Description]\n" +
+                "Kindly follow the given format to perform the function above, Boss!\n" +
+                "Enjoy your Journey with me, Glad to be of service to you!)");
         separatingLine();
 
 

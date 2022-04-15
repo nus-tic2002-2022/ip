@@ -1,3 +1,6 @@
+package duke.command;
+import duke.task.*;
+
 public class Parser {
     protected static String input;
 
@@ -21,7 +24,7 @@ public class Parser {
         } else if (input.toLowerCase().contains("event")) {
             TaskList.Event(input);
         } else {
-            throw new DukeException("Error: Please enter a valid task such as todo / deadline / event\n");
+            throw new DukeException("OPPS!!! Please enter a valid task such as todo / deadline / event\n");
         }
     }
 }

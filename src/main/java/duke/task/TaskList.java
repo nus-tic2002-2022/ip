@@ -1,3 +1,4 @@
+package duke.task;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -15,7 +16,7 @@ public class TaskList {
 
     public static void List() throws DukeException {
         if (count == 0) {
-            throw new DukeException("There are no items currently in the list\n");
+            throw new DukeException("OOPS!!! There are no items currently in the list\n");
         }
         System.out.println("Here are the tasks in your list:\n");
         int seq = 1;
@@ -34,16 +35,16 @@ public class TaskList {
         int m = line.toLowerCase().indexOf("done");
         String num = line.substring(m + 4).trim();
         if (num.length() < 1) {
-            throw new DukeException("Error: Please enter which task is done\n");
+            throw new DukeException("OOPS!!! Please enter which task is done\n");
         }
         int n = Integer.parseInt(num);
         if (n > count) {
-            throw new DukeException("Error: Please enter a valid task number\n");
+            throw new DukeException("OOPS!!! Please enter a valid task number\n");
         }
         if (list.get(n - 1).getStatusIcon().equals("\u2713")) {
-            throw new DukeException("Error: Task has already been completed\n");
+            throw new DukeException("OOPS!!! Task has already been completed\n");
         } else {
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("GOOD JOB! I've marked this task as done:");
             list.get(n - 1).setStatus(true);
             System.out.println(list.get(n - 1));
         }
@@ -53,13 +54,13 @@ public class TaskList {
         int m = line.toLowerCase().indexOf("delete");
         String num = line.substring(m + 6).trim();
         if (num.length() < 1) {
-            throw new DukeException("Error: Please enter which task to be deleted\n");
+            throw new DukeException("OOPS!!! Please enter which task to be deleted\n");
         }
         int n = Integer.parseInt(num);
         if (n > count) {
-            throw new DukeException("Error: Please enter a valid task number\n");
+            throw new DukeException("OOPS!!! Please enter a valid task number\n");
         } else {
-            System.out.println("Noted. I've removed this task:");
+            System.out.println("OKAY! I've removed this task:");
             System.out.println(list.get(n - 1));
             list.remove(n - 1);
             count--;
@@ -69,13 +70,13 @@ public class TaskList {
 
     public static void Todo(String line) throws DukeException {
         if (line.trim().length() < 5) {
-            throw new DukeException("Error: Description of task cannot be empty.\n");
+            throw new DukeException("OOPS!!! Description of task cannot be empty.\n");
         }
         int m = line.toLowerCase().indexOf("todo");
         String description = line.substring(m + 4).trim();
         for (Task l : list) {
             if (l.description.equals(description)) {
-                throw new DukeException("Error: Task has already been added previously\n");
+                throw new DukeException("OOPS!!! Task has already been added previously\n");
             }
         }
         list.add(new Todo(description));
@@ -84,10 +85,10 @@ public class TaskList {
 
     public static void Deadline(String line) throws DukeException {
         if (line.trim().length() < 9) {
-            throw new DukeException("Error: Description of task cannot be empty.\n");
+            throw new DukeException("OOPS!!! Description of task cannot be empty.\n");
         }
         if (!line.contains("/")) {
-            throw new DukeException("Error: Please specify time.\n");
+            throw new DukeException("OOPS!!! Please specify time.\n");
         }
         int m = line.toLowerCase().indexOf("deadline");
         int n = line.indexOf('/');
@@ -95,7 +96,7 @@ public class TaskList {
         String by = line.substring(n + 3).trim();
         for (Task l : list) {
             if (l.description.equals(description)) {
-                throw new DukeException("Error: Task has already been added previously\n");
+                throw new DukeException("OOPS!!! Task has already been added previously\n");
             }
         }
         list.add(new Deadline(description, by));
@@ -104,10 +105,10 @@ public class TaskList {
 
     public static void Event(String line) throws DukeException {
         if (line.trim().length() < 6) {
-            throw new DukeException("Error: Description of task cannot be empty.\n");
+            throw new DukeException("OOPS!!! Description of task cannot be empty.\n");
         }
         if (!line.contains("/")) {
-            throw new DukeException("Error: Please specify time.\n");
+            throw new DukeException("OOPS!!! Please specify time.\n");
         }
         int m = line.toLowerCase().indexOf("event");
         int n = line.indexOf('/');
@@ -115,7 +116,7 @@ public class TaskList {
         String at = line.substring(n + 3).trim();
         for (Task l : list) {
             if (l.description.equals(description)) {
-                throw new DukeException("Error: Task has already been added previously\n");
+                throw new DukeException("OOPS!!! Task has already been added previously\n");
             }
         }
         list.add(new Event(description, at));
@@ -123,7 +124,7 @@ public class TaskList {
     }
 
     public static void UpdateStatus() {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("OKAY. I've added this task:");
         System.out.println(list.get(count));
         count++;
         System.out.println("Now you have " + count + " tasks in the list.");

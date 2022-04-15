@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -7,27 +9,18 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void unmark() {
-        isDone = false;
-    }
-
     public String getStatusIcon() {
-        return (isDone? "X" : " "); //mark done task with X
+
+        return (isDone ? "\u2713" : "\u2718");
     }
 
     public void setStatus(boolean isDone) {
+
         this.isDone = isDone;
     }
 
     public String toString() {
+
         return "[" + getStatusIcon() + "] " + description;
     }
 }

@@ -1,3 +1,5 @@
+package duke.command;
+import duke.task.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,8 +15,8 @@ public class Storage {
     protected static ArrayList<Task> list = new ArrayList<>();
 
     private static void printFileContents(String filePath) throws DukeException , IOException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String current = s.nextLine();
             if (current.contains("[T]")) {
@@ -61,7 +63,7 @@ public class Storage {
         try {
             Files.createDirectories(Paths.get(Directory));
             printFileContents(FileLocation);
-            new TaskList(list, count); //Initialize data with existing file
+            new TaskList(list, count);
         } catch (DukeException | IOException e) {
             System.out.println(e.getMessage());
         }

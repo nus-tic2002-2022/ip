@@ -1,9 +1,13 @@
+import java.time.*;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String enter;
 
-    public Task(String description) {
+    public Task(String description, String enter) {
         this.description = description;
+        this.enter = enter;
         this.isDone = false;
     }
 
@@ -18,10 +22,14 @@ public class Task {
     public String getDescription() {
         return description;
     }
-
-    @Override
-    public String toString() {
-        return " [T]"+"["+getStatusIcon()+"] " + getDescription();
+    public LocalDate getDate() {
+        return null;
+    }
+    public String getEnter() {
+        return this.enter;
     }
 
+    public String printTask() {
+        return " [T]"+"["+getStatusIcon()+"] " + getDescription();
+    }
 }

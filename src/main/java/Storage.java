@@ -11,7 +11,11 @@ public class Storage extends Duke{
         checkFile();
         readFile();
     }
-
+    /**
+     * This method checks if duke.txt is there.
+     * If It's not there, it will create folder and file automatically.
+     * @throws IOException
+     */
     public static void checkFile() throws IOException {
         File dir = new File(path);
         if (!dir.exists()) {
@@ -21,7 +25,11 @@ public class Storage extends Duke{
         if (!file.exists())
             file.createNewFile();
     }
-
+    /**
+     * This method reads duke.txt, load and prints previous tasks.
+     * @throws MissDescException
+     * @throws IOException
+     */
     public static void readFile() throws Exception {
         try {
             System.out.println(System.lineSeparator()+

@@ -1,6 +1,10 @@
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task type: Deadline.
+ */
+
 public class Deadline extends Task{
     protected LocalDate date;
 

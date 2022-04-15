@@ -1,4 +1,16 @@
 
+
+/**
+ * This is homework project of my TIC2002 module. It is a personal task manager that you
+ * can arrange and store your personal schedule. It recognizes commands by
+ * reading your inputs. Schedule types: 'deadline', 'todo', 'event'.
+ * to marking your task, type 'done', or remove task, type 'delete'.
+ * save and exit program, type 'bye'.
+ *
+ * @author S-Quan86
+ * @version 1.0
+ * @since 15-April 2022
+ */
 public class Duke {
     private static final String ln = "____________________________________________________________";
 

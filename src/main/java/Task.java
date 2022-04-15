@@ -1,5 +1,10 @@
 import java.time.*;
 
+/**
+ * This is the main class for all task types.
+ * It is also the default class for type 'todo'.
+ */
+
 public class Task {
     protected String description;
     protected String enter;

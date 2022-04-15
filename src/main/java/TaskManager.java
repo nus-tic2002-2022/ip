@@ -40,6 +40,7 @@ public class TaskManager {
         taskList.createTodoTask(userInput);
         saveFile.saveFile(taskList.getTaskList());
     }
+
     /**
      * This method calls the tasklist method to create a Deadline task from the user input.
      * Then it prints the arraylist into the text file.
@@ -52,6 +53,7 @@ public class TaskManager {
         }
         saveFile.saveFile(taskList.getTaskList());
     }
+
     /**
      * This method calls the tasklist method to create an Event task from the user input.
      * Then it prints the arraylist into the text file.
@@ -64,6 +66,7 @@ public class TaskManager {
         }
         saveFile.saveFile(taskList.getTaskList());
     }
+
     /**
      * This method calls the tasklist method to delete a specific task referenced from the user input.
      * Then it prints the arraylist into the text file.
@@ -76,6 +79,7 @@ public class TaskManager {
         }
         saveFile.saveFile(taskList.getTaskList());
     }
+
     /**
      * This method calls the tasklist method to mark a specific task referenced from the user input.
      * The isDone variable in the referenced Tasklist object is set to true.
@@ -83,6 +87,7 @@ public class TaskManager {
     public void markTaskAsDone(String userInput) {
         taskList.markTaskAsDone(userInput);
     }
+
     /**
      * This method calls the tasklist method to mark a specific task referenced from the user input.
      * The isDone variable in the referenced Tasklist object is set to false.
@@ -90,6 +95,7 @@ public class TaskManager {
     public void markTaskAsNotDone(String userInput) {
         taskList.markTaskAsNotDone(userInput);
     }
+
     /**
      * This method calls the tasklist method to change the tag variable in the referenced Tasklist object from the user input.
      * The tag variable is set to the user input. Then it prints the arraylist into the text file.
@@ -102,6 +108,7 @@ public class TaskManager {
         }
         saveFile.saveFile(taskList.getTaskList());
     }
+
     /**
      * This method calls the tasklist method to change the tag variable in the referenced Tasklist object from the user input.
      * The tag variable is set to a blank string. Then it prints the arraylist into the text file.
@@ -142,16 +149,15 @@ public class TaskManager {
             Matcher untag = Constant.UNTAG.matcher(userInput);
             Matcher find = Constant.FIND.matcher(userInput);
 
-
-            if (userInput.equals("bye")) {
-                System.out.print("\tGood day and good bye");
-                break;
-            }
-
             try {
                 validateUserInput(userInput);
             } catch (DukeException dukeException) {
                 System.out.print(dukeException.getMessage());
+                break;
+            }
+
+            if (userInput.equals("bye")) {
+                System.out.print("\tGood day and good bye");
                 break;
             }
 

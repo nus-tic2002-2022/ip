@@ -54,7 +54,7 @@ public class Storage {
             }
 
         }
-        if (taskList.getTaskList().isEmpty()){
+        if (taskList.getTaskList().isEmpty()) {
             System.out.println("\t" + "Save file is empty, no tasks created.");
         } else {
             System.out.println("\t" + "Task List has been loaded from save file.");

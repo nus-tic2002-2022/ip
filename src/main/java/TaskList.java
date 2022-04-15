@@ -77,7 +77,7 @@ public class TaskList {
         String name = userInput.substring(0, userInput.indexOf("by:") - 1);
         LocalDateTime date = getDateTimeFromSaveFile(userInput, "by:");
         Task deadline = new Deadline(name, date);
-        if (userInput.contains("#")){
+        if (userInput.contains("#")) {
             userInput = userInput.substring(userInput.indexOf("#"));
             userInput = userInput.replaceAll("#*", "");
             deadline.setTag(userInput);
@@ -107,7 +107,7 @@ public class TaskList {
         String name = userInput.substring(0, userInput.indexOf("at:") - 1);
         LocalDateTime date = getDateTimeFromSaveFile(userInput, "at:");
         Task event = new Event(name, date);
-        if (userInput.contains("#")){
+        if (userInput.contains("#")) {
             userInput = userInput.substring(userInput.indexOf("#"));
             userInput = userInput.replaceAll("#*", "");
             event.setTag(userInput);

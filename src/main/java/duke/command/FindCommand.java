@@ -45,7 +45,7 @@ public class FindCommand extends Command{
         try {
             UI.showFindResult(count);
         }catch (AssertionError e) {
-            System.out.println("Assertion Error: Not supposed to have negative count");
+            System.out.println("Assertion Error: Not supposed to have negative count or target is not found");
         }
 
     }

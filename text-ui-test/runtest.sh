@@ -6,10 +6,17 @@ then
     mkdir ../bin
 fi
 
+
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then
     rm ACTUAL.TXT
+fi
+
+# delete buffer.txt from previous run, this one was created based on last run
+if [ -e "./buffer.TXT" ]
+then
+    rm buffer.TXT
 fi
 
 # compile the code into the bin folder, terminates if error occurred -d ../bin ../src/main/java/duke/*.java

@@ -11,8 +11,15 @@ public class UI {
      * @throws DukeException is throwable if user input does not meet the specification or contains error
      */
 
-    public String readCommand() throws DukeException {
+    /*public String readCommand() throws DukeException {
         Scanner scanInput = new Scanner(System.in);
+        return scanInput.nextLine();
+    }*/
+     public String readCommand(Scanner scanInput) throws DukeException {
+        return scanInput.nextLine();
+    }
+    public String readfileCommand(String filepath) throws DukeException {
+        Scanner scanInput = new Scanner(filepath);
         return scanInput.nextLine();
     }
 
@@ -49,7 +56,7 @@ public class UI {
      */
     public static void showGotit() {
         {
-            System.out.println("Got it. I've added this task: ");
+            System.out.println("Got it. I've added this task:");
         }
     }
 
@@ -58,7 +65,7 @@ public class UI {
      */
     public static void showGotthem() {
         {
-            System.out.println("Got it. I've added these tasks: ");
+            System.out.println("Got it. I've added these tasks:");
         }
     }
 
@@ -80,7 +87,7 @@ public class UI {
      * Print if certain task is mark as done
      */
     public static void showMark() {
-        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println("Nice! I've marked this task as done:");
     }
 
     /**

@@ -7,7 +7,7 @@ public class ToDo extends Task {
      * @param description keep the String of description of ToDo task
      */
     public ToDo(String description)  {
-        super(description);
+        super(description.trim());
     }
 
     /**
@@ -15,7 +15,7 @@ public class ToDo extends Task {
      * @return String of status of task and its description
      */
     public String getStatus() {
-        return (isDone ? "[T][X] " + this.description : "[T][ ] " + this.description);
+        return (isDone ? "[T][X] " + this.description.trim() : "[T][ ] " + this.description.trim());
     }
 
     /**

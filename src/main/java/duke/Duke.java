@@ -11,20 +11,22 @@ import duke.UI.UI;
 import duke.command.Add_Recur_Command;
 import duke.command.Command;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.module.FindException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.*;
 import java.io.File;
 
 public class Duke {
 
     private fileaccess f;
-    private UI user_interface;
+    public UI user_interface;
     private static ArrayList<Task> tasklist = new ArrayList<>();
     public static String basepath = new File("").getAbsolutePath();
     private static String filepath = basepath + "/buffer.txt";
-
+    public static Scanner readinput = new Scanner(System.in);
     public Duke(String filepath) {
         this.user_interface = new UI();
         f = new fileaccess(filepath);
@@ -42,13 +44,15 @@ public class Duke {
 
     public void run() {
         user_interface.showWelcome();
+
         boolean isExit = false;
         boolean isSort = false;
         while (!isExit) {
             try {
-                String command = user_interface.readCommand();
+                //String command = user_interface.readCommand();
+                String command = user_interface.readCommand(readinput);
                 user_interface.showLine();
-                Command c = Parser.parsing(command);
+                Command c = Parser.parsing(command, user_interface, readinput);
                 c.execute(tasklist, user_interface, f);
                 isSort = c.isSort();
                 isExit = c.isExit();
@@ -76,7 +80,6 @@ public class Duke {
             }
         }
     }
-
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

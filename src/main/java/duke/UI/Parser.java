@@ -8,6 +8,7 @@ import duke.command.*;
 
 import java.lang.module.FindException;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 
 public class Parser {
@@ -108,7 +109,7 @@ public class Parser {
      *                       Eg: "find report" is correct
      *                       EgL "find submit report" is wrong because can only find 1 word at a time.
      */
-    public static Command parsing(String passed) throws DukeException, FindException{
+    public static Command parsing(String passed, UI user_interface, Scanner readInput) throws DukeException, FindException{
         String[] str = new String[20]; // to keep the passed sentence into string array
         try {       // parse to String array when received the passed task
             str = passed.split(" ");
@@ -176,17 +177,19 @@ public class Parser {
                     String descrip = str2[0].replaceAll("event", "");
                     String detail = str2[1];
                     System.out.println("To set as Recurring Events? (Y/N)");
+                    String recurr_command = user_interface.readCommand(readInput);
                     //Task t_flag = null;
-                    UI recurr_UI = new UI();
-                    String recurr_command = recurr_UI.readCommand();
+                    //UI recurr_UI = new UI();
+                    //String recurr_command = recurr_UI.readCommand();
                     assert (recurr_command.equals("Y") || recurr_command.equals("N") || recurr_command.equals("y") || recurr_command.equals("n"));
                     if (recurr_command.equals("Y") || recurr_command.equals("y")) {
-                        System.out.println("What is the interval (day) for this Recurring Event: ");
-                        String recurr_period = recurr_UI.readCommand();
+                        System.out.println("What is the interval (day) for this Recurring Event:");
+                        String recurr_period = user_interface.readCommand(readInput);
                         Integer between = checkRecurring_gap(recurr_period);
 
-                        System.out.println("How many times to be recurred: ");
-                        String recurr_count = recurr_UI.readCommand();
+                        System.out.println("How many times to be recurred:");
+                        String recurr_count= user_interface.readCommand(readInput);
+                        //String recurr_count = recurr_UI.readCommand(recurInput);
                         Integer number = checkRecurring_count(recurr_count);
                         Add_Recur_Command passed_command = new Add_Recur_Command(str[0]);
                         for (Integer j = 0; j < number; j++) { // recurring task list is created in Add_Recur_Command, hence adding the task into this command

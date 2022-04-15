@@ -1,24 +1,21 @@
 package duke;
+import duke.command.*;
 import duke.exceptions.*;
+import duke.expandD.ExParser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 import duke.task.TaskList;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
+import java.util.ArrayList;
 import java.util.List;
-import duke.command.Command;
-import duke.command.DoneCommand;
-import duke.command.ListCommand;
-import duke.command.DeleteCommand;
-import duke.command.ByeCommand;
-
 
 public class Duke{
 
     private Ui ui;
     private Parser parser;
-
+    private ExParser exParser;
     /**
      * Constructs Duke application.
      *
@@ -26,6 +23,7 @@ public class Duke{
      */
     public Duke(String filePath){
         ui = new Ui();
+        exParser = new ExParser();
         Storage storage = new Storage(filePath);
         TaskList tasks;
 
@@ -46,6 +44,7 @@ public class Duke{
         parser.capture("done", new DoneCommand(tasks,storage));
         parser.capture("delete", new DeleteCommand(tasks, storage));
         parser.capture("bye", new ByeCommand());
+        parser.capture("find", new FindCommand(tasks));
     }
 
     static void checkWord(String keyWord)throws DukeCheckLineException{
@@ -54,7 +53,8 @@ public class Duke{
         if (!keyword.equals("list") && !keyword.equals("bye")
                 && !keyword.equals("todo") && !keyword.equals("done")
                 && !keyword.equals("event") && !keyword.equals("deadline")
-                && !keyword.equals("delete")){
+                && !keyword.equals("delete")&& !keyword.equals("find")
+                && !keyword.equals("D")){
             throw new DukeCheckLineException();
         }
     }
@@ -68,9 +68,19 @@ public class Duke{
 
         while(!isExit && ui.hasNextLine()){
             String[] fullCommand = ui.readCommand().split(" ");
+            if (fullCommand[0].equalsIgnoreCase("D")){
+                List<String>list = new ArrayList<>();
+                for (int i = 1; i < fullCommand.length; i++) {
+                    list.add(fullCommand[i]);
+                }
+                exParser.parse(list);
+                exParser.exit();
+                continue;
+            }
             ui.printWithLine(List.of());
             try{
                 checkWord(fullCommand[0]);
+
                 Command c = parser.parse(fullCommand);
                 ui.printCommand(c.run(fullCommand));
                 isExit = c.isExit();

@@ -1,0 +1,18 @@
+d create hdk 123
+d create hhh 456
+d add friend hdk hhh
+d show friend hdk
+d add note hdk info sth
+d show note hdk
+d add cost hdk food 100.0
+d show cost hdk
+d add loan hdk hhh 1000
+d show loan hdk
+d add location hdk KFC very nice
+d show location hdk
+d add trivia hdk read a book
+d show trivia hdk
+d add customer hdk hhh check the money
+d show customer hdk
+d add merchandise hdk mail track the mail
+d show merchandise hdk

@@ -1,7 +1,6 @@
 package duke.command;
 
 import java.util.List;
-
 public class ByeCommand implements Command {
     /**
      * Returns the message to user when he/she leave.

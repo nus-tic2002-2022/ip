@@ -66,4 +66,7 @@ public class Ui {
         }
         System.out.println("   _____________________________________");
     }
+    public void dMod(){
+        System.out.println("exit dMod by input bye");
+    }
 }

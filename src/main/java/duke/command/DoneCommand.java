@@ -27,6 +27,8 @@ public class DoneCommand implements Command{
      */
     @Override
     public List<String> run(String[] fullCommand) throws NumberFormatException, IndexOutOfBoundsException, IOException{
+
+
         try{
             List<Integer>list = new ArrayList<>();
             String[] sarray;

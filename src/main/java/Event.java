@@ -17,7 +17,7 @@ public class Event extends Task{
 
     @Override
 
-    public String printTask() {
+    public String toString() {
         return "[E]" + "["+getStatusIcon()+"] "+getDescription() + " (at: " + date.format(DateTimeFormatter.ofPattern("MMM/dd/yyyy")) + ")";
     }
 

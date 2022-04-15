@@ -2,6 +2,7 @@ import java.time.*;
 
 public class Task {
     protected String description;
+    protected String enter;
     protected boolean isDone;
 
     public Task(String description) {
@@ -20,10 +21,12 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
     public LocalDate getDate() {
         return null;
     }
-    public String printTask() {
-        return " [T]"+"["+getStatusIcon()+"] " + getDescription();
+
+    public String toString() {
+        return " [T]"+"[" +getStatusIcon()+ "] " + getDescription();
     }
 }

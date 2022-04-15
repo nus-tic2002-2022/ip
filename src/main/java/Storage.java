@@ -24,13 +24,14 @@ public class Storage extends Duke{
 
     public static void readFile() throws Exception {
         try {
-            System.out.println("Here is your Existing List");
+            System.out.println(System.lineSeparator()+
+                    "Here is your Existing List");
             Scanner in = new Scanner(new File(filePath));
             while (in.hasNext()) {
                 String str = in.nextLine();
                 if (str.length() > 0) {
                     MySiri.fileScanner(str, false);
-                    MySiri.printList(str);
+                    MySiri.printList();
                 }
             }
         } catch (FileNotFoundException e) {

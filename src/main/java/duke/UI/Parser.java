@@ -126,7 +126,7 @@ public class Parser {
                 System.out.println("NumberFormatException: "+ " No number is detected");
             }
         }
-/***********************************************************************/
+
         if (str.length > 1 && str[0].equals("todo")) {
             try {
                 if (check_length(str)) {
@@ -139,7 +139,7 @@ public class Parser {
                 System.out.println("IndexOutOfBoundsException: "+"Index out of bound");
             }
         }
-/***********************************************************************/
+
         if (str.length > 1 && str[0].equals("deadline")) {
             try {
                 if (check_length(str)) {
@@ -166,10 +166,8 @@ public class Parser {
             } catch (dateparseException e) {
                 System.out.println("dateparseException: " + "Date or Time format error");
             }
-
-
         }
-/***********************************************************************/
+
         if (str.length > 1 && str[0].equals("event")) {
             try {
                 if (check_length(str)) {
@@ -218,13 +216,13 @@ public class Parser {
             }
 
         }
-/***********************************************************************/
-        if (str[0].equals("list")) //if list, list out the task
+
+        if (str[0].equals("list"))
         {
             ListCommand l = new ListCommand(str[0]);
             return l;
         }
-/***********************************************************************/
+
         if (str.length == 2 && str[0].equals("delete")) {
             if(str[1].trim().equals("*"))
             {
@@ -244,17 +242,17 @@ public class Parser {
 
         }
 
-/***********************************************************************/
+
         if (str[0].equals("bye")) {
             ExitCommand passed_command = new ExitCommand(str[0]);
             return passed_command;
         }
-/***********************************************************************/
+
         if (str[0].equals("sort")) {
             SortCommand passed_command = new SortCommand(str[0]);
             return passed_command;
         }
-/***********************************************************************/
+
         if (str[0].equals("find")) {
             if(str.length > 2)
             {

@@ -16,6 +16,6 @@ public class Todo extends Task {
     }
 
     public String toFile() {
-        return "T | " + super.toFile();
+        return "TODO | " + super.toFile();
     }
 }

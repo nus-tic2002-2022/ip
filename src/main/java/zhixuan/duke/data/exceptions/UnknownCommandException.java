@@ -2,7 +2,8 @@ package zhixuan.duke.data.exceptions;
 
 public class UnknownCommandException extends Exception {
 
-    String error = "You have entered an invalid command.";
+    public static String ERROR = "You have entered an invalid command.";
+    public static final String EMPTY = "Task list is empty.";
 
     public UnknownCommandException() {
         super();
@@ -10,12 +11,12 @@ public class UnknownCommandException extends Exception {
 
     public UnknownCommandException(String errorMessage) {
         super(errorMessage);
-        error = errorMessage;
+        ERROR = errorMessage;
     }
 
     @Override
     public String getMessage () {
-        return error;
+        return ERROR;
     }
 
 }

@@ -20,6 +20,6 @@ public class Deadline extends Task {
     }
 
     public String toFile() {
-        return "D | " + super.toFile() + " | " + by;
+        return "DEADLINE | " + super.toFile() + " | " + by;
     }
 }

@@ -1,53 +1,78 @@
 package zhixuan.duke.parser;
 
-import zhixuan.duke.data.exceptions.InvalidTaskException;
-import zhixuan.duke.data.exceptions.UnknownCommandException;
-import zhixuan.duke.data.task.Deadline;
-import zhixuan.duke.data.task.Event;
-import zhixuan.duke.data.task.Task;
-import zhixuan.duke.data.task.Todo;
+import zhixuan.duke.commands.*;
 import zhixuan.duke.ui.DukeUI;
-
-import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
 
-    private static void processInput(String input) throws UnknownCommandException {
+    private Scanner in ;
+    DukeUI ui;
 
-        if (input.startsWith("bye")) {
-            bye();
-        }
-        else if (input.startsWith("list")) {
-            list();
-        }
-        else if (input.startsWith("todo")) {
-            addItem("todo", input.replaceFirst("todo", "").trim());
-            saveFile();
-        }
-        else if (input.startsWith("event")) {
-            addItem("event", input.replaceFirst("event", "").trim());
-            saveFile();
-        }
-        else if (input.startsWith("deadline")) {
-            addItem("deadline", input.replaceFirst("deadline", "").trim());
-            saveFile();
-        }
-        else if (input.startsWith("mark") || input.startsWith("unmark")) {
-            String index = input.replaceAll("\\D+","");
-            if (index.isEmpty()) throw new UnknownCommandException("Invalid task input. Use an integer.");
-            mark(input, Integer.parseInt(index));
-            saveFile();
-        }
-        else if (input.startsWith("delete")) {
-            String index = input.replaceAll("\\D+","");
-            if (index.isEmpty()) throw new UnknownCommandException("Invalid task input. Use an integer.");
-            deleteItem(Integer.parseInt(index));
-            saveFile();
-        }
-        else {
-            throw new UnknownCommandException();
+    private Parser () {
+        ui = new DukeUI();
+    }
+
+    public Parser(Scanner in) {
+        this();
+        this.in = in;
+    }
+
+    public Command processInput() {
+        String input = in.nextLine();
+        if (ExitCommand.BYE_COMMAND.equals(input)) {
+            return new ExitCommand();
+        } else {
+            try {
+                return determineAction(input);
+            } catch (UnsupportedOperationException e) {
+                return new InvalidCommand("empty");
+            } catch (IndexOutOfBoundsException e) {
+                return new InvalidCommand("invalid_index");
+            }
         }
     }
+
+    private Command determineAction(String command) throws UnsupportedOperationException, IndexOutOfBoundsException {
+
+        if (ListCommand.COMMAND.equals(command)) {
+            return new ListCommand();
+        }
+
+        String[] commandList = command.split(" ");
+        if (commandList.length < 2) {
+            throw new UnsupportedOperationException();
+        }
+
+        switch (commandList[0]) {
+            case MarkCommand.MARK_COMMAND:
+            case MarkCommand.UNMARK_COMMAND:
+                if (commandList.length > 2) {
+                    throw new UnsupportedOperationException();
+                }
+                try {
+                    int index = Integer.parseInt(commandList[1]) - 1;
+                    return new MarkCommand(commandList[0], index);
+                } catch (NumberFormatException e) {
+                    throw new IndexOutOfBoundsException();
+                }
+            case AddCommand.TODO_COMMAND:
+            case AddCommand.EVENT_COMMAND:
+            case AddCommand.DEADLINE_COMMAND:
+                return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
+            case DeleteCommand.COMMAND:
+                if (commandList.length > 2) {
+                    throw new UnsupportedOperationException();
+                }
+                try {
+                    int index = Integer.parseInt(commandList[1]) - 1;
+                    return new DeleteCommand(index);
+                } catch (NumberFormatException e) {
+                    throw new IndexOutOfBoundsException();
+                }
+            default:
+                throw new UnsupportedOperationException();
+        }
+    }
+
 }

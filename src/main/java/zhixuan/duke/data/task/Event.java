@@ -20,6 +20,6 @@ public class Event extends Task {
     }
 
     public String toFile() {
-        return "E | " + super.toFile() + " | " + at;
+        return "EVENT | " + super.toFile() + " | " + at;
     }
 }

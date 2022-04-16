@@ -1,9 +1,8 @@
 package zhixuan.duke.ui;
 
 import java.io.PrintStream;
-import static zhixuan.duke.common.Messages.MESSAGE_GOODBYE;
-import static zhixuan.duke.common.Messages.MESSAGE_LOGO;
-import static zhixuan.duke.common.Messages.MESSAGE_WELCOME;
+
+import static zhixuan.duke.common.Messages.*;
 
 public class DukeUI {
 
@@ -17,13 +16,13 @@ public class DukeUI {
         this.out = out;
     }
 
-    private void showToUser(String message) {
+    public void showToUser(String message) {
         out.println(message);
     }
 
-    public void printWelcomeMessage() {
+    public void printWelcomeMessage(boolean success) {
         showToUser(MESSAGE_LOGO);
-        showToUser(MESSAGE_WELCOME);
+        showToUser(getWelcomeMessage(success));
     }
 
     public void printEndingMessage() {

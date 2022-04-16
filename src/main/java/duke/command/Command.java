@@ -1,8 +1,10 @@
 package duke.command;
 
-import java.util.List;
+import duke.exceptions.DukeException;
+
 import java.io.IOException;
-import duke.exceptions.*;
+import java.util.List;
+
 public interface Command {
 
     /**

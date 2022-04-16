@@ -16,8 +16,8 @@ class DoneCommandTest {
 
     @Test
     void run() throws IOException {
-        List<String> expected = List.of("Nice! I've marked this task as done: " + System.lineSeparator()
-                + "     " + "[x]get 2");
+        List<String> expected = List.of("Nice! I've marked this task as done: " +
+                "3");
         List<String> actual = new DoneCommand(taskListTemp, storageTemp).run(new String[]{"done", "3"});
         assertEquals(expected, actual);
     }

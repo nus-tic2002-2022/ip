@@ -1,9 +1,11 @@
 package duke;
-import duke.exceptions.*;
+
+import duke.command.Command;
+import duke.exceptions.DukeCheckLineException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import duke.command.*;
 
 public class Parser {
     private Map<String, Command>commands = new HashMap<>();
@@ -31,6 +33,7 @@ public class Parser {
      * @return command to use for the next processing.
      */
     public Command parse(String [] fullCommand){
+        assert fullCommand.length >0;
         Command command = commands.get(fullCommand[0].toLowerCase());
 
         try{

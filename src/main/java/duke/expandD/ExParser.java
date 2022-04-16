@@ -27,6 +27,7 @@ public class ExParser {
         return list.size()>0 ? true:false;
     }
     public void parse(List<String>list){
+        assert list != null;
         if (!checkList(list))return;
         boolean result = false;
         result |= parseCreate(list);
@@ -44,6 +45,7 @@ public class ExParser {
     }
 
     private boolean parseAdd(List<String>list){
+        assert list.size()<= 1;
         if (!list.get(0).equalsIgnoreCase("add"))return false;
         if (list.get(1).equalsIgnoreCase("friend")){
             Contact user =  manager.getUserByName(list.get(2));
@@ -81,6 +83,7 @@ public class ExParser {
         return true;
     }
     private boolean parseShow(List<String>list){
+        assert list.size()<=1;
         if (!list.get(0).equalsIgnoreCase("show"))return false;
         if (list.get(1).equalsIgnoreCase("friend")){
             Contact user =  manager.getUserByName(list.get(2));

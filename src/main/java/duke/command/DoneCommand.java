@@ -49,6 +49,7 @@ public class DoneCommand implements Command{
             for (int i = 0; i < list.size(); i++) {
 
                 Task markItem = tasks.get(Integer.parseInt(sarray[i]) - 1);
+                assert markItem != null;
                 markItem.markAsDone();
                 storage.store(tasks.convertAsLines());
 

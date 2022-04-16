@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.task.TaskList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class ListCommand implements Command{
         for(int i = 0; i < tasks.size(); i++){
             messages.add((i + 1) + "." + tasks.get(i));
         }
+        assert messages != null;
         return messages;
     }
 }

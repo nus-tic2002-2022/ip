@@ -3,9 +3,11 @@ package duke.command;
 import duke.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
+
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class DeleteCommand implements Command{
     private final TaskList tasks;
@@ -43,7 +45,7 @@ public class DeleteCommand implements Command{
                     list.add(Integer.parseInt(sarray[i]));
                 }
             }
-
+            assert list != null;
             list.sort(new Comparator<Integer>() {
                 public int compare(Integer o1, Integer o2) {
                     if(o1>o2)

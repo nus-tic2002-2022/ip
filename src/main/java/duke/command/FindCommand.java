@@ -31,6 +31,7 @@ public class FindCommand implements Command {
                 messages.add("    " + count + "." + tasks.get(i));
             }
         }
+        assert messages != null;
         return messages;
     }
 }

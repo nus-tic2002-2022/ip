@@ -1,1 +1,37 @@
-add somethings
+list
+todo read a book
+deadline return book /by 16/04/2022 1300
+event team meeting /at 17/04/2022 1600
+todo eat lunch
+todo say hi
+todo find a job
+deadline get job /by 18/05/2022 1800
+event take an exam /at 20/04/2022 1400
+find book
+find job
+done 1
+done 2,3
+done 4-5
+delete 8 
+delete 6,7
+delete 4-5
+d create hdk 123
+d create hhh 456
+d add friend hdk hhh
+d show friend hdk
+d add note hdk info sth
+d show note hdk
+d add cost hdk food 100.0
+d show cost hdk
+d add loan hdk hhh 1000
+d show loan hdk
+d add location hdk KFC very nice
+d show location hdk
+d add trivia hdk read a book
+d show trivia hdk
+d add customer hdk hhh check the money
+d show customer hdk
+d add merchandise hdk mail track the mail
+d show merchandise hdk
+bye
+

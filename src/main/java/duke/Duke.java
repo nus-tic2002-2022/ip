@@ -1,11 +1,14 @@
 package duke;
+
 import duke.command.*;
-import duke.exceptions.*;
+import duke.exceptions.DukeCheckLineException;
+import duke.exceptions.DukeException;
 import duke.expandD.ExParser;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.ToDo;
 import duke.task.TaskList;
+import duke.task.ToDo;
+
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;

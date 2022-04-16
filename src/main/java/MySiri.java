@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.*;
+import Exception.*;
+import tasks.*;
+
+/**
+ * This is the major class.
+ * It initializes MySiri, read commands and process storage.
+ */
 
 public class MySiri extends Duke{
     protected static ArrayList<Task> task = new ArrayList<>();
@@ -11,7 +18,10 @@ public class MySiri extends Duke{
     private static void run() throws Exception {
         Scanner in = new Scanner(System.in);
         String enter = (in.nextLine()).trim();
-        fileScanner(enter, true);
+        String[] _enter= enter.split(" ", 2);
+        String type = (_enter[0]).trim().toLowerCase();
+        Type t =  Type.valueOf(type);
+        fileScanner(enter, true, t);
     }
 
     public static void Exit() throws Exception {
@@ -36,7 +46,6 @@ public class MySiri extends Duke{
 
     public static void toDo(String input, boolean print) throws Exception {
         String[] _input = input.split(" ", 2);
-        String type = (_input[0]).trim();
         try {
             task.add(count, new Task(_input[1]));
             if (print) {
@@ -44,55 +53,47 @@ public class MySiri extends Duke{
             }
             count++;
         } catch (RuntimeException e) {
-            throw new MissDescException(type);
+            throw new MissDescException("Sorry I don't understand what you mean.");
         }
     }
 
     public static void Event(String enter, boolean addTask) throws Exception {
         String[] _enter = enter.split(" ", 2);
-        String type = (_enter[0]).trim().toLowerCase();
         String[] dl = _enter[1].split("/");
-        String[] at = (dl[1].split(" ", 2));
+        String[] at = (dl[1].split(" ", 3));
+        int time = Integer.parseInt(at[2]);
         try {
-            task.add(count, new Event(dl[0].trim(), Date(at[1])));
+            for (String s : at) {
+                System.out.println(s);
+                break;
+            }
+            task.add(count, new Event(dl[0].trim(), Date(at[1]), time));
             if(addTask) {
-
                 printAdded(task.get(count).toString());
             }
             count++;
         } catch (RuntimeException e) {
-            throw new MissDescException(type);
+            throw new MissDescException("Please enter in correct date and time format. Example: 2020-01-01 1300");
         }
     }
-
     public static void Deadline(String enter, boolean addTask) throws Exception {
         String[] _enter = enter.split(" ", 2);
-        String type = (_enter[0]).trim();
         String[] dl = _enter[1].split("/");
-        String[] by = (dl[1].split(" ", 2));
+        String[] by = (dl[1].split(" ", 3));
+        int time = Integer.parseInt(by[2]);
         try {
-            task.add(count, new Deadline((dl[0]).trim(), Date(by[1])));
+            task.add(count, new Deadline((dl[0]).trim(), Date(by[1]), time));
             if(addTask) {
                 printAdded(task.get(count).toString());
             }
             count++;
         } catch (RuntimeException e) {
-            throw new MissDescException(type);
+            throw new MissDescException("Please enter in correct date and time format. Example: 2020-01-01 1300");
         }
     }
 
     public static void Done(String enter) throws Exception {
         String[] _enter = enter.split(" ", 2);
-        String type = (_enter[0]).trim().toLowerCase();
-        String _type = type;
-        switch (type){
-            case "todo":
-                _type = "T"; break;
-            case "deadline":
-                _type = "D"; break;
-            case "event":
-                _type = "E";
-        }
         int taskNum;
         try {
             taskNum = Integer.parseInt(_enter[1]);
@@ -105,7 +106,7 @@ public class MySiri extends Duke{
         System.out.println(ln + System.lineSeparator() +
                 "Nice! I've marked this task as done:"
                 + System.lineSeparator() + (taskNum)
-                + ". [" + _type + "]"+" [" + task.get(taskNum - 1).getStatusIcon() + "] "
+                + "." + "[" + task.get(taskNum - 1).getStatusIcon() + "] "
                 + task.get(taskNum - 1).getDescription()
                 + System.lineSeparator()
                 + ln);
@@ -153,10 +154,12 @@ public class MySiri extends Duke{
         }
         else{
             System.out.println(ln +  System.lineSeparator() +"Here are the tasks in your list:");
+            int num = 1;
             for (int i = 0; i < count; i++) {
-                System.out.println((i+1)+". "+task.get(i).toString());
-                i++;
+                System.out.println(num+". "+task.get(i).toString());
+                num++;
             }
+            System.out.println(ln);
         }
     }
 
@@ -177,46 +180,36 @@ public class MySiri extends Duke{
         return LocalDate.parse(msg.trim());
     }
 
-    public static void fileScanner(String enter, boolean addTask) throws Exception {
-        String[] _enter = enter.split(" ", 2);
-        String type = (_enter[0]).trim();
+    public static void fileScanner(String enter, boolean addTask, Type t) throws Exception {
 
         if (enter.length() == 0) {
             throw new DukeException("Invalid input");
         }
-        switch (type) {
-            case "bye": {
+        switch (t) {
+            case bye: {
                 Exit();
-            }
-            break;
-            case "todo": {
+            }break;
+            case todo: {
                 toDo(enter, addTask);
-            }
-            break;
-            case "event": {
+            }break;
+            case event: {
                 Event(enter, addTask);
-            }
-            break;
-            case "done": {
+            }break;
+            case done: {
                 Done(enter);
-            }
-            break;
-            case "deadline": {
+            }break;
+            case deadline: {
                 Deadline(enter, addTask);
-            }
-            break;
-            case "delete": {
+            }break;
+            case delete: {
                 Delete(enter);
-            }
-            break;
-            case "list": {
+            }break;
+            case list: {
                 printList();
-            }
-            break;
-            case "find": {
+            }break;
+            case find: {
                 Find(enter);
-            }
-            break;
+            }break;
             default: {
                 throw new DukeException("");
             }

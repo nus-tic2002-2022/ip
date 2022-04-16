@@ -1,3 +1,4 @@
+package tasks;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -7,10 +8,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
     protected LocalDate date;
+    protected int time;
 
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate by, int time) {
         super(description);
         this.date = by;
+        this.time = time;
     }
 
     @Override
@@ -20,6 +23,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + "["+getStatusIcon()+"] "+getDescription() + " (by: " + date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")) + ")";
+        return " [D]" + "["+getStatusIcon()+"] "+getDescription() + " (by: "
+                + date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")) +" " + time + ")";
     }
 }

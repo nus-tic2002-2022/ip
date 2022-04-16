@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import tasks.*;
 
 public class Storage extends Duke{
 
@@ -14,7 +15,7 @@ public class Storage extends Duke{
     /**
      * This method checks if duke.txt is there.
      * If It's not there, it will create folder and file automatically.
-     * @throws IOException
+     *
      */
     public static void checkFile() throws IOException {
         File dir = new File(path);
@@ -27,8 +28,7 @@ public class Storage extends Duke{
     }
     /**
      * This method reads duke.txt, load and prints previous tasks.
-     * @throws MissDescException
-     * @throws IOException
+     *
      */
     public static void readFile() throws Exception {
         try {
@@ -36,9 +36,12 @@ public class Storage extends Duke{
                     "Here is your Existing List");
             Scanner in = new Scanner(new File(filePath));
             while (in.hasNext()) {
-                String str = in.nextLine();
-                if (str.length() > 0) {
-                    MySiri.fileScanner(str, false);
+                String input = in.nextLine();
+                String[] _enter= input.split(" ", 2);
+                String type = (_enter[0]).trim().toLowerCase();
+                Type t =  Type.valueOf(type);
+                if (input.length() > 0) {
+                    MySiri.fileScanner(input, false, t);
                     MySiri.printList();
                 }
             }

@@ -1,5 +1,5 @@
+package tasks;
 import java.time.*;
-
 /**
  * This is the main class for all task types.
  * It is also the default class for type 'todo'.
@@ -7,7 +7,6 @@ import java.time.*;
 
 public class Task {
     protected String description;
-    protected String enter;
     protected boolean isDone;
 
     public Task(String description) {

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class TaskList {
 
@@ -49,6 +50,7 @@ public class TaskList {
             System.out.println("This task was already marked as done:");
         } else {
             taskList.get(index).isDone = true;
+            overwriteTaskFile();
             System.out.println("Nice! I've marked this task as done:");
         }
         System.out.println(taskList.get(index).toString());
@@ -61,6 +63,7 @@ public class TaskList {
         }
         if (taskList.get(index).isDone) {
             taskList.get(index).isDone = false;
+            overwriteTaskFile();
             System.out.println("OK, I've marked this task as not done yet:");
         } else {
             System.out.println("STATUS ERROR: CANNOT UNMARK PENDING TASK");
@@ -110,7 +113,44 @@ public class TaskList {
         System.out.println(taskList.get(index).toString());
         taskList.remove(index);
         numOfTasks--;
+        overwriteTaskFile();
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+    }
+
+    //Level 7 Save
+    public static void importTodo(String fileInputDescription, boolean fileInputMark){
+        //Importing todo task
+        ToDo task = new ToDo(fileInputDescription, fileInputMark);
+        taskList.add(task);
+        numOfTasks++;
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+    }
+
+    public static void importDeadline(String fileInputDescription, String fileInputDate, boolean fileInputMark){
+        //Importing deadline task
+        Deadline task = new Deadline(fileInputDescription, fileInputDate, fileInputMark);
+        taskList.add(task);
+        numOfTasks++;
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+    }
+
+    public static void importEvent(String fileInputDescription, String fileInputDate, boolean fileInputMark){
+        //Importing deadline task
+        Event task = new Event(fileInputDescription, fileInputDate, fileInputMark);
+        taskList.add(task);
+        numOfTasks++;
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+    }
+
+    public static void overwriteTaskFile(){
+        try {
+            TaskFile.overwriteTask();
+            for (int i=0;i<numOfTasks;i++) {
+                TaskFile.appendTask(taskList.get(i).toString());
+            }
+        }catch(IOException i){
+            System.out.println("Unable to make changes to the save file");
+        }
     }
 }
 

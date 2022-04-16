@@ -10,7 +10,17 @@ public class  Event extends Task {
         super(description);
         this.events = events;
         System.out.println("Got it. I've added this task:");
-        System.out.println(this.toString());
+        System.out.println(this);
+        newTask();
+    }
+
+    //Overload
+    public Event(String description, String events, boolean isDone) {
+        super(description);
+        this.events = events;
+        this.isDone = isDone;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this);
     }
 
     @Override

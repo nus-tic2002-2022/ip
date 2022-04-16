@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
 
@@ -14,6 +16,15 @@ public class Duke {
             System.out.println("What can I do for you today?");
 
             new TaskList();
+            try{
+                TaskFile.loadFile();
+            } catch (FileNotFoundException f) {
+                try {
+                    TaskFile.newFile();
+                } catch (IOException i) {
+
+                }
+            }
 
             while(true) {
                 Scanner scanInput = new Scanner(System.in); //Scan user input

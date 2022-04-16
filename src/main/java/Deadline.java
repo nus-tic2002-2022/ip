@@ -8,7 +8,17 @@ public class Deadline extends Task {
         super(description);
         this.deadlines = deadlines;
         System.out.println("Got it. I've added this task:");
-        System.out.println(this.toString());
+        System.out.println(this);
+        newTask();
+    }
+
+    //Overload
+    public Deadline(String description, String deadlines, boolean isDone) {
+        super(description);
+        this.deadlines = deadlines;
+        this.isDone = isDone;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this);
     }
 
     @Override

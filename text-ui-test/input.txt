@@ -1,0 +1,23 @@
+list
+todo read textbook
+read
+deadline submit duke project /by 2022-04-17T23:59
+event TIC2002 class /at 2022-04-13T19:00
+list
+todo
+todo 
+todo a
+deadline a
+help
+list
+delete 7
+mark 1
+mark 3
+mark 10
+list
+unmark 3
+delete 2
+list
+sort
+find tic
+bye

@@ -297,7 +297,7 @@ Kindly ensure that there is a /data/ folder at any point of time.
 
 Example in Windows:
 ```
-The list file data\duke.txt is not found and/or cannot be created/saved. Please check.
+WARNING: The list file data\duke.txt cannot be created and saved. Please ensure that the data folder exists in the same path as the JAR file. Type 'bye' and add the data folder before starting Duke again.
 ```
 
 Example in Unix/ macOS:

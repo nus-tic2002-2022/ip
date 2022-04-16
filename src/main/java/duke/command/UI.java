@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class UI {
     public static void command() throws IOException, DukeException {
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
+        Scanner inPut = new Scanner(System.in);
+        String line = inPut.nextLine();
         Parser.parse(line);
     }
 
@@ -21,29 +21,24 @@ public class UI {
      */
 
     public static void main() throws DukeException, IOException {
-        System.out.println("Hello! I'm Duke\n");
+        System.out.println("Hi! This is Duke:) What can I do for you? \n");
         FilePath.main(); //Confirm current directory / file or choose a different directory / file.
 
-        if (TaskList.UpdatedList().size() == 0) {
-            System.out.println("No existing data is found");
-        }
-        else {
-            Parser.parse("list"); //Load initial list onto screen
-        }
-        System.out.println("\nWhat would you like to do ?");
-        System.out.println("List of valid entries include the following:\n\n" +
+        assert TaskList.UpdatedList().size() > 0;
+        Parser.parse("list"); //Load initial list onto screen
+
+        System.out.println("Here are the valid entries for the program:\n" +
                 "Bye\n"     +
                 "List\n"    +
                 "Find\n"    +
                 "Undo\n"    +
                 "History\n" +
-                "Done         'X'\n" +
-                "Delete       'X'\n" +
-                "Todo         'Y'\n" +
-                "Event        'Y' /at 'Z'\n" +
-                "Deadline     'Y' /by 'Z'\n" +
-                "Occurrence       /on 'Z'"   +  "    //Specify which events / deadlines occur on a particular date\n\n" +
-                "Where 'X' refers to the task number, 'Y' refers to the task description and 'Z' refers to the date.\n");
+                "Done         'Number'\n" +
+                "Delete       'Number'\n" +
+                "Todo         'Description'\n" +
+                "Event        'Description' /at 'Date'\n" +
+                "Deadline     'Description' /by 'Date'\n" +
+                "Occurrence       /on 'Date'\n\n");
         while (true) {
             try {
                 command();

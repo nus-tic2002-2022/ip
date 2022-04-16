@@ -46,7 +46,7 @@ public class TaskList {
         ArrayList<LocalTime> timeScheduleArr = new ArrayList<>();
         ArrayList<Task> timeTaskArr = new ArrayList<>();
         ArrayList<Task> noTimeTaskArr = new ArrayList<>();
-        int number = 0, taskArrScheduleCount = 0;
+        int number = 1, taskArrScheduleCount = 0;
         for (int i = 0; i < taskArr.size(); i++) {
             if (taskArr.get(i).getDescription().contains(dateStr)) {
                 Matcher m = DukeConstants.TIME.matcher(taskArr.get(i).getDescription());
@@ -63,9 +63,9 @@ public class TaskList {
 
         while (!timeScheduleArr.isEmpty()) {
             if (timeTaskArr.get(taskArrScheduleCount).getDescription().contains(timeScheduleArr.get(0).toString())) {
-                number++;
-                System.out.println(number + ". " + timeTaskArr.get(taskArrScheduleCount).getDescription());
+                System.out.println((number++) + ". " + timeTaskArr.get(taskArrScheduleCount).getDescription());
                 timeScheduleArr.remove(0);
+                timeTaskArr.remove(taskArrScheduleCount);
                 taskArrScheduleCount = -1;
             }
             taskArrScheduleCount++;

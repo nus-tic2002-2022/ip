@@ -30,4 +30,15 @@ public class UserInterface {
         System.out.println("See YU never");
         System.out.println(UserInterface.repeat('*', lineWidth));
     }
+
+    /**
+     * Delete objects closing message
+     */
+    public static void delete(int count) {
+        if (count > 1) {
+            System.out.printf("YU have delete %d tasks\n", count);
+        } else {
+            System.out.println("YU have deleted 1 task\n");
+        }
+    }
 }

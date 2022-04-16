@@ -16,7 +16,6 @@ public class TaskList {
 
     /**
      * Find task with keyword exist in task description
-     *
      */
     protected void findTasks(String key) {
         assert !key.equals("") : "Cant find tasks with empty key";
@@ -35,7 +34,6 @@ public class TaskList {
 
     /**
      * Print all filtered tasks
-     *
      */
     protected void printFilteredList(ArrayList<Task> filteredTasks) {
         for (Task task : filteredTasks) {
@@ -46,7 +44,6 @@ public class TaskList {
 
     /**
      * Print all tasks
-     *
      */
     protected void printList() {
         for (Task task : this.getAllTasks()) {
@@ -185,7 +182,8 @@ public class TaskList {
     protected void delete(UserInput input) {
         int index = 0;
         String[] ids = input.item.toString().split(",");
-        for(int i = ids.length - 1; i >= 0; i--) {
+        int count = 0;
+        for (int i = ids.length - 1; i >= 0; i--) {
             String id = ids[i];
             if (id != null) {
                 index = Integer.parseInt(id);
@@ -194,11 +192,17 @@ public class TaskList {
             Task task = getTask(index);
             if (task != null) {
                 deleteTask(task);
+                count++;
             }
         }
-        updateIds();
-        storage.save(tasks);
-        printList();
+        if (count != 0) {
+            updateIds();
+            storage.save(tasks);
+            UserInterface.delete(count);
+            printList();
+        } else {
+            System.out.println("Unable to find task id");
+        }
     }
 
     /**

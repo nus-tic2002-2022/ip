@@ -1,0 +1,2 @@
+[T][✘] sell book
+[T][✘] read book

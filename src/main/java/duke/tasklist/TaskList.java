@@ -44,6 +44,7 @@ public class TaskList {
     public void viewSchedule(String dateStr) {
         final String noTasksFound = "There are no tasks found on this date: " + dateStr;
         ArrayList<LocalTime> timeScheduleArr = new ArrayList<>();
+        ArrayList<Task> timeTaskArr = new ArrayList<>();
         ArrayList<Task> noTimeTaskArr = new ArrayList<>();
         int number = 0, taskArrScheduleCount = 0;
         for (int i = 0; i < taskArr.size(); i++) {
@@ -51,6 +52,7 @@ public class TaskList {
                 Matcher m = DukeConstants.TIME.matcher(taskArr.get(i).getDescription());
                 while (m.find()) {
                     timeScheduleArr.add(LocalTime.parse(m.group()));
+                    timeTaskArr.add(taskArr.get(i));
                 }
 
                 if (!DukeConstants.TIME.matcher(taskArr.get(i).getDescription()).find())
@@ -60,9 +62,9 @@ public class TaskList {
         Collections.sort(timeScheduleArr);
 
         while (!timeScheduleArr.isEmpty()) {
-            if (taskArr.get(taskArrScheduleCount).getDescription().contains(timeScheduleArr.get(0).toString())) {
+            if (timeTaskArr.get(taskArrScheduleCount).getDescription().contains(timeScheduleArr.get(0).toString())) {
                 number++;
-                System.out.println(number + ". " + taskArr.get(taskArrScheduleCount).getDescription());
+                System.out.println(number + ". " + timeTaskArr.get(taskArrScheduleCount).getDescription());
                 timeScheduleArr.remove(0);
                 taskArrScheduleCount = -1;
             }

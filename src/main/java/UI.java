@@ -27,6 +27,7 @@ public class UI {
     //It will then add the new task to the existing Tasklist.
     public TaskList Query(TaskList tasks, String input) {
         final String inputIsEmptyResponse = "Please enter something!";
+        final String inputIsInvalid = "Sorry, I do not recognise this input. :(";
         final String matchesList = "list";
         final String matchesHelp = "help";
 
@@ -34,19 +35,12 @@ public class UI {
             tasks.list();
         } else if (input.equalsIgnoreCase(matchesHelp)) {
             help();
-        } else if (DukeConstants.MARK.matcher(input).matches()) {
-            input = input.replaceAll("\\D+", "");
-            tasks.mark(Integer.parseInt(input));
-        } else if (DukeConstants.UNMARK.matcher(input).matches()) {
-            input = input.replaceAll("\\D+", "");
-            tasks.unmark(Integer.parseInt(input));
-        } else if (DukeConstants.REMOVE.matcher(input).matches()) {
-            input = input.replaceAll("\\D+", "");
-
-            //A-Assertion feature, asserts input argument is not blank
-            assert !input.isBlank() : "Input argument cannot be blank!";
-
-            tasks.delete(Integer.parseInt(input));
+        } else if (DukeConstants.CONTAINS_MARK.matcher(input).matches()) {
+            markItem(tasks, input);
+        } else if (DukeConstants.CONTAINS_UNMARK.matcher(input).matches()) {
+            unmarkItem(tasks, input);
+        } else if (DukeConstants.CONTAINS_DELETE.matcher(input).matches()) {
+            deleteItem(tasks, input);
         } else if (DukeConstants.TODO.matcher(input).matches()) {
             addTodo(tasks, input);
         } else if (DukeConstants.DEADLINE.matcher(input).matches()) {
@@ -58,16 +52,45 @@ public class UI {
         } else if (DukeConstants.FIND.matcher(input).matches()) {
             findTask(tasks, input);
         } else if (input.length() > 0) {
-            addTask(tasks, input);
+            System.out.println(inputIsInvalid);
         } else {
             System.out.println(inputIsEmptyResponse);
         }
         return tasks;
     }
 
-    private void addTask(final TaskList tasks, final String input) {
-        tasks.add(new Task(input, false));
-        System.out.println("added: " + input);
+    private void deleteItem(TaskList tasks, String input) {
+        final String deleteTip = "\nTip: An example command would be, 'delete 1'. This deletes the first item on the list.";
+        if (DukeConstants.DELETE.matcher(input).matches()) {
+            input = input.replaceAll("\\D+", "");
+
+            //A-Assertion feature, asserts input argument is not blank
+            assert !input.isBlank() : "Input argument cannot be blank!";
+
+            tasks.delete(Integer.parseInt(input));
+        } else {
+            System.out.println("Error: invalid input!" + deleteTip);
+        }
+    }
+
+    private void markItem(TaskList tasks, String input) {
+        final String markTip = "\nTip: An example command would be, 'mark 1'. This marks the first item on the list.";
+        if (DukeConstants.MARK.matcher(input).matches()) {
+            input = input.replaceAll("\\D+", "");
+            tasks.mark(Integer.parseInt(input));
+        } else {
+            System.out.println("Error: invalid input!" + markTip);
+        }
+    }
+
+    private void unmarkItem(TaskList tasks, String input) {
+        final String unmarkTip = "\nTip: An example command would be, 'unmark 1'. This unmarks the first item on the list.";
+        if (DukeConstants.UNMARK.matcher(input).matches()) {
+            input = input.replaceAll("\\D+", "");
+            tasks.unmark(Integer.parseInt(input));
+        } else {
+            System.out.println("Error: invalid input!" + unmarkTip);
+        }
     }
 
     private void findTask(final TaskList tasks, final String st) {
@@ -148,7 +171,7 @@ public class UI {
 
     //Help method. Prints out a list of possible commands.
     public void help() {
-        final String helpStr = "Hi, this is Duke. I am here to help you keep track of your schedule.\nHere are a list of possible commands I will understand:\n1. list\n2. todo\n3. event\n4. deadline\n5. archive\n6. find\n7. schedule\n8. bye";
+        final String helpStr = "Hi, this is Duke. I am here to help you keep track of your schedule.\nHere are a list of possible commands I will understand:\n1. list\n2. todo\n3. event\n4. deadline\n5. archive\n6. find\n7. schedule\n8. mark\n9. unmark\n10. delete\n11. bye";
         System.out.println(helpStr);
     }
 

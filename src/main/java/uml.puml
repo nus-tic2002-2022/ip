@@ -57,12 +57,14 @@ class Storage {
 
 class UI {
     public TaskList Query(TaskList tasks, String input)
-    private void addTask(final TaskList tasks, final String input)
     private void findTask(final TaskList tasks, final String st)
     private void viewSchedule(final TaskList tasks, final String st)
     private void addEvent(final TaskList tasks, final String st)
     private void addDeadline(final TaskList tasks, final String st)
     private void addTodo(final TaskList tasks, final String st)
+    private void deleteItem(TaskList tasks, String input)
+    private void unmarkItem(TaskList tasks, String input)
+    private void markItem(TaskList tasks, String input)
     public void exit()
     public void help()
     public void showLoadingError()

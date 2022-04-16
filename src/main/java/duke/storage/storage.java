@@ -1,16 +1,12 @@
 package duke.storage;
-
 import duke.exception.IllegalValueException;
-import duke.tasklist.Task;
 import duke.tasklist.tasklist;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class storage {
     /** Default file path used if the user doesn't provide the file name. */

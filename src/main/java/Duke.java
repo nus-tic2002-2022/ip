@@ -3,10 +3,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import duke.exception.DukeException;
+import duke.exception.dukeException;
 import duke.storage.storage;
 import duke.tasklist.*;
-import duke.ui.Ui;
+import duke.ui.ui;
 
 public class Duke {
 
@@ -19,26 +19,24 @@ public class Duke {
             e.printStackTrace();
         }
     }
-
     private static tasklist TL= new tasklist();
-    private static Ui ui = new Ui();
+    private static ui ui = new ui();
 
 
     public static void main(String[] args) throws IOException {
         String divider = "==========================================";
-        //ArrayList<Task> TL = new ArrayList<>();
+
         Scanner in = new Scanner(System.in);
         String[] words;
         String command,date = "",time="",description="";
         String filePath = "data/duke.txt";
-         ui.printWelcomeMessage();
-//        new Print();
+        ui.printWelcomeMessage();
         while (in.hasNext()) {
             String reply = in.nextLine();
             words = reply.split(" ");
             command = words[0];
             for (int i=1; i< words.length;i++){
-                    description+=" "+words[i];
+                description+=" "+words[i];
                 if (words[i].startsWith("/")){
                     date=words[i+1];
                     time=words[i+2];
@@ -50,14 +48,14 @@ public class Duke {
                 ui.printByeMsg(reply);
                 break;
             } else if (command.equalsIgnoreCase("list")) {
-               ui.printCmdMsg(TL, command);
+                ui.printCmdMsg(TL, command);
             } else if (command.equalsIgnoreCase("undo")) {
                 //ui.printUndoMsg(TL, command);
                 TL.deleteTask(ui.printUndoMsg(TL, command));
                 storage.save(filePath, TL);
             }else {
                 if (words.length < 2) {
-                    System.out.println(DukeException.UnknownCommand);
+                    System.out.println(dukeException.UnknownCommand);
                 } else if (command.toLowerCase().contains("mark") || command.toLowerCase().contains("unmark")) {
                     try {
                         option = Integer.parseInt(words[1]);
@@ -79,23 +77,22 @@ public class Duke {
                     }
                 } else if (command.equalsIgnoreCase("deadline")) {
                     if(date==""){
-                        System.out.println(DukeException.invalidDateCommand);
+                        System.out.println(dukeException.invalidDateCommand);
                     }else {
-                        TL.addTask(new Deadline(description, date,time));
+                        TL.addTask(new deadLine(description, date,time));
                         ui.printCmdMsg(TL, command);
                         storage.save(filePath, TL);
                     }
                 } else if (command.equalsIgnoreCase("event")) {
-                    TL.addTask(new Event(description,date,time));
+                    TL.addTask(new event(description,date,time));
                     ui.printCmdMsg( TL, command);
-                  storage.save(filePath, TL);
+                    storage.save(filePath, TL);
 
-               } else if (command.equalsIgnoreCase("find")) {
-                   // TL.addTask(new Event(description,date,time));
+                } else if (command.equalsIgnoreCase("find")) {
                     ui.printFindMsg(TL, description);
 
                 }else if (command.equalsIgnoreCase("todo")) {
-                    TL.addTask(new Todo(description));
+                    TL.addTask(new todo(description));
                     ui.printCmdMsg(TL, command);
                     storage.save(filePath, TL);
                 } else if (command.equalsIgnoreCase("delete")) {
@@ -104,7 +101,7 @@ public class Duke {
                     TL.deleteTask((option - 1));
                     storage.save(filePath, TL);
                 } else {
-                    System.out.println(DukeException.invalidInputCommand);
+                    System.out.println(dukeException.invalidInputCommand);
                 }
                 description="";
             }

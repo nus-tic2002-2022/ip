@@ -3,7 +3,7 @@ package duke.tasklist;
 import java.util.ArrayList;
 
 public class tasklist {
-    private final ArrayList<Task> TL;
+    private final ArrayList<task> TL;
 
     public tasklist() {
         TL = new ArrayList<>();
@@ -13,7 +13,7 @@ public class tasklist {
 
     }
 
-    public void addTask(Task task) {
+    public void addTask(task task) {
         TL.add(task);
     }
 
@@ -21,7 +21,7 @@ public class tasklist {
     public void deleteTask(int index) throws IndexOutOfBoundsException {
         TL.remove(index);
     }
-    public ArrayList<Task> getAllTask() {
+    public ArrayList<task> getAllTask() {
         return TL;
     }
 
@@ -30,7 +30,7 @@ public class tasklist {
         return TL.isEmpty();
     }
 
-    public Task getTask(int index){
+    public task getTask(int index){
         return TL.get(index);
     }
 

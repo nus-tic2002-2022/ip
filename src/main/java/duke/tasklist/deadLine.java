@@ -1,11 +1,16 @@
 package duke.tasklist;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-public class Event extends Task{
+import duke.tasklist.task;
+
+
+public class deadLine extends task {
+
     protected LocalDate by;
-    public Event(String description,String by , String time) {
+
+    public deadLine(String description, String by,String time) {
         super(description);
         String [] words = by.split("/");
         String date = String.format("%02d", Integer.valueOf(words[0]));
@@ -13,8 +18,7 @@ public class Event extends Task{
         String year=words[2];
         String fullDate=(year+"-"+month+"-"+date);
         this.by = LocalDate.parse(fullDate);
-      //  this.by=by+" "+time;
-        type='E';
+        type='D';
 
     }
     public void updateDate(LocalDate newDate) {

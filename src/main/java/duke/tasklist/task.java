@@ -1,11 +1,11 @@
 package duke.tasklist;
 
-public class Task {
+public class task {
     protected String description;
     public boolean isDone;
     protected char type;
 
-    public Task(String description) {
+    public task(String description) {
         this.description = description;
         this.isDone = false;
     }

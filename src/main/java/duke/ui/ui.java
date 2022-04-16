@@ -4,7 +4,7 @@ import duke.tasklist.tasklist;
 import java.util.ArrayList;
 
 
-public class Ui {
+public class ui {
     private String divider = "==========================================";
     public void printWelcomeMessage(){
         String logo = " ____        _        \n"

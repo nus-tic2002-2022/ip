@@ -102,7 +102,7 @@ public class Ui {
     }
 
     public static void printFileErrorMsg(String fileName) {
-        System.out.println("The list file " + fileName + " is not found and/or cannot be created/saved. Please check.");
+        System.out.println("WARNING: The list file " + fileName + " cannot be created and saved. Please ensure that the data folder exists in the same path as the JAR file. Type 'bye' and add the data folder before starting Duke again.");
     }
 
     public static void printDateFormatErrorMsg() {

@@ -5,3 +5,104 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+File is not found : /Users/ajazyeap/Documents/GitHub/text-ui-test/buffer.txt
+FileLoadException: Error in loading file, will create new file
+Welcome!
+This is Duke
+I am here to help check your on-hand task
+______________________________________________
+______________________________________________
+______________________________________________
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list
+______________________________________________
+______________________________________________
+Got it. I've added this task:
+[D][ ]  submit assignment  (Aug 1 2022 06:00pm)
+Now you have 2 tasks in the list
+______________________________________________
+______________________________________________
+To set as Recurring Events? (Y/N)
+Got it. I've added this task:
+[E][ ]  attend AI seminar  ( at NUS on Jul 20 2022)
+Now you have 3 tasks in the list
+______________________________________________
+______________________________________________
+1.[T][ ] borrow book
+2.[D][ ]  submit assignment  (Aug 1 2022 06:00pm)
+3.[E][ ]  attend AI seminar  ( at NUS on Jul 20 2022)
+______________________________________________
+______________________________________________
+Noted, The list has been sorted
+1.[T][ ] borrow book
+2.[E][ ]  attend AI seminar  ( at NUS on Jul 20 2022)
+3.[D][ ]  submit assignment  (Aug 1 2022 06:00pm)
+______________________________________________
+______________________________________________
+To set as Recurring Events? (Y/N)
+What is the interval (day) for this Recurring Event:
+How many times to be recurred:
+Got it. I've added these tasks:
+[E][ ]  dental appointment  ( at raffles on Sep 1 2022)
+[E][ ]  dental appointment  ( at raffles on Sep 8 2022)
+[E][ ]  dental appointment  ( at raffles on Sep 15 2022)
+[E][ ]  dental appointment  ( at raffles on Sep 22 2022)
+[E][ ]  dental appointment  ( at raffles on Sep 29 2022)
+Now you have 8 tasks in the list
+______________________________________________
+______________________________________________
+1.[T][ ] borrow book
+2.[E][ ]  attend AI seminar  ( at NUS on Jul 20 2022)
+3.[D][ ]  submit assignment  (Aug 1 2022 06:00pm)
+4.[E][ ]  dental appointment  ( at raffles on Sep 1 2022)
+5.[E][ ]  dental appointment  ( at raffles on Sep 8 2022)
+6.[E][ ]  dental appointment  ( at raffles on Sep 15 2022)
+7.[E][ ]  dental appointment  ( at raffles on Sep 22 2022)
+8.[E][ ]  dental appointment  ( at raffles on Sep 29 2022)
+______________________________________________
+______________________________________________
+Nice! I've marked this task as done:
+[T][X] borrow book
+______________________________________________
+______________________________________________
+Nice! I've marked this task as done:
+[E][X]  attend AI seminar  ( at NUS on Jul 20 2022)
+______________________________________________
+______________________________________________
+Nice! I've marked this task as done:
+[E][X]  dental appointment  ( at raffles on Sep 1 2022)
+______________________________________________
+______________________________________________
+OK, I've marked this task as not done yet:
+[E][ ]  attend AI seminar  ( at NUS on Jul 20 2022)
+______________________________________________
+______________________________________________
+To set as Recurring Events? (Y/N)
+Got it. I've added this task:
+[E][ ]  attend meeting ( at NUS on Jun 6 2022)
+Now you have 9 tasks in the list
+______________________________________________
+______________________________________________
+1.[T][X] borrow book
+2.[E][ ]  attend AI seminar  ( at NUS on Jul 20 2022)
+3.[D][ ]  submit assignment  (Aug 1 2022 06:00pm)
+4.[E][X]  dental appointment  ( at raffles on Sep 1 2022)
+5.[E][ ]  dental appointment  ( at raffles on Sep 8 2022)
+6.[E][ ]  dental appointment  ( at raffles on Sep 15 2022)
+7.[E][ ]  dental appointment  ( at raffles on Sep 22 2022)
+8.[E][ ]  dental appointment  ( at raffles on Sep 29 2022)
+9.[E][ ]  attend meeting ( at NUS on Jun 6 2022)
+______________________________________________
+______________________________________________
+2.[E][ ]  attend AI seminar  ( at NUS on Jul 20 2022)
+9.[E][ ]  attend meeting ( at NUS on Jun 6 2022)
+OK, I found these tasks shown above
+______________________________________________
+______________________________________________
+7.[E][ ]  dental appointment  ( at raffles on Sep 22 2022)
+Noted. I've removed this task:
+______________________________________________
+______________________________________________
+Bye. Hope to see you again soon!
+______________________________________________

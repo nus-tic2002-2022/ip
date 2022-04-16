@@ -1,0 +1,22 @@
+list
+todo borrow book
+deadline submit assignment / by 2022-08-01 1800
+event attend AI seminar / at NUS on 2022-07-20
+N
+list
+sort
+event dental appointment / at raffles on 2022-09-01
+Y
+7
+5
+list
+mark 1
+mark 2
+mark 4
+unmark 2
+event attend meeting/ at NUS on 2022-06-06
+N
+list
+find attend
+delete 7
+bye

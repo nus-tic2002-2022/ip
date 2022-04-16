@@ -20,7 +20,7 @@ public class Storage {
         }catch(Exception e){
             dirFilePath = System.getProperty("user.dir");
         }
-        this.f = new File(dirFilePath + "\\data.txt");
+        this.f = new File(dirFilePath + "/data.txt");
     }
 
     //The following method will write to the file specified in File f. The written value is taken from ArrayList taskArr along with the getDescription method.
@@ -36,7 +36,7 @@ public class Storage {
 
     //The following method is for the C-Archive feature.
     public void saveToFile(TaskList tasks, String filename) {
-        String filepath = dirFilePath + "\\archive\\";
+        String filepath = dirFilePath + "/archive/";
         new File(filepath).mkdirs();
         File a = new File(filepath + filename + (filename.contains(".txt") ? "" : ".txt"));
         try (PrintWriter out = new PrintWriter(a.getAbsoluteFile())) {

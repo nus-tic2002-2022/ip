@@ -11,12 +11,12 @@ public class TaskFile {
     private static String filePath;
 
     /**
-     * TaskFile Constructor for the task file.
+     * Constructs for the task file.
      * Loads the file if it can be found.
      * Otherwise, tries to create the file.
      * Else, warns the user that changes to the task list will not be saved.
      *
-     * @param fp Directory location of the task file
+     * @param fp Directory location of the task file.
      * @see TaskFile#loadFile()
      */
     public TaskFile (String fp){
@@ -34,9 +34,9 @@ public class TaskFile {
     }
 
     /**
-     * loadFile method that loads the task file and initiates the import.
+     * Finds the task file and initiates the import.
      *
-     * @throws IOException throws exception when the task file cannot be found
+     * @throws IOException throws exception when the task file cannot be found.
      * @see ImportTasks#importTask(String)
      */
     public static void loadFile() throws IOException {
@@ -58,9 +58,9 @@ public class TaskFile {
     }
 
     /**
-     * newFile method that creates a new task file.
+     * Creates a new task file.
      *
-     * @throws IOException Throws exception if Duke is unable to create the save file
+     * @throws IOException Throws exception if Duke is unable to create the save file.
      */
     public static void newFile() throws IOException{
         try{
@@ -76,11 +76,11 @@ public class TaskFile {
     }
 
     /**
-     * appendTask method adds task to the task file.
+     * Adds task to the task file.
      * Used when tasks are added from user input into the task file.
      *
-     * @param task Tasks that are to be added into the task file
-     * @throws IOException throws exception if the task file cannot be found
+     * @param task Tasks that are to be added into the task file.
+     * @throws IOException throws exception if the task file cannot be found.
      */
     public static void appendTask(String task) throws IOException {
         try{
@@ -94,10 +94,10 @@ public class TaskFile {
     }
 
     /**
-     * This method overwrites all existing content in the task file.
+     * Overwrites all existing content in the task file.
      * Used when a task is deleted.
      *
-     * @throws IOException throws exception if the task file cannot be found
+     * @throws IOException throws exception if the task file cannot be found.
      */
     public static void overwriteTask() throws IOException {
         try{

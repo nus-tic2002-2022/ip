@@ -16,10 +16,10 @@ public class Task implements Comparable<Task> {
     protected LocalDateTime dateTime;
 
     /**
-     * Task generic constructor.
+     * Constructs generic tasks.
      * Created from user input.
      *
-     * @param description The description of the task
+     * @param description The description of the task.
      */
     public Task(String description) {
         assert !description.isBlank() : "description should not be blank";
@@ -29,11 +29,11 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Task generic constructor.
-     * For importing from task file.
+     * Constructs generic tasks.
+     * Imported from task file.
      *
-     * @param description The description of the task
-     * @param isDone The status of the task
+     * @param description The description of the task.
+     * @param isDone The status of the task.
      */
     public Task(String description, boolean isDone){
         assert !description.isBlank() : "description should not be blank";
@@ -42,7 +42,7 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * newTask method to add the new tasks created from user input into the task file
+     * Adds the new tasks created from user input into the task file.
      */
     public void newTask(){
         try {
@@ -54,7 +54,6 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * getTaskType to show Todo, Deadline or Event task.
      * Returns the task type of the task.
      *
      * @return T, D or E
@@ -64,64 +63,65 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * setDT sets the date and time of a task.
+     * Sets the date and time of a task.
      * Stores the date/time of the task in this format: 1999-30-06 1800.
      *
-     * @param date Date in String format
+     * @param date Date in String format.
      */
     protected void setDT(String date){
         dateTime = LocalDateTime.parse(date, DATE_TIME_FORMAT);
     }
 
     /**
-     * getDT returns the date/time of the task.
+     * Returns the date/time of the task.
      *
-     * @return LocalDateTime
+     * @return LocalDateTime.
      */
     public LocalDateTime getDT() {
         return dateTime;
     }
 
     /**
-     * printDT returns the date/time of the task in this format: Jun 30 1999, 06:00pm.
+     * Returns the date/time of the task in this format: Jun 30 1999, 06:00pm.
      *
-     * @return String
+     * @return String.
      */
     protected String printDT() {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd uuuu, hh:mm a"));
     }
 
     /**
-     * getStatusIcon of the task where "X" indicates done and " " indicates it is not done.
+     * Returns "X" indicating task is done and " " indicating it is not done.
      *
-     * @return "X" or " "
+     * @return "X" or " ".
      * @see #isDone
      */
     protected String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
     /**
-     * addToFile string is appended to the task file.
+     * Returns string is to be added to the task file.
      *
-     * @return the status and description of the task
+     * @return the status and description of the task.
      */
     protected String addToFile() {
         return "[" + getStatusIcon() + "] " + description;
     }
     /**
-     * toString string used for displaying to the user.
+     * Returns string used for displaying to the user.
      *
-     * @return the status and description of the task
+     * @return the status and description of the task.
      */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
     /**
-     * compareTo method compares the date of 2 tasks that are having date/time associated with them.
+     * Returns a value after comparing 2 tasks.
+     * Compares the date of 2 tasks that are having date/time associated with them.
      *
-     * @param otherTask the tasks with date that is to be compared to
-     * @return -1 if given is smaller, 0 if both are equal and 1 if given is bigger
+     * @param otherTask the tasks with date that is to be compared to.
+     * @return -1 if given is smaller, 0 if both are equal and 1 if given is bigger.
      * @see java.time.LocalDateTime#compareTo(ChronoLocalDateTime)
      */
     @Override

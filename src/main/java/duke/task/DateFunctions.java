@@ -11,10 +11,10 @@ import static java.util.Collections.reverseOrder;
 public class DateFunctions {
 
     /**
-     * listSort sorts the tasks by date.
+     * Sorts the tasks by date.
      * Todo task will always appear on top as they have neither date nor time.
      *
-     * @param isAscendingOrder true = ascending order, false = descending order
+     * @param isAscendingOrder true = ascending order, false = descending order.
      */
     public static void listSort(boolean isAscendingOrder){
         ArrayList<Task> copyOfTaskList = new ArrayList<>(TaskList.taskList);
@@ -48,7 +48,7 @@ public class DateFunctions {
     }
 
     /**
-     * expiredList shows tasks past their due date.
+     * Shows tasks past their due date.
      * Tasks are compared to current time to determine which tasks have expired.
      * Results are then displayed on screen.
      * Todo tasks never expire as they do not have an end date.
@@ -69,7 +69,7 @@ public class DateFunctions {
         }
     }
     /**
-     * upcoming list shows tasks that have an upcoming date.
+     * Shows tasks that have an upcoming date.
      * Tasks are compared to current time to determine which tasks are still valid.
      * Results are then displayed on screen.
      * Todo tasks never expire as they do not have an end date.
@@ -95,9 +95,9 @@ public class DateFunctions {
     }
 
     /**
-     * Displays all the tasks which fall on the provided day parameter
+     * Displays all the tasks which fall on the provided day parameter.
      *
-     * @param day Day
+     * @param day Day.
      * @see DateFunctions#monthSearch(Month)
      */
     public static void daySearch(DayOfWeek day){
@@ -115,9 +115,9 @@ public class DateFunctions {
         }
     }
     /**
-     * Displays all the tasks which fall on the provided month parameter
+     * Displays all the tasks which fall on the provided month parameter.
      *
-     * @param month Month
+     * @param month Month.
      * @see DateFunctions#daySearch(DayOfWeek)
      */
     public static void monthSearch(Month month){
@@ -136,9 +136,9 @@ public class DateFunctions {
     }
 
     /**
-     * Search for tasks to be done after a given tasks
+     * Searches for tasks to be done after a given tasks.
      *
-     * @param t task which contains the timestamp for comparison
+     * @param t task which contains the timestamp for comparison.
      */
     public static void after(Task t){
         ArrayList<Task> copyOfTaskList = new ArrayList<>(TaskList.taskList);

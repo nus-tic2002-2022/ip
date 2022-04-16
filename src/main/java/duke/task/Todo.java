@@ -3,11 +3,11 @@ package duke.task;
 public class Todo extends Task{
 
     /**
-     * Todo constructor.
+     * Constructs Todo task.
      * Created from user input.
      * Expects input like "todo read book".
      *
-     * @param description The description of the task
+     * @param description The description of the task.
      */
     public Todo(String description) {
         super(description);
@@ -16,11 +16,11 @@ public class Todo extends Task{
         newTask();
     }
     /**
-     * Todo contructor.
+     * Constructs Todo task.
      * Created from imported from a task file.
      * Expects input like "todo read book".
      *
-     * @param description The description of the task
+     * @param description The description of the task.
      */
     public Todo(String description, boolean isDone){
         super(description, isDone);
@@ -28,9 +28,9 @@ public class Todo extends Task{
         taskType = "T";
     }
     /**
-     * addToFile string is appended to the task file.
+     * Returns a string is to be appended to the task file.
      *
-     * @return [taskType][status] description
+     * @return [taskType][status] description.
      */
     @Override
     public String addToFile() {
@@ -38,9 +38,9 @@ public class Todo extends Task{
     }
 
     /**
-     * toString string used for displaying to the user.
+     * Returns a string used for displaying to the user.
      *
-     * @return [taskType][status] description
+     * @return [taskType][status] description.
      */
     @Override
     public String toString() {

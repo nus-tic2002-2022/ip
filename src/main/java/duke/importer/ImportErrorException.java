@@ -2,11 +2,11 @@ package duke.importer;
 
 public class ImportErrorException extends Exception{
     /**
-     * ImportErrorException Constructor.
+     * Constructs ImportErrorException.
      * For an exception that is thrown when there is an error importing tasks from the task file.
      * There are error messages for each respective cause.
      *
-     * @param item The reason for error
+     * @param item The reason for error.
      * @see FileContentChecker
      */
     public ImportErrorException(String item){

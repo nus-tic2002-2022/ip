@@ -19,8 +19,8 @@ public class Ui {
     }
 
     /**
-     * List the days of the week
-     * monday, tuesday, wednesday, thursday, friday, saturday, sunday
+     * Lists the days of the week.
+     * Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.
      */
     protected static void showDays(){
         System.out.println("Check out the list of valid days below: ");
@@ -28,8 +28,8 @@ public class Ui {
     }
 
     /**
-     * List the months of the year
-     * january, february, march, april, may, june, july, august, september,october, november, december
+     * Lists the months of the year.
+     * January, February, March, April, May, June, July, August, September, October, November, December.
      */
     protected static void showMonths(){
         System.out.println("Check out the list of valid months below: ");
@@ -38,7 +38,8 @@ public class Ui {
     }
 
     /**
-     * Displays the available commands that Duke understands when the user inputs "help" or "?"
+     * Displays the available commands that Duke understands when the user inputs "help" or "?".
+     *
      * @see duke.task.TaskList#list
      */
     protected static void help(){

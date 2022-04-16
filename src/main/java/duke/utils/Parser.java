@@ -6,9 +6,9 @@ import static duke.utils.SearchDate.searchDate;
 
 public class Parser extends Exception{
     /**
-     * User inputs are parsed here so Duke I can understand what to do
+     * Parses user input so Duke can understand what to do
      *
-     * @param userInput the user input read from scanner
+     * @param userInput the user input read from scanner.
      */
 
     public static void parse(String userInput){

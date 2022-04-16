@@ -10,7 +10,7 @@ public class TaskList {
     protected static int numOfTasks;
 
     /**
-     * TaskList Constructor.
+     * Constructs Task List.
      * Maintains the list of tasks.
      * Initializes with 0 task.
      */
@@ -36,9 +36,9 @@ public class TaskList {
     }
 
     /**
-     * getNumOfTasks returns number of tasks in the task list.
+     * Returns number of tasks in the task list.
      *
-     * @return number of tasks in the task list
+     * @return number of tasks in the task list.
      */
     public static int getNumOfTasks(){
         assert numOfTasks >= 0 : "number of tasks cannot be less than 0";
@@ -46,7 +46,7 @@ public class TaskList {
     }
 
     /**
-     * list method lists all the task in the task list
+     * Lists all the task in the task list.
      */
     public static void list(){
         assert numOfTasks >= 0 : "number of tasks cannot be less than 0";
@@ -68,9 +68,9 @@ public class TaskList {
     }
 
     /**
-     * Mark methods changes the isDone status of the task to "done".
+     * Changes the isDone status of the task to "done".
      *
-     * @param userInput index of the task according to the task list
+     * @param userInput index of the task according to the task list.
      * @see TaskList#list()
      */
     public static void mark(String userInput) {
@@ -89,9 +89,9 @@ public class TaskList {
     }
 
     /**
-     * Mark methods changes the isDone status of the task to not done.
+     * Changes the isDone status of the task to not done.
      *
-     * @param userInput index of the task according to the task list
+     * @param userInput index of the task according to the task list.
      * @see TaskList#list()
      */
     public static void unmark(String userInput) {
@@ -110,9 +110,9 @@ public class TaskList {
     }
 
     /**
-     * todo method adds a new Todo task to the task list.
+     * Adds a new Todo task to the task list.
      *
-     * @param userInput the description of the task
+     * @param userInput the description of the task.
      */
     public static void todo(String userInput){
         String description = userInput.replaceFirst("\\w+\\s", "");
@@ -123,9 +123,9 @@ public class TaskList {
     }
 
     /**
-     * deadline method adds a new Deadline task to the task list.
+     * Adds a new Deadline task to the task list.
      *
-     * @param userInput the description and date/time of the task
+     * @param userInput the description and date/time of the task.
      */
     public static void deadline(String userInput){
         String description = userInput.replaceFirst("\\w+\\s", "");
@@ -138,9 +138,9 @@ public class TaskList {
     }
 
     /**
-     * event method adds a new Event task to the task list.
+     * Adds a new Event task to the task list.
      *
-     * @param userInput the description and date/time of the task
+     * @param userInput the description and date/time of the task.
      */
     public static void event(String userInput){
         String description = userInput.replaceFirst("\\w+\\s", "");
@@ -153,9 +153,9 @@ public class TaskList {
     }
 
     /**
-     * delete method Deletes a task in the task list.
+     * Deletes a task in the task list.
      *
-     * @param userInput index of the task according to the task list
+     * @param userInput index of the task according to the task list.
      * @see TaskList#list()
      * @see TaskList#overwriteTaskFile()
      * @see TaskFile#overwriteTask()
@@ -174,9 +174,10 @@ public class TaskList {
     }
 
     /**
-     * Search for tasks to be done after a given tasks
+     * Returns tasks to be done after a given task.
+     *
+     * @param userInput is the index of the task in the Task List.
      * @see DateFunctions#after(Task t)
-     * @param userInput is the index of the task in the Task List
      */
     public static void doAfter(String userInput){
         int index = indexer(userInput);
@@ -193,8 +194,9 @@ public class TaskList {
     }
 
     /**
-     * Returns tasks that have description matching the user's query
-     * @param userInput string of text in the description of the tasks that user wants to find
+     * Returns tasks that have description matching the user's query.
+     *
+     * @param userInput string of text in the description of the tasks that user wants to find.
      */
     public static void find(String userInput){
         String query = userInput.substring(userInput.indexOf(' ')+1);
@@ -218,10 +220,10 @@ public class TaskList {
     }
 
     /**
-     * importTodo Imports a Todo task from the task file to the task list.
+     * Imports a Todo task from the task file to the task list.
      *
-     * @param fileInputDescription the description of the task
-     * @param fileInputMark the status of the task
+     * @param fileInputDescription the description of the task.
+     * @param fileInputMark the status of the task.
      */
     public static void importTodo(String fileInputDescription, boolean fileInputMark){
         Todo task = new Todo(fileInputDescription, fileInputMark);
@@ -230,11 +232,11 @@ public class TaskList {
     }
 
     /**
-     * importDeadline imports a Deadline task from the task file to the task list.
+     * Imports a Deadline task from the task file to the task list.
      *
-     * @param fileInputDescription the description of the task
-     * @param fileInputDate the date/time of the task
-     * @param fileInputMark the status of the task
+     * @param fileInputDescription the description of the task.
+     * @param fileInputDate the date/time of the task.
+     * @param fileInputMark the status of the task.
      */
     public static void importDeadline(String fileInputDescription, String fileInputDate, boolean fileInputMark){
         Deadline task = new Deadline(fileInputDescription, fileInputDate, fileInputMark);
@@ -243,11 +245,11 @@ public class TaskList {
     }
 
     /**
-     * importEvent imports an Event task from the task file to the task list.
+     * Imports an Event task from the task file to the task list.
      *
-     * @param fileInputDescription the description of the task
-     * @param fileInputDate the date/time of the task
-     * @param fileInputMark the status of the task
+     * @param fileInputDescription the description of the task.
+     * @param fileInputDate the date/time of the task.
+     * @param fileInputMark the status of the task.
      */
     public static void importEvent(String fileInputDescription, String fileInputDate, boolean fileInputMark){
         Event task = new Event(fileInputDescription, fileInputDate, fileInputMark);

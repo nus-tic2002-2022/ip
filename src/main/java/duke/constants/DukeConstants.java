@@ -16,6 +16,5 @@ public class DukeConstants {
     public static final Pattern STORAGE_DEADLINE = Pattern.compile("^\\[D\\].*$");
     public static final Pattern STORAGE_TODO = Pattern.compile("^\\[T\\].*$");
     public static final Pattern STORAGE_ISMARKED = Pattern.compile("^\\[X\\]\\s.*$");
-    public static final String PROJECT_FILEPATH = System.getProperty("user.dir");
     public static final Pattern TIME = Pattern.compile("([0-1]?[0-9]|2[0-3]):[0-5][0-9]");
 }

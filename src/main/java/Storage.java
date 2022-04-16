@@ -11,10 +11,16 @@ import java.util.ArrayList;
 public class Storage {
     private final File f;
     private ArrayList<Task> taskArr;
+    private String dirFilePath;
 
     //The following class takes in the supplied value of filepath and uses it to populate variable File f.
     public Storage() {
-        this.f = new File(DukeConstants.PROJECT_FILEPATH + "\\data.txt");
+        try {
+            dirFilePath = new File(Storage.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+        }catch(Exception e){
+            dirFilePath = System.getProperty("user.dir");
+        }
+        this.f = new File(dirFilePath + "\\data.txt");
     }
 
     //The following method will write to the file specified in File f. The written value is taken from ArrayList taskArr along with the getDescription method.
@@ -30,7 +36,7 @@ public class Storage {
 
     //The following method is for the C-Archive feature.
     public void saveToFile(TaskList tasks, String filename) {
-        String filepath = DukeConstants.PROJECT_FILEPATH + "\\archive\\";
+        String filepath = dirFilePath + "\\archive\\";
         new File(filepath).mkdirs();
         File a = new File(filepath + filename + (filename.contains(".txt") ? "" : ".txt"));
         try (PrintWriter out = new PrintWriter(a.getAbsoluteFile())) {
@@ -51,7 +57,6 @@ public class Storage {
     //The following method returns an ArrayList containing the values stored in file (specified in File f)
     public ArrayList<Task> readFromFile() throws IOException {
         taskArr = new ArrayList<Task>(100);
-
         BufferedReader br = new BufferedReader(new FileReader(f.getAbsoluteFile()));
         String st;
         while ((st = br.readLine()) != null) {

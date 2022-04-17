@@ -52,7 +52,7 @@ public class Parser extends Exception{
         }
     }
 
-    public static void parse(String userInput){
+    public static String parse(String userInput){
 
         String command = userInput.split(" ")[0];
 
@@ -73,7 +73,7 @@ public class Parser extends Exception{
                 try {
                     indexValidate(userInput,"mark");
                 }catch (NumberFormatException n){
-                    return;
+                    return command;
                 }
                 TaskList.mark(userInput);
                 break;
@@ -81,7 +81,7 @@ public class Parser extends Exception{
                 try {
                     indexValidate(userInput,"unmark");
                 }catch (NumberFormatException n){
-                    return;
+                    return command;
                 }
                 TaskList.unmark(userInput);
                 break;
@@ -89,7 +89,7 @@ public class Parser extends Exception{
                 try {
                     indexValidate(userInput,"delete");
                 }catch (NumberFormatException n){
-                    return;
+                    return command;
                 }
                 TaskList.delete(userInput);
                 break;
@@ -97,7 +97,7 @@ public class Parser extends Exception{
                 try {
                     taskValidate(userInput, "todo");
                 } catch (StringIndexOutOfBoundsException s){
-                    return;
+                    return command;
                 }
                 TaskList.todo(userInput);
                 break;
@@ -106,7 +106,7 @@ public class Parser extends Exception{
                     taskValidate(userInput, "deadline");
                     dateValidate(userInput, "deadline");
                 } catch (StringIndexOutOfBoundsException s){
-                    return;
+                    return command;
                 }
                 TaskList.deadline(userInput);
                 break;
@@ -115,15 +115,19 @@ public class Parser extends Exception{
                     taskValidate(userInput, "event");
                     dateValidate(userInput, "event");
                 } catch (StringIndexOutOfBoundsException s){
-                    return;
+                    return command;
                 }
                 TaskList.event(userInput);
+                break;
+            case "find":
+                TaskList.find(userInput);
                 break;
             default:
                 //Level 5 Else, unrecognized command
                 System.out.println("☹ OOPS!!! Try typing \"help\" to see a list of available commands");
                 break;
         }
+        return command;
     }
 
 

@@ -1,0 +1,3 @@
+[D][ ] sleep (by: 3pm)
+[D][ ] do (by: 2022-02-12)
+[D][ ] sleep (by: 2359)

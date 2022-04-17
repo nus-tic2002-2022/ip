@@ -1,5 +1,14 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import java.util.Scanner;
+import java.time.LocalDate;
+
+import java.time.temporal.ChronoUnit;
+import java.util.regex.*;
 
 public class TaskList {
 
@@ -81,16 +90,72 @@ public class TaskList {
         System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
+    /*
+    public interface DateValidator {
+        boolean isValid(String dateStr);
+    }
+
+    // public static LocalDate parse(CharSequence text)
+    // parses dates using using DateTimeFormatter.ISO_LOCAL_DATE
+    // public static LocalDate parse(CharSequence text, DateTimeFormatter formatter)
+    // parses dates using the provided formatter
+
+    public class DateValidatorUsingLocalDate implements DateValidator {
+        private DateTimeFormatter dateFormatter;
+
+        public DateValidatorUsingLocalDate(DateTimeFormatter dateFormatter) {
+            this.dateFormatter = dateFormatter;
+        }
+
+        @Override
+        public boolean isValid(String dateStr) {
+            try {
+                LocalDate.parse(dateStr, this.dateFormatter);
+            } catch (DateTimeParseException e) {
+                return false;
+            }
+            return true;
+        }
+    }
+    static DateTimeFormatter dateFormatter = DateTimeFormatter.BASIC_ISO_DATE;
+    static DateValidator validator = new DateValidatorUsingLocalDate(dateFormatter);
+
+     */
+
+    /*public interface DateMatcher {
+        boolean matches(String date);
+    }
+
+    class FormattedDateMatcher implements DateMatcher {
+
+        private Pattern DATE_PATTERN = Pattern.compile(
+                "^\\d{4}-\\d{2}-\\d{2}$");
+
+        @Override
+        public boolean matches(String date) {
+            return DATE_PATTERN.matcher(date).matches();
+        }
+    }*/
+
     public static void deadline(String userInput) {
         //Creating new deadline task
         String description = userInput.replaceFirst("\\w+\\s", "");
         String date = description.substring(description.indexOf("/by") + 3);
-        description = description.substring(0, description.indexOf("/by"));
-        Deadline task = new Deadline(description, date);
-        taskList.add(task);
-        numOfTasks++;
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
-    }
+
+        /*while (LocalDate.parse(date, this.dateFormatter) == false) {
+            while (Objects.equals(validator.isValid(date), false)) {
+                System.out.println("Your date is in wrong format! Try again!");
+                Scanner scanInput = new Scanner(System.in); //Scan user input
+                String userInputs = scanInput.nextLine(); //Read user input
+                date = Parser.parse(userInputs);
+            }*/
+
+            description = description.substring(0, description.indexOf("/by"));
+            Deadline task = new Deadline(description, date);
+            taskList.add(task);
+            numOfTasks++;
+            System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        }
 
     public static void event(String userInput) {
         //Creating new event task
@@ -150,6 +215,25 @@ public class TaskList {
             }
         }catch(IOException i){
             System.out.println("Unable to make changes to the save file");
+        }
+    }
+
+    //Level 9 - Find
+    public static void find(String userInput) {
+
+        String searchKey = userInput.substring(5);
+        int counter = 0;
+
+        for (Task m : taskList) {
+            if (m.description.toLowerCase().contains(searchKey)) {
+                counter++;
+                System.out.println(counter + ". " + m + "   Task Index = " + taskList.indexOf(m));
+                //System.out.println("Found it!");
+            }
+        }
+
+        if (counter == 0) {
+            System.out.println("OOPS!!! Cannot be found! Please try again!");
         }
     }
 }

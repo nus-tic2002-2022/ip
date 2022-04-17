@@ -19,7 +19,7 @@ public class Storage extends Duke{
      * If It's not there, it will create folder and file automatically.
      *
      */
-    public static void checkFile() throws IOException {
+    public static void checkFile() throws Exception {
         File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -52,11 +52,11 @@ public class Storage extends Duke{
         }
     }
 
-    public static void saveFile() throws Exception {
+    public static void saveFile() throws IOException {
         PrintWriter prw = new PrintWriter(filePath);
         StringBuilder inputs = new StringBuilder();
         for (Task t : MySiri.task) {
-            inputs.append(t.getDescription()).append(System.lineSeparator());
+            inputs.append(t.getDescription()).append("\n");
         }
         prw.println(inputs);
         prw.close();

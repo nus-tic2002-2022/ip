@@ -9,6 +9,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class provides the ability to load existing task data into the 'TaskList' and save the latest modified 'TaskList' into a file.
+ * It also provides some basic function to detect if the existing data is in an incompatible format and allows to throw an exception.
+ */
+
+
 public class Keep {
     protected static int count = 0;
     protected static String FileLocation = "data/duke.txt";

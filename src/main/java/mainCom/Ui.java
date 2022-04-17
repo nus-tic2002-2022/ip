@@ -3,6 +3,12 @@ import subTask.*;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class is to represent the user-interface of the program. It displays an introductory message and provides a list of possible commands that the user can input.
+ * Once the input is registered, it refers the input to the Parser Class to parse and understand the command that the user wants.
+ */
+
+
 public class Ui {
     public static void echo() throws IOException, DukeException {
         Scanner in = new Scanner(System.in);

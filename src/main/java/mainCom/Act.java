@@ -1,6 +1,17 @@
 package mainCom;
 import subTask.*;
 
+/**
+ * This class registers the user-inputs and makes sense of the command that the program is supposed to execute.
+ * It contains the following approved actions:
+ *    List: Allows to list all the tasks inside TaskList
+ *    Bye: Exits the Task Manager
+ *    Done: Marks a task as completed
+ *    Delete: Deletes a task from the TaskList
+ *    Todo / Event / Deadline: Adds one of the tasks into the TaskList
+ */
+
+
 public class Act {
     protected static String input;
 

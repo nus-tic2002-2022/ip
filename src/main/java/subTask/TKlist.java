@@ -1,6 +1,10 @@
 package subTask;
-
 import java.util.ArrayList;
+
+/**
+ * This class is used for evaluating the actions of the multiple user commands such as add / delete tasks etc.
+ */
+
 
 public class TKlist {
     public static int count = 0;

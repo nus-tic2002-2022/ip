@@ -1,5 +1,9 @@
 package subTask;
 
+/**
+ * This Task program defines the basic structure for a Task class.
+ */
+
 public class Task {
     protected String description;
     protected boolean isDone;

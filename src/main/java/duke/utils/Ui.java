@@ -15,7 +15,8 @@ public class Ui {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo + "Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println(logo + "Hi! I'm Duke, it's my pleasure to help you :)");
+        System.out.println("You may type \"help\" or \"?\" to view a list commands :)");
     }
 
     /**
@@ -23,7 +24,7 @@ public class Ui {
      * Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.
      */
     protected static void showDays(){
-        System.out.println("Check out the list of valid days below: ");
+        System.out.println("Alright, here is the list of days in the week: ");
         System.out.println("monday\ntuesday\nwednesday\nthursday\nfriday\nsaturday\nsunday");
     }
 
@@ -32,7 +33,7 @@ public class Ui {
      * January, February, March, April, May, June, July, August, September, October, November, December.
      */
     protected static void showMonths(){
-        System.out.println("Check out the list of valid months below: ");
+        System.out.println("Alright, here is the list of months in the year: ");
         System.out.println("january\nfebruary\nmarch\napril\nmay\njune");
         System.out.println("july\naugust\nseptember\noctober\nnovember\ndecember");
     }
@@ -43,11 +44,11 @@ public class Ui {
      * @see duke.task.TaskList#list
      */
     protected static void help(){
-        System.out.println("Below are commands I currently understand :)");
+        System.out.println("These are the actions I can help you with currently, hope I can learn more in the future :)");
         for(String str : list){
             System.out.println(str);
         }
-        System.out.println("---End of Command List---");
+        System.out.println("---End of help---");
     }
 
     private static final String[] list = {

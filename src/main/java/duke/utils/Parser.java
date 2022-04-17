@@ -20,7 +20,7 @@ public class Parser extends Exception{
             break;
         //Level 1 Greet, Echo, Exit
         case "bye":
-            System.out.println("Bye. Hope to see you again soon!");
+            System.out.println("Bye :) I was happy to help you, hope to see you again soon!");
             System.exit(0); //Exit program
         case "list":
             TaskList.list();
@@ -107,7 +107,7 @@ public class Parser extends Exception{
             break;
         default:
         //Level 5 Else, unrecognized command
-            System.out.println("☹ OOPS!!! Try typing \"help\" to see a list of available commands");
+            System.out.println("Sorry! :( I could not understand that. Try typing \"help\" to see a list of actions I can do.");
             break;
         }
     }

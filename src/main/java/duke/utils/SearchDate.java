@@ -20,21 +20,22 @@ public class SearchDate {
         try {
             date = userInput.substring(userInput.indexOf(" ")).trim();
         }catch(StringIndexOutOfBoundsException s) {
-            System.out.println("☹ OOPS!!! Search cannot be empty! Please include the Day of the week or Month.");
+            System.out.println("Sorry, what did you want me to search? Please include the Day of the week or Month thank you :).");
         }
             if (date.contains("day")) {
                 try {
                     DayOfWeek day = findDay(date);
                     DateFunctions.daySearch(day);
                 } catch (DateTimeException dte) {
-                    System.out.println("☹ OOPS!!! that's not a valid day or month");
+                    System.out.println("Oh no! :( I'm not sure what that meant, it didn't seem like a valid day or month.");
+                    System.out.println("You may try typing \"days\" or \"months\" to see the list of valid day or month.");
                 }
             } else {
                 try {
                     Month month = findMonth(date);
                     DateFunctions.monthSearch(month);
                 } catch (DateTimeException dte) {
-                    System.out.println("☹ OOPS!!! that's not a valid month or month");
+                    System.out.println("Oh no! :( I'm not sure what that meant, it didn't seem like a valid month.");
                 }
             }
 

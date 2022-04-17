@@ -22,7 +22,7 @@ public class Validator {
         try {
             String description = userInput.substring(0, userInput.indexOf(' '));
         } catch (StringIndexOutOfBoundsException s) {
-            System.out.println("☹ OOPS!!! The description of a task cannot be empty.");
+            System.out.println("Oh no! :( Did you forget to include a description?");
             throw s;
         }
     }
@@ -38,7 +38,7 @@ public class Validator {
         int delimiter = userInput.indexOf("/by");
         if(delimiter == -1){
                 //Validate /by
-                System.out.println("☹ OOPS!!! Please make sure /by is mentioned for deadline");
+                System.out.println("Oh no! :( Did you forget to mention /by this deadline task?");
                 throw new StringIndexOutOfBoundsException();
         }
 
@@ -65,7 +65,7 @@ public class Validator {
         int delimiter = userInput.indexOf("/at");
         if(delimiter == -1){
             //Validate /at
-            System.out.println("☹ OOPS!!! Please make sure /at is mentioned for event");
+            System.out.println("Oh no! :( Did you forget to mention /at this event task?");
             throw new StringIndexOutOfBoundsException();
         }
 
@@ -90,7 +90,7 @@ public class Validator {
      */
     private static void dateValidate (String date) throws StringIndexOutOfBoundsException{
         if (date.isBlank()) {
-            System.out.println("☹ OOPS!!! The date cannot be empty.");
+            System.out.println("Oh no! :( Did you forget to include a date?");
             throw new StringIndexOutOfBoundsException();
         }else{
             try{
@@ -103,7 +103,7 @@ public class Validator {
 
     private static void descriptionValidate (String description) throws StringIndexOutOfBoundsException {
         if (description.isBlank()) {
-            System.out.println("☹ OOPS!!! The description of a task cannot be empty.");
+            System.out.println("Oh no! :( Did you forget to include a description?");
             throw new StringIndexOutOfBoundsException();
         }
     }
@@ -111,7 +111,7 @@ public class Validator {
         try{
             LocalDateTime dt = LocalDateTime.parse(date, DATE_TIME_FORMAT);
         }catch(DateTimeParseException p){
-            System.out.println("☹ OOPS!!! That was invalid. I accept something like 2000-02-28 1830");
+            System.out.println("Sorry! :( I could not understand the date format. Could you rephrase it like 2000-02-28 1830 for me?");
             throw p;
         }
     }
@@ -133,7 +133,7 @@ public class Validator {
             int i = Integer.parseInt(index);
         } catch (NumberFormatException n) {
             // Missing index
-            System.out.println("☹ OOPS!!! Please indicate the index of the task you wish to " + action +"!");
+            System.out.println("Oh no! :( Could you let me know what is the index of the task you wish to " + action +"?");
             throw n;
         }
     }

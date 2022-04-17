@@ -52,7 +52,7 @@ public class TaskFile {
                 }
             }
         } catch (IOException i){
-            System.out.println("☹ OOPS!!! Save file is not found, a new file will be created.");
+            System.out.println("Oh no! :( I could not find the save file, I shall create a new file for you right away.");
             throw i;
         }
     }
@@ -70,7 +70,7 @@ public class TaskFile {
             if(newFile.createNewFile())
                 System.out.println("Save file created: " + newFile.getCanonicalPath());
         } catch (IOException i){
-            System.out.println("☹ OOPS!!! Unable to create save file!");
+            System.out.println("Oh no! :( I was unable to create save file!");
             throw i;
         }
     }
@@ -88,7 +88,7 @@ public class TaskFile {
             fw.write(task + "\n");
             fw.close();
         }catch(IOException i){
-            System.out.println("Save file cannot be found");
+            System.out.println("Sorry, I'm unable to find the save file :(");
             throw i;
         }
     }
@@ -105,7 +105,7 @@ public class TaskFile {
             fw.write("");
             fw.close();
         }catch(IOException i){
-            System.out.println("Save file cannot be found");
+            System.out.println("Sorry, I'm unable to find the save file :(");
             throw i;
         }
 

@@ -1,0 +1,10 @@
+.label {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px;
+    -fx-background-insets: 5px;
+    -fx-background-radius: 5px;
+}
+.button {
+    -fx-background-color: #007BFF;
+    -fx-text-fill: white;
+}

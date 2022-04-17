@@ -32,7 +32,7 @@ public class FileContentChecker {
     private static void formatChecker() throws  ImportErrorException{
 
         if(line.charAt(0) != '[' || line.charAt(2) != ']' || line.charAt(3) != '[' || line.charAt(5) != ']') {
-            System.out.println("☹ OOPS!!! Error importing this line: " + line);
+            System.out.println("Sorry! :( I'm having trouble importing this task: " + line);
             throw new ImportErrorException("format");
         }
     }
@@ -40,7 +40,7 @@ public class FileContentChecker {
     private static void taskChecker() throws ImportErrorException{
         if(line.charAt(1) == 'T' || line.charAt(1) == 'D' || line.charAt(1) == 'E') {
         }else{
-            System.out.println("☹ OOPS!!! Error importing this line: " + line);
+            System.out.println("Sorry! :( I'm having trouble importing this task: " + line);
             throw new ImportErrorException("task");
         }
     }
@@ -48,7 +48,7 @@ public class FileContentChecker {
     private static void markChecker() throws ImportErrorException{
         if(line.charAt(4) == ' ' || line.charAt(4) == 'X'){
         }else{
-            System.out.println("☹ OOPS!!! Error importing this fileInput: " + line);
+            System.out.println("Sorry! :( I'm having trouble importing this task: " + line);
             throw new ImportErrorException("mark");
         }
     }

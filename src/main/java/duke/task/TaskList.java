@@ -19,17 +19,17 @@ public class TaskList {
     }
 
     private static int indexer(String userInput){
-        assert numOfTasks >= 0 : "number of tasks cannot be less than 0";
+        assert numOfTasks >= 0 : "number of tasks cannot be less than 0\n";
         if(numOfTasks == 0){
-            System.out.println("☹ OOPS!!! There is no task in your list!");
+            System.out.println("☹ OOPS!!! There is no task in your list!\n");
             return -1;
         }
         String listIndexer = userInput;
         listIndexer = listIndexer.replaceAll("[^\\d]","");
         int index = Integer.parseInt(listIndexer);
         if(index > numOfTasks){
-            System.out.println("ERROR: The number entered exceeds the number of task(s) in the list!");
-            System.out.println( numOfTasks + " task(s) in the list.");
+            System.out.println("ERROR: The number entered exceeds the number of task(s) in the list!\n");
+            System.out.println( numOfTasks + " task(s) in the list.\n");
             return -1;
         }
         return index-1;
@@ -49,13 +49,13 @@ public class TaskList {
      * Lists all the task in the task list.
      */
     public static void list(){
-        assert numOfTasks >= 0 : "number of tasks cannot be less than 0";
+        assert numOfTasks >= 0 : "number of tasks cannot be less than 0\n";
         try {
             taskList.clear();
             numOfTasks = 0;
             TaskFile.loadFile();
         } catch (IOException f) {
-            System.out.println("Unable to find the save file, loading last known list instead.");
+            System.out.println("Unable to find the save file, loading last known list instead.\n");
         }
         if(numOfTasks > 0) {
             System.out.println("Here are the tasks in your list:");
@@ -63,7 +63,7 @@ public class TaskList {
                 System.out.println(i + 1 + "." + taskList.get(i).toString());
             }
         }else{
-            System.out.println("☹ OOPS!!! There is no task in your list!");
+            System.out.println("Sorry! :( I could not find any tasks in your list. \n");
         }
     }
 
@@ -104,7 +104,7 @@ public class TaskList {
             overwriteTaskFile();
             System.out.println("OK, I've marked this task as not done yet:");
         }else {
-            System.out.println("STATUS ERROR: CANNOT UNMARK PENDING TASK");
+            System.out.println("Oh no! :( You can't unmark a task that isn't done yet. \n");
         }
         System.out.println(taskList.get(index).toString());
     }
@@ -119,7 +119,7 @@ public class TaskList {
         Todo task = new Todo(description);
         taskList.add(task);
         numOfTasks++;
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list. \n");
     }
 
     /**
@@ -134,7 +134,7 @@ public class TaskList {
         Deadline task = new Deadline(description, date);
         taskList.add(task);
         numOfTasks++;
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list. \n");
     }
 
     /**
@@ -149,7 +149,7 @@ public class TaskList {
         Event task = new Event(description, date);
         taskList.add(task);
         numOfTasks++;
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list. \n");
     }
 
     /**
@@ -170,7 +170,7 @@ public class TaskList {
         taskList.remove(index);
         numOfTasks--;
         overwriteTaskFile();
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list. \n");
     }
 
     /**
@@ -189,7 +189,7 @@ public class TaskList {
             System.out.println("Tasks to be done after" + taskList.get(index) + "are: ");
             DateFunctions.after(taskList.get(index));
         }else{
-            System.out.println("Please query for Deadline or Event tasks that have timestamps!");
+            System.out.println("Oh no! :( Please query for Deadline or Event tasks that have timestamps instead.\n");
         }
     }
 
@@ -210,12 +210,13 @@ public class TaskList {
             }
         }
         if(numOfResults == 0){
-            System.out.println("There are no matching results!");
+            System.out.println("Sorry! :( I could not find matching results.\n");
         }else{
             System.out.println("I have found "+numOfResults+" result(s):");
             for(Task t : results){
                 System.out.println(t.toString());
             }
+            System.out.println("------End of Search------\n");
         }
     }
 
@@ -264,7 +265,7 @@ public class TaskList {
                 TaskFile.appendTask(taskList.get(i).addToFile());
             }
         }catch(IOException i){
-            System.out.println("Unable to make changes to the save file");
+            System.out.println("Oh no! :( I was unable to make changes to the save file.\n");
         }
     }
 }

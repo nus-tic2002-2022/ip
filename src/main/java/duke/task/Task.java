@@ -22,7 +22,7 @@ public class Task implements Comparable<Task> {
      * @param description The description of the task.
      */
     public Task(String description) {
-        assert !description.isBlank() : "description should not be blank";
+        assert !description.isBlank() : "description should not be blank\n";
         this.description = description;
         this.isDone = false;
         System.out.println("Got it. I've added this task:");
@@ -36,7 +36,7 @@ public class Task implements Comparable<Task> {
      * @param isDone The status of the task.
      */
     public Task(String description, boolean isDone){
-        assert !description.isBlank() : "description should not be blank";
+        assert !description.isBlank() : "description should not be blank\n";
         this.description = description;
         this.isDone = isDone;
     }
@@ -47,9 +47,9 @@ public class Task implements Comparable<Task> {
     public void newTask(){
         try {
             TaskFile.appendTask(addToFile());
-            System.out.println("The task was saved successfully");
+            System.out.println("The task was saved successfully\n");
         } catch (IOException i){
-            System.out.println("☹ OOPS!!! The task was not saved to the file.");
+            System.out.println("Sorry! :( I was not able to add the task to the save file.\n");
         }
     }
 

@@ -152,7 +152,7 @@ public class DateFunctions {
         }
         dateSort(taskWithDates);
         if(taskWithDates.size() == 0){
-            System.out.println("There are no tasks after this!");
+            System.out.println("I could not find any tasks after this.\n");
         }else {
             for (Task task : taskWithDates) {
                 System.out.println(task.toString());

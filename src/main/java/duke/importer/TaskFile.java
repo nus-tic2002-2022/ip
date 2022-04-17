@@ -23,12 +23,12 @@ public class TaskFile {
         filePath = fp;
         try{
             loadFile();
-            System.out.println(TaskList.getNumOfTasks() + " task(s) have been imported");
+            System.out.println(TaskList.getNumOfTasks() + " task(s) have been imported\n");
         } catch (IOException i1) {
             try {
                 newFile();
             } catch (IOException i2) {
-                System.out.println("All progress will be lost!");
+                System.out.println("All progress will be lost!\n");
             }
         }
     }
@@ -48,7 +48,7 @@ public class TaskFile {
                 try{
                     ImportTasks.importTask(readFile.nextLine());
                 } catch (ImportErrorException i){
-                    System.out.println("Skipping...");
+                    System.out.println("Skipping...\n");
                 }
             }
         } catch (IOException i){
@@ -68,9 +68,9 @@ public class TaskFile {
             newDir.mkdirs();
             File newFile = new File(filePath);
             if(newFile.createNewFile())
-                System.out.println("Save file created: " + newFile.getCanonicalPath());
+                System.out.println("Save file created: " + newFile.getCanonicalPath() + "\n");
         } catch (IOException i){
-            System.out.println("Oh no! :( I was unable to create save file!");
+            System.out.println("Oh no! :( I was unable to create save file!\n");
             throw i;
         }
     }
@@ -88,7 +88,7 @@ public class TaskFile {
             fw.write(task + "\n");
             fw.close();
         }catch(IOException i){
-            System.out.println("Sorry, I'm unable to find the save file :(");
+            System.out.println("Sorry, I'm unable to find the save file :(\n");
             throw i;
         }
     }

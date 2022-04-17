@@ -48,7 +48,7 @@ public class Ui {
         for(String str : list){
             System.out.println(str);
         }
-        System.out.println("---End of help---");
+        System.out.println("------End of help------\n");
     }
 
     private static final String[] list = {

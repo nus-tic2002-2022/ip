@@ -227,6 +227,10 @@ public class MySiri extends Duke{
         }
         return true;
     }
+    public static LocalDate processDate(String date) {
+        LocalDate d = LocalDate.parse(date.trim());
+        return d;
+    }
 
     public static void fileScanner(String enter, boolean addTask, Type t) throws Exception{
 

@@ -47,9 +47,8 @@ public class TaskList {
     /**
      * Takes in the user input, creates a To-Do task.
      */
-    public void createTodoTask(String userInput) {
-        userInput = userInput.replaceAll("todo ", "");
-        Task todo = new Todo(userInput);
+    public void createTodoTask(String taskDescription) {
+        Task todo = new Todo(taskDescription);
         taskList.add(todo);
         printAddedTask(todo);
     }
@@ -59,11 +58,9 @@ public class TaskList {
      * "/by" as the description and everything after "/by" as the date and time. The date and time
      * is saved as LocalDateTime object.
      */
-    public void createDeadlineTask(String userInput) throws DukeException {
-        userInput = userInput.replaceAll("deadline ", "");
-        String name = userInput.substring(0, userInput.indexOf("/") - 1);
-        LocalDateTime date = getDateTime(userInput, "/by");
-        Task deadline = new Deadline(name, date);
+    public void createDeadlineTask(String taskDescription, String dateTime) throws DukeException {
+        LocalDateTime date = getDateTime(dateTime, "/by");
+        Task deadline = new Deadline(taskDescription.trim(), date);
         taskList.add(deadline);
         printAddedTask(deadline);
     }
@@ -74,14 +71,23 @@ public class TaskList {
      */
     public void createDeadlineTaskFromFile(String userInput) throws DukeException {
         //input from text file : deadline task by: 2022-04-10T12:00
-        String name = userInput.substring(0, userInput.indexOf("by:") - 1);
-        LocalDateTime date = getDateTimeFromSaveFile(userInput, "by:");
-        Task deadline = new Deadline(name, date);
-        if (userInput.contains("#")) {
-            userInput = userInput.substring(userInput.indexOf("#"));
-            userInput = userInput.replaceAll("#*", "");
-            deadline.setTag(userInput);
+        Matcher matcher = Constant.DEADLINEFROMFILE.matcher(userInput);
+        if (!matcher.matches()){
+            throw new DukeException("\t" + "Read error on event creation");
         }
+        String dateTime = matcher.group(2).trim();
+        String tag = "";
+        if (matcher.group(2).contains("#")) {
+            Matcher tagExtract = Constant.TAG_EXTRACT.matcher(matcher.group(2));
+            if (!tagExtract.matches()){
+                throw new DukeException("\t" + "Error reading tag on event creation");
+            }
+            dateTime = tagExtract.group(1).trim();
+            tag = tagExtract.group(2).trim();
+        }
+        LocalDateTime date = getDateTimeFromSaveFile(dateTime);
+        Task deadline = new Deadline(matcher.group(1).trim(), date);
+        deadline.setTag(tag);
         taskList.add(deadline);
     }
 
@@ -90,11 +96,9 @@ public class TaskList {
      * "/at" as the description and everything after "/at" as the date and time. The date and time
      * is saved as LocalDateTime object.
      */
-    public void createEventTask(String userInput) throws DukeException {
-        userInput = userInput.replaceAll("event ", "");
-        String name = userInput.substring(0, userInput.indexOf("/") - 1);
-        LocalDateTime date = getDateTime(userInput, "/at");
-        Task event = new Event(name, date);
+    public void createEventTask(String taskDescription, String dateTime) throws DukeException {
+        LocalDateTime date = getDateTime(dateTime, "/at");
+        Task event = new Event(taskDescription.trim(), date);
         taskList.add(event);
         printAddedTask(event);
     }
@@ -104,14 +108,24 @@ public class TaskList {
      * before "(at:" as the description and taking everything after "(at:" as the date and time.
      */
     public void createEventTaskFromFile(String userInput) throws DukeException {
-        String name = userInput.substring(0, userInput.indexOf("at:") - 1);
-        LocalDateTime date = getDateTimeFromSaveFile(userInput, "at:");
-        Task event = new Event(name, date);
-        if (userInput.contains("#")) {
-            userInput = userInput.substring(userInput.indexOf("#"));
-            userInput = userInput.replaceAll("#*", "");
-            event.setTag(userInput);
+        //String name = userInput.substring(0, userInput.indexOf("at:") - 1);
+        Matcher matcher = Constant.EVENTFROMFILE.matcher(userInput);
+        if (!matcher.matches()){
+            throw new DukeException("\t" + "Read error on event creation");
         }
+        String dateTime = matcher.group(2).trim();
+        String tag = "";
+        if (matcher.group(2).contains("#")) {
+            Matcher tagExtract = Constant.TAG_EXTRACT.matcher(matcher.group(2));
+            if (!tagExtract.matches()){
+                throw new DukeException("\t" + "Error reading tag on event creation");
+            }
+            dateTime = tagExtract.group(1).trim();
+            tag = tagExtract.group(2).trim();
+        }
+        LocalDateTime date = getDateTimeFromSaveFile(dateTime);
+        Task event = new Event(matcher.group(1).trim(), date);
+        event.setTag(tag);
         taskList.add(event);
     }
 
@@ -120,11 +134,14 @@ public class TaskList {
      * except for the number and converts it to an integer for accessing the array list to delete
      * the object specified.
      */
-    public void deleteTask(String userInput) throws IOException {
-        userInput = userInput.replaceAll("[^0-9]", "");
-        System.out.println("This task has been removed: " + "\n" + "\t" + taskList.get(Integer.parseInt(userInput) - 1));
-        taskList.remove(Integer.parseInt(userInput) - 1);
-        System.out.println("There are " + taskList.size() + " tasks in the list");
+    public void deleteTask(String taskNumber) throws IOException, DukeException {
+        int deleteIndex = Integer.parseInt(taskNumber);
+        if(deleteIndex > taskList.size() || deleteIndex == 0){
+            throw new DukeException("I cannot find the task specified.");
+        }
+        System.out.println("\t" + "This task has been removed: " + "\n" + "\t" + taskList.get(deleteIndex - 1));
+        taskList.remove(deleteIndex - 1);
+        System.out.println("\t" + "There are " + taskList.size() + " tasks in the list");
     }
 
     /**
@@ -132,9 +149,12 @@ public class TaskList {
      * except for the number, converts it into an integer for accessing the object inside
      * the array list and set the isDone variable as true.
      */
-    public void markTaskAsDone(String userInput) {
-        userInput = userInput.replaceAll("[^0-9]", "");
-        taskList.get(Integer.parseInt(userInput) - 1).setStatus(true);
+    public void markTaskAsDone(String taskNumber) throws DukeException {
+        int markIndex = Integer.parseInt(taskNumber);
+        if (markIndex == 0 || markIndex > taskList.size()){
+            throw new DukeException("\t" + "I cannot find the task specified.");
+        }
+        taskList.get(markIndex - 1).setStatus(true);
     }
 
     /**
@@ -142,9 +162,12 @@ public class TaskList {
      * except for the number, converts it into an integer for accessing the object inside the
      * array list and sets the isDone variable as false.
      */
-    public void markTaskAsNotDone(String userInput) {
-        userInput = userInput.replaceAll("[^0-9]", "");
-        taskList.get(Integer.parseInt(userInput) - 1).setStatus(false);
+    public void markTaskAsNotDone(String taskNumber) throws DukeException {
+        int markIndex = Integer.parseInt(taskNumber);
+        if (markIndex == 0 || markIndex > taskList.size()){
+            throw new DukeException("\t" + "I cannot find the task specified.");
+        }
+        taskList.get(markIndex - 1).setStatus(false);
     }
 
     /**
@@ -153,11 +176,12 @@ public class TaskList {
      * an integer for accessing the object inside the array list and the tag content is placed in
      * as an argument for the isTagged variable.
      */
-    public void addTag(String userInput) throws DukeException {
-        //input : tag 1 fun
-        userInput = userInput.replaceAll("tag ", "");
-        String taskNumber = userInput.substring(0, 1);
-        String tagContent = getTagContent(userInput, " ");
+    public void addTag(String taskNumber, String tagContent) throws DukeException {
+        //input : tag 13 fun
+        int taskIndex = Integer.parseInt(taskNumber);
+        if (taskIndex == 0 || taskIndex > taskList.size()){
+            throw new DukeException("\t" + "I cannot find the task specified.");
+        }
         taskList.get(Integer.parseInt(taskNumber) - 1).setTag(tagContent);
     }
 
@@ -166,10 +190,13 @@ public class TaskList {
      * [task number]. The number is converted into an integer for accessing the object inside the
      * array list and the tag content is placed in as an argument for the isTagged variable.
      */
-    public void unTag(String userInput) throws DukeException {
+    public void unTag(String taskNumber) throws DukeException {
         //input : untag 1
-        userInput = userInput.replaceAll("untag ", "");
-        taskList.get(Integer.parseInt(userInput) - 1).setTag("");
+        int tagIndex = Integer.parseInt(taskNumber);
+        if (tagIndex == 0 || tagIndex > taskList.size()){
+            throw new DukeException("\t" + "I cannot find the task specified.");
+        }
+        taskList.get(tagIndex - 1).clearTag();
     }
 
     /**
@@ -179,7 +206,6 @@ public class TaskList {
      */
     public void findTask(String userInput) {
         //input : find book
-        userInput = userInput.replaceAll("find ", "");
         int findCounter = 1;
         assert findCounter == 1 : "List numbering is wrong";
         System.out.print("\t" + "Here are the tasks you searched for: " + "\n");
@@ -196,7 +222,7 @@ public class TaskList {
      */
     public void printAddedTask(Task task) {
         System.out.println("\t" + "This task has been added: " + "\n" + "\t" + task);
-        System.out.println("There are " + taskList.size() + " tasks in the list");
+        System.out.println("\t" + "There are " + taskList.size() + " tasks in the list");
     }
 
     /**
@@ -205,11 +231,16 @@ public class TaskList {
      */
     private LocalDateTime getDateTime(String userInput, String str) throws DukeException {
         Matcher matcher = Constant.DATE.matcher(userInput.substring(userInput.indexOf(str)));
-        if (!matcher.matches()) {
+        if (!matcher.matches() || matcher.group(1).isEmpty()) {
             throw new DukeException(Constant.DATE_TIME_CANNOT_BE_FOUND);
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(matcher.group(1), formatter);
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(matcher.group(1), formatter);
+        } catch (Exception e){
+            throw new DukeException("\t" + "Invalid date and time, please input in this format yyyy-MM-dd HH:mm");
+        }
+
     }
 
     /**
@@ -217,13 +248,13 @@ public class TaskList {
      * methods and reads the date and time to create the LocalDateTime object for object creation in
      * the array list.
      */
-    private LocalDateTime getDateTimeFromSaveFile(String userInput, String str) throws DukeException {
-        Matcher matcher = Constant.DATE.matcher(userInput.substring(userInput.indexOf(str), userInput.indexOf(" #")));
-        if (!matcher.matches()) {
-            throw new DukeException(Constant.DATE_TIME_CANNOT_BE_FOUND);
+    private LocalDateTime getDateTimeFromSaveFile(String userInput) throws DukeException {
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            return LocalDateTime.parse(userInput, formatter);
+        } catch(Exception e) {
+            throw new DukeException("\t" + "Invalid date and time, please input in this format yyyy-MM-dd'T'HH:mm");
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        return LocalDateTime.parse(matcher.group(1), formatter);
     }
 
     /**
@@ -231,7 +262,13 @@ public class TaskList {
      * a regex pattern to read just the tag content and return it as a String.
      */
     private String getTagContent(String userInput, String str) throws DukeException {
-        Matcher matcher = Constant.TAGCONTENT.matcher(userInput.substring(userInput.indexOf(str)));
+        Matcher matcher;
+        try{
+            matcher = Constant.TAGCONTENT.matcher(userInput.substring(userInput.indexOf(str)));
+        } catch (IndexOutOfBoundsException e){
+            throw new DukeException(Constant.TAGCONTENT_CANNOT_BE_EMPTY);
+        }
+
         if (!matcher.matches()) {
             throw new DukeException(Constant.TAGCONTENT_CANNOT_BE_EMPTY);
         }

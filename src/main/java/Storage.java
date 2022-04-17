@@ -36,19 +36,32 @@ public class Storage {
         TaskList taskList = new TaskList();
         int taskCounter = 1;
         while (sc.hasNextLine()) {
-            Matcher reader = Constant.READER.matcher(sc.nextLine());
-            boolean tester = reader.find();
+            String line = sc.nextLine();
+            Matcher reader = Constant.READER.matcher(line);
+            if (!reader.matches()){
+                throw new DukeException("\t" + "Read error on file read");
+            }
             if (reader.group(1).equals("T")) {
                 taskList.createTodoTask(reader.group(3));
                 taskCounter++;
             } else if (reader.group(1).equals("D")) {
                 //input from text file : [D] [X] deadline task by: 2022-04-10T12:00
-                taskList.createDeadlineTaskFromFile(reader.group(3));
-                taskCounter++;
+                try {
+                    taskList.createDeadlineTaskFromFile(reader.group(3).trim());
+                    taskCounter++;
+                } catch (DukeException e){
+                    throw new DukeException(e.getMessage() + "\n" +line);
+                }
+
             } else if (reader.group(1).equals("E")) {
                 //input from text file : [E] [ ] event task at: 2022-04-10T12:00
-                taskList.createEventTaskFromFile(reader.group(3));
-                taskCounter++;
+                try{
+                    taskList.createEventTaskFromFile(reader.group(3));
+                    taskCounter++;
+                } catch (DukeException e){
+                    throw new DukeException(e.getMessage() + "\n" +line);
+                }
+
             } else if (reader.group(2).equals("X")) {
                 taskList.markTaskAsDone(String.valueOf(taskCounter));
             }

@@ -14,12 +14,28 @@ public class Constant {
     public static final Pattern TAGCONTENT = Pattern.compile("[^\\s]*\\s*(.*)");
     public static final Pattern FIND = Pattern.compile("^find[\\s][\\s\\S]*$");
 
-    public static final String TODO_CANNOT_BE_EMPTY = "The description of a todo task cannot be empty";
-    public static final String DEADLINE_CANNOT_BE_EMPTY = "The description of a deadline task cannot be empty";
-    public static final String DATE_TIME_CANNOT_BE_FOUND = "The date and time cannot be found";
-    public static final String EVENT_CANNOT_BE_EMPTY = "The description of a event task cannot be empty";
-    public static final String TASKTAG_CANNOT_BE_EMPTY = "Please choose a task to tag.";
-    public static final String UNTAG_CANNOT_BE_EMPTY = "Please choose a task to untag.";
-    public static final String DELETE_CANNOT_BE_EMPTY = "Please choose a task to delete.";
-    public static final String TAGCONTENT_CANNOT_BE_EMPTY = "Please key in content for the tag.";
+    public static final Pattern DEADLINE_VALIDATE = Pattern.compile("deadline\\s*(.*)(\\/by.*)");
+    public static final Pattern TODO_VALIDATE = Pattern.compile("todo\\s*(.*)");
+    public static final Pattern EVENT_VALIDATE = Pattern.compile("event\\s*(.*)(\\/at.*)");
+    public static final Pattern DELETE_VALIDATE = Pattern.compile("delete\\s*(\\d+)");
+    public static final Pattern MARK_VALIDATE = Pattern.compile("mark\\s*(\\d+)");
+    public static final Pattern UNMARK_VALIDATE = Pattern.compile("unmark\\s*(\\d+)");
+    public static final Pattern UNTAG_VALIDATE = Pattern.compile("untag\\s*(\\d+)");
+    public static final Pattern TAG_VALIDATE = Pattern.compile("tag\\s*(\\d+)\\s*(.*)");
+    public static final Pattern FIND_VALIDATE = Pattern.compile("find\\s*(.*)");
+    public static final Pattern EVENTFROMFILE = Pattern.compile("\\s*(.*)at\\:\\s*(.*)");
+    public static final Pattern DEADLINEFROMFILE = Pattern.compile("\\s*(.*)by\\:\\s*(.*)");
+
+    public static final Pattern TAG_EXTRACT = Pattern.compile("(.*)\\s*\\#(.*)");
+
+
+
+    public static final String TODO_CANNOT_BE_EMPTY = "\t" + "The description of a todo task cannot be empty";
+    public static final String DEADLINE_CANNOT_BE_EMPTY = "\t" + "The description of a deadline task cannot be empty";
+    public static final String DATE_TIME_CANNOT_BE_FOUND = "\t" + "The date and time cannot be found";
+    public static final String EVENT_CANNOT_BE_EMPTY = "\t" + "The description of a event task cannot be empty";
+    public static final String TASKTAG_CANNOT_BE_EMPTY = "\t" + "Please choose a task to tag.";
+    public static final String UNTAG_CANNOT_BE_EMPTY = "\t" + "Please choose a task to untag.";
+    public static final String DELETE_CANNOT_BE_EMPTY = "\t" + "Please choose a task to delete.";
+    public static final String TAGCONTENT_CANNOT_BE_EMPTY = "\t" + "Please key in content for the tag.";
 }

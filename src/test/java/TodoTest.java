@@ -15,12 +15,12 @@ public class TodoTest {
     @Test
     public void DeadlineTest() throws DukeException {
         TaskList taskList = new TaskList();
-        taskList.createDeadlineTask("deadline return book /by 2022-04-10 12:00");
+        taskList.createDeadlineTask("return book ", "/by 2022-04-10 12:00");
     }
     @Test
     public void EventTest() throws DukeException {
         TaskList taskList = new TaskList();
-        taskList.createEventTask("event walk the plank /at 2022-03-21 23:14");
+        taskList.createEventTask("event walk the plank ", "/at 2022-03-21 23:14");
     }
 
     @Test

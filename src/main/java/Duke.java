@@ -9,7 +9,7 @@ public class Duke {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, DukeException {
         System.out.println("Hello from\n" + logo);
         String home = System.getProperty("user.dir");
         File newFile = new File(home + "\\" + "taskList.txt");

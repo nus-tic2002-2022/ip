@@ -15,29 +15,38 @@ public class TaskManager {
         taskList = new TaskList();
     }
 
-    private void validateUserInput(final String line) throws DukeException {
+    private boolean validateUserInput(final String line) {
         switch (line) {
-            case "todo":
-                throw new DukeException(Constant.TODO_CANNOT_BE_EMPTY);
-            case "deadline":
-                throw new DukeException(Constant.DEADLINE_CANNOT_BE_EMPTY);
-            case "event":
-                throw new DukeException(Constant.EVENT_CANNOT_BE_EMPTY);
-            case "tag":
-                throw new DukeException(Constant.TASKTAG_CANNOT_BE_EMPTY);
-            case "untag":
-                throw new DukeException(Constant.UNTAG_CANNOT_BE_EMPTY);
-            case "delete":
-                throw new DukeException(Constant.DELETE_CANNOT_BE_EMPTY);
+            case "todo ":
+                System.out.println(Constant.TODO_CANNOT_BE_EMPTY);
+                return false;
+            case "deadline ":
+                System.out.println(Constant.DEADLINE_CANNOT_BE_EMPTY);
+                return false;
+            case "event ":
+                System.out.println(Constant.EVENT_CANNOT_BE_EMPTY);
+                return false;
+            case "tag ":
+                System.out.println(Constant.TASKTAG_CANNOT_BE_EMPTY);
+                return false;
+            case "untag ":
+                System.out.println(Constant.UNTAG_CANNOT_BE_EMPTY);
+                return false;
+            case "delete ":
+                System.out.println(Constant.DELETE_CANNOT_BE_EMPTY);
+                return false;
+            default:
+                return true;
         }
+
     }
 
     /**
      * This method calls the tasklist method to create a To-do task from the user input.
      * Then it prints the arraylist into the text file.
      */
-    public void createTodoTask(String userInput) {
-        taskList.createTodoTask(userInput);
+    public void createTodoTask(String taskDescription) {
+        taskList.createTodoTask(taskDescription);
         saveFile.saveFile(taskList.getTaskList());
     }
 
@@ -45,81 +54,93 @@ public class TaskManager {
      * This method calls the tasklist method to create a Deadline task from the user input.
      * Then it prints the arraylist into the text file.
      */
-    public void createDeadlineTask(String userInput) {
+    public void createDeadlineTask(String taskDescription, String dateTime) {
         try {
-            taskList.createDeadlineTask(userInput);
+            taskList.createDeadlineTask(taskDescription, dateTime);
+            saveFile.saveFile(taskList.getTaskList());
         } catch (DukeException e) {
-            System.out.print(e.getMessage());
+            System.out.println(e.getMessage());
         }
-        saveFile.saveFile(taskList.getTaskList());
     }
 
     /**
      * This method calls the tasklist method to create an Event task from the user input.
      * Then it prints the arraylist into the text file.
      */
-    public void createEventTask(String userInput) {
+    public void createEventTask(String taskDescription, String dateTime) {
         try {
-            taskList.createEventTask(userInput);
+            taskList.createEventTask(taskDescription,dateTime);
+            saveFile.saveFile(taskList.getTaskList());
         } catch (DukeException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        saveFile.saveFile(taskList.getTaskList());
+
     }
 
     /**
      * This method calls the tasklist method to delete a specific task referenced from the user input.
      * Then it prints the arraylist into the text file.
      */
-    public void deleteTask(String userInput) {
+    public void deleteTask(String taskNumber) {
         try {
-            taskList.deleteTask(userInput);
-        } catch (IOException e) {
-            e.printStackTrace();
+            taskList.deleteTask(taskNumber);
+            saveFile.saveFile(taskList.getTaskList());
+        } catch (IOException | DukeException e) {
+            System.out.println(e.getMessage());
         }
-        saveFile.saveFile(taskList.getTaskList());
+
     }
 
     /**
      * This method calls the tasklist method to mark a specific task referenced from the user input.
      * The isDone variable in the referenced Tasklist object is set to true.
      */
-    public void markTaskAsDone(String userInput) {
-        taskList.markTaskAsDone(userInput);
+    public void markTaskAsDone(String taskNumber) {
+        try {
+            taskList.markTaskAsDone(taskNumber);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
      * This method calls the tasklist method to mark a specific task referenced from the user input.
      * The isDone variable in the referenced Tasklist object is set to false.
      */
-    public void markTaskAsNotDone(String userInput) {
-        taskList.markTaskAsNotDone(userInput);
+    public void markTaskAsNotDone(String taskNumber) {
+        try {
+            taskList.markTaskAsNotDone(taskNumber);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
      * This method calls the tasklist method to change the tag variable in the referenced Tasklist object from the user input.
      * The tag variable is set to the user input. Then it prints the arraylist into the text file.
      */
-    public void addTag(String userInput) {
+    public void addTag(String taskNumber, String tagContent) {
         try {
-            taskList.addTag(userInput);
+            taskList.addTag(taskNumber, tagContent);
+            saveFile.saveFile(taskList.getTaskList());
         } catch (DukeException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        saveFile.saveFile(taskList.getTaskList());
+
     }
 
     /**
      * This method calls the tasklist method to change the tag variable in the referenced Tasklist object from the user input.
      * The tag variable is set to a blank string. Then it prints the arraylist into the text file.
      */
-    public void unTag(String userInput) {
+    public void unTag(String taskNumber) {
         try {
-            taskList.unTag(userInput);
+            taskList.unTag(taskNumber);
+            saveFile.saveFile(taskList.getTaskList());
         } catch (DukeException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        saveFile.saveFile(taskList.getTaskList());
+
     }
 
     public void findTask(String userInput) {
@@ -127,15 +148,10 @@ public class TaskManager {
     }
 
 
-    public void run() {
+    public void run() throws DukeException, FileNotFoundException {
         String userInput = "";
-        try {
-            taskList = saveFile.createArrayList();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (DukeException e) {
-            e.printStackTrace();
-        }
+        taskList = saveFile.createArrayList();
+
         while (!userInput.contains("bye")) {
             System.out.print("What can I do for you: ");
             userInput = userInputScanner.nextLine();
@@ -149,41 +165,80 @@ public class TaskManager {
             Matcher untag = Constant.UNTAG.matcher(userInput);
             Matcher find = Constant.FIND.matcher(userInput);
 
-            try {
-                validateUserInput(userInput);
-            } catch (DukeException dukeException) {
-                System.out.print(dukeException.getMessage());
-                break;
-            }
 
-            if (userInput.equals("bye")) {
-                System.out.print("\tGood day and good bye");
-                break;
-            }
+            if (validateUserInput(userInput)) {
 
-            if (userInput.equals("list")) {
-                taskList.displayList();
-            } else {
-                if (mark.matches()) {
-                    markTaskAsDone(userInput);
-                } else if (unmark.matches()) {
-                    markTaskAsNotDone(userInput);
-                } else if (todo.matches()) {
-                    createTodoTask(userInput);
-                } else if (deadline.matches()) {
-                    createDeadlineTask(userInput);
-                } else if (event.matches()) {
-                    createEventTask(userInput);
-                } else if (delete.matches()) {
-                    deleteTask(userInput);
-                } else if (tag.matches()) {
-                    addTag(userInput);
-                } else if (untag.matches()) {
-                    unTag(userInput);
-                } else if (find.matches()) {
-                    findTask(userInput);
-                } else {
-                    System.out.println("Sorry I don't understand what you mean.");
+                if (userInput.equals("bye")) {
+                    System.out.print("\tGood day and good bye");
+                    break;
+                }
+
+                try{
+                    if (userInput.equals("list")) {
+                        taskList.displayList();
+                    } else {
+                        if (mark.matches()) {
+                            Matcher matcher = Constant.MARK_VALIDATE.matcher(userInput);
+                            if (!matcher.matches()){
+                                throw new DukeException("\t" + "Missing arguments for mark function");
+                            }
+                            markTaskAsDone(matcher.group(1));
+                        } else if (unmark.matches()) {
+                            Matcher matcher = Constant.UNMARK_VALIDATE.matcher(userInput);
+                            if (!matcher.matches()){
+                                throw new DukeException("\t" + "Missing arguments for unmark function");
+                            }
+                            markTaskAsNotDone(matcher.group(1));
+                        } else if (todo.matches()) {
+                            Matcher matcher = Constant.TODO_VALIDATE.matcher(userInput);
+                            if (!matcher.matches() || matcher.group(1).isEmpty()){
+                                throw new DukeException("\t" + "Missing arguments for todo task");
+                            }
+                            createTodoTask(matcher.group(1));
+                        } else if (deadline.matches()) {
+                            Matcher matcher = Constant.DEADLINE_VALIDATE.matcher(userInput);
+                            if (!matcher.matches() || matcher.group(1).isEmpty()){
+                                throw new DukeException("\t" + "Missing arguments for deadline task");
+                            }
+                            createDeadlineTask(matcher.group(1), matcher.group(2));
+                        } else if (event.matches()) {
+                            Matcher matcher = Constant.EVENT_VALIDATE.matcher(userInput);
+                            if (!matcher.matches() || matcher.group(1).isEmpty()){
+                                throw new DukeException("\t" + "Missing arguments for event task");
+                            }
+                            createEventTask(matcher.group(1), matcher.group(2));
+                        } else if (delete.matches()) {
+                            Matcher matcher = Constant.DELETE_VALIDATE.matcher(userInput);
+                            if (!matcher.matches()){
+                                throw new DukeException("\t" + "Missing arguments for delete function");
+                            }
+                            deleteTask(matcher.group(1));
+                        } else if (tag.matches()) {
+                            Matcher matcher = Constant.TAG_VALIDATE.matcher(userInput);
+                            if (!matcher.matches() || matcher.group(2).isEmpty()){
+                                throw new DukeException("\t" + "Missing arguments for tag function");
+                            }
+                            addTag(matcher.group(1), matcher.group(2));
+                        } else if (untag.matches()) {
+                            Matcher matcher = Constant.UNTAG_VALIDATE.matcher(userInput);
+                            if (!matcher.matches()){
+                                throw new DukeException("\t" + "Missing arguments for untag function");
+                            }
+                            unTag(matcher.group(1));
+                        } else if (find.matches()) {
+                            Matcher matcher = Constant.FIND_VALIDATE.matcher(userInput);
+                            if (!matcher.matches() || matcher.group(1).isEmpty()){
+                                throw new DukeException("\t" + "Missing arguments for find function");
+                            }
+                            findTask(matcher.group(1));
+                        } else {
+                            System.out.println("\t" + "Sorry I don't understand what you mean.");
+                        }
+
+                    }
+                }
+                catch (DukeException e){
+                    System.out.println(e.getMessage());
                 }
 
             }

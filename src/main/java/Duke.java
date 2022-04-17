@@ -27,6 +27,7 @@ public class Duke {
         String divider = "==========================================";
 
         Scanner in = new Scanner(System.in);
+        assert in !=null : "information pass in";
         String[] words;
         String command,date = "",time="",description="";
         String filePath = "data/duke.txt";
@@ -49,6 +50,7 @@ public class Duke {
                 break;
             } else if (command.equalsIgnoreCase("list")) {
                 ui.printCmdMsg(TL, command);
+                assert !TL.isEmpty(): "TL should not be empty";
             } else if (command.equalsIgnoreCase("undo")) {
                 //ui.printUndoMsg(TL, command);
                 TL.deleteTask(ui.printUndoMsg(TL, command));

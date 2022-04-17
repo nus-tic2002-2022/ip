@@ -21,15 +21,12 @@ public class deadLine extends task {
         type='D';
 
     }
-    public void updateDate(LocalDate newDate) {
-        this.by = newDate;
-    }
     public LocalDate  getDate() {
         return this.by;
     }
 
     @Override
     public String toString() {
-        return "["+getType()+"]" + getDescription() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "["+getType()+"]" + getDescription() + " (by: " + getDate().format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

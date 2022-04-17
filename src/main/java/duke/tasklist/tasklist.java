@@ -12,17 +12,12 @@ public class tasklist {
         this.TL = loadedTaskList.TL;
 
     }
-
     public void addTask(task task) {
         TL.add(task);
     }
 
-
     public void deleteTask(int index) throws IndexOutOfBoundsException {
         TL.remove(index);
-    }
-    public ArrayList<task> getAllTask() {
-        return TL;
     }
 
     public int getSize(){return TL.size();}

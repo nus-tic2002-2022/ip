@@ -11,13 +11,22 @@ public class ui {
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|____/ \\__,_|_|\\_\\___|\n"
+                + " --- ---     \n"
+                + " \\ \\/ /    \n"
+                + "  \\  /      \n"
+                + "  |  |       \n"
+                + "  |  |    \n"
+                + "  ----    \n";
         System.out.println("Hello from\n" + logo);
         String divider = "==========================================";
         System.out.println("======================");
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
+        System.out.println("Hello! I'm Duke, I am glad you trigger me!\nWhat can I do for you today?");
         System.out.println("======================");
     }
+    /**
+     * Reply goodbye message
+     */
     public void printByeMsg(String msg){
         if (msg.equalsIgnoreCase("bye")) {
             System.out.println("\t================================");
@@ -29,7 +38,9 @@ public class ui {
             System.out.println("\t" + divider);
         }
     }
-
+    /**
+     * Reply message based on the command that was passed in
+     */
     public void printCmdMsg(tasklist TL, String command){
         int latest = TL.getSize() - 1;
         if (TL.getSize() == 0) {

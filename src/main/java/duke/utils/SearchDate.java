@@ -27,15 +27,16 @@ public class SearchDate {
                     DayOfWeek day = findDay(date);
                     DateFunctions.daySearch(day);
                 } catch (DateTimeException dte) {
-                    System.out.println("Oh no! :( I'm not sure what that meant, it didn't seem like a valid day or month.\n");
-                    System.out.println("You may try typing \"days\" or \"months\" to see the list of valid day or month.\n");
+                    System.out.println("Oh no! :( I'm not sure what that meant, it didn't seem like a valid day.");
+                    System.out.println("You may try typing \"days\" to see the list of valid day.\n");
                 }
             } else {
                 try {
                     Month month = findMonth(date);
                     DateFunctions.monthSearch(month);
                 } catch (DateTimeException dte) {
-                    System.out.println("Oh no! :( I'm not sure what that meant, it didn't seem like a valid month.\n");
+                    System.out.println("Oh no! :( I'm not sure what that meant, it didn't seem like a valid month.");
+                    System.out.println("You may try typing \"months\" to see the list of valid month.\n");
                 }
             }
 

@@ -39,6 +39,7 @@ public class DateFunctions {
         for(Task t : sortedTaskList){
             System.out.println(t.toString());
         }
+        System.out.println("------End of list------\n");
     }
     private static void dateSort(ArrayList<Task> tasks){
         sort(tasks);
@@ -67,6 +68,7 @@ public class DateFunctions {
         for(Task t : expiredTaskList){
             System.out.println(t.toString());
         }
+        System.out.println("------End of list------\n");
     }
     /**
      * Shows tasks that have an upcoming date.
@@ -92,6 +94,7 @@ public class DateFunctions {
         for(Task t : upcomingTaskList){
             System.out.println(t.toString());
         }
+        System.out.println("------End of list------\n");
     }
 
     /**
@@ -113,6 +116,7 @@ public class DateFunctions {
         for(Task t : taskWithDates){
             System.out.println(t.toString());
         }
+        System.out.println("------End of list------\n");
     }
     /**
      * Displays all the tasks which fall on the provided month parameter.
@@ -133,6 +137,7 @@ public class DateFunctions {
         for(Task t : taskWithDates){
             System.out.println(t.toString());
         }
+        System.out.println("------End of list------\n");
     }
 
     /**
@@ -157,6 +162,7 @@ public class DateFunctions {
             for (Task task : taskWithDates) {
                 System.out.println(task.toString());
             }
+            System.out.println("------End of list------\n");
         }
     }
 }

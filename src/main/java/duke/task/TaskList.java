@@ -187,7 +187,7 @@ public class TaskList {
         }
 
         if(!taskList.get(index).getTaskType().equals("T")) {
-            System.out.println("Tasks to be done after" + taskList.get(index) + "are: ");
+            System.out.println("Tasks to be done after" + taskList.get(index) + " are: ");
             DateFunctions.after(taskList.get(index));
         }else{
             System.out.println("Oh no! :( Please query for Deadline or Event tasks that have timestamps instead.\n");

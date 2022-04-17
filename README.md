@@ -99,6 +99,7 @@ Knot YU have several basic features to manage your To-Do List, and it has the ca
 - Expected outcome:
 
 ```
+YU have deleted 2 tasks
 1: [E][ ] extend book loan  (at: Apr 15 2022 0000)
 ```
 <br/>

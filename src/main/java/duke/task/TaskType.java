@@ -22,7 +22,7 @@ public enum TaskType {
      * Convert string to TaskType
      * @param s TaskType in String
      * @return TaskType
-     * @throws DukeException
+     * @throws DukeException for showing customized exception message
      */
     public static TaskType stringToTaskType(String s) throws DukeException {
 

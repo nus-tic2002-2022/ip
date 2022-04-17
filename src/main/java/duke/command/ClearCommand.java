@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ClearCommand extends Command {
 
-    private static final String REPLY_MESSAGE = "\tNoted. I've cleared your list!";
+    private static final String REPLY_MESSAGE = "Noted. I've cleared your list!";
 
     /**
      * Execute ClearCommand to clear all the tasks in the list
@@ -18,15 +18,16 @@ public class ClearCommand extends Command {
      * @param storage the file to update after clearing all the tasks
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-
-        ui.show(REPLY_MESSAGE);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.deleteAllTask();
+        ui.show("\t" + REPLY_MESSAGE);
 
         try {
             storage.save(taskList);
         } catch (IOException e) {
             ui.show(e.getMessage());
         }
+
+        return REPLY_MESSAGE;
     }
 }

@@ -20,6 +20,6 @@ public abstract class Command {
      * @param storage the file that keeps the tasks in hard disk
      * @throws DukeException for showing customised exception message
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
 }

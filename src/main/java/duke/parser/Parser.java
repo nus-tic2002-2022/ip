@@ -3,7 +3,6 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.*;
 import duke.task.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +18,7 @@ public class Parser {
      * @param args task number in string
      * @return task number in integer
      */
-    public static int getTaskNumber(String args) {
+    public static int parseTaskNumber(String args) {
         return Integer.parseInt(args) - 1;
     }
 
@@ -29,7 +28,7 @@ public class Parser {
      * @return {@link Command} to be executed
      * @throws DukeException for showing customised exception message
      */
-    public Command parseCommand(String userInput) throws DukeException{
+    public static Command parseCommand(String userInput) throws DukeException{
         Command command;
         String[] args = userInput.split(" ", 2);
         String commandWord = args[0].trim().toLowerCase();
@@ -125,7 +124,7 @@ public class Parser {
      * @return task date in YYYY-MM-DD format
      * @throws DukeException for showing customised exception message
      */
-    public LocalDate parseDate(String s) throws DukeException {
+    public static LocalDate parseDate(String s) throws DukeException {
         LocalDate localDate;
         s = s.trim();
 
@@ -143,7 +142,7 @@ public class Parser {
      * @return task datetime in YYYY-MM-DD HH:mm format
      * @throws DukeException for showing customised exception message
      */
-    public LocalDateTime parseDateTime(String s) throws DukeException {
+    public static LocalDateTime parseDateTime(String s) throws DukeException {
         LocalDateTime localDateTime;
         s = s.trim();
 

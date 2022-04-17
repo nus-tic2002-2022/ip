@@ -17,11 +17,6 @@ Please enter your command: 	Got it. I've added this task:
 Please enter your command: 	Got it. I've added this task:
 		[T][ ] buy coffee
 	Now you have 4 tasks in the list
-Please enter your command: 	Here are the tasks in your list:
-	1.[T][ ] read book
-	2.[D][ ] return book (by: 4 Jun 2022)
-	3.[E][ ] project meeting (at: 6 Aug 2022 2:00 PM)
-	4.[T][ ] buy coffee
 Please enter your command: 	Nice! I've marked this task as done:
 		[D][X] return book (by: 4 Jun 2022)
 Please enter your command: 	Nice! I've marked this task as done:
@@ -33,12 +28,7 @@ Please enter your command: 	Here are the tasks in your list:
 	4.[T][X] buy coffee
 Please enter your command: 	Nice! I've unmarked this task as done:
 		[D][ ] return book (by: 4 Jun 2022)
-Please enter your command: 	 This task has already exists!
-Please enter your command: 	Here are the tasks in your list:
-	1.[T][ ] read book
-	2.[D][ ] return book (by: 4 Jun 2022)
-	3.[E][ ] project meeting (at: 6 Aug 2022 2:00 PM)
-	4.[T][X] buy coffee
+Please enter your command: 	This task is already exists!
 Please enter your command: 	Noted. I've removed this task:
 	[T][X] buy coffee
 	Now you have 3 tasks in the list
@@ -46,5 +36,7 @@ Please enter your command: 	Here are the tasks in your list:
 	1.[T][ ] read book
 	2.[D][ ] return book (by: 4 Jun 2022)
 	3.[E][ ] project meeting (at: 6 Aug 2022 2:00 PM)
+Please enter your command: 	Here are the tasks in your list:
+	1.[E][ ] project meeting (at: 6 Aug 2022 2:00 PM)
 Please enter your command: 	Noted. I've cleared your list!
 Please enter your command: 	Bye. Hope to see you again soon!

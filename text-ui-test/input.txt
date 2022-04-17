@@ -3,14 +3,13 @@ todo read book
 deadline return book /by 2022-06-04
 event project meeting /at 2022-08-06 14:00
 todo buy coffee
-list
 mark 2
 mark 4
 list
 unmark 2
 todo buy coffee
-list
 delete 4
 list
+find 2022-08
 clear
 bye

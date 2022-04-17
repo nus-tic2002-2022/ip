@@ -13,7 +13,8 @@ import java.io.IOException;
  */
 public class AddCommand extends Command{
 
-    private static final String REPLY_MESSAGE = "\tGot it. I've added this task:";
+    private static final String REPLY_MESSAGE = "Got it. I've added this task:";
+    private static final String DUPLICATE_MESSAGE = "This task is already exists!";
     private final Task task;
 
     public AddCommand(Task task) {
@@ -27,13 +28,15 @@ public class AddCommand extends Command{
      * @param storage the file to save a new task
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (taskList.checkHasDuplicate(task)) {
-            ui.show("\t This task has already exists!");
+            ui.show("\t" + DUPLICATE_MESSAGE);
+            return (DUPLICATE_MESSAGE);
         } else {
-            ui.show(REPLY_MESSAGE);
+            ui.show("\t" + REPLY_MESSAGE);
             taskList.addTask(task);
-            ui.show("\t\t" + task.toString());
+            String newTask = task.toString();
+            ui.show("\t\t" + newTask);
             ui.show("\tNow you have " + taskList.getSize() + " tasks in the list");
 
             try {
@@ -41,6 +44,12 @@ public class AddCommand extends Command{
             } catch (IOException e) {
                 ui.show(e.getMessage());
             }
+
+            return REPLY_MESSAGE
+                    + System.lineSeparator()
+                    + newTask
+                    + System.lineSeparator()
+                    + "Now you have " + taskList.getSize() + " tasks in the list";
         }
 
     }

@@ -9,7 +9,7 @@ import duke.ui.Ui;
  */
 public class ExitCommand extends Command {
 
-    private static final String REPLY_MESSAGE = "\tBye. Hope to see you again soon!";
+    private static final String REPLY_MESSAGE = "Bye. Hope to see you again soon!";
     private static boolean isExit = false;
 
     /**
@@ -27,8 +27,10 @@ public class ExitCommand extends Command {
      * @param storage is not used on this method
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.show(REPLY_MESSAGE);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.show("\t" + REPLY_MESSAGE);
         isExit = true;
+
+        return REPLY_MESSAGE;
     }
 }

@@ -20,7 +20,8 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-             taskList = new TaskList(storage.load());
+            storage.init();
+            taskList = new TaskList(storage.load());
         } catch (DukeException | IOException e) {
             ui.show(e.getMessage());
             taskList = new TaskList();
@@ -29,16 +30,16 @@ public class Duke {
 
     public void run() {
         ui.showWelcomeMessage();
-        LoopUntilExitCommand();
+        loopUntilExitCommand();
         exit();
     }
 
-    private void LoopUntilExitCommand() {
+    private void loopUntilExitCommand() {
         Command command;
         do {
             try {
                 String userInput = ui.getUserCommand();
-                command = new Parser().parseCommand(userInput);
+                command = Parser.parseCommand(userInput);
                 command.execute(taskList, ui, storage);
             } catch (DukeException e) {
                 ui.show(e.getMessage());
@@ -56,4 +57,12 @@ public class Duke {
 
     }
 
+    public String reply(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            return command.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
 }

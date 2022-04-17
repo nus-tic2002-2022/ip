@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class DeleteCommand extends Command {
 
-    private static final String REPLY_MESSAGE = "\tNoted. I've removed this task:";
+    private static final String REPLY_MESSAGE = "Noted. I've removed this task:";
     private final String args;
 
     public DeleteCommand(String args) {
@@ -27,12 +27,14 @@ public class DeleteCommand extends Command {
      * @param storage the file to update after a task is deleted
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        int taskNumber;
+        String deletedTask;
         try {
-            int taskNumber = Parser.getTaskNumber(args);
-            ui.show(REPLY_MESSAGE);
-            ui.show("\t" + taskList.getTaskByIndex(taskNumber).toString());
+            taskNumber = Parser.parseTaskNumber(args);
+            deletedTask = taskList.getTaskByIndex(taskNumber).toString();
+            ui.show("\t" + REPLY_MESSAGE);
+            ui.show("\t" + deletedTask);
             taskList.deleteTask(taskNumber);
             ui.show("\tNow you have " + taskList.getSize() + " tasks in the list");
         } catch (Exception e) {
@@ -44,6 +46,12 @@ public class DeleteCommand extends Command {
         } catch (IOException e) {
             ui.show(e.getMessage());
         }
+
+        return REPLY_MESSAGE
+                + System.lineSeparator()
+                + deletedTask
+                + System.lineSeparator()
+                + "Now you have " + taskList.getSize() + " tasks in the list";
     }
 
 }

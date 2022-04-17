@@ -15,7 +15,6 @@ public class DukeException extends Exception{
     public static final String INVALID_FIND_FORMAT = "\t/!\\ The find command requires a keyword. ";
     public static final String INVALID_TASK_NUMBER = "\t/!\\ You've entered an invalid task number: ";
     public static final String MISSING_TASK_NUMBER = "\t/!\\ You've not entered a task number: ";
-
     public static final String INVALID_DATE_FORMAT_FILE = "\t/!\\ please check file for invalid date format. /!\\";
     public static final String INVALID_DATETIME_FORMAT_FILE = "\t/!\\ please check file for invalid datetime format. /!\\";
     public static final String INVALID_TASK_STATUS_FILE = "\t/!\\ Expected 0 or 1 but getting: ";

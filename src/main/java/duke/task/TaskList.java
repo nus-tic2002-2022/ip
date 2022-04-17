@@ -1,6 +1,8 @@
 package duke.task;
 
 import duke.exception.DukeException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -8,20 +10,23 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private static ArrayList<Task> tasksList;
+    private static ArrayList<Task> tasks;
 
     public TaskList(){
-        tasksList = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
-    public TaskList(TaskList tasksList) {}
+    public TaskList(ArrayList<String> tasks) throws DukeException, IOException {
+        TaskList.tasks = new ArrayList<>();
+        categoriseTaskToAdd(tasks);
+    }
 
     /**
      * Add a new task to list
      * @param task specified task
      */
     public void addTask(Task task) {
-        tasksList.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -29,14 +34,14 @@ public class TaskList {
      * @param taskNumber identifier of task
      */
     public void deleteTask(int taskNumber) {
-        tasksList.remove(taskNumber);
+        tasks.remove(taskNumber);
     }
 
     /**
      * Delete all task from list
      */
     public void deleteAllTask() {
-        tasksList.removeAll(tasksList);
+        tasks.removeAll(tasks);
     }
 
     /**
@@ -44,7 +49,7 @@ public class TaskList {
      * @param taskNumber identifier of task
      */
     public void markDone(int taskNumber) {
-        tasksList.get(taskNumber).setDone();
+        tasks.get(taskNumber).setDone();
     }
 
     /**
@@ -52,7 +57,7 @@ public class TaskList {
      * @param taskNumber identifier of task
      */
     public void unmarkDone(int taskNumber) {
-        tasksList.get(taskNumber).setUndone();
+        tasks.get(taskNumber).setUndone();
     }
 
     /**
@@ -60,7 +65,7 @@ public class TaskList {
      * @return list of tasks
      */
     public ArrayList<Task> getListOfSavedTask() {
-        return tasksList;
+        return tasks;
     }
 
     /**
@@ -68,7 +73,7 @@ public class TaskList {
      * @return size of the task list
      */
     public int getSize() {
-        return tasksList.size();
+        return tasks.size();
     }
 
     /**
@@ -77,15 +82,15 @@ public class TaskList {
      * @return a task
      */
     public Task getTaskByIndex(int index) {
-        return tasksList.get(index);
+        return tasks.get(index);
     }
 
     /**
-     * Parse data from file to retrieve task details
+     * Categorise tasks to add to task list
      * @param data task details in String
      * @throws DukeException for showing IO exception message
      */
-    public void parseDataFromFile(ArrayList<String> data) throws DukeException {
+    public void categoriseTaskToAdd(ArrayList<String> data) throws DukeException {
 
         for (String d : data) {
             String[] dSplit = d.split("//|");
@@ -118,7 +123,7 @@ public class TaskList {
     public ArrayList<Task> findTaskByKeyword(String keyword) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
 
-        for (Task t : tasksList) {
+        for (Task t : tasks) {
             boolean matchedDescription;
             boolean matchedBy = false;
             boolean matchedAt = false;
@@ -154,27 +159,27 @@ public class TaskList {
     public boolean checkHasDuplicate(Task task) {
         boolean hasDuplicate = false;
 
-        for (int i = 0; i < tasksList.size() && !hasDuplicate; i++) {
+        for (int i = 0; i < tasks.size() && !hasDuplicate; i++) {
             boolean taskTypeMatched;
             boolean descriptionMatched;
             boolean byMatched = false;
             boolean atMatched = false;
 
-            Task current = tasksList.get(i);
+            Task current = tasks.get(i);
             taskTypeMatched = current.taskType.equals(task.taskType);
 
             if (taskTypeMatched) {
                 descriptionMatched = current.description.equalsIgnoreCase(task.description);
-                TaskType taskType = current.taskType;
+                TaskType taskType = task.taskType;
 
                 switch (taskType) {
                     case DEADLINE:
-                        Deadline d1 = (Deadline) tasksList.get(i);
+                        Deadline d1 = (Deadline) tasks.get(i);
                         Deadline d2 = (Deadline) task;
                         byMatched = d1.getBy().toString().equals(d2.getBy().toString());
                         break;
                     case EVENT:
-                        Event e1 = (Event) tasksList.get(i);
+                        Event e1 = (Event) tasks.get(i);
                         Event e2 = (Event) task;
                         atMatched = e1.getAt().toString().equals(e2.getAt().toString());
                         break;

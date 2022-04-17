@@ -5,13 +5,15 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import java.util.ArrayList;
+import static duke.command.ListCommand.showTaskFound;
 
 /**
  * Command to {@link TaskList} to find if specified tasks exists in the list
  */
 public class FindCommand extends Command {
 
-    private static final String REPLY_MESSAGE = "\tHere are the tasks in your list:";
+    private static final String REPLY_MESSAGE = "Here are the tasks in your list:";
+    private static final String NO_RECORD_MESSAGE = "0 record found.";
     private final String args;
 
     public FindCommand(String args) {
@@ -25,16 +27,16 @@ public class FindCommand extends Command {
      * @param storage is not used in this method
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.show(REPLY_MESSAGE);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.show("\t" + REPLY_MESSAGE);
         ArrayList<Task> tasks = taskList.findTaskByKeyword(args);
 
         if (!tasks.isEmpty()) {
-            for (int i = 0; i < tasks.size(); i++) {
-                ui.show("\t" + (i+1) + "." + tasks.get(i).toString());
-            }
+            return showTaskFound(ui, tasks);
         } else {
-            ui.show("\t\t0 record found.");
+            ui.show("\t\t" + NO_RECORD_MESSAGE);
+            return NO_RECORD_MESSAGE;
         }
     }
+
 }

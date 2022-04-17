@@ -28,18 +28,16 @@ public class Storage {
      * @throws DukeException for showing customised exception message
      * @throws IOException will be thrown when encounter error writing to a file
      */
-    public TaskList load() throws DukeException, IOException {
+    public ArrayList<String> load() throws DukeException, IOException {
 
         File f = new File(filePath);
-        TaskList taskList = new TaskList();
-
         Scanner s = new Scanner(f);
+
         while (s.hasNextLine()) {
             String row = s.nextLine();
             data.add(row);
         }
-        taskList.parseDataFromFile(data);
-        return taskList;
+        return data;
     }
 
     /**
@@ -86,6 +84,16 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
         fw.write(dataToSave.toString());
         fw.close();
+    }
+
+    public void init() throws IOException {
+        File f = new File(filePath);
+
+        String directory = f.getParent();
+        File folders = new File(directory);
+        if (!folders.exists()) {
+            folders.mkdirs();
+        }
     }
 
 }

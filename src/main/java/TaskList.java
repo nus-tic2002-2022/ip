@@ -22,7 +22,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the array list.
+     * @return the array list.
      */
     public ArrayList<Task> getTaskList() {
         return taskList;
@@ -46,6 +46,8 @@ public class TaskList {
 
     /**
      * Takes in the user input, creates a To-Do task.
+     *
+     * @param "name of the task description"
      */
     public void createTodoTask(String taskDescription) {
         Task todo = new Todo(taskDescription);
@@ -257,21 +259,4 @@ public class TaskList {
         }
     }
 
-    /**
-     * The command and input from the user should be "tag [task number] [tag content]". This uses
-     * a regex pattern to read just the tag content and return it as a String.
-     */
-    private String getTagContent(String userInput, String str) throws DukeException {
-        Matcher matcher;
-        try{
-            matcher = Constant.TAGCONTENT.matcher(userInput.substring(userInput.indexOf(str)));
-        } catch (IndexOutOfBoundsException e){
-            throw new DukeException(Constant.TAGCONTENT_CANNOT_BE_EMPTY);
-        }
-
-        if (!matcher.matches()) {
-            throw new DukeException(Constant.TAGCONTENT_CANNOT_BE_EMPTY);
-        }
-        return matcher.group(1);
-    }
 }

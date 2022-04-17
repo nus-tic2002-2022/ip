@@ -2,8 +2,9 @@
 [T] [ ]
 [E] [ ] test at: 2022-04-10T12:01
 [D] [ ] return book by: 2022-04-10T12:00
-[E] [ ] walk the plank at: 2022-03-21T23:14 #   boring   
+[E] [ ] walk the plank at: 2022-03-21T23:14 #boring
 [T] [ ] book return
-[D] [ ] burn book by: 2022-04-10T12:00 # testing  
+[D] [ ] burn book by: 2022-04-10T12:00 #testing
 [T] [ ] test
 [E] [ ] burn the plank at: 2022-03-21T23:14
+[D] [ ] dance by: 2022-04-22T16:00

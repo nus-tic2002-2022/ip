@@ -20,16 +20,6 @@ public class Storage {
         this.file = new File(fileName);
     }
 
-    /*public ArrayList<Task> checkFileExistence() throws FileNotFoundException {
-        if (file.exists() && !file.isDirectory()) {
-            System.out.println("Save file detected, loading Task List from save.");
-            //if file exists "create arraylist"
-            createArrayList();
-            //return arraylist
-        } else {
-            //create the file
-        }
-    }*/
 
     public TaskList createArrayList() throws FileNotFoundException, DukeException {
         Scanner sc = new Scanner(file);

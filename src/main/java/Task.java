@@ -1,3 +1,7 @@
+/**
+ * Creates a Task object. There are 3 subtypes - Todo, Deadline, Event.
+ */
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;

@@ -1,3 +1,7 @@
+/**
+ * Creates a Todo object. Todo object is inherited from Task object.
+ */
+
 import java.util.Arrays;
 import java.util.Scanner;
 

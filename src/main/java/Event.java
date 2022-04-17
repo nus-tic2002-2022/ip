@@ -1,3 +1,7 @@
+/**
+ * Creates an Event object. Event object is inherited from Task object.
+ */
+
 import java.util.Arrays;
 import java.util.Scanner;
 

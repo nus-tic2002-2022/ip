@@ -1,4 +1,6 @@
-
+/**
+ * Creates a Deadline object. Deadline object is inherited from Task object.
+ */
 
 public class Deadline extends Task {
 

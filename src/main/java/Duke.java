@@ -1,25 +1,47 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        public static int count = 0;
+        public static int seq = 1;
+        public static String[] list = new String[100];
 
-        String line = "    ____________________________________________________________\n";
-        System.out.println(line + "    Hello! I'm Duke\n" + "    What can I do for you?\n" + line);
-        Scanner input = new Scanner(System.in);
-        String value = "";
-        value = input.nextLine();
+        public static void echo () {
+            String line;
+            Scanner in = new Scanner(System.in);
+            line = in.nextLine();
 
-        while(!value.equals("bye")){
-            System.out.println(line + "    " +  value + "\n" + line);
-            value = input.nextLine();
+            if (line.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+            } else if (line.equals("list")) {
+                String[] print = Arrays.copyOf(list, count);
+                for (String p : print) {
+                    System.out.println(seq + ". " + p);
+                    seq++;
+                }
+                System.out.println("\n");
+                seq = 1;
+                echo();
+            } else {
+                System.out.println("added: " + line + "\n");
+                list[count] = line;
+                count++;
+                echo();
+            }
         }
 
-        System.out.println(line + "    " + "Bye. Hope to see you again soon!\n" + line);
+
+        public static void main (String[]args){
+
+            String logo = " ____        _        \n"
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
+            System.out.println(logo);
+
+            String hello = "Hi! This Duke :)\n" + "What can I do for you?\n";
+            System.out.println(hello);
+            echo();
+        }
     }
-}

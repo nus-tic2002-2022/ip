@@ -6,8 +6,6 @@ import Exception.*;
 import tasks.*;
 import Duke.*;
 
-import javax.swing.text.BadLocationException;
-
 /**
  * This is the major class.
  * It initializes MySiri, read commands and process storage.
@@ -18,7 +16,6 @@ public class MySiri extends Duke{
     private static int count = 0;
     private static final String ln = "____________________________________________________________";
     protected static boolean iDuke = true;
-    protected static int TIME_NULL=0;
 
     private static void run() throws Exception {
         Scanner in = new Scanner(System.in);
@@ -29,17 +26,14 @@ public class MySiri extends Duke{
         fileScanner(enter, true, t);
     }
 
-    public static void Exit() {
-       try{
-           Storage.saveFile();
-           iDuke = false;
-           System.out.println(ln + System.lineSeparator()
-                   + "Your tasks are saved"
-                   + System.lineSeparator()
-                   + "Goodbye，Hope to see you again soon!");
-       } catch (Exception e){
-           e.printStackTrace();
-       }
+    public static void Exit() throws Exception {
+        Storage.saveFile();
+        System.out.println(ln + System.lineSeparator()
+                + "Your tasks are saved"
+                + System.lineSeparator()
+                + "Goodbye，Hope to see you again soon!");
+        iDuke = false;
+        System.exit(0);
     }
 
     public static void printAdded(String input) {
@@ -71,14 +65,13 @@ public class MySiri extends Duke{
         String[] at = (dl[1].split(" ", 3));
         LocalDate date = LocalDate.parse(at[1]);
         int time = Integer.parseInt(at[2]);
-        boolean isAnomaly=DetectAnomalies(date, time);
-        if (!isAnomaly)
+        if(!chkDateTime(date, time)) return;
         try {
             for (String s : at) {
                 System.out.println(s);
                 break;
             }
-            task.add(count, new Event(dl[0].trim(), date, time));
+            task.add(count, new Event(dl[0].trim(), Date(at[1]), time));
             if(addTask) {
                 printAdded(task.get(count).toString());
             }
@@ -93,17 +86,15 @@ public class MySiri extends Duke{
         String[] by = (dl[1].split(" ", 3));
         LocalDate date = LocalDate.parse(by[1]);
         int time = Integer.parseInt(by[2]);
-        boolean isAnomaly=DetectAnomalies(date, time);
-        if (!isAnomaly)
-            return;
+        if(!chkDateTime(date, time)) return;
         try {
-            task.add(count, new Deadline((dl[0]).trim(), date, time));
+            task.add(count, new Deadline((dl[0]).trim(), Date(by[1]), time));
             if(addTask) {
                 printAdded(task.get(count).toString());
             }
             count++;
         } catch (NumberFormatException e) {
-            throw new MissDescException("Please enter in correct date and time format. Example: 2022-01-01 0800");
+            throw new MissDescException("Please enter in correct date and time format. Example: 2020-01-01 1300");
         }
     }
 
@@ -149,11 +140,10 @@ public class MySiri extends Duke{
     public static void Delete(String enter) throws Exception {
         String[] _enter = enter.split(" ", 2);
         int numTask;
-
         try {
             numTask = Integer.parseInt(_enter[1]);
         } catch (NumberFormatException e) {
-            throw new DukeException("Sorry, I can't recognize this task number:");
+            throw new DukeException("Invalid number");
         }
         if (numTask > count)
             throw new DukeException("Invalid task number");
@@ -184,17 +174,16 @@ public class MySiri extends Duke{
     }
 
     public static void printList() {
-        int num = 1;
         if (count == 0){
             System.out.println("You don't have any task\n" + "Please add your task");
         }
         else{
             System.out.println(ln +  System.lineSeparator() +"Here are the tasks in your list:");
+            int num = 1;
             for (int i = 0; i < count; i++) {
                 System.out.println(num+". "+task.get(i).toString());
                 num++;
             }
-            assert (num>1):"no tasks are there!";
             System.out.println(ln);
         }
     }
@@ -212,16 +201,16 @@ public class MySiri extends Duke{
             System.out.println("You don't have any task list");
     }
 
-    public static boolean DetectAnomalies(LocalDate date, int time) {
-        if (count == 0 || time == TIME_NULL)
-            return true;
+    public static LocalDate Date(String msg) {
+        return LocalDate.parse(msg.trim());
+    }
+    public static boolean chkDateTime(LocalDate date, int time) {
+        if(count==0||time==0) return true;
         for (int a = 0; a < count; a++) {
-            Task t = task.get(a);
-            if (t.getTime() == TIME_NULL || t.getDate() == null) {
-                continue;
-            }
-            if (t.getDate().isEqual(date) && t.getTime() == time) {
-                System.out.println("New task was not added because it corrupt with " + t);
+            Task t=task.get(a);
+            if(t.getTime()==0 || t.getDate()==null) return true;
+            if(t.getDate().isEqual(date) && t.getTime()==time) {
+                System.out.println("New task was not added because it corrupt with "+t);
                 return false;
             }
         }
@@ -232,7 +221,7 @@ public class MySiri extends Duke{
         return d;
     }
 
-    public static void fileScanner(String enter, boolean addTask, Type t) throws Exception{
+    public static void fileScanner(String enter, boolean addTask, Type t) throws Exception {
 
         if (enter.length() == 0) {
             throw new DukeException("Invalid input");
@@ -271,13 +260,14 @@ public class MySiri extends Duke{
         }
     }
 
-    public static void main() throws Exception, BadLocationException {
+    public static void main() throws Exception {
 
         while (iDuke) {
-           try{
-               run();
-        }catch (Exception e){
-           }
+            try {
+                run();
+            } catch (Exception e) {
+               new MySiri();
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ import java.time.*;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected int time;
 
     public Task(String description) {
         this.description = description;
@@ -16,6 +17,9 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
+    }
+    public void markAsNotDone() {
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
@@ -28,6 +32,10 @@ public class Task {
 
     public LocalDate getDate() {
         return null;
+    }
+
+    public int getTime(){
+       return time = 0;
     }
 
     public String toString() {

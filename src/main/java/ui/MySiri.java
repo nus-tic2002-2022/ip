@@ -61,9 +61,11 @@ public class MySiri extends Duke{
 
     public static void Event(String enter, boolean addTask) throws Exception {
         String[] _enter = enter.split(" ", 2);
-        String[] dl = _enter[1].split("/");
+        String[] dl = _enter[1].split("at/");
         String[] at = (dl[1].split(" ", 3));
+        LocalDate date = LocalDate.parse(at[1]);
         int time = Integer.parseInt(at[2]);
+        if(!chkDateTime(date, time)) return;
         try {
             for (String s : at) {
                 System.out.println(s);
@@ -80,16 +82,18 @@ public class MySiri extends Duke{
     }
     public static void Deadline(String enter, boolean addTask) throws Exception {
         String[] _enter = enter.split(" ", 2);
-        String[] dl = _enter[1].split("/");
+        String[] dl = _enter[1].split("by/");
         String[] by = (dl[1].split(" ", 3));
+        LocalDate date = LocalDate.parse(by[1]);
         int time = Integer.parseInt(by[2]);
+        if(!chkDateTime(date, time)) return;
         try {
             task.add(count, new Deadline((dl[0]).trim(), Date(by[1]), time));
             if(addTask) {
                 printAdded(task.get(count).toString());
             }
             count++;
-        } catch (RuntimeException e) {
+        } catch (NumberFormatException e) {
             throw new MissDescException("Please enter in correct date and time format. Example: 2020-01-01 1300");
         }
     }
@@ -107,6 +111,25 @@ public class MySiri extends Duke{
         task.get(taskNum - 1).markAsDone();
         System.out.println(ln + System.lineSeparator() +
                 "Nice! I've marked this task as done:"
+                + System.lineSeparator() + (taskNum)
+                + "." + "[" + task.get(taskNum - 1).getStatusIcon() + "] "
+                + task.get(taskNum - 1).getDescription()
+                + System.lineSeparator()
+                + ln);
+    }
+    public static void unMark(String enter) throws Exception {
+        String[] _enter = enter.split(" ", 2);
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(_enter[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid number");
+        }
+        if (taskNum > count)
+            System.out.println("Invalid task number");
+        task.get(taskNum - 1).markAsNotDone();
+        System.out.println(ln + System.lineSeparator() +
+                "Nice! I've re-marked this task as not done:"
                 + System.lineSeparator() + (taskNum)
                 + "." + "[" + task.get(taskNum - 1).getStatusIcon() + "] "
                 + task.get(taskNum - 1).getDescription()
@@ -181,6 +204,18 @@ public class MySiri extends Duke{
     public static LocalDate Date(String msg) {
         return LocalDate.parse(msg.trim());
     }
+    public static boolean chkDateTime(LocalDate date, int time) {
+        if(count==0||time==0) return true;
+        for (int a = 0; a < count; a++) {
+            Task t=task.get(a);
+            if(t.getTime()==0 || t.getDate()==null) return true;
+            if(t.getDate().isEqual(date) && t.getTime()==time) {
+                System.out.println("New task was not added because it corrupt with "+t);
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void fileScanner(String enter, boolean addTask, Type t) throws Exception {
 
@@ -199,6 +234,9 @@ public class MySiri extends Duke{
             }break;
             case done: {
                 Done(enter);
+            }break;
+            case unmark: {
+                unMark(enter);
             }break;
             case deadline: {
                 Deadline(enter, addTask);

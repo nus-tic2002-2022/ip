@@ -22,6 +22,11 @@ public class Deadline extends Task{
     }
 
     @Override
+    public int getTime(){
+        return this.time;
+    }
+
+    @Override
     public String toString() {
         return " [D]" + "["+getStatusIcon()+"] "+getDescription() + " (by: "
                 + date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")) +" " + time + ")";

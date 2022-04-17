@@ -23,6 +23,11 @@ public class Event extends Task{
     }
 
     @Override
+    public int getTime(){
+        return this.time;
+    }
+
+    @Override
 
     public String toString() {
         return " [E]" + "["+getStatusIcon()+"] "+getDescription() + " (at: "

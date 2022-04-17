@@ -64,8 +64,6 @@ public class AddCommand extends Command {
         if (this.command.equals("event")) {
             String[]input1 = description.split(" /at ", 2);
 
-            Task event = new Event(input1[0], input1[1]);
-            tasks.getTasks().add(event);
             if (!description.contains("/at")) {
                 System.out.println("Please re-key in the correct command");
                 return;
@@ -74,6 +72,10 @@ public class AddCommand extends Command {
                 System.out.println("Description cannot be empty!");
                 return;
             }
+            Task event = new Event(input1[0], input1[1]);
+            tasks.getTasks().add(event);
+
+
             System.out.println("Got it. I've added this task: ");
             System.out.println(event.toString());
             System.out.println("Now you have " + tasks.getTasks().size() + " task in the list.");

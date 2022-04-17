@@ -1,5 +1,6 @@
 package mainCom;
 import subTask.DukeException;
+import java.io.IOException;
 
 /**
  * TIC2002 - Duke, your personalized task manager
@@ -22,7 +23,7 @@ public class Duke {
      * 3. It loads the UI class that starts the interaction with the user.
      */
 
-    public static void main (String[]args) throws DukeException {
+    public static void main (String[]args) throws DukeException, IOException {
 
             String logo = " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"

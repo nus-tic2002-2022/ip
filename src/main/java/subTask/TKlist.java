@@ -138,6 +138,17 @@ public class TKlist {
     }
 
 
+    public static void Find(String line) {
+        int seq = 1;
+        for (Task l : list) {
+            if(l.description.toLowerCase().contains(line.toLowerCase())) {
+                System.out.println(seq + "." + l);
+                seq++;
+            }
+        }
+    }
+
+
     public static void UpdateStatus() {
         System.out.println("Okay:) I've added this task:");
         System.out.println(list.get(count));

@@ -1,5 +1,6 @@
 package mainCom;
 import subTask.*;
+import java.io.IOException;
 
 /**
  * This class registers the user-inputs and makes sense of the command that the program is supposed to execute.
@@ -24,7 +25,10 @@ public class Act {
             TKlist.Bye();
         } else if (input.trim().equalsIgnoreCase("list")) {
             TKlist.List();
-        } else if (input.toLowerCase().contains("mark")) {
+        }
+        else if (input.toLowerCase().contains("find")) {
+            TKlist.Find(input.substring(5));}
+        else if (input.toLowerCase().contains("mark")) {
             TKlist.Mark(input);
         } else if (input.toLowerCase().contains("delete")) {
             TKlist.Delete(input);

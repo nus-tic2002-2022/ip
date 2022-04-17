@@ -15,6 +15,11 @@ public class Parser {
 
     }
 
+    /**
+     * Read user's input comand and call the respective function constructor
+     * @param instruction of the user command
+     * @return the command object
+     */
     public static Command parse(String instruction) throws DukeException {
         String[] arr = instruction.split(" ", 2);
         String command = arr[0];

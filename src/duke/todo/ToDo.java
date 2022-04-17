@@ -16,6 +16,7 @@ public class ToDo extends Task {
     @Override
     public String toFileString() {
         int markAsDone = super.isDone() ? 1 : 0;
-        return "T|" + markAsDone + "|" + super.getDescription();
+        char isPriority = super.isPriority() ? 'P' : 'N';
+        return "T|" + markAsDone + "|" + super.getDescription() + "|" + isPriority;
     }
 }

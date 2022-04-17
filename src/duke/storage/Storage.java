@@ -20,6 +20,10 @@ public class Storage {
         this.file = new File(filepath);
     }
 
+    /**
+     * To load the existing file and store into the tasklist
+     * @return a list of tasks
+     */
     public List<Task> load() throws DukeException, FileNotFoundException {
         List<Task> taskList = new ArrayList<>();
         // Read the file
@@ -35,6 +39,12 @@ public class Storage {
                 } else {
                     todo.markAsNotDone();
                 }
+
+                if (lineList[3].equals("P")) {
+                    todo.setPriority(true);
+                } else {
+                    todo.setPriority(false);
+                }
                 taskList.add(todo);
             } else if (lineList[0].equals("D")) {
                 Task deadline = new Deadline(lineList[2], lineList[3]);
@@ -43,6 +53,12 @@ public class Storage {
                 } else {
                     deadline.markAsNotDone();
                 }
+
+                if (lineList[4].equals("P")) {
+                    deadline.setPriority(true);
+                } else {
+                    deadline.setPriority(false);
+                }
                 taskList.add(deadline);
             } else if (lineList[0].equals("E")) {
                 Task event = new Event(lineList[2], lineList[3]);
@@ -50,6 +66,12 @@ public class Storage {
                     event.markAsDone();
                 } else {
                     event.markAsNotDone();
+                }
+
+                if (lineList[4].equals("P")) {
+                    event.setPriority(true);
+                } else {
+                    event.setPriority(false);
                 }
                 taskList.add(event);
             }

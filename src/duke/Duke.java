@@ -46,6 +46,11 @@ public class Duke {
         }
     }
 
+    /**
+     * "data/tasks.txt" is an optional argument when executing the program
+     * Duke will create the folder when it does not exist
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

@@ -3,6 +3,7 @@ package duke.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected boolean isPriority;
 
     public Task(String description) {
         this.description = description;
@@ -37,8 +38,21 @@ public abstract class Task {
         isDone = done;
     }
 
+    public boolean isPriority() {
+        return isPriority;
+    }
+
+    public void setPriority(boolean priority) {
+        isPriority = priority;
+    }
+
     public String toString() {
-        return "[" + getStatusIcon() + "] " + getDescription();
+        String isPriority = "";
+        if (this.isPriority) {
+            isPriority = " **High Priority**";
+        }
+
+        return "[" + getStatusIcon() + "] " + getDescription() + isPriority;
     }
 
     public abstract String toFileString();

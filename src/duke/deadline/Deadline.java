@@ -18,6 +18,7 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         int markAsDone = super.isDone() ? 1 : 0;
-        return "D|" + markAsDone + "|" + super.getDescription() + "|" + by;
+        char isPriority = super.isPriority() ? 'P' : 'N';
+        return "D|" + markAsDone + "|" + super.getDescription() + "|" + by + "|" + isPriority;
     }
 }

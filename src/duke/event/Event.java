@@ -18,6 +18,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         int markAsDone = super.isDone() ? 1 : 0;
-        return "E|" + markAsDone + "|" + super.getDescription() + "|" + by;
+        char isPriority = super.isPriority() ? 'P' : 'N';
+        return "E|" + markAsDone + "|" + super.getDescription() + "|" + by + "|" + isPriority;
     }
 }

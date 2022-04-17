@@ -14,6 +14,12 @@ public class SaveCommand extends Command {
 
     }
 
+    /**
+     * To save the tasks in the list into a text file
+     * @param tasks existing task in the list
+     * @param ui to display out the messages to the user
+     * @param storage which stores the file
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try{

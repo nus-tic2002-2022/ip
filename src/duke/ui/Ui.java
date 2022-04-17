@@ -15,11 +15,19 @@ public class Ui {
             + "2. type 'list' to check your list\n"
             + "3. type 'todo <add task here>' (e.g. todo read a book)\n"
             + "4. type 'deadline <add task here> /by <add deadline>' (e.g. deadline submit project /by 11 March 2022 2359)\n"
-            + "5. type 'event <add task here> /at <add event timing>' (e.g. event attend class /at 2 March 2022 7pm)\n";
+            + "5. type 'event <add task here> /at <add event timing>' (e.g. event attend class /at 2 March 2022 7pm)\n"
+            + "6. type 'mark <number> (e.g. mark 1)\n"
+            + "7. type 'unmark <number> (e.g. unmark 1)\n"
+            + "8. type 'priority <number> (e.g. priority 1)\n"
+            + "9. type 'remove-priority <number> (e.g. remove-priority 1)\n"
+            + "10. type 'save' \n"
+            + "11. type 'delete <number>' (e.g. delete 1)\n";
 
     public void showWelcome() {
-        System.out.println(logo);
-        System.out.println();
+        System.out.println("Hello from\n" + logo);
+        System.out.println("________________________________\n");
+        System.out.println("Hello I'm Duke\nI'm your personal planner\nWhat can I help you with?");
+        System.out.println("________________________________\n");
         System.out.println(command);
     }
 

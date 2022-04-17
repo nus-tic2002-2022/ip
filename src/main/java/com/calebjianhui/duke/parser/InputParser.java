@@ -150,8 +150,8 @@ public class InputParser {
         assert ListCommand.COMMAND.equals(commandList[0])
                 : "Crafting of ListCommand requires a valid input command list.";
 
-        // ListCommand have max word length of 2
-        if (commandList.length > 2) {
+        // ListCommand have max word length of 3
+        if (commandList.length > 3) {
             throw new UnsupportedOperationException(InvalidCommand.UNKNOWN_COMMAND_MESSAGE);
         }
 

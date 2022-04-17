@@ -62,6 +62,7 @@ public class TaskList {
             for (int i = 0; i < numOfTasks; i++) {
                 System.out.println(i + 1 + "." + taskList.get(i).toString());
             }
+            System.out.println("---End of list---\n");
         }else{
             System.out.println("Sorry! :( I could not find any tasks in your list. \n");
         }

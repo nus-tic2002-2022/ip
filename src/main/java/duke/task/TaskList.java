@@ -21,7 +21,7 @@ public class TaskList {
     private static int indexer(String userInput){
         assert numOfTasks >= 0 : "number of tasks cannot be less than 0\n";
         if(numOfTasks == 0){
-            System.out.println("☹ OOPS!!! There is no task in your list!\n");
+            System.out.println("Sorry! I could not find any tasks in your list!\n");
             return -1;
         }
         String listIndexer = userInput;

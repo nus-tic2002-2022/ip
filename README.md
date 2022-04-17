@@ -1,6 +1,27 @@
-# Duke project template
+# Duke (Variant)
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+A personal task manager that keeps track of your task!
+
+Features includes:
+1. Adding of different types of task
+   1. ToDos
+   2. Deadlines
+   3. Events
+   4. Fixed Duration Task
+2. Listing of Task
+   1. By order of add
+   2. By datetime
+   3. Events / Deadline occuring on a specific date
+3. Edit of task
+   1. Description
+   2. Date of event / deadline
+4. Clone task
+5. Find Task
+   1. Word Search
+   2. Character Search
+6. Delete Task (single or all)
+
+---
 
 ## Setting up in Intellij
 

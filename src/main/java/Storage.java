@@ -43,7 +43,7 @@ public class Storage {
             for (int i = 0; i < tasks.size(); i++) {
                 out.println(tasks.get(i).getDescription());
             }
-            System.out.println("Your current tasks have been archived under: " + filepath + filename + (filename.contains(".txt") ? "" : ".txt"));
+            System.out.println("Your current tasks have been archived under: " + a.getAbsolutePath());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

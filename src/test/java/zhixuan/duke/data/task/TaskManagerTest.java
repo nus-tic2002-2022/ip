@@ -36,7 +36,7 @@ public class TaskManagerTest {
         outContent.reset();
         TaskManager.getInstance().addToTaskList(false, EnumTask.EVENT, false, "Finals /at 2022-04-25 09:00");
         String expectedOutput2 = "Roger. I will add this to your list: \n" +
-                "[E][ ] Finals (at: 2022-04-25 09:00)" + "\n" +
+                "[E][ ] Finals (at: 25 Apr 2022 09:00)" + "\n" +
                 "You have 2 tasks in your list." + "\r\n";
         String actualOutput2 = outContent.toString();
         assertEquals(expectedOutput2, actualOutput2);
@@ -44,7 +44,7 @@ public class TaskManagerTest {
         outContent.reset();
         TaskManager.getInstance().addToTaskList(false, EnumTask.DEADLINE, false, "Bedtime /by 2022-01-01 23:59");
         String expectedOutput3 = "Roger. I will add this to your list: \n" +
-                "[D][ ] Bedtime (by: 2022-01-01 23:59)" + "\n" +
+                "[D][ ] Bedtime (by: 01 Jan 2022 23:59)" + "\n" +
                 "You have 3 tasks in your list." + "\r\n";
         String actualOutput3 = outContent.toString();
         assertEquals(expectedOutput3, actualOutput3);
@@ -56,7 +56,7 @@ public class TaskManagerTest {
         outContent.reset();
         TaskManager.getInstance().deleteTask(2);
         String expectedOutput = "Deleted this task: \n" +
-                "[E][ ] Finals (at: 2022-04-25 09:00)" + "\n" +
+                "[E][ ] Finals (at: 25 Apr 2022 09:00)" + "\n" +
                 "You have 2 tasks in your list." + "\r\n";
         String actualOutput = outContent.toString();
         assertEquals(expectedOutput, actualOutput);
@@ -69,7 +69,7 @@ public class TaskManagerTest {
         TaskManager.getInstance().listTask();
         String expectedOutput = "Here are the tasks in your list: \n" +
                 "1.[T][ ] Test" + "\n" +
-                "2.[D][ ] Bedtime (by: 2022-01-01 23:59)" + "\r\n";
+                "2.[D][ ] Bedtime (by: 01 Jan 2022 23:59)" + "\r\n";
         String actualOutput = outContent.toString();
         assertEquals(expectedOutput, actualOutput);
     }
@@ -80,28 +80,28 @@ public class TaskManagerTest {
         outContent.reset();
         TaskManager.getInstance().markTask("mark", 1);
         String expectedOutput = "Nice! I've marked this task as done: \n" +
-                "\t[T][X] Test" + "\r\n";
+                "[T][X] Test" + "\r\n";
         String actualOutput = outContent.toString();
         assertEquals(expectedOutput, actualOutput);
-        // mark 1
+        // mark 1 - Already marked
         outContent.reset();
         TaskManager.getInstance().markTask("mark", 1);
         String expectedOutput2 = "Task is already marked as done: \n" +
-                "\t[T][X] Test" + "\r\n";
+                "[T][X] Test" + "\r\n";
         String actualOutput2 = outContent.toString();
         assertEquals(expectedOutput2, actualOutput2);
         // unmark 1
         outContent.reset();
         TaskManager.getInstance().markTask("unmark", 1);
         String expectedOutput3 = "OK, I've marked this task as not done yet: \n" +
-                "\t[T][ ] Test" + "\r\n";
+                "[T][ ] Test" + "\r\n";
         String actualOutput3 = outContent.toString();
         assertEquals(expectedOutput3, actualOutput3);
-        // unmark 1
+        // unmark 1 - Already unmarked
         outContent.reset();
         TaskManager.getInstance().markTask("unmark", 1);
         String expectedOutput4 = "Task is already marked as not done: \n" +
-                "\t[T][ ] Test" + "\r\n";
+                "[T][ ] Test" + "\r\n";
         String actualOutput4 = outContent.toString();
         assertEquals(expectedOutput4, actualOutput4);
     }

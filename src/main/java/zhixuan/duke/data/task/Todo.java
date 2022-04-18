@@ -1,5 +1,7 @@
 package zhixuan.duke.data.task;
 
+import zhixuan.duke.common.EnumTask;
+
 /**
  * Todo task
  **/
@@ -31,6 +33,6 @@ public class Todo extends Task {
      * @return saved task format for Todo
      **/
     public String toFile() {
-        return "TODO | " + super.toFile();
+        return EnumTask.TODO + " | " + super.toFile();
     }
 }

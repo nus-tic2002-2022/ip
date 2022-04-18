@@ -7,8 +7,9 @@ import zhixuan.duke.data.task.TaskManager;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND = "list";
+    public static final String LIST_COMMAND = "list";
 
+    @Override
     public boolean execute() {
         TaskManager.getInstance().listTask();
         return false;

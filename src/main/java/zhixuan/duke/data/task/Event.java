@@ -1,5 +1,6 @@
 package zhixuan.duke.data.task;
 
+import zhixuan.duke.common.EnumTask;
 import zhixuan.duke.parser.DateParser;
 import java.time.LocalDateTime;
 
@@ -19,31 +20,38 @@ public class Event extends Task {
      **/
     public Event(String description, boolean isDone, String dueDate) {
         super(description, isDone);
-        this.dueDate = DateParser.parseDate(dueDate);
+        this.dueDate = DateParser.parseStringToDateTime(dueDate);
+    }
+
+    /**
+     * Getter for due date
+     *
+     * @return due date in LocalDateTime
+     **/
+    @Override
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
     }
 
     /**
      * Override setter for toString method
-     *
-     * When saving LocalDateTime as toString, Java automatically adds character 'T'
-     * between date and time. .replace to replace the 'T'
+     * Calls parseDateToDisplayString to parse dueDate into a different format
      *
      * @return display format for Event
      **/
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + dueDate.toString().replace("T", " ") + ")";
+        return "[E]" + super.toString() + " (at: " + DateParser.parseDateToDisplayString(dueDate) + ")";
     }
 
     /**
      * Format for Event when saving to file
      *
-     * When saving LocalDateTime as toString, Java automatically adds character 'T'
-     * between date and time. .replace to replace the 'T'
+     * Calls parseDateToString to parse dueDate into a different format
      *
      * @return saved task format for Event
      **/
     public String toFile() {
-        return "EVENT | " + super.toFile() + " | " + dueDate.toString().replace("T", " ");
+        return EnumTask.EVENT + " | " + super.toFile() + " | " + DateParser.parseDateToSaveString(dueDate);
     }
 }

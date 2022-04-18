@@ -52,7 +52,7 @@ public class Parser {
      **/
     private Command determineAction(String command) throws UnsupportedOperationException, IndexOutOfBoundsException {
 
-        if (ListCommand.COMMAND.equals(command)) {
+        if (ListCommand.LIST_COMMAND.equals(command)) {
             return new ListCommand();
         }
 
@@ -68,7 +68,7 @@ public class Parser {
                     throw new UnsupportedOperationException();
                 }
                 try {
-                    int index = Integer.parseInt(commandList[1]) - 1;
+                    int index = Integer.parseInt(commandList[1]);
                     return new MarkCommand(commandList[0], index);
                 } catch (NumberFormatException e) {
                     throw new IndexOutOfBoundsException();
@@ -77,7 +77,7 @@ public class Parser {
             case AddCommand.EVENT_COMMAND:
             case AddCommand.DEADLINE_COMMAND:
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
-            case DeleteCommand.COMMAND:
+            case DeleteCommand.DELETE_COMMAND:
                 if (commandList.length > 2) {
                     throw new UnsupportedOperationException();
                 }
@@ -87,6 +87,11 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     throw new IndexOutOfBoundsException();
                 }
+            case FindCommand.FIND_COMMAND:
+                if (commandList.length > 2) {
+                    throw new UnsupportedOperationException();
+                }
+                return new FindCommand(commandList[1]);
             default:
                 throw new UnsupportedOperationException();
         }

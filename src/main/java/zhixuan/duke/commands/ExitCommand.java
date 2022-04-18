@@ -13,6 +13,7 @@ public class ExitCommand extends Command {
         return (instance instanceof ExitCommand);
     }
 
+    @Override
     public boolean execute() {
         new DukeUI().printEndingMessage();
         return false;

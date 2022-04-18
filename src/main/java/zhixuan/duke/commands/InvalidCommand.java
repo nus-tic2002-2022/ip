@@ -30,5 +30,4 @@ public class InvalidCommand extends Command {
         new DukeUI().showToUser(decipherType());
         return false;
     }
-    
 }

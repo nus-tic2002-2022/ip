@@ -1,5 +1,6 @@
 package zhixuan.duke.data.task;
 
+import zhixuan.duke.parser.DateParser;
 import zhixuan.duke.storage.TaskEncoder;
 import zhixuan.duke.ui.DukeUI;
 import zhixuan.duke.common.EnumTask;
@@ -7,6 +8,7 @@ import zhixuan.duke.data.exceptions.InvalidTaskException;
 import zhixuan.duke.data.exceptions.UnknownCommandException;
 import zhixuan.duke.common.Messages;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -49,18 +51,16 @@ public class TaskManager {
     public void listTask() {
         try {
             String list;
-            if (!taskList.isEmpty()) {
-                list = Messages.REPLY_LIST;
-                for (int i = 0; i < taskList.size(); i++) {
-                    if (i != 0) {
-                        list = list.concat("\n");
-                    }
-                    list = list.concat(String.valueOf(i + 1)).concat(".");
-                    list = list.concat(String.valueOf(taskList.get(i)));
-                }
-            }
-            else {
+            if (taskList.isEmpty()) {
                 throw new UnknownCommandException(UnknownCommandException.EMPTY);
+            }
+            list = Messages.REPLY_LIST;
+            for (int i = 0; i < taskList.size(); i++) {
+                if (i != 0) {
+                    list = list.concat("\n");
+                }
+                list = list.concat(String.valueOf(i + 1)).concat(".");
+                list = list.concat(String.valueOf(taskList.get(i)));
             }
             ui.showToUser(list);
         } catch (UnknownCommandException e) {
@@ -171,7 +171,7 @@ public class TaskManager {
                 }
             }
 
-            reply = reply.concat("\n\t").concat(taskList.get(taskIndex).toString());
+            reply = reply.concat("\n").concat(taskList.get(taskIndex).toString());
             ui.showToUser(reply);
             return success;
         } catch (UnknownCommandException e) {
@@ -206,8 +206,40 @@ public class TaskManager {
         } catch (UnknownCommandException e) {
             ui.showToUser(e.getMessage());
             return false;
-            }
         }
+    }
+
+    /**
+     * Find task of specified date
+     *
+     * @param dateTime date to be searched
+     *
+     * @throws UnknownCommandException if list is empty or has invalid characters
+     * @throws DateTimeParseException if date is not in correct format
+     **/
+    public void findTask(String dateTime) {
+        try {
+            String list = "";
+            LocalDateTime parsedDateTime = DateParser.parseStringToDateTime(dateTime);
+            if (taskList.isEmpty()) {
+                throw new UnknownCommandException(UnknownCommandException.EMPTY);
+            }
+            for (Task task : taskList) {
+                if (!(task instanceof Todo) && DateParser.compareDateTime(parsedDateTime, task.getDueDate())) {
+                    list = list.concat(task.toString());
+                }
+            }
+            if (list.isEmpty()) {
+                ui.showToUser(Messages.REPLY_NO_TASK_FOUND);
+            } else {
+                ui.showToUser(Messages.REPLY_TASK_FOUND + list);
+            }
+        } catch (UnknownCommandException e) {
+            ui.showToUser(e.getMessage());
+        } catch (DateTimeParseException e) {
+            ui.showToUser(InvalidTaskException.REPLY_INVALID_DATE_FORMAT);
+        }
+    }
 
     /**
      * Calls TaskEncoder.encodeTaskList to encode tasks

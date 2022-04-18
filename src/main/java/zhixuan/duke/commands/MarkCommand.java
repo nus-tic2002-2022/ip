@@ -24,7 +24,6 @@ public class MarkCommand extends Command {
     @Override
     public boolean execute() {
         return TaskManager.getInstance().markTask(command, index);
-
     }
     
 }

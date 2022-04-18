@@ -1,5 +1,6 @@
 package zhixuan.duke.data.task;
 
+import zhixuan.duke.common.EnumTask;
 import zhixuan.duke.parser.DateParser;
 import java.time.LocalDateTime;
 
@@ -19,31 +20,37 @@ public class Deadline extends Task {
      **/
     public Deadline(String description, boolean isDone, String dueDate) {
         super(description, isDone);
-        this.dueDate = DateParser.parseDate(dueDate);
+        this.dueDate = DateParser.parseStringToDateTime(dueDate);
+    }
+
+    /**
+     * Getter for due date
+     *
+     * @return due date in LocalDateTime
+     **/
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
     }
 
     /**
      * Override setter for toString method
+     * Calls parseDateToDisplayString to parse dueDate into a different format
      *
-     * When saving LocalDateTime as toString, Java automatically adds character 'T'
-     * between date and time. .replace to replace the 'T'
-     *
-     * @return display format for Deadline
+     * @return display format for Event
      **/
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate.toString().replace("T", " ") + ")";
+        return "[D]" + super.toString() + " (by: " + DateParser.parseDateToDisplayString(dueDate) + ")";
     }
 
     /**
      * Format for Deadline when saving to file
      *
-     * When saving LocalDateTime as toString, Java automatically adds character 'T'
-     * between date and time. .replace to replace the 'T'
+     * Calls parseDateToString to parse dueDate into a different format
      *
      * @return saved task format for Deadline
      **/
     public String toFile() {
-        return "DEADLINE | " + super.toFile() + " | " + dueDate.toString().replace("T", " ");
+        return EnumTask.DEADLINE + " | " + super.toFile() + " | " + DateParser.parseDateToSaveString(dueDate);
     }
 }

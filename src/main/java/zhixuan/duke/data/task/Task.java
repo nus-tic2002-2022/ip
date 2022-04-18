@@ -1,5 +1,7 @@
 package zhixuan.duke.data.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Generic Task class
  **/
@@ -7,6 +9,7 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
+    protected LocalDateTime dueDate;
 
     /**
      * Task constructor
@@ -26,6 +29,15 @@ public class Task {
      **/
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * Getter for due date
+     *
+     * @return due date in LocalDateTime
+     **/
+    public LocalDateTime getDueDate() {
+        return dueDate;
     }
 
     /**

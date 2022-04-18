@@ -4,7 +4,7 @@ import zhixuan.duke.data.task.TaskManager;
 
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND = "delete";
+    public static final String DELETE_COMMAND = "delete";
 
     private final int index;
 

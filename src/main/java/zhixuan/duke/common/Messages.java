@@ -20,6 +20,8 @@ public class Messages {
     public static final String REPLY_ALR_MARK_TASK = "Task is already marked as done: ";
     public static final String REPLY_ALR_UNMARK_TASK = "Task is already marked as not done: ";
     public static final String REPLY_DELETE_TASK = "Deleted this task: \n";
+    public static final String REPLY_NO_TASK_FOUND = "No tasks found with that date.";
+    public static final String REPLY_TASK_FOUND = "Here are the tasks with that date: \n";
 
     /**
      * Getter for welcome message upon start of application

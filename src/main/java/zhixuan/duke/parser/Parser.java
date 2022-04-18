@@ -4,6 +4,10 @@ import zhixuan.duke.commands.*;
 import zhixuan.duke.ui.DukeUI;
 import java.util.Scanner;
 
+/**
+ * Parser for user input
+ *
+ **/
 public class Parser {
 
     private Scanner in ;
@@ -18,6 +22,13 @@ public class Parser {
         this.in = in;
     }
 
+    /**
+     * Processes user input
+     * Calls ExitCommand if 'bye' is in user input
+     * Else, calls determineAction for input
+     *
+     * @return Command class based on input, InvalidCommand if no matches
+     **/
     public Command processInput() {
         String input = in.nextLine();
         if (ExitCommand.BYE_COMMAND.equals(input)) {
@@ -33,6 +44,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Calls command based on input
+     *
+     * @param command string user input
+     * @return called Command class
+     **/
     private Command determineAction(String command) throws UnsupportedOperationException, IndexOutOfBoundsException {
 
         if (ListCommand.COMMAND.equals(command)) {
@@ -65,7 +82,7 @@ public class Parser {
                     throw new UnsupportedOperationException();
                 }
                 try {
-                    int index = Integer.parseInt(commandList[1]) - 1;
+                    int index = Integer.parseInt(commandList[1]);
                     return new DeleteCommand(index);
                 } catch (NumberFormatException e) {
                     throw new IndexOutOfBoundsException();

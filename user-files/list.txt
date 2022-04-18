@@ -1,1 +1,2 @@
-TODO | false | lol
+EVENT | false | ad | 2022-10-01 12:00
+EVENT | false | d | 2022-01-01 00:00

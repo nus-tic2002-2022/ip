@@ -1,5 +1,8 @@
 package zhixuan.duke.common;
 
+/**
+ * Container for user visible messages.
+ */
 public class Messages {
 
     public static final String MESSAGE_GOODBYE = "Bye bye!";
@@ -18,6 +21,12 @@ public class Messages {
     public static final String REPLY_ALR_UNMARK_TASK = "Task is already marked as not done: ";
     public static final String REPLY_DELETE_TASK = "Deleted this task: \n";
 
+    /**
+     * Getter for welcome message upon start of application
+     *
+     * @param successMessage boolean to display success message after loading saved file
+     * @return welcome message string
+     **/
     public static String getWelcomeMessage(boolean successMessage) {
         if (successMessage) {
             return MESSAGE_WELCOME_LOADED;

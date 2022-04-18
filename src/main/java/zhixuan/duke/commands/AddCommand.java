@@ -2,6 +2,9 @@ package zhixuan.duke.commands;
 import zhixuan.duke.data.task.TaskManager;
 import zhixuan.duke.common.EnumTask;
 
+/**
+ * Adds task to task list
+ **/
 public class AddCommand extends Command {
 
     public static final String TODO_COMMAND = "todo";
@@ -11,13 +14,23 @@ public class AddCommand extends Command {
     private final String type;
     private final String command;
     private boolean isDone;
+    private boolean isSilent;
 
+    /**
+     * Constructor for normal add task
+     */
     public AddCommand(String type, String command) {
         this.type = type.toUpperCase();
         this.command = command;
+        this.isSilent = false;
+        this.isDone = false;
     }
 
-    public AddCommand(String type, boolean isDone, String command) {
+    /**
+     * Constructor for add task when loading file
+     */
+    public AddCommand(boolean isSilent, String type, boolean isDone, String command) {
+        this.isSilent = isSilent;
         this.type = type.toUpperCase();
         this.isDone = isDone;
         this.command = command;
@@ -25,7 +38,7 @@ public class AddCommand extends Command {
 
     @Override
     public boolean execute() {
-        return TaskManager.getInstance().addToTaskList(EnumTask.valueOf(type), isDone, command);
+        return TaskManager.getInstance().addToTaskList(isSilent, EnumTask.valueOf(type), isDone, command);
     }
     
 }

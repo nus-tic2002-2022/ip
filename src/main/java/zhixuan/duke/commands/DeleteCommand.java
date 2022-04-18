@@ -14,8 +14,6 @@ public class DeleteCommand extends Command {
 
     @Override
     public boolean execute() {
-        TaskManager.getInstance().deleteTask(index);
-        return false;
+        return TaskManager.getInstance().deleteTask(index);
     }
-    
 }

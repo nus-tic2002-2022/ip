@@ -2,6 +2,9 @@ package zhixuan.duke.commands;
 
 import zhixuan.duke.ui.DukeUI;
 
+/**
+ * Terminates the program.
+ */
 public class ExitCommand extends Command {
 
     public static final String BYE_COMMAND = "bye";

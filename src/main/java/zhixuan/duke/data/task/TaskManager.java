@@ -7,25 +7,45 @@ import zhixuan.duke.data.exceptions.InvalidTaskException;
 import zhixuan.duke.data.exceptions.UnknownCommandException;
 import zhixuan.duke.common.Messages;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Task manager to make changes to taskList
+ *
+ **/
 public class TaskManager {
 
     private static TaskManager taskManager;
     private final DukeUI ui;
     private ArrayList<Task> taskList;
 
+    /**
+     * TaskManager constructor
+     *
+     * Constructor to hold singleton design.
+     * Create new DukeUI and ArrayList instance
+     */
     private TaskManager () {
         ui = new DukeUI();
         taskList = new ArrayList<>();
     }
 
+    /**
+     * Getter for current instance
+     * Else, instantiate new instance
+     **/
     public static synchronized TaskManager getInstance( ) {
         if (taskManager == null)
             taskManager = new TaskManager();
         return taskManager;
     }
 
+    /**
+     * List all tasks in taskList
+     *
+     * @throws UnknownCommandException if taskList is empty
+     **/
     public void listTask() {
         try {
             String list;
@@ -48,11 +68,31 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Getter for amount of tasks in taskList
+     *
+     * @return task amount in string
+     **/
     public String getTaskAmount() {
         return "You have " + taskList.size() + " tasks in your list.";
     }
 
-    public boolean addToTaskList(EnumTask type, boolean isDone, String input) {
+    /**
+     * Add task to taskList
+     * Categorize based on input
+     *
+     * @param isSilent used during loading of file, true if adding of task is to be silent (no success message)
+     * @param type type of task (todo, event, deadline)
+     * @param isDone whether task is done
+     * @param input user input
+     *
+     * @return true if task is added, else false
+     *
+     * @throws InvalidTaskException if input is empty, contains invalid data or in invalid format
+     * @throws IllegalArgumentException if input not on command list
+     * @throws DateTimeParseException if input of event/deadline not in valid datetime form
+     **/
+    public boolean addToTaskList(boolean isSilent, EnumTask type, boolean isDone, String input) {
         try {
             String[] commandList;
             switch (type) {
@@ -77,7 +117,9 @@ public class TaskManager {
                 default:
                     throw new IllegalArgumentException();
             }
-            ui.showToUser(Messages.REPLY_ADD_TASK + taskList.get(taskList.size()-1) + "\n" + getTaskAmount());
+            if (!isSilent) {
+                ui.showToUser(Messages.REPLY_ADD_TASK + taskList.get(taskList.size()-1) + "\n" + getTaskAmount());
+            }
             return true;
         } catch (InvalidTaskException e) {
             ui.showToUser(e.getMessage());
@@ -85,17 +127,29 @@ public class TaskManager {
         } catch (IllegalArgumentException e) {
             ui.showToUser(UnknownCommandException.ERROR);
             return false;
+        } catch (DateTimeParseException e) {
+            ui.showToUser(InvalidTaskException.REPLY_INVALID_DATE_FORMAT);
+            return false;
         }
     }
 
+    /**
+     * Mark task of specified index
+     *
+     * @param command whether 'mark' or 'unmark'
+     * @param taskIndex index of task in taskList
+     *
+     * @return boolean true if task is marked/unmarked, else false
+     *
+     * @throws UnknownCommandException if task index is invalid or in invalid form
+     **/
     public boolean markTask(String command, int taskIndex) {
-
         boolean success = false;
         try {
             if (taskList.isEmpty()) {
                 throw new UnknownCommandException(UnknownCommandException.EMPTY);
             }
-            if (taskIndex<0 || taskList.size()<taskIndex) {
+            if (taskIndex == 0 || taskIndex<0 || taskList.size()<taskIndex) {
                 throw new UnknownCommandException();
             }
             taskIndex--;
@@ -126,23 +180,40 @@ public class TaskManager {
         }
     }
 
-    public void deleteTask(int taskIndex) {
+    /**
+     * Delete task of specified task index
+     *
+     * @param taskIndex index of task to be deleted
+     *
+     * @return boolean true if task is deleted, else false
+     *
+     * @throws UnknownCommandException if task index is invalid or in invalid form
+     **/
+    public boolean deleteTask(int taskIndex) {
         try {
             if (taskList.isEmpty()) {
                 throw new UnknownCommandException(UnknownCommandException.EMPTY);
             }
-            if (taskIndex < 1 || taskList.size()<taskIndex) {
+            if (taskIndex == 0 || taskIndex < 0 || taskList.size()<taskIndex) {
                 throw new UnknownCommandException();
             }
+            taskIndex--;
             String output = Messages.REPLY_DELETE_TASK + taskList.get(taskIndex).toString() + "\n";
             taskList.remove(taskIndex);
             output += getTaskAmount();
             ui.showToUser(output);
+            return true;
         } catch (UnknownCommandException e) {
             ui.showToUser(e.getMessage());
+            return false;
             }
         }
 
+    /**
+     * Calls TaskEncoder.encodeTaskList to encode tasks
+     *
+     * @return string ArrayList with encoded tasks
+     **/
     public ArrayList<String> getAllTask() {
         return TaskEncoder.encodeTaskList(taskList);
     }

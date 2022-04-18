@@ -2,8 +2,11 @@ package zhixuan.duke.ui;
 
 import java.io.PrintStream;
 
-import static zhixuan.duke.common.Messages.*;
+import zhixuan.duke.common.Messages;
 
+/**
+ * Text UI of the application.
+ */
 public class DukeUI {
 
     private final PrintStream out;
@@ -16,17 +19,26 @@ public class DukeUI {
         this.out = out;
     }
 
+    /** Shows message(s) to the user */
     public void showToUser(String message) {
         out.println(message);
     }
 
+    /**
+     * Generates and prints the welcome message upon the start of the application.
+     *
+     * @param success true if file exists and loaded into application, else false
+     */
     public void printWelcomeMessage(boolean success) {
-        showToUser(MESSAGE_LOGO);
-        showToUser(getWelcomeMessage(success));
+        showToUser(Messages.MESSAGE_LOGO);
+        showToUser(Messages.getWelcomeMessage(success));
     }
 
+    /**
+     * Generates and prints the exit message upon the end of the application.
+     */
     public void printEndingMessage() {
-        showToUser(MESSAGE_GOODBYE);
+        showToUser(Messages.MESSAGE_GOODBYE);
     }
 
 }

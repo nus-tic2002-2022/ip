@@ -1,0 +1,4 @@
+T | 0 |  borrow book | 
+T | 0 |  play games | 
+D | 1 |  return book  | 
+E | 0 |  project meeting  | 

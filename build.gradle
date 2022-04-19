@@ -1,0 +1,22 @@
+plugins{
+	id 'java'
+}
+
+jar{
+	manifest {
+		attributes 'Main-Class': 'Duke'
+	}
+}
+
+repositories { 
+	mavenCentral() 
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.1'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.1'
+}

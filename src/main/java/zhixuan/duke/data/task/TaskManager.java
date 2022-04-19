@@ -1,6 +1,8 @@
 package zhixuan.duke.data.task;
 
+import zhixuan.duke.data.exceptions.InvalidFileException;
 import zhixuan.duke.parser.DateParser;
+import zhixuan.duke.storage.StorageFile;
 import zhixuan.duke.storage.TaskEncoder;
 import zhixuan.duke.ui.DukeUI;
 import zhixuan.duke.common.EnumTask;
@@ -20,7 +22,7 @@ public class TaskManager {
 
     private static TaskManager taskManager;
     private final DukeUI ui;
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * TaskManager constructor
@@ -91,6 +93,7 @@ public class TaskManager {
      * @throws InvalidTaskException if input is empty, contains invalid data or in invalid format
      * @throws IllegalArgumentException if input not on command list
      * @throws DateTimeParseException if input of event/deadline not in valid datetime form
+     * @throws ArrayIndexOutOfBoundsException if loaded file has invalid data
      **/
     public boolean addToTaskList(boolean isSilent, EnumTask type, boolean isDone, String input) {
         try {
@@ -130,6 +133,9 @@ public class TaskManager {
         } catch (DateTimeParseException e) {
             ui.showToUser(InvalidTaskException.REPLY_INVALID_DATE_FORMAT);
             return false;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showToUser(InvalidFileException.FILE_ERROR);
+            return false;
         }
     }
 
@@ -144,7 +150,7 @@ public class TaskManager {
      * @throws UnknownCommandException if task index is invalid or in invalid form
      **/
     public boolean markTask(String command, int taskIndex) {
-        boolean success = false;
+        boolean isSuccessful = false;
         try {
             if (taskList.isEmpty()) {
                 throw new UnknownCommandException(UnknownCommandException.EMPTY);
@@ -155,16 +161,16 @@ public class TaskManager {
             taskIndex--;
             String reply = "";
             if (command.equals("mark")) {
-                success = taskList.get(taskIndex).markAsDone();
-                if (success) {
+                isSuccessful = taskList.get(taskIndex).markAsDone();
+                if (isSuccessful) {
                     reply = Messages.REPLY_MARK_TASK;
                 } else {
                     reply = Messages.REPLY_ALR_MARK_TASK;
                 }
             }
             else if (command.equals("unmark")) {
-                success = taskList.get(taskIndex).markAsUndone();
-                if (success) {
+                isSuccessful = taskList.get(taskIndex).markAsUndone();
+                if (isSuccessful) {
                     reply = Messages.REPLY_UNMARK_TASK;
                 } else {
                     reply = Messages.REPLY_ALR_UNMARK_TASK;
@@ -173,7 +179,7 @@ public class TaskManager {
 
             reply = reply.concat("\n").concat(taskList.get(taskIndex).toString());
             ui.showToUser(reply);
-            return success;
+            return isSuccessful;
         } catch (UnknownCommandException e) {
             ui.showToUser(e.getMessage());
             return false;
@@ -198,10 +204,10 @@ public class TaskManager {
                 throw new UnknownCommandException();
             }
             taskIndex--;
-            String output = Messages.REPLY_DELETE_TASK + taskList.get(taskIndex).toString() + "\n";
+            String reply = Messages.REPLY_DELETE_TASK + taskList.get(taskIndex).toString() + "\n";
             taskList.remove(taskIndex);
-            output += getTaskAmount();
-            ui.showToUser(output);
+            reply += getTaskAmount();
+            ui.showToUser(reply);
             return true;
         } catch (UnknownCommandException e) {
             ui.showToUser(e.getMessage());
@@ -238,6 +244,23 @@ public class TaskManager {
             ui.showToUser(e.getMessage());
         } catch (DateTimeParseException e) {
             ui.showToUser(InvalidTaskException.REPLY_INVALID_DATE_FORMAT);
+        }
+    }
+
+    /**
+     * Load new file chosen by user
+     *
+     * Clears taskList first
+     * Calls StorageFile commands
+     **/
+    public void loadNewFile() {
+        taskList.clear();
+        if (!StorageFile.loadUserFile()) {
+            ui.showToUser(InvalidFileException.FILE_ERROR);
+            StorageFile.loadFile(StorageFile.getDefaultLocation());
+        } else {
+            ui.showToUser(Messages.REPLY_FILE_LOADED);
+            listTask();
         }
     }
 

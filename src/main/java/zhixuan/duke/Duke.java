@@ -1,5 +1,6 @@
 package zhixuan.duke;
 
+import java.io.File;
 import java.util.Scanner;
 
 import zhixuan.duke.storage.StorageFile;
@@ -15,6 +16,8 @@ import zhixuan.duke.parser.Parser;
 public class Duke {
 
     private DukeUI ui;
+    private final File defaultFileLocation = StorageFile.getDefaultLocation();
+    private File fileLocation = defaultFileLocation;
 
     public static void main(String[] args) {
         new Duke().run();
@@ -29,7 +32,7 @@ public class Duke {
      **/
     public void run() {
         ui = new DukeUI();
-        ui.printWelcomeMessage(StorageFile.loadFile());
+        ui.printWelcomeMessage(StorageFile.loadFile(defaultFileLocation));
         readCommandTillExitLoop();
     }
 
@@ -43,7 +46,10 @@ public class Duke {
             command = pr.processInput();
             boolean isUpdated = command.execute();
             if (isUpdated) {
-                StorageFile.saveFile();
+                if (StorageFile.isLoadedNewFile) {
+                    fileLocation = StorageFile.loadedFile;
+                }
+                StorageFile.saveFile(fileLocation);
             }
         }
     }

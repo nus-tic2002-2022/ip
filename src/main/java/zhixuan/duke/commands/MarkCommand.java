@@ -11,7 +11,7 @@ public class MarkCommand extends Command {
     public static final String UNMARK_COMMAND = "unmark";
 
     private final int index;
-    private String command;
+    private final String command;
 
     /**
      * Constructor with command (mark/unmark) and index

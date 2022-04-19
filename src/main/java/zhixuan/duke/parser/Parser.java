@@ -56,6 +56,10 @@ public class Parser {
             return new ListCommand();
         }
 
+        if (LoadCommand.LOAD_COMMAND.equals(command)) {
+            return new LoadCommand();
+        }
+
         String[] commandList = command.split(" ");
         if (commandList.length < 2) {
             throw new UnsupportedOperationException();

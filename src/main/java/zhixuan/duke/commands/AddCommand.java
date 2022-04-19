@@ -13,8 +13,8 @@ public class AddCommand extends Command {
 
     private final String type;
     private final String command;
-    private boolean isDone;
-    private boolean isSilent;
+    private final boolean isDone;
+    private final boolean isSilent;
 
     /**
      * Constructor for normal add task
@@ -40,5 +40,4 @@ public class AddCommand extends Command {
     public boolean execute() {
         return TaskManager.getInstance().addToTaskList(isSilent, EnumTask.valueOf(type), isDone, command);
     }
-    
 }

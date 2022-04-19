@@ -24,13 +24,13 @@ public class TaskDecoder {
 
         String[] task = input.split("\\|");
 
-        if (input.startsWith("T")) {
+        if (input.startsWith("TODO")) {
             return new AddCommand(true, "todo", Boolean.parseBoolean((task[1].trim())), task[2].trim()).execute();
         }
-        else if (input.startsWith("E")) {
+        else if (input.startsWith("EVENT")) {
             return new AddCommand(true, "event", Boolean.parseBoolean((task[1].trim())), task[2] + " /at " + task[3].trim()).execute();
         }
-        else if (input.startsWith("D")) {
+        else if (input.startsWith("DEADLINE")) {
             return new AddCommand(true, "deadline", Boolean.parseBoolean((task[1].trim())), task[2] + " /by " + task[3].trim()).execute();
         }
         return false;

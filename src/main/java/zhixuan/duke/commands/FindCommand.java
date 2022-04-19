@@ -9,7 +9,7 @@ public class FindCommand extends Command {
 
     public static final String FIND_COMMAND = "find";
 
-    private String date;
+    private final String date;
 
     /**
      * Constructor with date string

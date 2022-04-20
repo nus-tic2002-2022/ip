@@ -75,7 +75,7 @@ public class Parser {
                     int index = Integer.parseInt(commandList[1]);
                     return new MarkCommand(commandList[0], index);
                 } catch (NumberFormatException e) {
-                    throw new IndexOutOfBoundsException();
+                    return new InvalidCommand("empty");
                 }
             case AddCommand.TODO_COMMAND:
             case AddCommand.EVENT_COMMAND:
@@ -83,21 +83,32 @@ public class Parser {
                 return new AddCommand(commandList[0], command.replaceFirst(commandList[0] + " ", ""));
             case DeleteCommand.DELETE_COMMAND:
                 if (commandList.length > 2) {
-                    throw new UnsupportedOperationException();
+                    return new InvalidCommand("empty");
                 }
                 try {
                     int index = Integer.parseInt(commandList[1]);
                     return new DeleteCommand(index);
                 } catch (NumberFormatException e) {
-                    throw new IndexOutOfBoundsException();
+                    return new InvalidCommand("empty");
                 }
             case FindCommand.FIND_COMMAND:
                 if (commandList.length > 2) {
-                    throw new UnsupportedOperationException();
+                    return new InvalidCommand("empty");
                 }
                 return new FindCommand(commandList[1]);
+            case SnoozeCommand.SNOOZE_COMMAND:
+                if (commandList.length > 4) {
+                    return new InvalidCommand("empty");
+                }
+                try {
+                    int index = Integer.parseInt(commandList[1]);
+                    int amount = Integer.parseInt(commandList[3]);
+                    return new SnoozeCommand(index, commandList[2], amount);
+                } catch (NumberFormatException e) {
+                    return new InvalidCommand("empty");
+                }
             default:
-                throw new UnsupportedOperationException();
+                return new InvalidCommand("empty");
         }
     }
 

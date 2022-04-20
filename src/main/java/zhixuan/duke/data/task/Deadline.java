@@ -29,7 +29,11 @@ public class Deadline extends Task {
      * @return due date in LocalDateTime
      **/
     public LocalDateTime getDueDate() {
-        return this.dueDate;
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime newDueDate) {
+        dueDate = newDueDate;
     }
 
     /**

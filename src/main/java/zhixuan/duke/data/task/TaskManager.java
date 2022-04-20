@@ -1,5 +1,6 @@
 package zhixuan.duke.data.task;
 
+import zhixuan.duke.common.EnumDateTime;
 import zhixuan.duke.data.exceptions.InvalidFileException;
 import zhixuan.duke.parser.DateParser;
 import zhixuan.duke.storage.StorageFile;
@@ -10,6 +11,8 @@ import zhixuan.duke.data.exceptions.InvalidTaskException;
 import zhixuan.duke.data.exceptions.UnknownCommandException;
 import zhixuan.duke.common.Messages;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -118,7 +121,9 @@ public class TaskManager {
                     taskList.add(new Event(commandList[0].trim(), isDone, commandList[1].trim()));
                     break;
                 default:
-                    throw new IllegalArgumentException();
+                    String errorMessage = "Invalid task type.";
+                    assert false : errorMessage;
+                    throw new AssertionError(errorMessage);
             }
             if (!isSilent) {
                 ui.showToUser(Messages.REPLY_ADD_TASK + taskList.get(taskList.size()-1) + "\n" + getTaskAmount());
@@ -216,6 +221,24 @@ public class TaskManager {
     }
 
     /**
+     * Checks if input is in valid date format (yyyy-MM-dd)
+     *
+     * @param input String to be checked
+     *
+     * @throws ParseException if input is not in date format
+     **/
+    public boolean isDateFormat(String input) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(input.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Find task of specified date
      *
      * @param dateTime date to be searched
@@ -223,7 +246,7 @@ public class TaskManager {
      * @throws UnknownCommandException if list is empty or has invalid characters
      * @throws DateTimeParseException if date is not in correct format
      **/
-    public void findTask(String dateTime) {
+    public void findTaskWithDate(String dateTime) {
         try {
             String list = "";
             LocalDateTime parsedDateTime = DateParser.parseStringToDateTime(dateTime);
@@ -248,6 +271,37 @@ public class TaskManager {
     }
 
     /**
+     * Find task with specified keyword
+     * Calls isDateFormat and findTaskWithDate if input is date
+     *
+     * @param input String to be checked
+     **/
+    public void findTask (String input) {
+        if (isDateFormat(input)) {
+            findTaskWithDate(input);
+        } else {
+            try {
+                String list = "";
+                if (taskList.isEmpty()) {
+                    throw new UnknownCommandException(UnknownCommandException.EMPTY);
+                }
+                for (Task task : taskList) {
+                    if (task.containsKeyword(input)) {
+                        list = list.concat(task.toString());
+                    }
+                }
+                if (list.isEmpty()) {
+                    ui.showToUser(Messages.REPLY_NO_TASK_FOUND);
+                } else {
+                    ui.showToUser(Messages.REPLY_TASK_FOUND + list);
+                }
+            } catch (UnknownCommandException e) {
+                ui.showToUser(e.getMessage());
+            }
+        }
+    }
+
+    /**
      * Load new file chosen by user
      *
      * Clears taskList first
@@ -261,6 +315,61 @@ public class TaskManager {
         } else {
             ui.showToUser(Messages.REPLY_FILE_LOADED);
             listTask();
+        }
+    }
+
+    /**
+     * Snooze (add) due date of given task
+     *
+     * @param taskIndex index of task to be snoozed
+     * @param DateTime type of date/time
+     * @param amount amount of time to be added
+     *
+     * @throws UnknownCommandException if empty or has invalid index
+     * @throws InvalidTaskException if given task is a Todo task
+     **/
+    public boolean snoozeTask(int taskIndex, EnumDateTime DateTime, int amount) {
+        try {
+            String reply = "";
+            LocalDateTime dueDate;
+            if (taskList.isEmpty()) {
+                throw new UnknownCommandException(UnknownCommandException.EMPTY);
+            }
+            if (taskIndex == 0 || taskIndex < 0 || taskList.size()<taskIndex) {
+                throw new UnknownCommandException();
+            }
+            taskIndex--;
+            if ((taskList.get(taskIndex) instanceof Todo)) {
+                throw new InvalidTaskException(InvalidTaskException.REPLY_INVALID_TASK);
+            }
+            Task selectedTask = taskList.get(taskIndex);
+            dueDate = selectedTask.getDueDate();
+            switch (DateTime) {
+                case YEAR:
+                    selectedTask.setDueDate(dueDate.plusYears(amount));
+                    break;
+                case MONTH:
+                    selectedTask.setDueDate(dueDate.plusMonths(amount));
+                    break;
+                case DAY:
+                    selectedTask.setDueDate(dueDate.plusDays(amount));
+                    break;
+                case HOUR:
+                    selectedTask.setDueDate(dueDate.plusHours(amount));
+                    break;
+                case MINUTE:
+                    selectedTask.setDueDate(dueDate.plusMinutes(amount));
+                    break;
+            }
+            reply = reply.concat(Messages.REPLY_DUEDATETIME_ADDED + amount + " " + DateTime + Messages.REPLY_DUEDATETIME_TO);
+            ui.showToUser(reply + selectedTask);
+            return true;
+        } catch (UnknownCommandException e) {
+            ui.showToUser(e.getMessage());
+            return false;
+        } catch (InvalidTaskException e) {
+            ui.showToUser(e.getMessage());
+            return false;
         }
     }
 

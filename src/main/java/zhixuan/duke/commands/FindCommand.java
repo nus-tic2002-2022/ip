@@ -3,24 +3,24 @@ package zhixuan.duke.commands;
 import zhixuan.duke.data.task.TaskManager;
 
 /**
- * Find task based on specified day
+ * Find task based on specified date or keyword
  */
 public class FindCommand extends Command {
 
     public static final String FIND_COMMAND = "find";
 
-    private final String date;
+    private final String input;
 
     /**
-     * Constructor with date string
+     * Constructor with input string
      */
-    public FindCommand(String date) {
-        this.date = date;
+    public FindCommand(String input) {
+        this.input = input;
     }
 
     @Override
     public boolean execute() {
-        TaskManager.getInstance().findTask(date);
+        TaskManager.getInstance().findTask(input);
         return false;
     }
 }

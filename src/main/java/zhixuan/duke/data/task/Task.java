@@ -1,6 +1,8 @@
 package zhixuan.duke.data.task;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Generic Task class
@@ -38,6 +40,29 @@ public class Task {
      **/
     public LocalDateTime getDueDate() {
         return dueDate;
+    }
+
+    /**
+     * Getter for description
+     *
+     * @return String description
+     **/
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDueDate(LocalDateTime newDueDate) {
+        dueDate = newDueDate;
+    }
+
+    /**
+     * Checker for keyword in description
+     *
+     * @return boolean true if keyword is in description, else false
+     **/
+    public boolean containsKeyword(String input) {
+        List<String> descriptionList = Arrays.asList(getDescription().toLowerCase().split(" "));
+        return descriptionList.contains(input.toLowerCase());
     }
 
     /**

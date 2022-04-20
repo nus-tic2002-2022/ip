@@ -30,7 +30,11 @@ public class Event extends Task {
      **/
     @Override
     public LocalDateTime getDueDate() {
-        return this.dueDate;
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime newDueDate) {
+        dueDate = newDueDate;
     }
 
     /**

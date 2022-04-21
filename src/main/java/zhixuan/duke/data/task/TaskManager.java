@@ -97,6 +97,7 @@ public class TaskManager {
      * @throws IllegalArgumentException if input not on command list
      * @throws DateTimeParseException if input of event/deadline not in valid datetime form
      * @throws ArrayIndexOutOfBoundsException if loaded file has invalid data
+     * @throws AssertionError if receive unexpected type
      **/
     public boolean addToTaskList(boolean isSilent, EnumTask type, boolean isDone, String input) {
         try {
@@ -327,6 +328,7 @@ public class TaskManager {
      *
      * @throws UnknownCommandException if empty or has invalid index
      * @throws InvalidTaskException if given task is a Todo task
+     * @throws AssertionError if given date/time type not found
      **/
     public boolean snoozeTask(int taskIndex, EnumDateTime DateTime, int amount) {
         try {
@@ -360,6 +362,10 @@ public class TaskManager {
                 case MINUTE:
                     selectedTask.setDueDate(dueDate.plusMinutes(amount));
                     break;
+                default:
+                    String errorMessage = "Invalid date/time type.";
+                    assert false : errorMessage;
+                    throw new AssertionError(errorMessage);
             }
             reply = reply.concat(Messages.REPLY_DUEDATETIME_ADDED + amount + " " + DateTime + Messages.REPLY_DUEDATETIME_TO);
             ui.showToUser(reply + selectedTask);

@@ -26,6 +26,8 @@ public class Messages {
     public static final String REPLY_FILE_LOADED = "File is successfully loaded.";
     public static final String REPLY_DUEDATETIME_ADDED = "Added ";
     public static final String REPLY_DUEDATETIME_TO = " to the date.\n" + "The new date is: ";
+    public static final String REPLY_CREATED_DIRECTORY = "I have created a new file directory, 'user-files'.\n" +
+            "It will contain the list of tasks and load automatically upon boot!";
 
     /**
      * Getter for welcome message upon start of application

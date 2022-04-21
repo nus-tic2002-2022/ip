@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import zhixuan.duke.common.Messages;
 import zhixuan.duke.data.task.*;
 import zhixuan.duke.ui.DukeUI;
 import zhixuan.duke.data.exceptions.InvalidFileException;
@@ -22,6 +23,7 @@ import javax.swing.filechooser.FileSystemView;
  **/
 public class StorageFile {
 
+    public static boolean isFirstBoot = false;
     public static boolean isLoadedNewFile = false;
     public static File loadedFile;
 
@@ -37,6 +39,7 @@ public class StorageFile {
         File directory = new File(directoryName);
         if (!directory.exists()){
             directory.mkdir();
+            isFirstBoot = true;
         }
         return directoryName;
     }
@@ -106,7 +109,11 @@ public class StorageFile {
             new DukeUI().showToUser(InvalidFileException.FILE_ERROR);
             return false;
         } catch (InvalidFileException e){
-            new DukeUI().showToUser(InvalidFileException.FILE_ERROR);
+            if (!isFirstBoot) {
+                new DukeUI().showToUser(InvalidFileException.FILE_ERROR);
+            } else {
+                new DukeUI().showToUser(Messages.REPLY_CREATED_DIRECTORY);
+            }
             return false;
         }
     }

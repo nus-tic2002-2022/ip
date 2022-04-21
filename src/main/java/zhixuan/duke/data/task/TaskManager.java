@@ -256,7 +256,7 @@ public class TaskManager {
             }
             for (Task task : taskList) {
                 if (!(task instanceof Todo) && DateParser.compareDateTime(parsedDateTime, task.getDueDate())) {
-                    list = list.concat(task.toString());
+                    list = list.concat(task + "\n");
                 }
             }
             if (list.isEmpty()) {
@@ -288,7 +288,7 @@ public class TaskManager {
                 }
                 for (Task task : taskList) {
                     if (task.containsKeyword(input)) {
-                        list = list.concat(task.toString());
+                        list = list.concat(task + "\n");
                     }
                 }
                 if (list.isEmpty()) {

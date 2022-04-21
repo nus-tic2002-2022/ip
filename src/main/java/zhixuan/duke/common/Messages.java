@@ -6,6 +6,7 @@ package zhixuan.duke.common;
 public class Messages {
 
     public static final String MESSAGE_GOODBYE = "Bye bye!";
+    public static final String MESSAGE_LINE = "---------------------------------------";
     public static final String MESSAGE_LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"

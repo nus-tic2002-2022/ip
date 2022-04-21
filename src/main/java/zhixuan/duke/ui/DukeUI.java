@@ -21,7 +21,7 @@ public class DukeUI {
 
     /** Shows message(s) to the user */
     public void showToUser(String message) {
-        out.println(message);
+        out.println(message + "\n" + Messages.MESSAGE_LINE);
     }
 
     /**

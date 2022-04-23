@@ -3,6 +3,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Duke {
+    public static class DukeException extends Exception{
+        public DukeException(String str)
+        {
+            super(str);
+        }
+    }
+
     public static class Task {
         protected String description, taskType;
         protected boolean isDone;
@@ -120,38 +127,59 @@ public class Duke {
             } else if(userInput.startsWith("list")){
                 showTaskList(taskList, taskCounter);
             } else if(userInput.startsWith("todo")){
-                commandTracker = userInput.indexOf(' ');
-                if (commandTracker>0) {
-                    userContent = userInput.substring(commandTracker + 1);
-                    taskList[taskCounter] = new ToDo(userContent);
-                    System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
-                    taskCounter++;
-                    System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                try {
+                    commandTracker = userInput.indexOf(' ');
+                    if (commandTracker <= 0) {//used to be if
+                        throw new DukeException("No description found for todo!");
+                    } else {
+                        userContent = userInput.substring(commandTracker + 1);
+                        taskList[taskCounter] = new ToDo(userContent);
+                        System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
+                        taskCounter++;
+                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                    }
+                }catch (DukeException e){
+                    System.out.println("Caught the exception");
+                    System.out.println("Exception occured: " + e);
                 }
             } else if(userInput.startsWith("deadline")){
-                commandTracker = userInput.indexOf(' ');
-                if (commandTracker>0) {
-                    dateTracker = userInput.indexOf('/');
-                    userDate = userInput.substring(dateTracker + 1);
-                    userContent = userInput.substring(commandTracker + 1, dateTracker-1);
-                    taskList[taskCounter] = new Deadline(userContent, userDate);
-                    System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
-                    taskCounter++;
-                    System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                try {
+                    commandTracker = userInput.indexOf(' ');
+                    if (commandTracker <= 0) {//used to be if
+                        throw new DukeException("No description found for deadline!");
+                    } else {
+                        dateTracker = userInput.indexOf('/');
+                        userDate = userInput.substring(dateTracker + 1);
+                        userContent = userInput.substring(commandTracker + 1, dateTracker - 1);
+                        taskList[taskCounter] = new Deadline(userContent, userDate);
+                        System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
+                        taskCounter++;
+                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                    }
+                }catch (DukeException e){
+                    System.out.println("Caught the exception");
+                    System.out.println("Exception occured: " + e);
                 }
             } else if(userInput.startsWith("event")){
-                commandTracker = userInput.indexOf(' ');
-                if (commandTracker>0) {
-                    dateTracker = userInput.indexOf('/');
-                    userDate = userInput.substring(dateTracker + 1);
-                    userContent = userInput.substring(commandTracker + 1, dateTracker-1);
-                    taskList[taskCounter] = new Event(userContent, userDate);
-                    System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
-                    taskCounter++;
-                    System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                try {
+                    commandTracker = userInput.indexOf(' ');
+                    if (commandTracker <= 0) {//used to be if
+                        throw new DukeException("No description found for event!");
+                    } else {
+                        dateTracker = userInput.indexOf('/');
+                        userDate = userInput.substring(dateTracker + 1);
+                        userContent = userInput.substring(commandTracker + 1, dateTracker - 1);
+                        taskList[taskCounter] = new Event(userContent, userDate);
+                        System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
+                        taskCounter++;
+                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                    }
+                }catch (DukeException e){
+                    System.out.println("Caught the exception");
+                    System.out.println("Exception occured: " + e);
                 }
             } else {
-                System.out.println("    Something need doing?"); //do stuff here after input
+                System.out.println("    Something need doing? Unrecognized commands!"); //do stuff here after input
             }
 
             System.out.println("    ____________________________________________________________");

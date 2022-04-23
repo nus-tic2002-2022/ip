@@ -4,12 +4,13 @@ import java.util.Arrays;
 
 public class Duke {
     public static class Task {
-        protected String description;
+        protected String description, taskType;
         protected boolean isDone;
 
         public Task(String description) {
             this.description = description;
             this.isDone = false;
+            //this.taskType = " ";
         }
 
         public String getStatusIcon() {
@@ -19,6 +20,7 @@ public class Duke {
         public String getDescription() {
             return description;
         }
+        //public String getTaskType() { return taskType; }
 
         public void setDescription(String description) {
             this.description = description;
@@ -29,14 +31,56 @@ public class Duke {
         public void setNotDone() {
             this.isDone = false;
         }
-        public void showTaskStatus() {
-            System.out.println("        " + "[" + getStatusIcon() + "] " + getDescription());
+        public String toString() {
+            return "[" + getStatusIcon() + "] " + getDescription();
+
         }
     }
+    public static class ToDo extends Task {
+        public ToDo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public static class Deadline extends Task {
+
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    public static class Event extends Task {
+
+        protected String at;
+
+        public Event(String description, String at) {
+            super(description);
+            this.at = at;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (at: " + at + ")";
+        }
+    }
+
     public static void showTaskList(Task[] taskList, int taskCounter){
         int counter = 1;
         for (int i = 0; i < taskCounter; i++) {
-            System.out.println("    " + counter + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+            System.out.println("    " + counter + "." + taskList[i].toString());
             counter++;
         }
     }
@@ -51,7 +95,9 @@ public class Duke {
          */
         Task[] taskList = new Task[100];
         String userInput = "notBye";
+        String userCommand, userContent, userDate;
         int taskCounter = 0;
+        int commandTracker, dateTracker;
         //ArrayList<Task> taskList = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
@@ -62,35 +108,53 @@ public class Duke {
 
         do {
             userInput = in.nextLine();
+
             if(userInput.startsWith("mark")){
                 taskList[Integer.parseInt(userInput.substring(5))-1].setIsDone();
                 System.out.println("    Job's done:");
-                taskList[Integer.parseInt(userInput.substring(5))-1].showTaskStatus();
+                System.out.println("    " + taskList[Integer.parseInt(userInput.substring(5))-1].toString());
             } else if(userInput.startsWith("unmark")){
                 taskList[Integer.parseInt(userInput.substring(7))-1].setNotDone();
                 System.out.println("    Job IS NOT done:");
-                taskList[Integer.parseInt(userInput.substring(7))-1].showTaskStatus();
+                System.out.println("    " + taskList[Integer.parseInt(userInput.substring(7))-1].toString());
             } else if(userInput.startsWith("list")){
                 showTaskList(taskList, taskCounter);
+            } else if(userInput.startsWith("todo")){
+                commandTracker = userInput.indexOf(' ');
+                if (commandTracker>0) {
+                    userContent = userInput.substring(commandTracker + 1);
+                    taskList[taskCounter] = new ToDo(userContent);
+                    System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
+                    taskCounter++;
+                    System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                }
+            } else if(userInput.startsWith("deadline")){
+                commandTracker = userInput.indexOf(' ');
+                if (commandTracker>0) {
+                    dateTracker = userInput.indexOf('/');
+                    userDate = userInput.substring(dateTracker + 1);
+                    userContent = userInput.substring(commandTracker + 1, dateTracker-1);
+                    taskList[taskCounter] = new Deadline(userContent, userDate);
+                    System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
+                    taskCounter++;
+                    System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                }
+            } else if(userInput.startsWith("event")){
+                commandTracker = userInput.indexOf(' ');
+                if (commandTracker>0) {
+                    dateTracker = userInput.indexOf('/');
+                    userDate = userInput.substring(dateTracker + 1);
+                    userContent = userInput.substring(commandTracker + 1, dateTracker-1);
+                    taskList[taskCounter] = new Event(userContent, userDate);
+                    System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
+                    taskCounter++;
+                    System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                }
             } else {
-                taskList[taskCounter] = new Task(userInput);
-                System.out.println("    added: " + userInput); //do stuff here after input
-                taskCounter++;
+                System.out.println("    Something need doing?"); //do stuff here after input
             }
 
             System.out.println("    ____________________________________________________________");
-
- /*           switch (userInput) {
-                case "list": showTaskList(taskList, taskCounter);
-                    break;
-                case "mark": userInput
-                    break;
-
-                default: taskList[taskCounter] = new Task(userInput);
-                    System.out.println("    added: " + userInput); //do stuff here after input
-                    taskCounter++;
-                    break;
-            }*/
             System.out.println("    ____________________________________________________________");
 
 

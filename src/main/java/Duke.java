@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Arrays;
 
 public class Duke {
@@ -11,13 +12,12 @@ public class Duke {
     }
 
     public static class Task {
-        protected String description, taskType;
+        protected String description;
         protected boolean isDone;
 
         public Task(String description) {
             this.description = description;
             this.isDone = false;
-            //this.taskType = " ";
         }
 
         public String getStatusIcon() {
@@ -27,7 +27,6 @@ public class Duke {
         public String getDescription() {
             return description;
         }
-        //public String getTaskType() { return taskType; }
 
         public void setDescription(String description) {
             this.description = description;
@@ -84,11 +83,21 @@ public class Duke {
         }
     }
 
-    public static void showTaskList(Task[] taskList, int taskCounter){
-        int counter = 1;
-        for (int i = 0; i < taskCounter; i++) {
-            System.out.println("    " + counter + "." + taskList[i].toString());
-            counter++;
+    public static void showList(ArrayList<Task> taskList){
+        Iterator<Task> iterator = taskList.iterator();
+
+        while(iterator.hasNext())
+        {
+            System.out.println("    " + iterator.next());
+        }
+    }
+
+    public static boolean isNumber(String userDescription) {
+        try {
+            Integer.parseInt(userDescription);
+            return true;
+        } catch (final NumberFormatException e) {
+            return false;
         }
     }
     public static void main(String[] args) {
@@ -100,12 +109,14 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
          */
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<>();
+
         String userInput = "notBye";
-        String userCommand, userContent, userDate;
+        String userCommand ="", userDescription ="", userDate ="";
+
         int taskCounter = 0;
         int commandTracker, dateTracker;
-        //ArrayList<Task> taskList = new ArrayList<>();
+
         Scanner in = new Scanner(System.in);
 
         System.out.println("    ____________________________________________________________");
@@ -115,71 +126,78 @@ public class Duke {
 
         do {
             userInput = in.nextLine();
-
-            if(userInput.startsWith("mark")){
-                taskList[Integer.parseInt(userInput.substring(5))-1].setIsDone();
-                System.out.println("    Job's done:");
-                System.out.println("    " + taskList[Integer.parseInt(userInput.substring(5))-1].toString());
-            } else if(userInput.startsWith("unmark")){
-                taskList[Integer.parseInt(userInput.substring(7))-1].setNotDone();
-                System.out.println("    Job IS NOT done:");
-                System.out.println("    " + taskList[Integer.parseInt(userInput.substring(7))-1].toString());
-            } else if(userInput.startsWith("list")){
-                showTaskList(taskList, taskCounter);
-            } else if(userInput.startsWith("todo")){
-                try {
+            try {
+                if(userInput.startsWith("list")) {
+                    userCommand = "list";
+                } else {
                     commandTracker = userInput.indexOf(' ');
                     if (commandTracker <= 0) {//used to be if
-                        throw new DukeException("No description found for todo!");
-                    } else {
-                        userContent = userInput.substring(commandTracker + 1);
-                        taskList[taskCounter] = new ToDo(userContent);
-                        System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
-                        taskCounter++;
-                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
-                    }
-                }catch (DukeException e){
-                    System.out.println("Caught the exception");
-                    System.out.println("Exception occured: " + e);
-                }
-            } else if(userInput.startsWith("deadline")){
-                try {
-                    commandTracker = userInput.indexOf(' ');
-                    if (commandTracker <= 0) {//used to be if
-                        throw new DukeException("No description found for deadline!");
-                    } else {
+                        throw new DukeException("Incorrect syntax!");
+                    } else if (userInput.startsWith("todo")) {
+                        userCommand = userInput.substring(0, commandTracker);
+                        userDescription = userInput.substring(commandTracker + 1);
+                    } else if (userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")) {
+                            userCommand = userInput.substring(0, commandTracker);
+                            userDescription = userInput.substring(commandTracker + 1);
+                            if(isNumber(userDescription)){
+                            } else{
+                                throw new DukeException("Not a number!");
+                            }
+                    } else if (userInput.startsWith("deadline") || userInput.startsWith("event")) {
                         dateTracker = userInput.indexOf('/');
+                        userCommand = userInput.substring(0, commandTracker);
+                        userDescription = userInput.substring(commandTracker + 1, dateTracker - 1);
                         userDate = userInput.substring(dateTracker + 1);
-                        userContent = userInput.substring(commandTracker + 1, dateTracker - 1);
-                        taskList[taskCounter] = new Deadline(userContent, userDate);
-                        System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
-                        taskCounter++;
-                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
-                    }
-                }catch (DukeException e){
-                    System.out.println("Caught the exception");
-                    System.out.println("Exception occured: " + e);
-                }
-            } else if(userInput.startsWith("event")){
-                try {
-                    commandTracker = userInput.indexOf(' ');
-                    if (commandTracker <= 0) {//used to be if
-                        throw new DukeException("No description found for event!");
                     } else {
-                        dateTracker = userInput.indexOf('/');
-                        userDate = userInput.substring(dateTracker + 1);
-                        userContent = userInput.substring(commandTracker + 1, dateTracker - 1);
-                        taskList[taskCounter] = new Event(userContent, userDate);
-                        System.out.println("    added: " + taskList[taskCounter].toString()); //do stuff here after input
+                        throw new DukeException("Incorrect Command!");
+                    }
+                }
+                switch (userCommand) {
+                    case "list":
+                        showList(taskList);
+                        break;
+                    case "todo":
+                        taskList.add(new ToDo(userDescription));
+                        System.out.println("    added: " + taskList.get(taskCounter).toString()); //do stuff here after input
                         taskCounter++;
                         System.out.println("    Now you have " + taskCounter + " tasks in the list.");
-                    }
-                }catch (DukeException e){
-                    System.out.println("Caught the exception");
-                    System.out.println("Exception occured: " + e);
+                        break;
+                    case "deadline":
+                        taskList.add(new Deadline(userDescription, userDate));
+                        System.out.println("    added: " + taskList.get(taskCounter).toString()); //do stuff here after input
+                        taskCounter++;
+                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                        break;
+                    case "event":
+                        taskList.add(new Event(userDescription, userDate));
+                        System.out.println("    added: " + taskList.get(taskCounter).toString()); //do stuff here after input
+                        taskCounter++;
+                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                        break;
+                    case "mark":
+                        taskList.get(Integer.parseInt(userDescription) - 1).setIsDone();
+                        System.out.println("    Job's done:");
+                        System.out.println("    " + taskList.get(Integer.parseInt(userDescription) - 1).toString());
+                        break;
+                    case "unmark":
+                        taskList.get(Integer.parseInt(userDescription) - 1).setNotDone();
+                        System.out.println("    Job's UNdone:");
+                        System.out.println("    " + taskList.get(Integer.parseInt(userDescription) - 1).toString());
+                        break;
+                    case "delete":
+                        taskList.remove(Integer.parseInt(userDescription) - 1);
+                        System.out.println("    Job's disappeared:");
+                        System.out.println("    " + taskList.get(Integer.parseInt(userDescription) - 2).toString());
+                        taskCounter--;
+                        System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                        break;
+                    default:
+                        System.out.println("    Tell me correctly what needs doing"); //do stuff here after input
+                        break;
                 }
-            } else {
-                System.out.println("    Something need doing? Unrecognized commands!"); //do stuff here after input
+            }catch (DukeException e){
+                System.out.println("Caught the exception");
+                System.out.println("Exception occurred: " + e);
             }
 
             System.out.println("    ____________________________________________________________");
@@ -189,7 +207,7 @@ public class Duke {
         } while (!userInput.equals("bye"));
 
 
-        System.out.println("    Ciao!");
+        System.out.println("    Off I go then!");
         System.out.println("    ____________________________________________________________");
     }
 }

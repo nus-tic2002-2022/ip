@@ -26,7 +26,7 @@ public class Duke {
      * Parent class of the 3 different types of possible tasks
      */
     public abstract static class Task {
-        protected String description, type;
+        protected String description, type, tag;
         protected LocalDate date;
         protected boolean isDone;
 
@@ -58,6 +58,18 @@ public class Duke {
             this.description = description;
             this.type = type;
             this.isDone = isDone;
+        }
+        /**
+         * Constructor for Task
+         * @param description the activity to be done
+         * @param type the type of Task. used for storing purpose
+         * @param isDone to check if activity has been completed or not
+         */
+        public Task(String description, String type, boolean isDone, String tag) {
+            this.description = description;
+            this.type = type;
+            this.isDone = isDone;
+            this.tag = tag;
         }
         /**
          * Constructor for Task
@@ -116,10 +128,23 @@ public class Duke {
             this.isDone = false;
         }
         /**
+         * Get the tag of the activity
+         * @return the tagging
+         */
+        public String getTag() {
+            return tag;
+        }
+        /**
+         * Update tagging
+         */
+        public void setTag(String tag) {
+            this.tag = tag;
+        }
+        /**
          * Display content of the task in format of [isDone] description
          */
         public String toString() {
-            return "[" + getStatusIcon() + "] " + getDescription();
+            return "[" + getStatusIcon() + "] " + getDescription() + " " + getTag();
 
         }
     }
@@ -150,6 +175,16 @@ public class Duke {
          */
         public ToDo(String description, String type, Boolean isDone) {
             super(description, type, isDone);
+        }
+        /**
+         * Constructor for ToDo
+         * @param description the activity to be done
+         * @param type the type of Task. used for storing purpose
+         * @param isDone to check if activity has been completed or not
+         * @param tag extra notes
+         */
+        public ToDo(String description, String type, Boolean isDone, String tag) {
+            super(description, type, isDone, tag);
         }
         /**
          * Constructor for ToDo
@@ -306,6 +341,23 @@ public class Duke {
         }
     }
     /**
+     * Class to print out all Tasks in the list
+     * @param taskList provide the ArrayList variable of Type Task
+     */
+    public static void showList(ArrayList<Task> taskList, String search){
+        Iterator<Task> iterator = taskList.iterator();
+        Task itr2;
+        int counter = 1;
+        while(iterator.hasNext())
+        {
+            itr2 = iterator.next();
+            if(itr2.getDescription().contains(search)) {
+                System.out.println("    " + counter + ". " + itr2.toString());
+                counter++;
+            }
+        }
+    }
+    /**
      * Check if the string after parsing is a number
      * @param userDescription to check if the string is a number
      */
@@ -326,9 +378,9 @@ public class Duke {
         }
     }
     private static int loadFile(String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
-        String textLine, taskType, taskStatus, taskDescription;
+        String textLine, taskType, taskStatus, taskDescription, taskTag;
         LocalDate taskDate;
-        int dateTracker, counter=0;
+        int dateTracker, tagTracker, counter=0;
         Boolean isDone=false;
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -342,8 +394,10 @@ public class Duke {
                 isDone = false;
             }
             if(taskType.startsWith("T")){
-                taskDescription = textLine.substring(2);
-                taskList.add(new ToDo(taskDescription, taskType, isDone));
+                tagTracker = textLine.indexOf('#');
+                taskDescription = textLine.substring(2, tagTracker);
+                taskTag = textLine.substring(tagTracker);
+                taskList.add(new ToDo(taskDescription, taskType, isDone, taskTag));
             } else if(taskType.startsWith("D")){
                 dateTracker = textLine.indexOf('|');
                 taskDate = LocalDate.parse(textLine.substring(dateTracker+1));
@@ -374,9 +428,8 @@ public class Duke {
         FileWriter fw = new FileWriter(filePath, false);
         Iterator<Task> iterator = taskList.iterator();
         Task itr2;
-        String textLine, taskType, taskStatus, taskDescription;
+        String textLine, taskType, taskStatus, taskTag;
         LocalDate taskDate;
-        int dateTracker;
         Boolean isDone=false;
         int counter = 1;
         while(iterator.hasNext())
@@ -386,6 +439,7 @@ public class Duke {
             taskType = itr2.getType();
             taskStatus = itr2.getStatusIcon();
             taskDate = itr2.getDate();
+            taskTag = itr2.getTag();
             if(taskStatus.equals(" "))
             {
                 taskStatus = "0";
@@ -393,7 +447,7 @@ public class Duke {
                 taskStatus = "1";
             }
             if(taskType.equals("T")){
-                fw.write(taskType + taskStatus + textLine + System.lineSeparator());
+                fw.write(taskType + taskStatus + textLine + taskTag + System.lineSeparator());
             } else if(taskType.equals("D") || taskType.equals("E")){
                 fw.write(taskType + taskStatus + textLine + "|" + taskDate + System.lineSeparator());
             }
@@ -413,11 +467,10 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
          */
 
-        String userInput = "notBye";
-        String userCommand ="", userDescription ="";
+        String userInput = "notBye", userCommand ="", userDescription ="", userTag ="";
         LocalDate userDate = LocalDate.parse("2022-04-24");
         int taskCounter = 0;
-        int commandTracker, dateTracker;
+        int commandTracker, dateTracker, tagTracker;
         Scanner in = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -455,17 +508,26 @@ public class Duke {
                     commandTracker = userInput.indexOf(' ');
                     if (commandTracker <= 0) {//used to be if
                         throw new DukeException("Incorrect syntax!");
-                    } else if (userInput.startsWith("todo")) {
+                    } else if (userInput.startsWith("todo") || userInput.startsWith("find")) {
                         userCommand = userInput.substring(0, commandTracker);
                         userDescription = userInput.substring(commandTracker + 1);
                     } else if (userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")) {
                         userCommand = userInput.substring(0, commandTracker);
-                        userDescription = userInput.substring(commandTracker + 1);
+                        userDescription = userInput.substring(commandTracker + 1); //userDescription is recycled as the task number instead
                         if (isNumber(userDescription)) {
                         } else {
                             throw new DukeException("Not a number!");
                         }
-                    } else if (userInput.startsWith("deadline") || userInput.startsWith("event")) {
+                    } else if (userInput.startsWith("tag")) {
+                        userCommand = userInput.substring(0, commandTracker);
+                        tagTracker = userInput.indexOf('#');
+                        userDescription = userInput.substring(commandTracker + 1, tagTracker-1); //userDescription is recycled as the task number instead
+                        userTag = userInput.substring(tagTracker);
+                        if (isNumber(userDescription)) {
+                        } else {
+                            throw new DukeException("Not a number!!");
+                        }
+                    }else if (userInput.startsWith("deadline") || userInput.startsWith("event")) {
                         dateTracker = userInput.indexOf('/');
                         userCommand = userInput.substring(0, commandTracker);
                         userDescription = userInput.substring(commandTracker + 1, dateTracker - 1);
@@ -477,6 +539,10 @@ public class Duke {
                 switch (userCommand) {
                     case "list":
                         showList(taskList);
+                        break;
+                    case "find":
+                        System.out.println(userDescription);
+                        showList(taskList, userDescription);
                         break;
                     case "todo":
                         taskList.add(new ToDo(userDescription, "T"));
@@ -538,6 +604,16 @@ public class Duke {
                         System.out.println("    " + taskList.get(Integer.parseInt(userDescription) - 2).toString());
                         taskCounter--;
                         System.out.println("    Now you have " + taskCounter + " tasks in the list.");
+                        try {
+                            writeList(f.getPath(), taskList);
+                        } catch (IOException e) {
+                            System.out.println("Something went wrong: " + e.getMessage());
+                        }
+                        break;
+                    case "tag":
+                        taskList.get(Integer.parseInt(userDescription) - 1).setTag(userTag);
+                        System.out.println("    Tagging complete!:");
+                        System.out.println("    " + taskList.get(Integer.parseInt(userDescription) - 1).toString());
                         try {
                             writeList(f.getPath(), taskList);
                         } catch (IOException e) {

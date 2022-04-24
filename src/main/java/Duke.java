@@ -6,8 +6,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 
 public class Duke {
+    /**
+     * Custom exception handling class for Duke
+     */
     public static class DukeException extends Exception{
         public DukeException(String str)
         {
@@ -15,139 +22,280 @@ public class Duke {
         }
     }
 
+    /**
+     * Parent class of the 3 different types of possible tasks
+     */
     public abstract static class Task {
-        protected String description, type, date="";
+        protected String description, type;
+        protected LocalDate date;
         protected boolean isDone;
 
+        /**
+         * Constructor for Task
+         * @param description the activity to be done
+         */
         public Task(String description) {
             this.description = description;
             this.isDone = false;
         }
+        /**
+         * Constructor for Task
+         * @param description the activity to be done
+         * @param type the type of Task. used for storing purpose
+         */
         public Task(String description, String type) {
             this.description = description;
             this.type = type;
             this.isDone = false;
         }
+        /**
+         * Constructor for Task
+         * @param description the activity to be done
+         * @param type the type of Task. used for storing purpose
+         * @param isDone to check if activity has been completed or not
+         */
         public Task(String description, String type, boolean isDone) {
             this.description = description;
             this.type = type;
             this.isDone = isDone;
         }
+        /**
+         * Constructor for Task
+         * @param description the activity to be done
+         * @param isDone to check if activity has been completed or not
+         */
         public Task(String description, boolean isDone) {
             this.description = description;
             this.isDone = isDone;
         }
-
+        /**
+         * Get the result if activity is completed or not
+         * @return the tasks completion status
+         */
         public String getStatusIcon() {
             return (isDone ? "X" : " "); // mark done task with X
         }
-
+        /**
+         * Get the activity to be done
+         * @return the activity in text
+         */
         public String getDescription() {
             return description;
         }
-
+        /**
+         * Get the type of task:
+         * T for ToDo
+         * D for Deadline
+         * E for Event
+         * @return the Task type
+         */
         public String getType() {
             return type;
         }
-        public String getDate(){return date;}
-
+        /**
+         * Get the date in LocalDate format:
+         * @return the date in LocalDate format
+         */
+        public LocalDate getDate(){return date;}
+        /**
+         * Update activity to be done
+         */
         public void setDescription(String description) {
             this.description = description;
         }
+        /**
+         * Mark activity as complete
+         */
         public void setIsDone() {
             this.isDone = true;
         }
+        /**
+         * Mark activity as incomplete
+         */
         public void setNotDone() {
             this.isDone = false;
         }
+        /**
+         * Display content of the task in format of [isDone] description
+         */
         public String toString() {
             return "[" + getStatusIcon() + "] " + getDescription();
 
         }
     }
+    /**
+     * Sub-class ToDo, similar to basic class
+     */
     public static class ToDo extends Task {
+        /**
+         * Constructor for ToDo
+         * @param description the activity to be done
+         */
         public ToDo(String description) {
             super(description);
         }
+        /**
+         * Constructor for ToDo
+         * @param description the activity to be done
+         * @param type the type of Task. used for storing purpose
+         */
         public ToDo(String description, String type) {
             super(description, type);
         }
+        /**
+         * Constructor for ToDo
+         * @param description the activity to be done
+         * @param type the type of Task. used for storing purpose
+         * @param isDone to check if activity has been completed or not
+         */
         public ToDo(String description, String type, Boolean isDone) {
             super(description, type, isDone);
         }
+        /**
+         * Constructor for ToDo
+         * @param description the activity to be done
+         * @param isDone to check if activity has been completed or not
+         */
         public ToDo(String description, Boolean isDone) {
             super(description, isDone);
         }
-
+        /**
+         * Display content of the task in format of [Type][isDone] description
+         * Overrides the parent class method
+         */
         @Override
         public String toString() {
             return "[T]" + super.toString();
         }
 
     }
-
+    /**
+     * Sub-class DeadLine, contains local variable LocalDate
+     */
     public static class Deadline extends Task {
 
-        protected String by;
-
-        public Deadline(String description, String by) {
+        protected LocalDate by;
+        /**
+         * Constructor for Deadline
+         * @param description the activity to be done
+         * @param by date in LocalDate format
+         */
+        public Deadline(String description, LocalDate by) {
             super(description);
             this.by = by;
         }
-        public Deadline(String description, String by, String type, Boolean isDone) {
+        /**
+         * Constructor for Deadline
+         * @param description the activity to be done
+         * @param by date in LocalDate format
+         * @param type the type of Task. used for storing purpose
+         * @param isDone to check if activity has been completed or not
+         */
+        public Deadline(String description, LocalDate by, String type, Boolean isDone) {
             super(description, type, isDone);
             this.by = by;
         }
-        public Deadline(String description, String by, String type) {
+        /**
+         * Constructor for Deadline
+         * @param description the activity to be done
+         * @param by date in LocalDate format
+         * @param type the type of Task. used for storing purpose
+         */
+        public Deadline(String description, LocalDate by, String type) {
             super(description, type);
             this.by = by;
         }
-        public Deadline(String description, String by, Boolean isDone) {
+        /**
+         * Constructor for Deadline
+         * @param description the activity to be done
+         * @param by date in LocalDate format
+         * @param isDone to check if activity has been completed or not
+         */
+        public Deadline(String description, LocalDate by, Boolean isDone) {
             super(description, isDone);
             this.by = by;
         }
-
+        /**
+         * Display content of the task in format of [Type][isDone] description
+         * Overrides the parent class method
+         */
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
+        /**
+         * Get the date in LocalDate format:
+         * @return the date in LocalDate format
+         */
         @Override
-        public String getDate() {
+        public LocalDate getDate() {
             return by;
         }
     }
-
+    /**
+     * Sub-class Event, contains local variable LocalDate
+     */
     public static class Event extends Task {
 
-        protected String at;
-
-        public Event(String description, String at) {
+        protected LocalDate at;
+        /**
+         * Constructor for Event
+         * @param description the activity to be done
+         * @param at date in LocalDate format
+         */
+        public Event(String description, LocalDate at) {
             super(description);
             this.at = at;
-        }
-        public Event(String description, String at, String type, Boolean isDone) {
+        }/**
+         * Constructor for Event
+         * @param description the activity to be done
+         * @param at date in LocalDate format
+         * @param type the type of Task. used for storing purpose
+         * @param isDone to check if activity has been completed or not
+         */
+        public Event(String description, LocalDate at, String type, Boolean isDone) {
             super(description, type, isDone);
             this.at = at;
-        }
-        public Event(String description, String at, String type) {
+        }/**
+         * Constructor for Event
+         * @param description the activity to be done
+         * @param at date in LocalDate format
+         * @param type the type of Task. used for storing purpose
+         */
+        public Event(String description, LocalDate at, String type) {
             super(description, type);
             this.at = at;
-        }
-        public Event(String description, String at, Boolean isDone) {
+        }/**
+         * Constructor for Event
+         * @param description the activity to be done
+         * @param at date in LocalDate format
+         * @param isDone to check if activity has been completed or not
+         */
+        public Event(String description, LocalDate at, Boolean isDone) {
             super(description, isDone);
             this.at = at;
         }
-
+        /**
+         * Display content of the task in format of [Type][isDone] description
+         * Overrides the parent class method
+         */
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (at: " + at + ")";
+            return "[E]" + super.toString() + " (at: " + at.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
+        /**
+         * Get the date in LocalDate format:
+         * @return the date in LocalDate format
+         */
         @Override
-        public String getDate() {
+        public LocalDate getDate() {
             return at;
         }
     }
-
+    /**
+     * Class to print out all Tasks in the list
+     * @param taskList provide the ArrayList variable of Type Task
+     */
     public static void showList(ArrayList<Task> taskList){
         Iterator<Task> iterator = taskList.iterator();
         int counter = 1;
@@ -157,7 +305,10 @@ public class Duke {
             counter++;
         }
     }
-
+    /**
+     * Check if the string after parsing is a number
+     * @param userDescription to check if the string is a number
+     */
     public static boolean isNumber(String userDescription) {
         try {
             Integer.parseInt(userDescription);
@@ -175,7 +326,8 @@ public class Duke {
         }
     }
     private static int loadFile(String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
-        String textLine, taskType, taskStatus, taskDescription, taskDate;
+        String textLine, taskType, taskStatus, taskDescription;
+        LocalDate taskDate;
         int dateTracker, counter=0;
         Boolean isDone=false;
         File f = new File(filePath); // create a File for the given file path
@@ -194,12 +346,12 @@ public class Duke {
                 taskList.add(new ToDo(taskDescription, taskType, isDone));
             } else if(taskType.startsWith("D")){
                 dateTracker = textLine.indexOf('|');
-                taskDate = textLine.substring(dateTracker+2);
+                taskDate = LocalDate.parse(textLine.substring(dateTracker+1));
                 taskDescription = textLine.substring(2, dateTracker);
                 taskList.add(new Deadline(taskDescription + " ", taskDate, taskType, isDone));
             } else if(taskType.startsWith("E")){
                 dateTracker = textLine.indexOf('|');
-                taskDate = textLine.substring(dateTracker+2);
+                taskDate = LocalDate.parse(textLine.substring(dateTracker+1));
                 taskDescription = textLine.substring(2, dateTracker);
                 taskList.add(new Event(taskDescription + " ", taskDate, taskType, isDone));
             }
@@ -213,11 +365,17 @@ public class Duke {
         fw.write(textToAdd);
         fw.close();
     }
+    /**
+     * User to overwrite the whole textfile with items in the current list
+     * @param filePath provide the full file path to open and write content
+     * @param taskList provide the ArrayList variable of Type Task
+     */
     public static void writeList(String filePath, ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
         Iterator<Task> iterator = taskList.iterator();
         Task itr2;
-        String textLine, taskType, taskStatus, taskDescription, taskDate;
+        String textLine, taskType, taskStatus, taskDescription;
+        LocalDate taskDate;
         int dateTracker;
         Boolean isDone=false;
         int counter = 1;
@@ -256,16 +414,17 @@ public class Duke {
          */
 
         String userInput = "notBye";
-        String userCommand ="", userDescription ="", userDate ="";
-
+        String userCommand ="", userDescription ="";
+        LocalDate userDate = LocalDate.parse("2022-04-24");
         int taskCounter = 0;
         int commandTracker, dateTracker;
+        Scanner in = new Scanner(System.in);
+        ArrayList<Task> taskList = new ArrayList<>();
 
         File directory = new File("data");
         if (! directory.exists()){
             directory.mkdir();
         }
-
         File f = new File(directory.getAbsolutePath() + "/spawn.txt");
  /*       try {
             printFileContents(f.getPath());
@@ -273,22 +432,19 @@ public class Duke {
             System.out.println("File not found");
         }
 */
-        ArrayList<Task> taskList = new ArrayList<>();
+
         try {
             taskCounter = loadFile(f.getPath(), taskList);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
 
-        Scanner in = new Scanner(System.in);
-
         System.out.println("    ____________________________________________________________");
         System.out.println("    What up! I'm D. Spawn");
         System.out.println("    Something need doing?");
         System.out.println("    ____________________________________________________________");
 
-        while (!userInput.equals("bye")){
- //       do {
+        while (!userInput.equals("bye")) {
             userInput = in.nextLine();
             try {
                 if (userInput.startsWith("bye")) {
@@ -313,7 +469,7 @@ public class Duke {
                         dateTracker = userInput.indexOf('/');
                         userCommand = userInput.substring(0, commandTracker);
                         userDescription = userInput.substring(commandTracker + 1, dateTracker - 1);
-                        userDate = userInput.substring(dateTracker + 3);
+                        userDate = LocalDate.parse(userInput.substring(dateTracker + 4));
                     } else {
                         throw new DukeException("Incorrect Command!");
                     }
@@ -323,7 +479,7 @@ public class Duke {
                         showList(taskList);
                         break;
                     case "todo":
-                        taskList.add(new ToDo(userDescription,"T"));
+                        taskList.add(new ToDo(userDescription, "T"));
                         try {
                             writeToFile(f.getPath(), "T0" + userDescription + System.lineSeparator(), true);
                         } catch (IOException e) {
@@ -335,6 +491,7 @@ public class Duke {
                         break;
                     case "deadline":
                         taskList.add(new Deadline(userDescription, userDate, "D"));
+                        System.out.println(userDate);
                         try {
                             writeToFile(f.getPath(), "D0" + userDescription + "|" + userDate + System.lineSeparator(), true);
                         } catch (IOException e) {
@@ -387,7 +544,8 @@ public class Duke {
                             System.out.println("Something went wrong: " + e.getMessage());
                         }
                         break;
-                    case "bye": break;
+                    case "bye":
+                        break;
                     default:
                         System.out.println("    Tell me correctly what needs doing"); //do stuff here after input
                         break;
@@ -401,8 +559,6 @@ public class Duke {
             System.out.println("    ____________________________________________________________");
 
         }
-//        } while (!userInput.equals("bye"));
-
 
         System.out.println("    Off I go then!");
         System.out.println("    ____________________________________________________________");

@@ -37,6 +37,7 @@ public class Duke {
         public Task(String description) {
             this.description = description;
             this.isDone = false;
+            this.tag = "";
         }
         /**
          * Constructor for Task
@@ -47,6 +48,7 @@ public class Duke {
             this.description = description;
             this.type = type;
             this.isDone = false;
+            this.tag = "";
         }
         /**
          * Constructor for Task
@@ -58,6 +60,7 @@ public class Duke {
             this.description = description;
             this.type = type;
             this.isDone = isDone;
+            this.tag = "";
         }
         /**
          * Constructor for Task
@@ -79,6 +82,7 @@ public class Duke {
         public Task(String description, boolean isDone) {
             this.description = description;
             this.isDone = isDone;
+            this.tag = "";
         }
         /**
          * Get the result if activity is completed or not
@@ -98,7 +102,7 @@ public class Duke {
          * Get the type of task:
          * T for ToDo
          * D for Deadline
-         * E for Event
+         * E for Events
          * @return the Task type
          */
         public String getType() {
@@ -268,45 +272,45 @@ public class Duke {
         }
     }
     /**
-     * Sub-class Event, contains local variable LocalDate
+     * Sub-class Events, contains local variable LocalDate
      */
-    public static class Event extends Task {
+    public static class Events extends Task {
 
         protected LocalDate at;
         /**
-         * Constructor for Event
+         * Constructor for Events
          * @param description the activity to be done
          * @param at date in LocalDate format
          */
-        public Event(String description, LocalDate at) {
+        public Events(String description, LocalDate at) {
             super(description);
             this.at = at;
         }/**
-         * Constructor for Event
+         * Constructor for Events
          * @param description the activity to be done
          * @param at date in LocalDate format
          * @param type the type of Task. used for storing purpose
          * @param isDone to check if activity has been completed or not
          */
-        public Event(String description, LocalDate at, String type, Boolean isDone) {
+        public Events(String description, LocalDate at, String type, Boolean isDone) {
             super(description, type, isDone);
             this.at = at;
         }/**
-         * Constructor for Event
+         * Constructor for Events
          * @param description the activity to be done
          * @param at date in LocalDate format
          * @param type the type of Task. used for storing purpose
          */
-        public Event(String description, LocalDate at, String type) {
+        public Events(String description, LocalDate at, String type) {
             super(description, type);
             this.at = at;
         }/**
-         * Constructor for Event
+         * Constructor for Events
          * @param description the activity to be done
          * @param at date in LocalDate format
          * @param isDone to check if activity has been completed or not
          */
-        public Event(String description, LocalDate at, Boolean isDone) {
+        public Events(String description, LocalDate at, Boolean isDone) {
             super(description, isDone);
             this.at = at;
         }
@@ -395,9 +399,14 @@ public class Duke {
             }
             if(taskType.startsWith("T")){
                 tagTracker = textLine.indexOf('#');
-                taskDescription = textLine.substring(2, tagTracker);
-                taskTag = textLine.substring(tagTracker);
-                taskList.add(new ToDo(taskDescription, taskType, isDone, taskTag));
+                if (tagTracker<=0) {
+                    taskDescription = textLine.substring(2);
+                    taskList.add(new ToDo(taskDescription, taskType, isDone));
+                } else{
+                    taskDescription = textLine.substring(2, tagTracker);
+                    taskTag = textLine.substring(tagTracker);
+                    taskList.add(new ToDo(taskDescription, taskType, isDone, taskTag));
+                }
             } else if(taskType.startsWith("D")){
                 dateTracker = textLine.indexOf('|');
                 taskDate = LocalDate.parse(textLine.substring(dateTracker+1));
@@ -407,7 +416,7 @@ public class Duke {
                 dateTracker = textLine.indexOf('|');
                 taskDate = LocalDate.parse(textLine.substring(dateTracker+1));
                 taskDescription = textLine.substring(2, dateTracker);
-                taskList.add(new Event(taskDescription + " ", taskDate, taskType, isDone));
+                taskList.add(new Events(taskDescription + " ", taskDate, taskType, isDone));
             }
             counter++;
         }
@@ -521,7 +530,7 @@ public class Duke {
                         } else {
                             throw new DukeException("Not a number!!");
                         }
-                    }else if (userInput.startsWith("deadline") || userInput.startsWith("event")) {
+                    }else if (userInput.startsWith("deadline") || userInput.startsWith("events")) {
                         dateTracker = userInput.indexOf('/');
                         userCommand = userInput.substring(0, commandTracker);
                         userDescription = userInput.substring(commandTracker + 1, dateTracker - 1);
@@ -537,7 +546,6 @@ public class Duke {
                         break;
                     case "find":
                         assert !taskList.isEmpty(): "List should not be empty";
-                        System.out.println(userDescription);
                         showList(taskList, userDescription);
                         break;
                     case "todo":
@@ -563,8 +571,8 @@ public class Duke {
                         taskCounter++;
                         System.out.println("    Now you have " + taskCounter + " tasks in the list.");
                         break;
-                    case "event":
-                        taskList.add(new Event(userDescription, userDate, "E"));
+                    case "events":
+                        taskList.add(new Events(userDescription, userDate, "E"));
                         try {
                             writeToFile(f.getPath(), "E0" + userDescription + "|" + userDate + System.lineSeparator(), true);
                         } catch (IOException e) {
@@ -595,9 +603,9 @@ public class Duke {
                         }
                         break;
                     case "delete":
-                        taskList.remove(Integer.parseInt(userDescription) - 1);
                         System.out.println("    Job's disappeared:");
-                        System.out.println("    " + taskList.get(Integer.parseInt(userDescription) - 2).toString());
+                        System.out.println("    " + taskList.get(Integer.parseInt(userDescription) - 1).toString());
+                        taskList.remove(Integer.parseInt(userDescription) - 1);
                         taskCounter--;
                         System.out.println("    Now you have " + taskCounter + " tasks in the list.");
                         try {

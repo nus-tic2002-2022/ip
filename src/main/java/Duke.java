@@ -458,14 +458,12 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        /*
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-         */
 
         String userInput = "notBye", userCommand ="", userDescription ="", userTag ="";
         LocalDate userDate = LocalDate.parse("2022-04-24");
@@ -479,12 +477,6 @@ public class Duke {
             directory.mkdir();
         }
         File f = new File(directory.getAbsolutePath() + "/spawn.txt");
- /*       try {
-            printFileContents(f.getPath());
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
-*/
 
         try {
             taskCounter = loadFile(f.getPath(), taskList);
@@ -499,6 +491,7 @@ public class Duke {
 
         while (!userInput.equals("bye")) {
             userInput = in.nextLine();
+            assert !userInput.isEmpty(): "Input should not be empty";
             try {
                 if (userInput.startsWith("bye")) {
                     userCommand = "bye";
@@ -511,6 +504,7 @@ public class Duke {
                     } else if (userInput.startsWith("todo") || userInput.startsWith("find")) {
                         userCommand = userInput.substring(0, commandTracker);
                         userDescription = userInput.substring(commandTracker + 1);
+                        assert !userDescription.isEmpty(): "String following space after todo or find should not be empty";
                     } else if (userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")) {
                         userCommand = userInput.substring(0, commandTracker);
                         userDescription = userInput.substring(commandTracker + 1); //userDescription is recycled as the task number instead
@@ -538,9 +532,11 @@ public class Duke {
                 }
                 switch (userCommand) {
                     case "list":
+                        assert !taskList.isEmpty(): "List should not be empty";
                         showList(taskList);
                         break;
                     case "find":
+                        assert !taskList.isEmpty(): "List should not be empty";
                         System.out.println(userDescription);
                         showList(taskList, userDescription);
                         break;

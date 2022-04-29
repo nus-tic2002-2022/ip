@@ -2,6 +2,35 @@
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
+# List of commands
+
+Below is the list of commands that can be executed.
+
+1. Add task 
+   1. Todo (todo [description])
+   2. Event (event [description] /at [yyyy-MM-dd HH:mm])
+   3. Deadline (deadline [description] /at [yyyy-MM-dd HH:mm])
+
+2. List of tasks (list)
+   
+3. Update task
+   1. Mark task (mark [index of task])
+   2. Unmark task (unmark [index of task])
+
+4. Find task
+   1. Word Search (find [keyword])
+   2. Date Search (find [yyyy-MM-dd HH:mm])
+
+5. Snooze task (snooze [index of task] [year/month/day/hour/minute] [amount])
+
+5. Load file (load)
+
+6. Delete task (delete [index of task]
+
+7. Exit program (bye)
+
+---
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.

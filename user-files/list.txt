@@ -1,0 +1,3 @@
+EVENT | true | Exam | 2023-12-03 09:04
+DEADLINE | false | Duke Submission | 2022-01-01 00:00
+TODO | false | Go To Sleep

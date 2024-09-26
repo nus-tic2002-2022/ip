@@ -1,20 +1,3 @@
-list
-todo read a book
-deadline return book /by 16/04/2022 1300
-event team meeting /at 17/04/2022 1600
-todo eat lunch
-todo say hi
-todo find a job
-deadline get job /by 18/05/2022 1800
-event take an exam /at 20/04/2022 1400
-find book
-find job
-done 1
-done 2,3
-done 4-5
-delete 8 
-delete 6,7
-delete 4-5
 d create hdk 123
 d create hhh 456
 d add friend hdk hhh
@@ -33,5 +16,3 @@ d add customer hdk hhh check the money
 d show customer hdk
 d add merchandise hdk mail track the mail
 d show merchandise hdk
-bye
-

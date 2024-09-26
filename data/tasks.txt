@@ -1,0 +1,13 @@
+D|1|return book|16/3/2022 1300
+E|1|team meeting|17/4/2022 1600
+T|1|abc
+T|1|def
+T|1|ARE
+T|0|read a book
+T|0|read book
+D|0|return book|6/6/2019 1200
+E|0|project meeting|6/8/2019 1400
+T|0|eat lunch
+D|0|return book|6/6/2019 1200
+E|0|project meeting|6/8/2019 1400
+T|0|sss
